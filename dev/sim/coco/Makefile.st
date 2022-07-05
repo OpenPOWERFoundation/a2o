@@ -8,7 +8,7 @@
 
 #COCOTB_RESOLVE_X = ZEROS # VALUE_ERROR ZEROS ONES RANDOM
 
-#SIM_BUILD ?= build
+SIM_BUILD ?= build_st
 SIM ?= icarus
 
 # options
