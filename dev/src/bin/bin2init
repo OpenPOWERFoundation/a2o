@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+# read .bin (objcopy -O binary x.elf x.bin) and create ascii block file
+
+import sys
+from binascii import hexlify, unhexlify
+
+def x2d(i):
+  return int(i, 16)
+
+inFile = sys.argv[1]
+#size = sys.argv[2]
+
+outFile = inFile + '.hex' 
+
+lines = []
+with open(inFile, 'rb') as binFile:
+   word = binFile.read(4)
+   while word:
+      hex = hexlify(word)
+      lines.append(hex.decode('utf-8').upper() + '\n')
+      word = binFile.read(4)
+
+# need to pad to full size?
+with open(outFile, 'w') as txtFile:
+   txtFile.writelines(lines)
+

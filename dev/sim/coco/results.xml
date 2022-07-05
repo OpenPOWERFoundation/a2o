@@ -1,0 +1,8 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1654605675" />
+    <testcase name="tb" classname="tb" file="/home/wtf/projects/a2o-opf/dev/sim/coco/tb.py" lineno="232" time="163.92313623428345" sim_time_ns="8177.000001" ratio_time="49.88313540629925">
+      <failure />
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,30 @@
+# a2o tb
+
+SIM_BUILD ?= sim_build_verilator
+SIM ?= verilator
+
+# set precision
+#COCOTB_HDL_TIMEPRECISION ?= 1ns
+
+# verilator
+COMPILE_ARGS = --error-limit 1 --language 1364-2001 -Wno-fatal -Wno-LITENDIAN -Iverilog/work -Iverilog/trilib -Iverilog/unisims
+
+# coverage
+#EXTRA_ARGS += --coverage
+# tracing
+EXTRA_ARGS += --trace
+
+# rtl
+TOPLEVEL_LANG = verilog
+VERILOG_SOURCES += verilog/trilib_clk1x/*.v
+VERILOG_SOURCES += verilog/trilib/*.v
+VERILOG_SOURCES += verilog/work/*.v
+
+# rtl top
+TOPLEVEL = c
+
+# python test
+MODULE = tbv
+
+# cocotb make rules
+include $(shell cocotb-config --makefiles)/Makefile.sim

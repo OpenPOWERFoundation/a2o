@@ -1,0 +1,11 @@
+# verilator
+**/obj_dir*/
+# cooc/icarus
+coco_icarus
+**/sim_build*/
+# gtkwave
+*.vcd
+*.fst
+# python
+**/__pycache__/
+*.py[cod]

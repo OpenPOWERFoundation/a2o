@@ -1,0 +1,310 @@
+#!/bin/python3
+
+# problems:
+#  some parse error causes it to ignore filters AND not let you add them (can be caused from gui); changing order
+#   of traces fixes it - maybe problem with my trans filter?
+
+import sys
+import os
+import io
+from dotmap import DotMap
+
+from vcd.gtkw import *
+
+gtkwFile = 'pyvcd.gtkw'
+#fo = io.StringIO(gtkwFile)
+fo = open(gtkwFile, 'w')
+gtkw = GTKWSave(fo)
+
+base = 'cocotb_icarus.'
+topIndicator = '!'  #wtf never need this?
+vectorNoBits = False
+core = 0
+
+# add zero and one signals to top level for use here
+zero = 'an_ac_sg_8'
+
+filterPath = '../gtkwave/'
+filterNull = filterPath + 'gtkf-nop.py'
+filterValid = filterPath + 'gtkf-valid.py'
+filterIBuf = filterPath + 'gtkf-ibuf.py'
+filterPPC = filterPath + 'gtkf-ppc.py'
+filterA2L2 = filterPath + 'gtkf-a2l2.py'
+filterR64 = filterPath + 'gtkf-64R.py'
+
+# need to indicate if signal is 'threaded' (vector) to gen diff netlists for diff smt modes
+
+
+# showVector should maybe be done by Combined that can take specific bits to use
+class Signal(DotMap):
+   def __init__(self, name, alias=None, color=None, highlight=False, rjustify=False, datafmt='bin', extraflags=GTKWFlag(0), translateFile=None, translateProc=None, transactionProc=None, bits=None, showVector=False):
+      super().__init__()
+      if name[0] != topIndicator:
+         name = base + name
+      else:
+         name = name[1:]
+      self.name = name
+      self.bits = bits
+      self.alias = alias
+      self.color = color
+      self.highlight = highlight
+      self.rjustify = rjustify
+      self.datafmt = datafmt
+      self.extraflags = extraflags
+      self.translateFile = translateFile
+      self.translateProc = translateProc
+      self.transactionProc = transactionProc
+      self.showVector = showVector
+
+   def add(self):
+      trace = self.name
+      bits = self.bits
+      if bits is not None:
+         if vectorNoBits:
+            trace = trace.split('[')[0]
+         if type(bits) is not list:
+            bits = [bits]
+         with gtkw.trace_bits(trace, showVector=self.showVector):
+            for i in range(len(bits)):
+               # for now - i guess highlight and filters might make sense
+               #gtkw.trace_bit(bits[i], trace, self.alias, self.color, self.datafmt, self.highlight, self.rjustify, self.extraflags, translate_filter_file=self.translateFile, translate_filter_proc=self.translateProc, transaction_filter_proc=self.transactionProc)
+               gtkw.trace_bit(bits[i], trace, self.alias, self.color)
+
+      else:
+         gtkw.trace(trace, self.alias, self.color, self.datafmt, self.highlight, self.rjustify, self.extraflags, translate_filter_file=self.translateFile, translate_filter_proc=self.translateProc, transaction_filter_proc=self.transactionProc)
+
+class Combined(DotMap):
+   def __init__(self, name, traces, color=None, highlight=False, rjustify=False, datafmt='bin', extraflags=GTKWFlag(0), translateFile=None, translateProc=None, transactionProc=None):
+      super().__init__()
+      self.name = name
+      self.traces = traces
+      self.color = color
+      self.highlight = highlight
+      self.rjustify = rjustify
+      self.datafmt = datafmt
+      self.extraflags = extraflags
+      self.translateFile = translateFile
+      self.translateProc = translateProc
+      self.transactionProc = transactionProc
+
+   def add(self):
+      trace = []
+      for t in self.traces:
+         trace.append(t.name)
+      gtkw.trace(trace, self.name, self.color, self.datafmt, self.highlight, self.rjustify, self.extraflags, translate_filter_file=self.translateFile, translate_filter_proc=self.translateProc, transaction_filter_proc=self.transactionProc)
+
+class Group(DotMap):
+   def __init__(self, name, traces, closed=True, highlight=False):
+      super().__init__()
+      self.name = name
+      self.traces = traces
+      self.closed = closed
+      self.highlight = highlight
+
+   def add(self):
+      if len(self.traces) > 0:
+         with gtkw.group(self.name, self.closed, self.highlight):
+            for j in range(len(self.traces)):
+               self.traces[j].add()
+
+   def addCombined(self, alias, color=None, highlight=False, rjustify=False, datafmt='bin', extraflags=GTKWFlag(0), translateFile=None, translateProc=None, transactionProc=None):
+      trace = []
+      for t in self.traces:
+         trace.append(t.name)
+      gtkw.trace(trace, alias, color, datafmt, highlight, rjustify, extraflags, translate_filter_file=translateFile, translate_filter_proc=translateProc, transaction_filter_proc=transactionProc)
+
+nodeMisc = Group('Misc', [
+   Signal(f'nclk[0:5]', alias='reset', bits=1, showVector=False),
+   Signal(f'nclk[0:5]', alias='clk1x', bits=0, showVector=False),
+   Signal(f'nclk[0:5]', alias='clk2x', bits=2, showVector=False),
+   Signal(f'an_ac_pm_thread_stop[0]')
+   #Signal('ac_an_checkstop[0:2]'),
+])
+#nodeMisc.add()
+# until gtkwave has a tiny nested indicator...
+for i in range(len(nodeMisc.traces)):
+   nodeMisc.traces[i].add()
+
+a2l2Req = Group('A2L2 Req', [
+   Signal(f'ac_an_req'),
+   Signal(f'ac_an_req_endian'),
+   Signal(f'ac_an_req_ld_core_tag[0:4]'),
+   Signal(f'ac_an_req_ld_xfr_len[0:2]'),
+   Signal(f'ac_an_req_pwr_token'),
+   Signal(f'ac_an_req_ra[22:63]'),
+   Signal(f'ac_an_req_ttype[0:5]'),
+   Signal(f'ac_an_req_wimg_w'),
+   Signal(f'ac_an_req_wimg_i'),
+   Signal(f'ac_an_req_wimg_m'),
+   Signal(f'ac_an_req_wimg_g')
+])
+
+a2l2Rsp = Group('A2L2 Rsp', [
+   Signal(f'an_ac_reld_data_coming'),
+   Signal(f'an_ac_reld_data_vld'),
+   Signal(f'an_ac_reld_qw[58:59]', datafmt='dec', rjustify=True),
+   Signal(f'an_ac_reld_crit_qw'),
+   Signal(f'an_ac_reld_data[0:127]', datafmt='hex')
+])
+
+a2l2Misc = Group('A2L2 Misc', [
+   Signal(f'ac_an_req_pwr_token'),
+   Signal(f'an_ac_req_ld_pop'),
+   Signal(f'c{core}.lq0.lsq.arb.load_cred_cnt_q[0:4]', datafmt='dec'),
+   Signal(f'an_ac_req_st_pop'),
+   Signal(f'an_ac_req_st_gather'),
+   Signal(f'c{core}.lq0.lsq.arb.store_cred_cnt_q[0:5]', datafmt='dec'),
+   Signal(f'an_ac_reservation_vld'),
+   Signal(f'an_ac_stcx_complete'),
+   Signal(f'an_ac_stcx_pass'),
+   Signal(f'an_ac_sync_ack'),
+   Signal(f'an_ac_icbi_ack')
+])
+
+ibuf = Group('IBuf', [
+   Signal(f'c{core}.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_valid_q[0:15]', datafmt='hex'),
+   Signal(f'c{core}.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_head_q[0:15]', datafmt='hex')
+])
+for i in range(16):
+   ibuf.traces.append(
+      Signal(f'c{core}.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[{i}].q[0:109]',translateProc=filterIBuf)
+   )
+
+#ibuf2 = Combined(f'IBuf[{i}]',
+#      [
+#      (Signal(f'c{core}.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_valid_q[0:15]', bits=[{i}]),
+#      Signal(f'c{core}.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[{i}].q[0:109]')) for i in range(16)
+#      ]
+#)
+
+
+pipe = []
+
+pipe.append(Combined('iu_xu_nia', [
+   Signal(f'c{core}.iuq0.iu_xu_t0_nia[0:61]'),
+   Signal(zero), # word-align
+   Signal(zero)
+], datafmt='hex'))
+
+pipe.append(ibuf)
+#pipe.append(ibuf2)
+
+for i in range(2):
+   pipe.append(Signal(f'c{core}.iu_rv_iu6_t0_i{i}_instr[0:31]', datafmt='hex', color=GTKWColor.green, translateProc=filterPPC))
+
+# match cycle with instr
+for i in range(2):
+   pipe.append(Combined(f'iu6_i{i}_itag_dispatched', [
+      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i{i}_dispatched_d'),
+      Signal(zero),  # pad missing bit 0
+      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i{i}_itag[1:6]')
+      ], color=GTKWColor.green, translateProc=filterValid))
+
+#for i in range(2):
+#   pipe.append(Combined(f'iu6_i{i}_itag', [
+#      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i{i}_valop_q'),
+#      Signal(zero),  # pad missing bit 0
+#      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i{i}_itag_q[1:6]')
+#      ], color=GTKWColor.blue, translateProc=filterValid))
+
+for i in range(2):
+   pipe.append(Combined(f'iu6_i{i}_itag_dispatched', [
+      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i{i}_dispatched_q'),
+      Signal(zero),  # pad missing bit 0
+      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i{i}_itag_q[1:6]')
+      ], color=GTKWColor.green, translateProc=filterValid))
+
+# eventually arrange all by ex
+for ex in range(1):
+   for rv in range(2):
+      for fx in range(2):
+         for src in range(1,4):
+            pipe.append(Combined(f'rv0_fx{fx}_ex{ex}_s{src}', [
+               Signal(f'c{core}.rv_fx{fx}_ex{ex}_s{src}_v'),
+               Signal(f'c{core}.rv0.rf_byp.fx{fx}_ex{ex}_s{src}_itag_q[0:6]')
+            ], color=GTKWColor.blue, translateProc=filterValid))
+
+for ex in range(6):
+   for fx in range(2):
+         pipe.append(Combined(f'fx{fx}_ex{ex}', [
+            Signal(f'c{core}.xu0.xu{fx}.dec.ex{ex}_val_q[0]'),
+            Signal(f'c{core}.xu0.xu{fx}.dec.ex{ex}_itag_q[0:6]')
+         ], color=GTKWColor.blue, translateProc=filterValid))
+
+for ex in range(4):
+   pipe.append(Combined(f'br_ex{ex}_bta', [
+         Signal(f'c{core}.xu0.xu0.br.ex{ex}_bta_val_q'),
+         Signal(f'c{core}.xu0.xu0.br.ex{ex}_pred_bta_q[42:61]'),
+         Signal(zero),  # word-align
+         Signal(zero)
+   ], color=GTKWColor.blue, translateProc=filterValid))
+
+
+for i in range(2):
+   pipe.append(Combined(f'cp2 i{i}_completed_itag', [
+      Signal(f'c{core}.iu_lq_i{i}_completed'),
+      Signal(f'c{core}.iu_lq_t0_i{i}_completed_itag[0:6]'),
+   ], color=GTKWColor.green, translateProc=filterValid))
+
+for i in range(2):
+   pipe.append(Combined(f'cp2 i{i}_completed_ifar', [
+      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp2_i{i}_complete_q'),
+      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i{i}_ifar[42:61]'),
+      Signal(zero), # word-align
+      Signal(zero)
+   ], color=GTKWColor.green, translateProc=filterValid))
+
+# or add more stuff and make transaction
+for i in range(2):
+   pipe.append(Combined(f'cp2 i{i}_completed_itag/ifar', [
+      Signal(f'c{core}.iu_lq_i{i}_completed'),
+      Signal(zero),  # pad itag
+      Signal(f'c{core}.iu_lq_t0_i{i}_completed_itag[0:6]'),
+      Signal(zero),  # pad ifar
+      Signal(zero),  # pad
+      Signal(f'c{core}.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i{i}_ifar[42:61]'),
+      Signal(zero), # word-align
+      Signal(zero)
+   ], color=GTKWColor.green, translateProc=filterValid))
+
+
+pipe = Group('Pipe', pipe, closed=False)
+
+
+threads = 1
+sprs = [None] * threads
+for i in range(threads):
+   sprs[i] = Group(f't{i} SPR', [
+      Signal(f'c{core}.xu0.spr.threads.thread[{i}].xu_spr_tspr.srr0_do[0:64]', datafmt='bin', translateProc=filterR64),
+      Signal(f'c{core}.xu0.spr.threads.thread[{i}].xu_spr_tspr.srr1_do[0:64]', datafmt='bin', translateProc=filterR64)
+   ], closed=False)
+
+a2l2Req.add()
+a2l2Rsp.add()
+a2l2Misc.add()
+
+# move this after and it works
+#a2l2Req.addCombined('A2L2 Trans (Req)', transactionProc=filterA2L2)
+
+pipe.add()
+sprs[0].add()
+
+a2l2Req.addCombined('A2L2 Trans (Req)', transactionProc=filterA2L2)
+
+#for i in range(len(groups)):
+#   groups[i].add()
+
+
+#gtkw.comment('Test pyvcd')
+#gtkw.savefile(gtkwFile)
+#gtkw.zoom_markers()
+#gtkw.pos()
+
+gtkw.sst_expanded(True)
+gtkw.size(3000, 1500)
+gtkw.treeopen(base)
+gtkw.signals_width(600)
+gtkw.pattern_trace(True)
+
+
+fo.close()

@@ -1,5 +1,20 @@
 # A2O
 
+# Current Status
+
+* for now, /rel is the original and /dev has updates:
+
+   * compiles with verilator, iverilog, yosys
+   * runs original simple boot code up to test invocation with cocotb (A2L2 interface partially implemented in Python)
+
+## To Do
+
+   * continue with cocotb testing
+   * add A2Node bridge to WB, and Litex wrapper
+   * experiment with parameters to create smaller version(s) for dOpenLane
+
+# Original Release
+
 ## The Project
 This is the release of the A2O POWER processor core RTL and associated FPGA implementation (using ADM-PCIE-9V3 FPGA).
 
