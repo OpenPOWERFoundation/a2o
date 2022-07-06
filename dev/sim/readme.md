@@ -13,7 +13,7 @@ cd coco
 * makegtkw creates netlist
 
 ```
-make -f Makefile.icarus run
+make -f Makefile.st run
 ...
   7353.00ns INFO     [00000919] C0: CP 0:00056C 000000000000056C
   7369.00ns INFO     [00000921] C0: CP 0:000570 0000000000000570
