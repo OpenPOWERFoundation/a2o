@@ -11,7 +11,7 @@
 
    * continue with cocotb testing
    * add A2Node bridge to WB, and Litex wrapper
-   * experiment with parameters to create smaller version(s) for dOpenLane
+   * experiment with parameters to create smaller version(s) for OpenLane
 
 # Original Release
 
