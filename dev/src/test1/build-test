@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+
+export COMMONFLAGS="-ffreestanding -fomit-frame-pointer -Wall -fno-stack-protector"
+export CFLAGS="$COMMONFLAGS -fexceptions -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes"
+
+echo -n "Compiling..."
+
+echo -n "test.c "
+powerpc-linux-gnu-gcc -c -I. $CFLAGS test.c
+
+echo ""
+echo "Linking..."
+powerpc-linux-gnu-ld -nostdlib -nodefaultlibs -T linker.ld test.o -o test
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+powerpc-linux-gnu-objdump -d test > test.d #wtf: why not getting labels in asm code?
+powerpc-linux-gnu-objdump -s test > test.s
+powerpc-linux-gnu-objcopy -O binary test test.bin
+
+# make rom.bin.hex
+bin/bin2init test.bin
+mv test.bin.hex test.init
+
+echo "Built test.d, test.s, test.init."

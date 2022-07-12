@@ -1,0 +1,944 @@
+   1              	# © IBM Corp. 2022
+   2              	# Licensed under and subject to the terms of the CC-BY 4.0
+   3              	# license (https://creativecommons.org/licenses/by/4.0/legalcode).
+   4              	# Additional rights, including the right to physically implement a softcore
+   5              	# that is compliant with the required sections of the Power ISA
+   6              	# Specification, will be available at no cost via the OpenPOWER Foundation.
+   7              	# This README will be updated with additional information when OpenPOWER's
+   8              	# license is available.
+   9              	
+  10              	# start conversion to simple boot which jumps to bios
+  11              	# this version will work similarly to original fpga test version
+  12              	# the original version did not run from rom; eventually will assume rom and do r/w data copy/init
+  13              	# the rom and test are built into separate memory loads or a single one with addr/data format
+  14              	
+  15              	# boot kernel
+  16              	#  set up translations
+  17              	#  set up timer facilities
+  18              	#  set up threads
+  19              	#  call user code
+  20              	#  process user rc
+  21              	
+  22              	# todo:
+  23              	# 1. skip_printf_init flag should be threaded
+  24              	
+  25              	.include "defines.s"
+   1              	# © IBM Corp. 2020
+   2              	# Licensed under and subject to the terms of the CC-BY 4.0
+   3              	# license (https://creativecommons.org/licenses/by/4.0/legalcode). 
+   4              	# Additional rights, including the right to physically implement a softcore 
+   5              	# that is compliant with the required sections of the Power ISA 
+   6              	# Specification, will be available at no cost via the OpenPOWER Foundation. 
+   7              	# This README will be updated with additional information when OpenPOWER's 
+   8              	# license is available.
+   9              	
+  10              	#-----------------------------------------
+  11              	# Defines
+  12              	#-----------------------------------------
+  13              	
+  14              	# Regs
+  15              	
+  16              	.set    r0,  0
+  17              	.set    r1,  1
+  18              	.set    r2,  2
+  19              	.set    r3,  3
+  20              	.set    r4,  4
+  21              	.set    r5,  5
+  22              	.set    r6,  6
+  23              	.set    r7,  7
+  24              	.set    r8,  8
+  25              	.set    r9,  9
+  26              	.set    r10,10
+  27              	.set    r11,11
+  28              	.set    r12,12
+  29              	.set    r13,13
+  30              	.set    r14,14
+  31              	.set    r15,15
+  32              	.set    r16,16
+  33              	.set    r17,17
+  34              	.set    r18,18
+  35              	.set    r19,19
+  36              	.set    r20,20
+  37              	.set    r21,21
+  38              	.set    r22,22
+  39              	.set    r23,23
+  40              	.set    r24,24
+  41              	.set    r25,25
+  42              	.set    r26,26
+  43              	.set    r27,27
+  44              	.set    r28,28
+  45              	.set    r29,29
+  46              	.set    r30,30
+  47              	.set    r31,31
+  48              	
+  49              	.set    f0,  0
+  50              	.set    f1,  1
+  51              	.set    f2,  2
+  52              	.set    f3,  3
+  53              	.set    f4,  4
+  54              	.set    f5,  5
+  55              	.set    f6,  6
+  56              	.set    f7,  7
+  57              	.set    f8,  8
+  58              	.set    f9,  9
+  59              	.set    f10,10
+  60              	.set    f11,11
+  61              	.set    f12,12
+  62              	.set    f13,13
+  63              	.set    f14,14
+  64              	.set    f15,15
+  65              	.set    f16,16
+  66              	.set    f17,17
+  67              	.set    f18,18
+  68              	.set    f19,19
+  69              	.set    f20,20
+  70              	.set    f21,21
+  71              	.set    f22,22
+  72              	.set    f23,23
+  73              	.set    f24,24
+  74              	.set    f25,25
+  75              	.set    f26,26
+  76              	.set    f27,27
+  77              	.set    f28,28
+  78              	.set    f29,29
+  79              	.set    f30,30
+  80              	.set    f31,31
+  81              	
+  82              	.set    cr0, 0
+  83              	.set    cr1, 1
+  84              	.set    cr2, 2
+  85              	.set    cr3, 3
+  86              	.set    cr4, 4
+  87              	.set    cr5, 5
+  88              	.set    cr6, 6
+  89              	.set    cr7, 7
+  90              	
+  91              	# SPR numbers
+  92              	
+  93              	.set    srr0, 26
+  94              	.set    srr1, 27
+  95              	.set    epcr, 307
+  96              	.set    tar, 815
+  97              	
+  98              	.set    dbsr, 304
+  99              	.set    dbcr0, 308
+ 100              	.set    dbcr1, 309
+ 101              	.set    dbcr2, 310
+ 102              	.set    dbcr3, 848
+ 103              	
+ 104              	.set    ivpr, 63
+ 105              	
+ 106              	.set    iucr0, 1011
+ 107              	.set    iucr1, 883
+ 108              	.set    iucr2, 884
+ 109              	
+ 110              	.set    iudbg0, 888
+ 111              	.set    iudbg1, 889
+ 112              	.set    iudbg2, 890
+ 113              	.set    iulfsr, 891
+ 114              	.set    iullcr, 892
+ 115              	
+ 116              	.set    mmucr0, 1020
+ 117              	.set    mmucr1, 1021
+ 118              	.set    mmucr2, 1022
+ 119              	.set    mmucr3, 1023
+ 120              	
+ 121              	.set    tb, 268
+ 122              	.set    tbl, 284
+ 123              	.set    tbh, 285
+ 124              	
+ 125              	.set    dec, 22
+ 126              	.set    udec, 550
+ 127              	.set    tsr, 336
+ 128              	.set    tcr, 340
+ 129              	
+ 130              	.set    xucr0, 1014
+ 131              	.set    xucr1, 851
+ 132              	.set    xucr2, 1016
+ 133              	.set    xucr3, 852
+ 134              	.set    xucr4, 853
+ 135              	
+ 136              	.set    tens, 438
+ 137              	.set    tenc, 439
+ 138              	.set    tensr, 437
+ 139              	
+ 140              	.set    pid, 48
+ 141              	.set    pir, 286
+ 142              	.set    pvr, 287
+ 143              	.set    tir, 446
+ 144              	
+  26              	
+  27              	# constants from linker script, or defsym
+  28              	.ifndef STACKSIZE
+  29              	.set STACKSIZE,_stack_size
+  30              	.endif
+  31              	
+  32              	.ifndef STACK0
+  33              	.set STACK0,_stack_0
+  34              	.endif
+  35              	
+  36              	.ifndef STACK1
+  37              	.set STACK1,_stack_1
+  38              	.endif
+  39              	
+  40              	.set STACK2, 0
+  41              	.set STACK3, 0
+  42              	
+  43              	.ifndef TEST
+  44              	.set TEST,_test_start
+  45              	.endif
+  46              	
+  47              	.section .text
+  48              	
+  49              	.global _start
+  50              	_start:
+  51              	
+  52              	int_000:
+  53 0000 48000400 	      b         boot_start
+  54              	
+  55              	# critical input
+  56 0004 4800001C 	.align 5
+  56      60000000 
+  56      60000000 
+  56      60000000 
+  56      60000000 
+  57              	int_020:
+  58 0020 48000000 	      b         .
+  59              	
+  60              	# debug
+  61 0024 4800001C 	.align 5
+  61      60000000 
+  61      60000000 
+  61      60000000 
+  61      60000000 
+  62              	int_040:
+  63 0040 48000000 	      b         .
+  64              	
+  65              	# dsi
+  66 0044 4800001C 	.align 5
+  66      60000000 
+  66      60000000 
+  66      60000000 
+  66      60000000 
+  67              	int_060:
+  68 0060 48000000 	      b         .
+  69              	
+  70              	# isi
+  71 0064 4800001C 	.align 5
+  71      60000000 
+  71      60000000 
+  71      60000000 
+  71      60000000 
+  72              	int_080:
+  73 0080 48000000 	      b         .
+  74              	
+  75              	# external
+  76 0084 4800001C 	.align 5
+  76      60000000 
+  76      60000000 
+  76      60000000 
+  76      60000000 
+  77              	int_0A0:
+  78 00a0 48000000 	      b         .
+  79              	
+  80              	# alignment
+  81 00a4 4800001C 	.align 5
+  81      60000000 
+  81      60000000 
+  81      60000000 
+  81      60000000 
+  82              	int_0C0:
+  83 00c0 48000000 	      b         .
+  84              	
+  85              	# program
+  86 00c4 4800001C 	.align 5
+  86      60000000 
+  86      60000000 
+  86      60000000 
+  86      60000000 
+  87              	int_0E0:
+  88 00e0 48000000 	      b         .
+  89              	
+  90              	# fp unavailable
+  91 00e4 4800001C 	.align 5
+  91      60000000 
+  91      60000000 
+  91      60000000 
+  91      60000000 
+  92              	int_100:
+  93 0100 48000000 	      b         .
+  94              	
+  95              	# sc
+  96 0104 4800001C 	.align 5
+  96      60000000 
+  96      60000000 
+  96      60000000 
+  96      60000000 
+  97              	int_120:
+  98 0120 48000CE0 	      b         int_120_handler
+  99              	
+ 100              	# apu unavailable
+ 101 0124 4800001C 	.align 5
+ 101      60000000 
+ 101      60000000 
+ 101      60000000 
+ 101      60000000 
+ 102              	int_140:
+ 103 0140 48000000 	      b         .
+ 104              	
+ 105              	# decrementer
+ 106 0144 4800001C 	.align 5
+ 106      60000000 
+ 106      60000000 
+ 106      60000000 
+ 106      60000000 
+ 107              	int_160:
+ 108 0160 48000000 	      b         .
+ 109              	
+ 110              	# fit
+ 111 0164 4800001C 	.align 5
+ 111      60000000 
+ 111      60000000 
+ 111      60000000 
+ 111      60000000 
+ 112              	int_180:
+ 113 0180 48000000 	      b         .
+ 114              	
+ 115              	# watchdog
+ 116 0184 4800001C 	.align 5
+ 116      60000000 
+ 116      60000000 
+ 116      60000000 
+ 116      60000000 
+ 117              	int_1A0:
+ 118 01a0 48000000 	      b         .
+ 119              	
+ 120              	# dtlb
+ 121 01a4 4800001C 	.align 5
+ 121      60000000 
+ 121      60000000 
+ 121      60000000 
+ 121      60000000 
+ 122              	int_1C0:
+ 123 01c0 48000000 	      b         .
+ 124              	
+ 125              	# itlb
+ 126 01c4 4800001C 	.align 5
+ 126      60000000 
+ 126      60000000 
+ 126      60000000 
+ 126      60000000 
+ 127              	int_1E0:
+ 128 01e0 48000000 	      b         .
+ 129              	
+ 130              	# vector unavailable
+ 131 01e4 4800001C 	.align 5
+ 131      60000000 
+ 131      60000000 
+ 131      60000000 
+ 131      60000000 
+ 132              	int_200:
+ 133 0200 48000000 	      b         .
+ 134              	
+ 135              	#
+ 136 0204 4800001C 	.align 5
+ 136      60000000 
+ 136      60000000 
+ 136      60000000 
+ 136      60000000 
+ 137              	int_220:
+ 138 0220 48000000 	      b         .
+ 139              	
+ 140              	#
+ 141 0224 4800001C 	.align 5
+ 141      60000000 
+ 141      60000000 
+ 141      60000000 
+ 141      60000000 
+ 142              	int_240:
+ 143 0240 48000000 	      b         .
+ 144              	
+ 145              	#
+ 146 0244 4800001C 	.align 5
+ 146      60000000 
+ 146      60000000 
+ 146      60000000 
+ 146      60000000 
+ 147              	int_260:
+ 148 0260 48000000 	      b         .
+ 149              	
+ 150              	# doorbell
+ 151 0264 4800001C 	.align 5
+ 151      60000000 
+ 151      60000000 
+ 151      60000000 
+ 151      60000000 
+ 152              	int_280:
+ 153 0280 48000000 	      b         .
+ 154              	
+ 155              	# doorbell critical
+ 156 0284 4800001C 	.align 5
+ 156      60000000 
+ 156      60000000 
+ 156      60000000 
+ 156      60000000 
+ 157              	int_2A0:
+ 158 02a0 48000000 	      b         .
+ 159              	
+ 160              	# doorbell guest
+ 161 02a4 4800001C 	.align 5
+ 161      60000000 
+ 161      60000000 
+ 161      60000000 
+ 161      60000000 
+ 162              	int_2C0:
+ 163 02c0 48000000 	      b         .
+ 164              	
+ 165              	# doorbell guest critical
+ 166 02c4 4800001C 	.align 5
+ 166      60000000 
+ 166      60000000 
+ 166      60000000 
+ 166      60000000 
+ 167              	int_2E0:
+ 168 02e0 48000000 	      b         .
+ 169              	
+ 170              	# hvsc
+ 171 02e4 4800001C 	.align 8
+ 171      60000000 
+ 171      60000000 
+ 171      60000000 
+ 171      60000000 
+ 172              	int_300:
+ 173 0300 48000A00 	      b         int_300_handler
+ 174              	
+ 175              	# hvpriv
+ 176 0304 4800001C 	.align 5
+ 176      60000000 
+ 176      60000000 
+ 176      60000000 
+ 176      60000000 
+ 177              	int_320:
+ 178 0320 48000000 	      b         .
+ 179              	
+ 180              	# lrat
+ 181 0324 4800001C 	.align 5
+ 181      60000000 
+ 181      60000000 
+ 181      60000000 
+ 181      60000000 
+ 182              	int_340:
+ 183 0340 48000000 	      b         .
+ 184              	
+ 185              	# -------------------------------------------------------------------------------------------------
+ 186              	# initial translation
+ 187              	# both erats:
+ 188              	# 00000000 1M: (boot)
+ 189              	# 10000000 1M: (test)
+ 190              	
+ 191 0344 480000BC 	.align 8
+ 191      60000000 
+ 191      60000000 
+ 191      60000000 
+ 191      60000000 
+ 192              	boot_start:
+ 193              	
+ 194 0400 7CBE6AA6 	      mfspr     r5,tir           # who am i?
+ 195 0404 2C250000 	      cmpdi     r5,0x00          # skip unless T0
+ 196 0408 408200EC 	      bne       init_t123
+ 197              	
+ 198 040c 3C608C00 	      lis       r3,0x8C00        # 32=ecl 36:37=tlbsel (10=i, 11=d)
+ 199              	# derat 31 @00000000
+ 200              	
+ 201 0410 3800001F 	      li        r0,0x001F        # entry #31
+ 202 0414 38400015 	      li        r2,0x0015        # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wimge=52:56 vf=57 ux/
+ 203 0418 38800000 	      li        r4,0             # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+ 204 041c 3900025F 	      li        r8,0x025F        # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   s
+ 205              	
+ 206 0420 7C7CFBA6 	      mtspr     mmucr0,r3
+ 207 0424 7C4011A6 	      eratwe    r2,r0,2
+ 208 0428 7C8009A6 	      eratwe    r4,r0,1
+ 209 042c 7D0001A6 	      eratwe    r8,r0,0
+ 210 0430 4C00012C 	      isync
+ 211              	
+ 212 0434 81400A08 	      lwz       r10,CONFIG+S_ERATW2(r0)  # load parms for erat settings
+ 213              	
+ 214              	# derat 30  @100000000
+ 215              	
+ 216 0438 3800001E 	      li        r0,0x001E        # entry #30
+ 217 043c 3C801000 	      lis       r4,0x1000        # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+ 218 0440 3900025F 	      li        r8,0x025F        # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   s
+ 219 0444 65081000 	      oris      r8,r8,0x1000
+ 220              	
+ 221 0448 7D4011A6 	      eratwe    r10,r0,2
+ 222 044c 7C8009A6 	      eratwe    r4,r0,1
+ 223 0450 7D0001A6 	      eratwe    r8,r0,0
+ 224 0454 4C00012C 	      isync
+ 225              	
+ 226 0458 3C608800 	      lis       r3,0x8800        # 32=ecl 36:37=tlbsel (10=i, 11=d)
+ 227              	# ierat 15  @00000000
+ 228              	
+ 229 045c 3800000F 	      li        r0,0x000F        # entry #15
+ 230 0460 3840003F 	      li        r2,0x003F        # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wimge=52:56 vf=57 ux/
+ 231 0464 38800000 	      li        r4,0             # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+ 232 0468 3900025F 	      li        r8,0x025F        # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   s
+ 233              	
+ 234 046c 7C7CFBA6 	      mtspr     mmucr0,r3
+ 235 0470 7C4011A6 	      eratwe    r2,r0,2
+ 236 0474 7C8009A6 	      eratwe    r4,r0,1
+ 237 0478 7D0001A6 	      eratwe    r8,r0,0
+ 238 047c 4C00012C 	      isync
+ 239              	
+ 240              	 # *** leave the init'd entry 14 for MT access to FFFFFFC0
+ 241              	 # ierat 13  @10000000
+ 242              	
+ 243 0480 3800000D 	      li        r0,0x000D        # entry #13
+ 244 0484 3C801000 	      lis       r4,0x1000        # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+ 245 0488 3900025F 	      li        r8,0x025F        # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   s
+ 246 048c 65081000 	      oris      r8,r8,0x1000
+ 247              	
+ 248 0490 7D4011A6 	      eratwe    r10,r0,2
+ 249 0494 7C8009A6 	      eratwe    r4,r0,1
+ 250 0498 7D0001A6 	      eratwe    r8,r0,0
+ 251 049c 4C00012C 	      isync
+ 252              	
+ 253              	# -------------------------------------------------------------------------------------------------
+ 254              	# init
+ 255              	#
+ 256              	
+ 257              	# T0-only
+ 258              	# set up any core facilities, then enable the others if config'd
+ 259              	init_t0:
+ 260              	
+ 261              	# switch to 64b
+ 262              	
+ 263 04a0 81400A00 	      lwz       r10,CONFIG+S_MSR(r0)
+ 264 04a4 7D400124 	      mtmsr     r10
+ 265 04a8 4C00012C 	      isync
+ 266              	
+ 267              	# other init
+ 268              	
+ 269 04ac 3C200300 	      lis       r1,0x0300        # icm=gicm=1
+ 270 04b0 7C334BA6 	      mtspr     epcr,r1
+ 271              	
+ 272              	# set up timer facs
+ 273              	
+ 274 04b4 38200000 	      li        r1,0             # clear
+ 275 04b8 7C3603A6 	      mtspr     dec,r1
+ 276 04bc 7C3D43A6 	      mtspr     tbh,r1
+ 277 04c0 7C3C43A6 	      mtspr     tbl,r1
+ 278              	
+ 279 04c4 3C40FE00 	      lis       r2,0xFE00        # mask: clear enw,wis,wrs,dis,fis,udis
+ 280 04c8 7C5053A6 	      mtspr     tsr,r2
+ 281              	
+ 282 04cc 7C56FAA6 	      mfspr     r2,xucr0
+ 283 04d0 70420200 	      andi.     r2,r2,0x0200     # set tcs=0
+ 284 04d4 7C56FBA6 	      mtspr     xucr0,r2
+ 285              	
+ 286 04d8 7C3053A6 	      mtspr     tsr,r1           # clear tsr
+ 287 04dc 7C3453A6 	      mtspr     tcr,r1           # disable all timers
+ 288              	
+ 289              	# set thread configuration
+ 290              	
+ 291 04e0 80200A04 	      lwz       r1,CONFIG+S_FLAGS(r0)
+ 292 04e4 7021000F 	      andi.     r1,r1,0xF
+ 293 04e8 7C366BA6 	      mtspr     tens,r1          # 60:63 = tid 3:0 enabled
+ 294              	      #not       r1,r1
+ 295              	      #mtspr     tenc,r1         # in case T0 is marked disabled
+ 296 04ec 4C00012C 	      isync
+ 297              	
+ 298 04f0 48000014 	      b         boot_complete
+ 299              	
+ 300              	# except T0
+ 301              	# just worry about myself
+ 302              	
+ 303              	init_t123:
+ 304              	
+ 305              	# switch to 64b
+ 306              	
+ 307 04f4 81400A00 	      lwz       r10,CONFIG+S_MSR(r0)
+ 308 04f8 7D400124 	      mtmsr     r10
+ 309 04fc 4C00012C 	      isync
+ 310              	
+ 311 0500 48000004 	      b         boot_complete
+ 312              	
+ 313              	# -------------------------------------------------------------------------------------------------
+ 314              	boot_complete:
+ 315              	
+ 316              	# set up thread and hop to it
+ 317              	
+ 318 0504 80200A04 	      lwz       r1,CONFIG+S_FLAGS(r0)
+ 319 0508 74218000 	      andis.    r1,r1,0x8000     # 1=skip initial printf init
+ 320 050c 40820008 	      bne       boot_complete_1
+ 321 0510 480006F1 	      bl        printf_reset     # wipe buffer
+ 322              	
+ 323              	boot_complete_1:
+ 324              	
+ 325 0514 80200A04 	      lwz       r1,CONFIG+S_FLAGS(r0)
+ 326 0518 3C407FFF 	      lis       r2,0x7FFF        # clear printf flag
+ 327 051c 6042FFFF 	      ori       r2,r2,0xFFFF
+ 328 0520 7C211038 	      and       r1,r1,r2
+ 329 0524 90200A04 	      stw       r1,CONFIG+S_FLAGS(r0)
+ 330              	
+ 331 0528 7CBE6AA6 	      mfspr     r5,tir           # who am i?
+ 332 052c 78A53664 	      sldi      r5,r5,6          # 64B offset
+ 333 0530 38A50A80 	      addi      r5,r5,CONFIG+T_CONFIG
+ 334              	
+ 335 0534 81650000 	      lwz       r11,T_MSR(r5)
+ 336 0538 E9850008 	      ld        r12,T_STACK(r5)
+ 337 053c E9A50010 	      ld        r13,T_ENTRY(r5)
+ 338              	
+ 339 0540 80200A04 	      lwz       r1,CONFIG+S_FLAGS(r0)
+ 340 0544 70210010 	      andi.     r1,r1,FLAG_EOT_SC
+ 341 0548 4182001C 	      beq       eot_blr
+ 342              	
+ 343              	eot_sc:
+ 344              	
+ 345 054c 80400A0C 	      lwz       r2,CONFIG+S_EOT_SC(r0)
+ 346 0550 3C204400 	      lis       r1,0x4400        # 'sc 1'
+ 347 0554 60210012 	      ori       r1,r1,0022
+ 348 0558 F8220000 	      std       r1,0x0(r2)
+ 349 055c 7C2803A6 	      mtlr      r1               # prog will blr to sc
+ 350 0560 48000014 	      b         process_start
+ 351              	
+ 352              	eot_blr:
+ 353              	
+ 354 0564 48000005 	      bl        4
+ 355 0568 7C2802A6 	      mflr      r1
+ 356 056c 38210030 	      addi      r1,r1,0x30       # !!!!!!!!!!!!!!! <-- WARNING!
+ 357 0570 7C2803A6 	      mtlr      r1               # prog will blr to exec_complete
+ 358              	
+ 359              	process_start:
+ 360              	
+ 361 0574 7D7B03A6 	      mtspr     srr1,r11         # msr
+ 362 0578 7DBA03A6 	      mtspr     srr0,r13         # @entry
+ 363 057c 7D816378 	      mr        r1,r12           # @stack
+ 364 0580 7C7E6AA6 	      mfspr     r3,tir           # tid - main(tid) if yall want it
+ 365              	
+ 366 0584 7C4C42A6 	      mfspr     r2,tb
+ 367 0588 F8450030 	      std       r2,T_TIMER_START(r5)
+ 368 058c 4C000064 	      rfi
+ 369 0590 60000000 	      nop                        # !!!!!!!!!!!!!!! pads for lr calc
+ 370 0594 60000000 	      nop
+ 371 0598 60000000 	      nop
+ 372              	
+ 373              	# -------------------------------------------------------------------------------------------------
+ 374              	exec_complete:
+ 375              	# allow blr to here, or it will be entered by sc directly
+ 376              	
+ 377              	# user blr'd here...
+ 378 059c 44000022 	      sc        1                # hvsc back to sup state
+ 379              	
+ 380              	exec_complete_sup:
+ 381 05a0 7CBE6AA6 	      mfspr     r5,tir           # who am i?
+ 382 05a4 78A53664 	      sldi      r5,r5,6          # 64B offset
+ 383 05a8 38A50A80 	      addi      r5,r5,CONFIG+T_CONFIG
+ 384              	
+ 385 05ac 7C4C42A6 	      mfspr     r2,tb
+ 386 05b0 F8450038 	      std       r2,T_TIMER_END(r5)
+ 387              	
+ 388 05b4 2C230000 	      cmpdi     r3,0             # check rc
+ 389 05b8 41820148 	      beq       pass
+ 390 05bc 48000044 	      b         fail
+ 391              	
+ 392              	# -------------------------------------------------------------------------------------------------
+ 393              	# dead zone
+ 394 05c0 48000040 	.align 8
+ 394      60000000 
+ 394      60000000 
+ 394      60000000 
+ 394      60000000 
+ 395              	fail:
+ 396 0600 48000000 	      b         .
+ 397              	
+ 398              	# -------------------------------------------------------------------------------------------------
+ 399              	# happy ending
+ 400 0604 480000FC 	.align 8
+ 400      60000000 
+ 400      60000000 
+ 400      60000000 
+ 400      60000000 
+ 401              	pass:
+ 402 0700 48000000 	      b         .
+ 403              	
+ 404              	# -------------------------------------------------------------------------------------------------
+ 405              	
+ 406              	# dec
+ 407 0704 480000FC 	.align 11
+ 407      60000000 
+ 407      60000000 
+ 407      60000000 
+ 407      60000000 
+ 408              	int_800:
+ 409 0800 48000000 	      b         .
+ 410              	
+ 411              	# perf
+ 412 0804 4800001C 	.align 5
+ 412      60000000 
+ 412      60000000 
+ 412      60000000 
+ 412      60000000 
+ 413              	int_820:
+ 414 0820 48000000 	      b         .
+ 415              	
+ 416              	.set CONFIG,0x0A00
+ 417              	# -------------------------------------------------------------------------------------------------
+ 418              	# config info
+ 419 0824 480001DC 	.align 9
+ 419      60000000 
+ 419      60000000 
+ 419      60000000 
+ 419      60000000 
+ 420              	
+ 421 0a00 8002B000 	      .long  0x8002B000          # sup MSR cm=1 ce=1 ee=1 pr=0 fp=1 me=1 fe=00 de=0 is=0 ds=0
+ 422 0a04 80000001 	      .long  0x80000001          # flags: skip_printf_init=0 eot_sc=27 thr_en=28:31(T3:T0)
+ 423              	
+ 424              	# LE
+ 425              	#     .long  0x000000BF          # erat w2 (test)   # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wi
+ 426              	# BE
+ 427 0a08 0000003F 	      .long  0x0000003F          # erat w2 (test)   # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wi
+ 428 0a0c 10000000 	      .long  0x10000000          # @user eot sc
+ 429              	
+ 430              	# per-thread configs (64B each)
+ 431 0a10 48000070 	.align 7
+ 431      60000000 
+ 431      60000000 
+ 431      60000000 
+ 431      60000000 
+ 432 0a80 8002F000 	      .long  0x8002F000          # usr MSR cm=1 ce=1 ee=1 pr=1 fp=1 me=1 fe=00 de=0 is=0 ds=0
+ 433 0a84 00000000 	      .long  0x00000000          #
+ 434 0a88 00000000 	      .long  0x00000000          #
+ 435 0a8c 00000000 	      .long  STACK0              # @stack
+ 436 0a90 00000000 	      .long  0x00000000          #
+ 437 0a94 00000000 	      .long  TEST                # @entry
+ 438 0a98 00000000 	      .long  0
+ 439 0a9c 10030000 	      .long  0x10030000          # @print_start
+ 440 0aa0 00000000 	      .long  0
+ 441 0aa4 10031FFF 	      .long  0x10031FFF          # @print_end
+ 442 0aa8 00000000 	      .long  0
+ 443 0aac 10030000 	      .long  0x10030000          # print ptr
+ 444 0ab0 00000000 	      .quad  0                   # start tb
+ 444      00000000 
+ 445 0ab8 00000000 	      .quad  0                   # end tb
+ 445      00000000 
+ 446              	
+ 447 0ac0 8002F000 	      .long  0x8002F000          # usr MSR cm=1 ce=1 ee=1 pr=1 fp=1 me=1 fe=00 de=0 is=0 ds=0
+ 448 0ac4 00000000 	      .long  0x00000000          #
+ 449 0ac8 00000000 	      .long  0x00000000          #
+ 450 0acc 00000000 	      .long  STACK1              # @stack
+ 451 0ad0 00000000 	      .long  0x00000000          #
+ 452 0ad4 00000000 	      .long  TEST                # @entry
+ 453 0ad8 00000000 	      .long  0
+ 454 0adc 10032000 	      .long  0x10032000          # @print_start
+ 455 0ae0 00000000 	      .long  0
+ 456 0ae4 10033FFF 	      .long  0x10033FFF          # @print_end
+ 457 0ae8 00000000 	      .long  0
+ 458 0aec 10032000 	      .long  0x10032000          # print ptr
+ 459 0af0 00000000 	      .quad  0                   # start tb
+ 459      00000000 
+ 460 0af8 00000000 	      .quad  0                   # end tb
+ 460      00000000 
+ 461              	
+ 462 0b00 8002F000 	      .long  0x8002F000          # usr MSR cm=1 ce=1 ee=1 pr=1 fp=1 me=1 fe=00 de=0 is=0 ds=0
+ 463 0b04 00000000 	      .long  0x00000000          # flags
+ 464 0b08 00000000 	      .long  0x00000000          #
+ 465 0b0c 00000000 	      .long  STACK2              # @stack
+ 466 0b10 00000000 	      .long  0x00000000          #
+ 467 0b14 00000000 	      .long  TEST                # @entry
+ 468 0b18 00000000 	      .long  0
+ 469 0b1c 10034000 	      .long  0x10034000          # @print_start
+ 470 0b20 00000000 	      .long  0
+ 471 0b24 10035FFF 	      .long  0x10035FFF          # @print_end
+ 472 0b28 00000000 	      .long  0
+ 473 0b2c 10034000 	      .long  0x10034000          # print ptr
+ 474 0b30 00000000 	      .quad  0                   # start tb
+ 474      00000000 
+ 475 0b38 00000000 	      .quad  0                   # end tb
+ 475      00000000 
+ 476              	
+ 477 0b40 8002F000 	      .long  0x8002F000          # usr MSR cm=1 ce=1 ee=1 pr=1 fp=1 me=1 fe=00 de=0 is=0 ds=0
+ 478 0b44 00000000 	      .long  0x00000000          # flags
+ 479 0b48 00000000 	      .long  0x00000000          #
+ 480 0b4c 00000000 	      .long  STACK3              # @stack
+ 481 0b50 00000000 	      .long  0x00000000          #
+ 482 0b54 00000000 	      .long  TEST                # @entry
+ 483 0b58 00000000 	      .long  0
+ 484 0b5c 10036000 	      .long  0x10036000          # @print_start
+ 485 0b60 00000000 	      .long  0
+ 486 0b64 10037FFF 	      .long  0x10037FFF          # @print_end
+ 487 0b68 00000000 	      .long  0
+ 488 0b6c 10036000 	      .long  0x10036000          # print ptr
+ 489 0b70 00000000 	      .quad  0                   # start tb
+ 489      00000000 
+ 490 0b78 00000000 	      .quad  0                   # end tb
+ 490      00000000 
+ 491              	
+ 492              	
+ 493              	.set S_MSR,0x00
+ 494              	.set S_FLAGS,0x04
+ 495              	.set S_ERATW2,0x08
+ 496              	.set S_EOT_SC,0x0C
+ 497              	
+ 498              	.set T_CONFIG,0x80
+ 499              	.set T_MSR,0x00
+ 500              	.set T_FLAGS,0x04
+ 501              	.set T_STACK,0x08
+ 502              	.set T_ENTRY,0x10
+ 503              	.set T_TIMER_START,0x30
+ 504              	.set T_TIMER_END,0x38
+ 505              	.set T_PRINTSTART, 0x18
+ 506              	.set T_PRINTEND, 0x20
+ 507              	.set T_PRINTF, 0x28
+ 508              	.set FLAG_EOT_SC,0x10
+ 509              	
+ 510              	
+ 511              	# -------------------------------------------------------------------------------------------------
+ 512              	# other stuff
+ 513 0b80 48000080 	.align 10
+ 513      60000000 
+ 513      60000000 
+ 513      60000000 
+ 513      60000000 
+ 514              	
+ 515              	# clear buffer and reset pointer to start
+ 516              	.align 6
+ 517              	printf_reset:
+ 518              	
+ 519 0c00 7CBE6AA6 	      mfspr     r5,tir           # who am i?
+ 520 0c04 78A53664 	      sldi      r5,r5,6          # 64B offset
+ 521 0c08 38A50A80 	      addi      r5,r5,CONFIG+T_CONFIG
+ 522              	
+ 523 0c0c 38C50018 	      addi      r6,r5,T_PRINTSTART
+ 524 0c10 E8E60000 	      ld        r7,0(r6)         # buffer start
+ 525 0c14 38C50020 	      addi      r6,r5,T_PRINTEND
+ 526 0c18 E9060000 	      ld        r8,0(r6)         # buffer end
+ 527 0c1c 7D074050 	      sub       r8,r8,r7
+ 528 0c20 39080001 	      addi      r8,r8,1          # num bytes
+ 529              	
+ 530 0c24 7D0903A6 	      mtctr     r8
+ 531 0c28 38C00000 	      li        r6,0
+ 532 0c2c 7CE83B78 	      mr        r8,r7
+ 533              	printf_reset_clr:
+ 534 0c30 98C80000 	      stb       r6,0(r8)
+ 535 0c34 39080001 	      addi      r8,r8,1
+ 536 0c38 4200FFF8 	      bdnz      printf_reset_clr
+ 537              	
+ 538 0c3c 39050028 	      addi      r8,r5,T_PRINTF
+ 539 0c40 F8E80000 	      std       r7,0(r8)         # reset ptr
+ 540              	
+ 541 0c44 4E800020 	      blr
+ 542              	
+ 543              	
+ 544              	# hvsc
+ 545 0c48 480000B8 	.align 8
+ 545      60000000 
+ 545      60000000 
+ 545      60000000 
+ 545      60000000 
+ 546              	# go to exec_complete_sup in sup mode
+ 547              	int_300_handler:
+ 548              	
+ 549 0d00 80000A00 	      lwz       r0,CONFIG+S_MSR(r0)
+ 550 0d04 7C000124 	      mtmsr     r0
+ 551 0d08 4C00012C 	      isync
+ 552 0d0c 4BFFF894 	      b         exec_complete_sup
+ 553              	
+ 554              	# sc
+ 555 0d10 480000F0 	.align 8
+ 555      60000000 
+ 555      60000000 
+ 555      60000000 
+ 555      60000000 
+ 556              	# r3 is id, remaining are function-specific
+ 557              	# not preserving r0, r3-r9 right now
+ 558              	#
+ 559              	# 0001 whoami
+ 560              	# 0010 tick
+ 561              	# 0100 putchar r4=c
+ 562              	# 0106 printf_mode *NI*
+ 563              	# 0107 printf_rst
+ 564              	#
+ 565              	int_120_handler:
+ 566              	
+ 567 0e00 7C0802A6 	      mflr      r0
+ 568              	
+ 569 0e04 2C230001 	      cmpdi     r3,0x0001
+ 570 0e08 41820038 	      beq       sc_whoami
+ 571 0e0c 2C230010 	      cmpdi     r3,0x0010
+ 572 0e10 41820070 	      beq       sc_tick
+ 573 0e14 2C230100 	      cmpdi     r3,0x100
+ 574 0e18 418200A8 	      beq       sc_putchar
+ 575 0e1c 2C230107 	      cmpdi     r3,0x107
+ 576 0e20 41820120 	      beq       sc_printf_rst
+ 577              	
+ 578 0e24 3860FFFF 	      li        r3,-1
+ 579 0e28 7C0803A6 	      mtlr      r0
+ 580 0e2c 4C000064 	      rfi
+ 581              	
+ 582              	# thread id
+ 583 0e30 60000000 	.align 6
+ 583      60000000 
+ 583      60000000 
+ 583      60000000 
+ 584              	sc_whoami:
+ 585 0e40 7C7E6AA6 	      mfspr     r3,tir
+ 586 0e44 4C000064 	      rfi
+ 587              	
+ 588              	# tb
+ 589 0e48 48000038 	.align 6
+ 589      60000000 
+ 589      60000000 
+ 589      60000000 
+ 589      60000000 
+ 590              	sc_tick:
+ 591 0e80 7C6C42A6 	      mfspr     r3,tb
+ 592 0e84 4C000064 	      rfi
+ 593              	
+ 594              	# wrap buffer; could add flag to stop when full, or reset
+ 595 0e88 48000038 	.align 6
+ 595      60000000 
+ 595      60000000 
+ 595      60000000 
+ 595      60000000 
+ 596              	sc_putchar:
+ 597              	
+ 598 0ec0 7CBE6AA6 	      mfspr     r5,tir           # who am i?
+ 599 0ec4 78A53664 	      sldi      r5,r5,6          # 64B offset
+ 600 0ec8 38A50A80 	      addi      r5,r5,CONFIG+T_CONFIG
+ 601              	
+ 602 0ecc 38C50028 	      addi      r6,r5,T_PRINTF
+ 603 0ed0 E8E60000 	      ld        r7,0(r6)         # buffer ptr
+ 604 0ed4 98870000 	      stb       r4,0(r7)         # store char
+ 605 0ed8 38E70001 	      addi      r7,r7,1
+ 606              	
+ 607 0edc 39050020 	      addi      r8,r5,T_PRINTEND
+ 608 0ee0 E9080000 	      ld        r8,0(r8)         # buffer end
+ 609 0ee4 7C274000 	      cmpd      r7,r8
+ 610 0ee8 38600000 	      li        r3,0             # rc=normal
+ 611 0eec 40810010 	      ble       sc_putchar_ok
+ 612 0ef0 39050018 	      addi      r8,r5,T_PRINTSTART
+ 613 0ef4 E8E80000 	      ld        r7,0(r8)         # buffer start
+ 614 0ef8 3860FFFF 	      li        r3,-1            # rc=full
+ 615              	sc_putchar_ok:
+ 616 0efc F8E60000 	      std       r7,0(r6)         # save ptr
+ 617              	
+ 618 0f00 4C000064 	      rfi
+ 619              	
+ 620              	# clear buffer and reset pointer to start
+ 621 0f04 4800003C 	.align 6
+ 621      60000000 
+ 621      60000000 
+ 621      60000000 
+ 621      60000000 
+ 622              	sc_printf_rst:
+ 623              	
+ 624 0f40 7C6902A6 	      mfctr     r3
+ 625              	
+ 626 0f44 4BFFFCBD 	      bl        printf_reset
+ 627              	
+ 628 0f48 7C6903A6 	      mtctr     r3
+ 629 0f4c 7C0803A6 	      mtlr      r0
+ 630 0f50 38600000 	      li        r3,0
+ 631              	
+ 632 0f54 4C000064 	      rfi
+ 633              	
