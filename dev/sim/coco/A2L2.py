@@ -310,6 +310,7 @@ async def A2L2Driver(dut, sim):
             trans = A2L2Trans(sim, tid, int(tt, 16), int(tag, 16), int(ra, 16), int(lenEnc, 16), wimg, None, be=be, data=data)
             sim.msg(f'T{tid} {transType} {ra} tag={tag} len={trans.len} be={be} data={data} {le}WIMG:{wimg:X}')
             trans.doStore()
+            dut.an_ac_req_st_pop.value = 1   #wtf can randomize, etc.
             #assert False, 'got a store'
 
       # data early indicator (d-3)
