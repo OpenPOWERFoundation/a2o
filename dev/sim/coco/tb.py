@@ -214,6 +214,8 @@ async def genClocks(dut, sim):
       await RisingEdge(dut.clk_1x)
 
    dut._log.info(f'[{sim.cycle:08d}] Reached max cycle.  Clocks stopped.')
+   sim.ok = False
+   sim.fail = 'Max cycle reached.'
 
 # ------------------------------------------------------------------------------------------------
 # Interfaces
@@ -235,30 +237,32 @@ async def tb(dut):
 
    sim = Sim(dut)
    sim.mem = Memory(sim)
-   #sim.memFiles = ['../mem/boot_ieq1.bin.hex'] #wtf cmdline parm
+   sim.maxCycles = 2000
+
+   '''
    sim.memFiles = ['../mem/boot.bin.hex'] #wtf cmdline parm
 
    for i in range(len(sim.memFiles)):  #wtf el should be object with name, format, etc.
       sim.mem.loadFile(sim.memFiles[i])
+   '''
+
+   sim.memFiles = [
+      {
+      'addr': 0x00000000,
+      'file' : '../mem/test1/rom.init'
+      },
+      {
+      'addr': 0x10000000,
+      'file' : '../mem/test1/test.init'
+      }
+      ]
+
+   for i in range(len(sim.memFiles)):  #wtf el should be object with name, format, etc.
+      sim.mem.loadFile(sim.memFiles[i]['file'], addr=sim.memFiles[i]['addr'])
+
    if sim.resetAddr is not None and sim.mem.read(sim.resetAddr) == sim.mem.default:
       sim.mem.write(sim.resetAddr, sim.resetOp)
       sim.msg(f'Set reset fetch @{sim.resetAddr:08X} to {sim.resetOp:08X}.')
-
-#  dut.cocotb_icarus
-#  dut._log.info(sim.top.__dict__)
-#  {'_handle': <cocotb.simulator.gpi_sim_hdl at 0x55f8fa8a3aa0>,
-#   '_len': None, '_sub_handles': {}, '_invalid_sub_handles': set(), '_name': 'cocotb_icarus',
-#   '_type': 'GPI_MODULE', '_fullname': 'cocotb_icarus(GPI_MODULE)', '_path': 'cocotb_icarus.cocotb_icarus',
-#   '_log': <SimBaseLog cocotb.cocotb_icarus (INFO)>, '_def_name': 'cocotb_icarus', '_def_file': './cocotb_icarus.v',
-#   '_discovered': False
-#  }
-#  dut
-#  {'_handle': <cocotb.simulator.gpi_sim_hdl at 0x557757943540>,
-#   '_len': None, '_sub_handles': {'an_ac_pm_thread_stop': ModifiableObject(cocotb_icarus.an_ac_pm_thread_stop),
-#   'cocotb_icarus': HierarchyObject(cocotb_icarus.cocotb_icarus with definition cocotb_icarus (at ./cocotb_icarus.v))},
-#   '_invalid_sub_handles': set(), '_name': 'cocotb_icarus', '_type': 'GPI_MODULE', '_fullname': 'cocotb_icarus(GPI_MODULE)',
-#   '_path': 'cocotb_icarus', '_log': <SimBaseLog cocotb.cocotb_icarus (INFO)>, '_def_name': '', '_def_file': '',
-#   '_discovered': False
 
    # init stuff
    await init(dut, sim)
@@ -294,8 +298,6 @@ async def tb(dut):
    await RisingEdge(dut.clk_1x)
    dut._log.info(f'[{sim.cycle:08d}] Threads enabled.')
 
-
-
    # should await sim.done
    await Timer((sim.maxCycles+100)*8, units='ns')
 
@@ -303,5 +305,5 @@ async def tb(dut):
       dut._log.info(f'[{sim.cycle:08d}] You has opulence.')
    else:
       dut._log.info(f'[{sim.cycle:08d}] You are worthless and weak!')
-      assert False, f'[{sim.cycle:08d}] {sim.fail}'
-
+      dut._log.info(f'[{sim.cycle:08d}] {sim.fail}')
+      assert False

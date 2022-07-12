@@ -27,7 +27,7 @@ class Sim(DotMap):
       self.clk4x = False
       self.resetAddr = 0xFFFFFFFC
       self.resetOp = 0x48000002
-      self.maxCycles = 1500
+      self.maxCycles = 500
       self.memFiles = None
       self.config = DotMap()
       self.config.core = DotMap({
