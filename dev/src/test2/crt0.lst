@@ -1,0 +1,619 @@
+   1              	# © IBM Corp. 2022
+   2              	# Licensed under and subject to the terms of the CC-BY 4.0
+   3              	# license (https://creativecommons.org/licenses/by/4.0/legalcode).
+   4              	# Additional rights, including the right to physically implement a softcore
+   5              	# that is compliant with the required sections of the Power ISA
+   6              	# Specification, will be available at no cost via the OpenPOWER Foundation.
+   7              	# This README will be updated with additional information when OpenPOWER's
+   8              	# license is available.
+   9              	
+  10              	# boot kernel
+  11              	#  resets to 32BE
+  12              	#  set up translations for starting bios (inc. BE/LE)
+  13              	#  copy modifiable rom data to ram - or do in bios?
+  14              	#  set up msr for running bios (inc. 32/64)
+  15              	#  jump to bios
+  16              	
+  17              	
+  18              	.include "defines.s"
+   1              	# © IBM Corp. 2020
+   2              	# Licensed under and subject to the terms of the CC-BY 4.0
+   3              	# license (https://creativecommons.org/licenses/by/4.0/legalcode). 
+   4              	# Additional rights, including the right to physically implement a softcore 
+   5              	# that is compliant with the required sections of the Power ISA 
+   6              	# Specification, will be available at no cost via the OpenPOWER Foundation. 
+   7              	# This README will be updated with additional information when OpenPOWER's 
+   8              	# license is available.
+   9              	
+  10              	#-----------------------------------------
+  11              	# Defines
+  12              	#-----------------------------------------
+  13              	
+  14              	# Regs
+  15              	
+  16              	.set    r0,  0
+  17              	.set    r1,  1
+  18              	.set    r2,  2
+  19              	.set    r3,  3
+  20              	.set    r4,  4
+  21              	.set    r5,  5
+  22              	.set    r6,  6
+  23              	.set    r7,  7
+  24              	.set    r8,  8
+  25              	.set    r9,  9
+  26              	.set    r10,10
+  27              	.set    r11,11
+  28              	.set    r12,12
+  29              	.set    r13,13
+  30              	.set    r14,14
+  31              	.set    r15,15
+  32              	.set    r16,16
+  33              	.set    r17,17
+  34              	.set    r18,18
+  35              	.set    r19,19
+  36              	.set    r20,20
+  37              	.set    r21,21
+  38              	.set    r22,22
+  39              	.set    r23,23
+  40              	.set    r24,24
+  41              	.set    r25,25
+  42              	.set    r26,26
+  43              	.set    r27,27
+  44              	.set    r28,28
+  45              	.set    r29,29
+  46              	.set    r30,30
+  47              	.set    r31,31
+  48              	
+  49              	.set    f0,  0
+  50              	.set    f1,  1
+  51              	.set    f2,  2
+  52              	.set    f3,  3
+  53              	.set    f4,  4
+  54              	.set    f5,  5
+  55              	.set    f6,  6
+  56              	.set    f7,  7
+  57              	.set    f8,  8
+  58              	.set    f9,  9
+  59              	.set    f10,10
+  60              	.set    f11,11
+  61              	.set    f12,12
+  62              	.set    f13,13
+  63              	.set    f14,14
+  64              	.set    f15,15
+  65              	.set    f16,16
+  66              	.set    f17,17
+  67              	.set    f18,18
+  68              	.set    f19,19
+  69              	.set    f20,20
+  70              	.set    f21,21
+  71              	.set    f22,22
+  72              	.set    f23,23
+  73              	.set    f24,24
+  74              	.set    f25,25
+  75              	.set    f26,26
+  76              	.set    f27,27
+  77              	.set    f28,28
+  78              	.set    f29,29
+  79              	.set    f30,30
+  80              	.set    f31,31
+  81              	
+  82              	.set    cr0, 0
+  83              	.set    cr1, 1
+  84              	.set    cr2, 2
+  85              	.set    cr3, 3
+  86              	.set    cr4, 4
+  87              	.set    cr5, 5
+  88              	.set    cr6, 6
+  89              	.set    cr7, 7
+  90              	
+  91              	# SPR numbers
+  92              	
+  93              	.set    srr0, 26
+  94              	.set    srr1, 27
+  95              	.set    epcr, 307
+  96              	.set    tar, 815
+  97              	
+  98              	.set    dbsr, 304
+  99              	.set    dbcr0, 308
+ 100              	.set    dbcr1, 309
+ 101              	.set    dbcr2, 310
+ 102              	.set    dbcr3, 848
+ 103              	
+ 104              	.set    ivpr, 63
+ 105              	
+ 106              	.set    iucr0, 1011
+ 107              	.set    iucr1, 883
+ 108              	.set    iucr2, 884
+ 109              	
+ 110              	.set    iudbg0, 888
+ 111              	.set    iudbg1, 889
+ 112              	.set    iudbg2, 890
+ 113              	.set    iulfsr, 891
+ 114              	.set    iullcr, 892
+ 115              	
+ 116              	.set    mmucr0, 1020
+ 117              	.set    mmucr1, 1021
+ 118              	.set    mmucr2, 1022
+ 119              	.set    mmucr3, 1023
+ 120              	
+ 121              	.set    tb, 268
+ 122              	.set    tbl, 284
+ 123              	.set    tbh, 285
+ 124              	
+ 125              	.set    dec, 22
+ 126              	.set    udec, 550
+ 127              	.set    tsr, 336
+ 128              	.set    tcr, 340
+ 129              	
+ 130              	.set    xucr0, 1014
+ 131              	.set    xucr1, 851
+ 132              	.set    xucr2, 1016
+ 133              	.set    xucr3, 852
+ 134              	.set    xucr4, 853
+ 135              	
+ 136              	.set    tens, 438
+ 137              	.set    tenc, 439
+ 138              	.set    tensr, 437
+ 139              	
+ 140              	.set    pid, 48
+ 141              	.set    pir, 286
+ 142              	.set    pvr, 287
+ 143              	.set    tir, 446
+ 144              	
+  19              	
+  20              	.macro load32  rx,v
+  21              	      li       \rx,0
+  22              	      oris     \rx,\rx,\v>>16
+  23              	      ori      \rx,\rx,\v&0x0000FFFF
+  24              	.endm
+  25              	
+  26              	.macro load16swiz rx,v
+  27              	      li       \rx,0
+  28              	      ori      \rx,\rx,(\v<<8)&0xFF00
+  29              	      ori      \rx,\rx,(\v>>8)&0x00FF
+  30              	.endm
+  31              	
+  32              	# constants from linker script, or defsym
+  33              	
+  34              	.ifdef BIOS_32
+  35              	# sup MSR cm=1 ce=1 ee=1 pr=0 fp=1 me=1 fe=00 de=0 is=0 ds=0
+  36              	.set BIOS_MSR,0x0002B000
+  37              	.else
+  38              	# sup MSR cm=1 ce=1 ee=1 pr=0 fp=1 me=1 fe=00 de=0 is=0 ds=0
+  39              	.set BIOS_MSR,0x8002B000
+  40              	.endif
+  41              	
+  42              	 # erat w2 (test)   # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wimge=52:56 vf=57 ux/sx=58:59 uw/s
+  43              	.ifdef BIOS_LE
+  44              	.set BIOS_ERATW2,0x000000BF
+  45              	.else
+  46              	.set BIOS_ERATW2,0x0000003F
+  47              	.endif
+  48              	
+  49              	# bios might be able to use one stack during thread startup if careful
+  50              	.ifndef BIOS_STACK_0
+  51              	.set BIOS_STACK_0,_stack_0
+  52              	.endif
+  53              	
+  54              	.ifndef BIOS_STACK_1
+  55              	.set BIOS_STACK_1,_stack_1
+  56              	.endif
+  57              	
+  58              	.ifndef BIOS_START
+  59              	.set BIOS_START,0x00010000
+  60              	.endif
+  61              	
+  62              	.section .text
+  63              	
+  64              	.global _start
+  65              	
+  66              	.org 0x000
+  67              	_start:
+  68              	int_000:
+  69 0000 48000400 	      b         boot_start
+  70              	
+  71              	# critical input
+  72 0004 00000000 	.org 0x020
+  72      00000000 
+  72      00000000 
+  72      00000000 
+  72      00000000 
+  73              	int_020:
+  74              	.ifndef INT_UNHANDLED
+  75 0020 48000000 	      b         .
+  76              	.else
+  77              	      b         INT_UNHANDLED
+  78              	.endif
+  79              	
+  80              	# debug
+  81 0024 00000000 	.org 0x040
+  81      00000000 
+  81      00000000 
+  81      00000000 
+  81      00000000 
+  82              	int_040:
+  83 0040 48000000 	      b         .
+  84              	
+  85              	# dsi
+  86 0044 00000000 	.org 0x060
+  86      00000000 
+  86      00000000 
+  86      00000000 
+  86      00000000 
+  87              	int_060:
+  88 0060 48000000 	      b         .
+  89              	
+  90              	# isi
+  91 0064 00000000 	.org 0x080
+  91      00000000 
+  91      00000000 
+  91      00000000 
+  91      00000000 
+  92              	int_080:
+  93 0080 48000000 	      b         .
+  94              	
+  95              	# external
+  96 0084 00000000 	.org 0x0A0
+  96      00000000 
+  96      00000000 
+  96      00000000 
+  96      00000000 
+  97              	int_0A0:
+  98 00a0 48000000 	      b         .
+  99              	
+ 100              	# alignment
+ 101 00a4 00000000 	.org 0x0C0
+ 101      00000000 
+ 101      00000000 
+ 101      00000000 
+ 101      00000000 
+ 102              	int_0C0:
+ 103 00c0 48000000 	      b         .
+ 104              	
+ 105              	# program
+ 106 00c4 00000000 	.org 0x0E0
+ 106      00000000 
+ 106      00000000 
+ 106      00000000 
+ 106      00000000 
+ 107              	int_0E0:
+ 108 00e0 48000000 	      b         .
+ 109              	
+ 110              	# fp unavailable
+ 111 00e4 00000000 	.org 0x100
+ 111      00000000 
+ 111      00000000 
+ 111      00000000 
+ 111      00000000 
+ 112              	int_100:
+ 113 0100 48000000 	      b         .
+ 114              	
+ 115              	# sc
+ 116 0104 00000000 	.org 0x120
+ 116      00000000 
+ 116      00000000 
+ 116      00000000 
+ 116      00000000 
+ 117              	int_120:
+ 118 0120 48000000 	      b         .
+ 119              	
+ 120              	# apu unavailable
+ 121 0124 00000000 	.org 0x140
+ 121      00000000 
+ 121      00000000 
+ 121      00000000 
+ 121      00000000 
+ 122              	int_140:
+ 123 0140 48000000 	      b         .
+ 124              	
+ 125              	# decrementer
+ 126 0144 00000000 	.org 0x160
+ 126      00000000 
+ 126      00000000 
+ 126      00000000 
+ 126      00000000 
+ 127              	int_160:
+ 128 0160 48000000 	      b         .
+ 129              	
+ 130              	# fit
+ 131 0164 00000000 	.org 0x180
+ 131      00000000 
+ 131      00000000 
+ 131      00000000 
+ 131      00000000 
+ 132              	int_180:
+ 133 0180 48000000 	      b         .
+ 134              	
+ 135              	# watchdog
+ 136 0184 00000000 	.org 0x1A0
+ 136      00000000 
+ 136      00000000 
+ 136      00000000 
+ 136      00000000 
+ 137              	int_1A0:
+ 138 01a0 48000000 	      b         .
+ 139              	
+ 140              	# dtlb
+ 141 01a4 00000000 	.org 0x1C0
+ 141      00000000 
+ 141      00000000 
+ 141      00000000 
+ 141      00000000 
+ 142              	int_1C0:
+ 143 01c0 48000000 	      b         .
+ 144              	
+ 145              	# itlb
+ 146 01c4 00000000 	.org 0x1E0
+ 146      00000000 
+ 146      00000000 
+ 146      00000000 
+ 146      00000000 
+ 147              	int_1E0:
+ 148 01e0 48000000 	      b         .
+ 149              	
+ 150              	# vector unavailable
+ 151 01e4 00000000 	.org 0x200
+ 151      00000000 
+ 151      00000000 
+ 151      00000000 
+ 151      00000000 
+ 152              	int_200:
+ 153 0200 48000000 	      b         .
+ 154              	
+ 155              	#
+ 156 0204 00000000 	.org 0x220
+ 156      00000000 
+ 156      00000000 
+ 156      00000000 
+ 156      00000000 
+ 157              	int_220:
+ 158 0220 48000000 	      b         .
+ 159              	
+ 160              	#
+ 161 0224 00000000 	.org 0x240
+ 161      00000000 
+ 161      00000000 
+ 161      00000000 
+ 161      00000000 
+ 162              	int_240:
+ 163 0240 48000000 	      b         .
+ 164              	
+ 165              	#
+ 166 0244 00000000 	.org 0x260
+ 166      00000000 
+ 166      00000000 
+ 166      00000000 
+ 166      00000000 
+ 167              	int_260:
+ 168 0260 48000000 	      b         .
+ 169              	
+ 170              	# doorbell
+ 171 0264 00000000 	.org 0x280
+ 171      00000000 
+ 171      00000000 
+ 171      00000000 
+ 171      00000000 
+ 172              	int_280:
+ 173 0280 48000000 	      b         .
+ 174              	
+ 175              	# doorbell critical
+ 176 0284 00000000 	.org 0x2A0
+ 176      00000000 
+ 176      00000000 
+ 176      00000000 
+ 176      00000000 
+ 177              	int_2A0:
+ 178 02a0 48000000 	      b         .
+ 179              	
+ 180              	# doorbell guest
+ 181 02a4 00000000 	.org 0x2C0
+ 181      00000000 
+ 181      00000000 
+ 181      00000000 
+ 181      00000000 
+ 182              	int_2C0:
+ 183 02c0 48000000 	      b         .
+ 184              	
+ 185              	# doorbell guest critical
+ 186 02c4 00000000 	.org 0x2E0
+ 186      00000000 
+ 186      00000000 
+ 186      00000000 
+ 186      00000000 
+ 187              	int_2E0:
+ 188 02e0 48000000 	      b         .
+ 189              	
+ 190              	# hvsc
+ 191 02e4 00000000 	.org 0x300
+ 191      00000000 
+ 191      00000000 
+ 191      00000000 
+ 191      00000000 
+ 192              	int_300:
+ 193 0300 48000000 	      b         .
+ 194              	
+ 195              	# hvpriv
+ 196 0304 00000000 	.org 0x320
+ 196      00000000 
+ 196      00000000 
+ 196      00000000 
+ 196      00000000 
+ 197              	int_320:
+ 198 0320 48000000 	      b         .
+ 199              	
+ 200              	# lrat
+ 201 0324 00000000 	.org 0x340
+ 201      00000000 
+ 201      00000000 
+ 201      00000000 
+ 201      00000000 
+ 202              	int_340:
+ 203 0340 48000000 	      b         .
+ 204              	
+ 205              	# -------------------------------------------------------------------------------------------------
+ 206              	# initial translation
+ 207              	# both erats:
+ 208              	# 00000000 64K: (rom, BE)
+ 209              	# 00010000 64K: (ram, BE or LE)
+ 210              	#
+ 211 0344 00000000 	.org 0x400
+ 211      00000000 
+ 211      00000000 
+ 211      00000000 
+ 211      00000000 
+ 212              	boot_start:
+ 213              	
+ 214 0400 7CBE6AA6 	      mfspr     r5,tir           # who am i?
+ 215 0404 2C250000 	      cmpdi     r5,0x00          # skip unless T0
+ 216 0408 408200E0 	      bne       init_t123
+ 217              	
+ 218 040c 3C608C00 	      lis       r3,0x8C00        # 32=ecl 36:37=tlbsel (10=i, 11=d)
+ 219              	
+ 220              	# derat 31 @00000000
+ 221 0410 3800001F 	      li        r0,0x001F        # entry #31
+ 222 0414 38400015 	      li        r2,0x0015        # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wimge=52:56 vf=57 ux/
+ 223 0418 38800000 	      li        r4,0             # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+ 224 041c 3900023F 	      li        r8,0x023F        # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   s
+ 225              	
+ 226 0420 7C7CFBA6 	      mtspr     mmucr0,r3
+ 227 0424 7C4011A6 	      eratwe    r2,r0,2
+ 228 0428 7C8009A6 	      eratwe    r4,r0,1
+ 229 042c 7D0001A6 	      eratwe    r8,r0,0
+ 230 0430 4C00012C 	      isync
+ 231              	
+ 232 0434 39400000 	      load32    r10,BIOS_ERATW2  # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wimge=52:56 vf=57 ux/
+ 232      654A0000 
+ 232      614A003F 
+ 233              	
+ 234              	# derat 30  @<BIOS_START>
+ 235 0440 3800001E 	      li        r0,0x001E        # entry #30
+ 236 0444 38800000 	      load32    r4,BIOS_START    # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+ 236      64840001 
+ 236      60840000 
+ 237 0450 39000000 	      load32    r8,BIOS_START
+ 237      65080001 
+ 237      61080000 
+ 238 045c 6108023F 	      ori       r8,r8,0x023F     # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   s
+ 239              	
+ 240 0460 7D4011A6 	      eratwe    r10,r0,2
+ 241 0464 7C8009A6 	      eratwe    r4,r0,1
+ 242 0468 7D0001A6 	      eratwe    r8,r0,0
+ 243 046c 4C00012C 	      isync
+ 244              	
+ 245 0470 3C608800 	      lis       r3,0x8800        # 32=ecl 36:37=tlbsel (10=i, 11=d)
+ 246              	
+ 247              	# ierat 15  @00000000
+ 248 0474 3800000F 	      li        r0,0x000F        # entry #15
+ 249 0478 3840003F 	      li        r2,0x003F        # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wimge=52:56 vf=57 ux/
+ 250 047c 38800000 	      li        r4,0             # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+ 251 0480 3900023F 	      li        r8,0x023F        # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   s
+ 252              	
+ 253 0484 7C7CFBA6 	      mtspr     mmucr0,r3
+ 254 0488 7C4011A6 	      eratwe    r2,r0,2
+ 255 048c 7C8009A6 	      eratwe    r4,r0,1
+ 256 0490 7D0001A6 	      eratwe    r8,r0,0
+ 257 0494 4C00012C 	      isync
+ 258              	
+ 259              	 # *** leave the init'd entry 14 for MT access to FFFFFFC0
+ 260              	 # ierat 13  @<BIOS_START>
+ 261 0498 3800000D 	      li        r0,0x000D        # entry #13
+ 262 049c 38800000 	      load32    r4,BIOS_START    # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+ 262      64840001 
+ 262      60840000 
+ 263 04a8 39000000 	      load32    r8,BIOS_START
+ 263      65080001 
+ 263      61080000 
+ 264 04b4 6108023F 	      ori       r8,r8,0x023F     # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   s
+ 265              	
+ 266 04b8 7D4011A6 	      eratwe    r10,r0,2
+ 267 04bc 7C8009A6 	      eratwe    r4,r0,1
+ 268 04c0 7D0001A6 	      eratwe    r8,r0,0
+ 269 04c4 4C00012C 	      isync
+ 270              	
+ 271 04c8 48000004 	      b         init_t0
+ 272              	
+ 273              	# -------------------------------------------------------------------------------------------------
+ 274              	# init
+ 275              	#
+ 276              	
+ 277              	# T0
+ 278              	
+ 279              	init_t0:
+ 280              	
+ 281              	# set up BIOS msr
+ 282              	
+ 283 04cc 39400000 	      load32    r10,BIOS_MSR
+ 283      654A8002 
+ 283      614AB000 
+ 284 04d8 7D400124 	      mtmsr     r10
+ 285 04dc 4C00012C 	      isync
+ 286              	# can't use load32 unless you can .set BIOS_STACK_0 to the linked value
+ 287              	#      load32    r1,BIOS_STACK_0  # @stack_0
+ 288              	# this ignores def
+ 289              	#      lis        r1,_stack_0@h
+ 290              	#      ori        r1,r1,_stack_0@l
+ 291              	# this requires data load
+ 292 04e0 80200000 	      lwz       r1,stack_0(r0)
+ 293              	
+ 294 04e4 48000020 	      b         boot_complete
+ 295              	
+ 296              	# except T0
+ 297              	
+ 298              	init_t123:
+ 299              	
+ 300              	# set up BIOS msr
+ 301              	
+ 302 04e8 39400000 	      load32    r10,BIOS_MSR
+ 302      654A8002 
+ 302      614AB000 
+ 303 04f4 7D400124 	      mtmsr     r10
+ 304 04f8 4C00012C 	      isync
+ 305              	      # check tir if more than 2 threads possible
+ 306 04fc 80200000 	      lwz       r1,stack_1(r0)
+ 307              	
+ 308 0500 48000004 	      b         boot_complete
+ 309              	
+ 310              	# -------------------------------------------------------------------------------------------------
+ 311              	boot_complete:
+ 312              	
+ 313              	# set up thread and hop to it
+ 314              	
+ 315 0504 3C600000 	      lis       r3,main@h
+ 316 0508 60630000 	      ori       r3,r3,main@l
+ 317 050c 7C6903A6 	      mtctr     r3
+ 318 0510 7C7E6AA6 	      mfspr     r3,tir           # who am i?
+ 319 0514 4E800421 	      bctrl
+ 320 0518 480002E4 	      b         kernel_return
+ 321              	
+ 322              	# -------------------------------------------------------------------------------------------------
+ 323              	
+ 324 051c 00000000 	.org 0x7FC
+ 324      00000000 
+ 324      00000000 
+ 324      00000000 
+ 324      00000000 
+ 325              	kernel_return:
+ 326 07fc 48000000 	      b         .
+ 327              	
+ 328              	# dec
+ 329              	.org 0x800
+ 330              	int_800:
+ 331 0800 48000000 	      b         .
+ 332              	
+ 333              	# perf
+ 334 0804 00000000 	.org 0x820
+ 334      00000000 
+ 334      00000000 
+ 334      00000000 
+ 334      00000000 
+ 335              	int_820:
+ 336 0820 48000000 	      b         .
+ 337              	
+ 338 0824 00000000 	.org 0x8F0
+ 338      00000000 
+ 338      00000000 
+ 338      00000000 
+ 338      00000000 
+ 339              	.section .rodata
+ 340 0000 00000000 	stack_0:        .long BIOS_STACK_0
+ 341 0004 00000000 	stack_1:        .long BIOS_STACK_1
