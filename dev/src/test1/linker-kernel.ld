@@ -2,7 +2,7 @@
 
 /* define format
 INCLUDE output_format.ld */
-OUTPUT_FORMAT("elf64-powerpc")
+OUTPUT_FORMAT("elf32-powerpc")
 
 ENTRY(_start)
 

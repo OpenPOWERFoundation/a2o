@@ -1,5 +1,6 @@
 # Updating build process - test1
 
+* 32b crosscompile
 * original test kernel with updates to use link symbols
 * still build kernel and test separately
 
