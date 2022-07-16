@@ -105,6 +105,18 @@ module tri_144x78_2r4w(
          mem[i] = 0;
    end
 
+   //wtf:icarus $dumpvars cannot dump a vpiMemory
+   generate
+       genvar j;
+       for (j = 0; j < 144; j=j+1) begin: loc
+          wire [64-`GPR_WIDTH:63] dat;
+          wire [0:7] par;
+          // 4b0
+          assign dat = mem[j][64-`GPR_WIDTH:63];
+          assign par = mem[j][64:63 + `GPR_WIDTH/8];
+       end
+   endgenerate
+
    assign r1a_d = r_addr_in_1;
    assign r2a_d = r_addr_in_2;
 
