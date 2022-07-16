@@ -121,7 +121,7 @@
 `define  LQ_REL_PIPE_START 2
 `define  LQ_REL_PIPE_END 4
 `define  LOAD_CREDITS   8
-`define  STORE_CREDITS 4
+`define  STORE_CREDITS 4         //wtf 32 is normal; fpga bug needed 4
 `define  IUQ_ENTRIES   4 		   // Instruction Fetch Queue Size
 `define  MMQ_ENTRIES   2 		   // MMU Queue Size
 `define  CR_WIDTH 4

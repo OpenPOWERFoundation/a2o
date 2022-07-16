@@ -2318,8 +2318,13 @@ tri_xor2 sq_cmdq_send_cnt_t1_one (sq_cmdq_send_cnt_one[1],  sq_cmdq_send_cnt[1][
       end
    endgenerate
 
+//wtf (THREADS1 is def'd)
+// iverilog sez: ../../verilog/work/iuq_dispatch.v:2322: warning: @* found no sensitivities so it will never trigger.
+// seems to be correct behavior - block won't be entered without a value change
+// make it initial, or a generate?
 `ifdef THREADS1
-   always @(*)
+   //always @(*)
+   initial
    begin: thread1_credit_proc
       fx0_credit_cnt_minus_1[1] = 1'b0;
       fx0_credit_cnt_minus_2[1] = 1'b0;

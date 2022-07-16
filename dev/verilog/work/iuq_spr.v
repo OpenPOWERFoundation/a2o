@@ -786,6 +786,7 @@ module iuq_spr(
                .dout(ppr32_l2[i])
             );
 
+            //wtf these need INITs DEFINE'd!!
             // hex 0A0A0E0A = 168431114
             tri_rlmreg_p #(.WIDTH(32), .INIT(168431114)) cpcr2_reg(
                .vd(vdd),
