@@ -11,6 +11,7 @@ import itertools
 from dotmap import DotMap
 
 from OPEnv import *
+from A2O import *
 from A2L2 import *
 
 # ------------------------------------------------------------------------------------------------
@@ -92,9 +93,17 @@ async def config(dut, sim):
    creditsLdMax = dut.c0.lq0.lsq.arb.ld_cred_max            # hdw check
    creditsSt = dut.c0.lq0.lsq.arb.store_cred_cnt_d          # 32 max
    creditsStMax = dut.c0.lq0.lsq.arb.st_cred_max            # hdw check
-   creditsLdStSingle = dut.c0.lq0.lsq.arb.spr_xucr0_cred_d.value   # 1 total credit
+   creditsLdStSingle = dut.c0.lq0.lsq.arb.spr_xucr0_cred_d  # 1 total credit
    #wtf this affects A2L2 - default=1
-   #creditsLdStSingle = dut.c0.lq0.lsq.arb.spr_lsucr0_b2b_q.value   # 0=crit first, every other 1=crit first, b2b **the a2l2 spec does not say crit must be first**
+   #  dut.c0.lq0.lsq.arb.spr_lsucr0_b2b_q   # 0=crit first, every other 1=crit first, b2b **the a2l2 spec does not say crit must be first**
+   lsucr0_d = dut.c0.lq0.ctl.spr.lq_spr_cspr.lsucr0_d
+   lsucr0_q = dut.c0.lq0.ctl.spr.lq_spr_cspr.lsucr0_q
+   cpcr2_d = dut.c0.iuq0.iuq_ifetch0.iuq_spr0.cpcr2_d
+   cpcr2_q = dut.c0.iuq0.iuq_ifetch0.iuq_spr0.cpcr2_l2
+   cpcr2_act = dut.c0.iuq0.iuq_ifetch0.iuq_spr0.cpcr2_wren
+   cpcr4_d = dut.c0.iuq0.iuq_ifetch0.iuq_spr0.cpcr4_d
+   cpcr4_q = dut.c0.iuq0.iuq_ifetch0.iuq_spr0.cpcr4_l2
+   cpcr4_act = dut.c0.iuq0.iuq_ifetch0.iuq_spr0.cpcr4_wren
 
    await RisingEdge(dut.clk_1x)
 
@@ -112,58 +121,41 @@ async def config(dut, sim):
       await RisingEdge(dut.clk_1x)
       creditsSt.value = Release()
 
-   if sim.config.core.creditsLdStSingle:
-      creditsLdStSingle = Force(1)
+   if sim.config.core.creditsLdStSingle is not None:
+      v = 1 if sim.config.core.creditsLdStSingle else 0
+      creditsLdStSingle.value = Force(v)
       sim.msg(f'A2L2: only one load OR store allowed when credits=1/1.')
       await RisingEdge(dut.clk_1x)
       creditsLdStSingle.value = Release()
 
-   await RisingEdge(dut.clk_1x)
-
-async def coreMonitor(dut, sim):
-   """Watch for core events. """
-
-   me = 'a2oMonitor'
-
-   # errors
-   creditsLdErr = dut.c0.lq0.lsq.arb.ld_cred_err_q
-   creditsStErr = dut.c0.lq0.lsq.arb.st_cred_err_q
-
-   # watches
-   iu0Comp = dut.c0.iu_lq_i0_completed
-   iu0CompIFAR = dut.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar
-   iu1Comp = dut.c0.iu_lq_i1_completed
-   iu1CompIFAR = dut.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar
-   iuCompFlushIFAR = dut.c0.cp_t0_flush_ifar
-   cp3NIA = dut.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp3_nia_q           # nia after last cycle's completions
-
-   # queue depths, etc.
-
-   errors = [
-      {'name': 'Load Credits', 'sig': creditsLdErr},
-      {'name': 'Store Credits', 'sig': creditsStErr},
-   ]
-
-   done = False
-
-   while not done:
-
+   #wtf make a function - needs mask,thread
+   if sim.config.core.lsDataForward is not None:
+      v = 1 if sim.config.core.lsDataForward else 0
+      sim.msg(f'LSUCR0 = {hex(lsucr0_q.value), 8}')
+      sim.msg(f'Setting LSUCR0[DFWD] = {v}.')
+      v = v << 2
+      v = (lsucr0_q.value.integer & ~0x4) | v
+      lsucr0_d.value = Force(v)
       await RisingEdge(dut.clk_1x)
+      lsucr0_d.value = Release()
+      sim.msg(f'LSUCR0 = {hex(lsucr0_q.value), 8}')
 
-      for i in range(len(errors)):
-          assert errors[i]['sig'].value == 0, f'{me} Error: {errors[i]["name"]}'
+   if sim.config.core.cpcr4_sq_cnt is not None:
+      v = sim.config.core.cpcr4_sq_cnt
+      sim.msg(f'CPCR4 = {hex(cpcr4_q[0], 8)}')
+      sim.msg(f'Setting CPCR4[SQ_CNT] = {v}.')
+      v = v << 0
+      v = (cpcr4_q[0].value.integer & ~0x1F) | v
+      await RisingEdge(dut.clk_1x)  # need cuz of act?
+      cpcr4_d[0].value = Force(v)
+      cpcr4_act.value = Force(1)
+      await RisingEdge(dut.clk_1x)
+      await RisingEdge(dut.clk_1x)  # need cuz of act?
+      cpcr4_d[0].value = Release()
+      cpcr4_act.value = Release()
+      sim.msg(f'CPCR4 = {hex(cpcr4_q[0], 8)}')
 
-      comp = ''
-      if iu0Comp.value == 1:
-         comp = f'0:{int(iu0CompIFAR.value.binstr + "00", 2):06X} '
-
-      if iu1Comp.value == 1:
-         comp = f'{comp}1:{int(iu1CompIFAR.value.binstr + "00", 2):06X} '
-
-      if comp != '':
-         comp = f'{comp}{int(iuCompFlushIFAR.value.binstr + "00", 2):016X}'
-         sim.msg(f'C0: CP {comp}')
-
+   await RisingEdge(dut.clk_1x)
 
 # trilib/tri.vh:`define  NCLK_WIDTH  6   // 0  1xClk, 1  Reset, 2  2xClk, 3  4xClk,  4  Even .5xClk,  5 Odd .5xClk
 async def genReset(dut, sim):
@@ -183,6 +175,7 @@ async def genReset(dut, sim):
          dut._log.info(f'[{sim.cycle:08d}] Releasing reset.')
          dut.nclk[1].value = 0
          done = True
+         sim.resetDone = True
 
 async def genClocks(dut, sim):
    """Generate 1x, 2x, 4x clock pulses, depending on parms. """
@@ -237,15 +230,22 @@ async def tb(dut):
 
    sim = Sim(dut)
    sim.mem = Memory(sim)
-   sim.maxCycles = 2000
+   sim.maxCycles = 9000
+   # original fpga design needed 4 cred, no fwd (set in logic currently)
+   #sim.config.core.creditsSt = 32
+   #sim.config.core.lsDataForward = 0   # disable=1
+   #sim.config.core.cpcr4_sq_cnt = 0     # default=6
 
    '''
+   # rom
    sim.memFiles = ['../mem/boot.bin.hex'] #wtf cmdline parm
 
    for i in range(len(sim.memFiles)):  #wtf el should be object with name, format, etc.
       sim.mem.loadFile(sim.memFiles[i])
    '''
 
+   '''
+   # rom+test; should end at 700
    sim.memFiles = [
       {
       'addr': 0x00000000,
@@ -255,7 +255,26 @@ async def tb(dut):
       'addr': 0x10000000,
       'file' : '../mem/test1/test.init'
       }
-      ]
+   ]
+   '''
+   '''
+   # rom+bios; should end at 7FC
+   sim.memFiles = [
+      {
+      'addr': 0x00000000,
+      'file' : '../mem/test2/rom.init'
+      }
+   ]
+   '''
+
+
+   # rom+bios+arcitst
+   sim.memFiles = [
+      {
+      'addr': 0x00000000,
+      'file' : '../mem/test3/rom.init'
+      }
+   ]
 
    for i in range(len(sim.memFiles)):  #wtf el should be object with name, format, etc.
       sim.mem.loadFile(sim.memFiles[i]['file'], addr=sim.memFiles[i]['addr'])
@@ -274,10 +293,12 @@ async def tb(dut):
    # start interfaces
    await cocotb.start(scom(dut, sim))
 
-   #wtf don't have to instantiate A2L2 first?
-   #await cocotb.start(A2L2Driver(dut, sim))
-   #await cocotb.start(A2L2Checker(dut, sim))
-   #await cocotb.start(A2L2Monitor(dut, sim))
+   sim.a2o = A2OCore(sim)
+   sim.a2o.traceFacUpdates =  True
+   await cocotb.start(A2O.driver(dut, sim))
+   await cocotb.start(A2O.checker(dut, sim))
+   await cocotb.start(A2O.monitor(dut, sim))
+
    await cocotb.start(A2L2.driver(dut, sim))
    await cocotb.start(A2L2.checker(dut, sim))
    await cocotb.start(A2L2.monitor(dut, sim))
@@ -291,7 +312,7 @@ async def tb(dut):
    await config(dut, sim)
 
    # monitor stuff
-   await cocotb.start(coreMonitor(dut, sim))
+   #await cocotb.start(coreMonitor(dut, sim))
 
    # release thread(s)
    dut.an_ac_pm_thread_stop.value = 0

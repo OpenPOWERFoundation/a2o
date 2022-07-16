@@ -9,6 +9,8 @@ from cocotb.handle import Release
 from dotmap import DotMap
 import itertools
 
+from OPEnv import *
+
 # ------------------------------------------------------------------------------------------------
 # Classes
 
@@ -100,7 +102,8 @@ class A2L2Trans(DotMap):
       if self.load:
          self.addr = self.addr & 0xFFFFFFF0
       elif self.store:
-         self.addr = self.addr & 0xFFFFFFE0
+         #self.addr = self.addr & 0xFFFFFFE0 #wtf definitely 16B-aligned occurring
+         self.addr = self.addr & 0xFFFFFFF0
          if self.be == None or self.data == None:
             raise Exception('A2L2Trans: store must have BE and data')
          else:
@@ -195,16 +198,6 @@ class A2L2Trans(DotMap):
 
       else:
             raise Exception(f'A2L2Trans: unsupported store len={self.len}')
-
-
-# ------------------------------------------------------------------------------------------------
-# Functions
-
-def hex(n, pad=0):
-   if pad:
-      return f'000000000000000000000000{n.value.hex()[2:].upper()}'[-pad:]
-   else:
-      return n.value.hex()[2:].upper()
 
 # ------------------------------------------------------------------------------------------------
 # Tasks

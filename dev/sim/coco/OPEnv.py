@@ -18,6 +18,8 @@ class Sim(DotMap):
    def __init__(self, dut, cfg=None):
       super().__init__()
       self.dut = dut
+      self.resetDone = False
+
       # defaults
       self.memFiles = ['../mem/boot_ieq1.bin.hex'] #wtf cmdline parm
       self.threads = None
@@ -30,10 +32,13 @@ class Sim(DotMap):
       self.maxCycles = 500
       self.memFiles = None
       self.config = DotMap()
+      # these should be in a2 core class
       self.config.core = DotMap({
          'creditsLd': None,
          'creditsSt': None,
-         'creditsLdStSingle': False
+         'creditsLdStSingle': None,
+         'lsDataForward' : None,
+         'cpcr4_sq_cnt' : None
       })
       self.config.a2l2 = DotMap({
          'badAddr': [('E0','E0', 'IRW')]
@@ -55,6 +60,25 @@ class Sim(DotMap):
          except:
             self.threads = 1
          self.msg(f'Set threads={self.threads}.')
+
+   # helpers
+   # wtf: assertFail doesn't work??#@#!!
+   def safeint(self, v, n=10, assertFail=True, rc=False):
+      try:
+         res = int(v, n)
+         ok = True
+      except:
+         self.ok = False
+         self.fail = f'Bad integer conversion: {v},{n}'
+         if assertFail:
+            assert(False, self.fail)
+         res = 0
+         ok = False
+      if rc:
+         return (ok, res)
+      else:
+         return res
+
 
 class TransQ(DotMap):
    def __init__(self):
@@ -115,3 +139,12 @@ class Memory(DotMap):
          else:
             self.sim.msg(f'Mem Update: @{addr:08X} {self.data[addr]:08X}->{data:08X}')
       self.data[addr] = data
+
+# ------------------------------------------------------------------------------------------------
+# Functions
+
+def hex(n, pad=0):
+   if pad:
+      return f'000000000000000000000000{n.value.hex()[2:].upper()}'[-pad:]
+   else:
+      return n.value.hex()[2:].upper()
