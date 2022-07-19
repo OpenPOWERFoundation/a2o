@@ -44,6 +44,8 @@ build: clean sim fst
 
 run: sim fst
 
+vcd: sim
+
 fst:
 	vcd2fst wtf-coco.vcd wtf-coco.fst
 	rm wtf-coco.vcd

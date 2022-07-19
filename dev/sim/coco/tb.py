@@ -209,6 +209,7 @@ async def genClocks(dut, sim):
    dut._log.info(f'[{sim.cycle:08d}] Reached max cycle.  Clocks stopped.')
    sim.ok = False
    sim.fail = 'Max cycle reached.'
+   # or raise SimTimeoutError
 
 # ------------------------------------------------------------------------------------------------
 # Interfaces
@@ -230,7 +231,7 @@ async def tb(dut):
 
    sim = Sim(dut)
    sim.mem = Memory(sim)
-   sim.maxCycles = 9000
+   sim.maxCycles = 20000
    # original fpga design needed 4 cred, no fwd (set in logic currently)
    #sim.config.core.creditsSt = 32
    #sim.config.core.lsDataForward = 0   # disable=1
@@ -295,6 +296,10 @@ async def tb(dut):
 
    sim.a2o = A2OCore(sim)
    sim.a2o.traceFacUpdates =  True
+   sim.a2o.stopOnLoop = 50
+   sim.a2o.iarPass = 0x7F0
+   sim.a2o.iarFail = 0x7F4
+
    await cocotb.start(A2O.driver(dut, sim))
    await cocotb.start(A2O.checker(dut, sim))
    await cocotb.start(A2O.monitor(dut, sim))
@@ -319,7 +324,7 @@ async def tb(dut):
    await RisingEdge(dut.clk_1x)
    dut._log.info(f'[{sim.cycle:08d}] Threads enabled.')
 
-   # should await sim.done
+   # what should this wait?  genClocks?
    await Timer((sim.maxCycles+100)*8, units='ns')
 
    if sim.ok:

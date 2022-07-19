@@ -1,0 +1,567 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Sat Jul 16 18:03:44 2022
+[*]
+[dumpfile] "/data/projects/a2o/dev/sim/coco/wtf-coco.fst"
+[dumpfile_mtime] "Sat Jul 16 17:51:42 2022"
+[dumpfile_size] 11830433
+[savefile] "/data/projects/a2o/dev/sim/coco/wtf.gtkw"
+[timestart] 3854800000
+[size] 3012 1626
+[pos] 701 279
+*-26.000000 4308700000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] cocotb_icarus.
+[treeopen] cocotb_icarus.c0.
+[treeopen] cocotb_icarus.c0.iuq0.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_ifetch0.iuq_spr0.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[0].
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[0].comp_map_latch.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[32].
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[32].comp_map_latch.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[35].
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[35].comp_map_latch.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpscr_rn_map.xhdl3.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpscr_rn_map.xhdl3.comp_map0[0].
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpscr_rn_map.xhdl3.comp_map0[0].comp_map_latch.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl1.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[0].
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.ctr_rn_map.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.ctr_rn_map.xhdl3.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.ctr_rn_map.xhdl3.comp_map0[0].
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.ctr_rn_map.xhdl3.comp_map0[0].comp_map_latch.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[0].
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[0].comp_map_latch.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[35].
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[35].comp_map_latch.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.xer_rn_map.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.xer_rn_map.xhdl3.
+[treeopen] cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.xer_rn_map.xhdl3.comp_map0[0].
+[treeopen] cocotb_icarus.c0.lq0.ctl.
+[treeopen] cocotb_icarus.c0.lq0.ctl.spr.lq_spr_cspr.
+[treeopen] cocotb_icarus.c0.lq0.lsq.
+[treeopen] cocotb_icarus.c0.lq0.lsq.stq.
+[treeopen] cocotb_icarus.c0.xu0.
+[treeopen] cocotb_icarus.c0.xu0.cr.
+[treeopen] cocotb_icarus.c0.xu0.cr.entry[0].
+[treeopen] cocotb_icarus.c0.xu0.ctr.
+[treeopen] cocotb_icarus.c0.xu0.gpr.
+[treeopen] cocotb_icarus.c0.xu0.gpr.gpr0.
+[treeopen] cocotb_icarus.c0.xu0.lr.
+[treeopen] cocotb_icarus.c0.xu0.xer.
+[treeopen] cocotb_icarus.c0.xu0.xer.entry[0].
+[sst_width] 466
+[signals_width] 895
+[sst_expanded] 1
+[sst_vpaned_height] 1113
+@800200
+-
+@28
++{reset} (1)cocotb_icarus.nclk[0:5]
+@1001200
+-group_end
+@800200
+-
+@28
++{clk1x} (0)cocotb_icarus.nclk[0:5]
+@1001200
+-group_end
+@800200
+-
+@28
++{clk2x} (2)cocotb_icarus.nclk[0:5]
+cocotb_icarus.c0.ac_an_checkstop[0:2]
+cocotb_icarus.c0.ac_an_livelock_active
+cocotb_icarus.c0.ac_an_local_checkstop[0:2]
+cocotb_icarus.c0.ac_an_machine_check
+cocotb_icarus.c0.ac_an_pm_thread_running
+cocotb_icarus.c0.ac_an_power_managed
+cocotb_icarus.c0.ac_an_rvwinkle_mode
+cocotb_icarus.c0.ac_an_recov_err[0:2]
+cocotb_icarus.c0.ac_an_trace_error
+@22
+cocotb_icarus.c0.lq0.ctl.spr.lq_spr_cspr.lsucr0_q[53:63]
+@28
+cocotb_icarus.c0.iuq0.iuq_ifetch0.iuq_spr0.cpcr4_wren
+@22
+cocotb_icarus.c0.iuq0.iuq_ifetch0.iuq_spr0.spr_t0_cpcr4_sq_cnt[0:4]
+cocotb_icarus.c0.iuq0.iuq_ifetch0.iuq_spr0.spr_t0_cpcr4_fx0_cnt[0:4]
+@1001200
+-group_end
+@c00200
+-A2L2 Req
+@8
+cocotb_icarus.ac_an_req
+cocotb_icarus.ac_an_req_endian
+cocotb_icarus.ac_an_req_ld_core_tag[0:4]
+cocotb_icarus.ac_an_req_ld_xfr_len[0:2]
+cocotb_icarus.ac_an_req_pwr_token
+cocotb_icarus.ac_an_req_ra[22:63]
+cocotb_icarus.ac_an_req_ttype[0:5]
+cocotb_icarus.ac_an_req_wimg_w
+cocotb_icarus.ac_an_req_wimg_i
+cocotb_icarus.ac_an_req_wimg_m
+cocotb_icarus.ac_an_req_wimg_g
+@1401200
+-A2L2 Req
+@c00200
+-A2L2 Rsp
+@8
+cocotb_icarus.an_ac_reld_data_coming
+cocotb_icarus.an_ac_reld_data_vld
+@24
+cocotb_icarus.an_ac_reld_qw[58:59]
+@8
+cocotb_icarus.an_ac_reld_crit_qw
+@2
+cocotb_icarus.an_ac_reld_data[0:127]
+@1401200
+-A2L2 Rsp
+@c00200
+-A2L2 Misc
+@8
+cocotb_icarus.ac_an_req_pwr_token
+cocotb_icarus.an_ac_req_ld_pop
+@4
+cocotb_icarus.c0.lq0.lsq.arb.load_cred_cnt_q[0:4]
+@8
+cocotb_icarus.an_ac_req_st_pop
+cocotb_icarus.an_ac_req_st_gather
+@4
+cocotb_icarus.c0.lq0.lsq.arb.store_cred_cnt_q[0:5]
+@8
+cocotb_icarus.an_ac_reservation_vld
+cocotb_icarus.an_ac_stcx_complete
+cocotb_icarus.an_ac_stcx_pass
+cocotb_icarus.an_ac_sync_ack
+cocotb_icarus.an_ac_icbi_ack
+@1401200
+-A2L2 Misc
+@22
+cocotb_icarus.c0.xu0.gpr.gpr0.loc[0].dat[0:63]
+cocotb_icarus.c0.xu0.gpr.gpr0.loc[1].dat[0:63]
+cocotb_icarus.c0.xu0.gpr.gpr0.loc[2].dat[0:63]
+cocotb_icarus.c0.xu0.gpr.gpr0.loc[3].dat[0:63]
+cocotb_icarus.c0.xu0.gpr.gpr0.loc[58].dat[0:63]
+cocotb_icarus.c0.xu0.gpr.gpr0.loc[59].dat[0:63]
+@800200
+-comp_map
+@22
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[0].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[1].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[2].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[3].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[4].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[5].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[6].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[7].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[8].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[9].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[10].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[11].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[12].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[13].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[14].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[15].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[16].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[17].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[18].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[19].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[20].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[21].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[22].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[23].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[24].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[25].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[26].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[27].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[28].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[29].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[30].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[31].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[32].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[33].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[34].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpr_rn_map.xhdl3.comp_map0[35].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.axu_rn0.fpscr_rn_map.xhdl3.comp_map0[0].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[0].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[1].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[2].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[3].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[4].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[5].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[6].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[7].comp_map_latch.dout[0:4]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.cr_rn_map.xhdl3.comp_map0[8].comp_map_latch.dout[0:4]
+@28
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.ctr_rn_map.xhdl3.comp_map0[0].comp_map_latch.dout[0:2]
+@24
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[0].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[1].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[2].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[3].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[4].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[5].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[6].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[7].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[8].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[9].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[10].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[11].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[12].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[13].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[14].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[15].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[16].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[17].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[18].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[19].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[20].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[21].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[22].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[23].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[24].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[25].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[26].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[27].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[28].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[29].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[30].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[31].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[32].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[33].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[34].comp_map_latch.dout[0:5]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.rn_top0.fx_rn0.gpr_rn_map.xhdl3.comp_map0[35].comp_map_latch.dout[0:5]
+@1000200
+-comp_map
+@800200
+-Pipe
+@2
+#{iu_xu_nia} (0)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (1)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (2)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (3)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (4)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (5)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (6)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (7)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (8)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (9)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (10)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (11)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (12)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (13)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (14)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (15)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (16)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (17)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (18)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (19)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (20)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (21)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (22)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (23)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (24)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (25)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (26)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (27)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (28)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (29)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (30)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (31)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (32)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (33)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (34)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (35)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (36)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (37)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (38)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (39)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (40)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (41)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (42)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (43)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (44)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (45)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (46)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (47)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (48)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (49)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (50)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (51)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (52)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (53)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (54)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (55)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (56)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (57)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (58)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (59)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (60)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] (61)cocotb_icarus.c0.iuq0.iu_xu_t0_nia[0:61] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+@28
+cocotb_icarus.c0.xu0.spr_msr_cm
+cocotb_icarus.c0.xu0.spr_msr_pr
+@22
+cocotb_icarus.c0.lq0.lsq.arb.load_cred_cnt_q[0:4]
+cocotb_icarus.c0.lq0.lsq.arb.ld_cred_max[0:4]
+@28
+cocotb_icarus.c0.lq0.lsq.arb.ld_cred_err_q
+cocotb_icarus.c0.lq0.lsq.arb.ld_req_noCreds
+@22
+cocotb_icarus.c0.lq0.lsq.arb.store_cred_cnt_q[0:5]
+cocotb_icarus.c0.lq0.lsq.arb.st_cred_max[0:5]
+@28
+cocotb_icarus.c0.lq0.lsq.arb.st_cred_err_q
+cocotb_icarus.c0.lq0.lsq.arb.st_req_noCreds
+cocotb_icarus.c0.iuq0.cp_rn_empty
+cocotb_icarus.c0.iuq0.cp_async_block
+cocotb_icarus.c0.iuq0.cp_dis_ivax
+cocotb_icarus.c0.iuq0.iu_xu_stop
+@22
+cocotb_icarus.c0.lq0.lsq.stq.stq_tag_available[0:11]
+@28
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.rn_cp_iu6_t0_i0_vld
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.rn_cp_iu6_t0_i1_vld
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.cp_rn_empty
+@22
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp0_executed[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_executed_q[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_compl_ready[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_n_flush_q[0:31]
+@28
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp2_flush_q
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp3_flush_q
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp4_flush_q
+@22
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_i0_ptr_q[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_i1_ptr_q[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp0_i0_ptr[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp0_i1_ptr[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_i0_ptr_q[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_i1_ptr_q[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp0_dispatched[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_dispatched_q[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp1_executed_q[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp_next_itag_q[0:6]
+@28
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.lq0_iu_execute_vld
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.lq0_execute_vld_q
+@22
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.lq0_instr_q[0:31]
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.lq0_itag_q[0:6]
+@28
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.lq1_execute_vld_q
+@22
+cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.lq1_itag_q[0:6]
+@28
+cocotb_icarus.c0.lq0.rv_lq_rv1_i0_vld
+@22
+cocotb_icarus.c0.lq0.rv_lq_rv1_i0_itag[0:6]
+@28
+cocotb_icarus.c0.lq0.rv_lq_rv1_i1_vld
+@22
+cocotb_icarus.c0.lq0.rv_lq_rv1_i1_itag[0:6]
+@28
+cocotb_icarus.c0.lq0.lsq.stq.rv_lq_rv1_i0_vld
+@22
+cocotb_icarus.c0.lq0.lsq.stq.rv_lq_rv1_i0_itag[0:6]
+@28
+cocotb_icarus.c0.lq0.lsq.stq.rv_lq_rv1_i1_vld
+@22
+cocotb_icarus.c0.lq0.lsq.stq.rv_lq_rv1_i1_itag[0:6]
+@28
+cocotb_icarus.c0.lq0.lsq.stq.rv1_i0_vld
+cocotb_icarus.c0.lq0.lsq.stq.rv1_i0_flushed
+cocotb_icarus.c0.lq0.lsq.stq.rv1_i1_vld
+cocotb_icarus.c0.lq0.lsq.stq.rv1_i1_flushed
+cocotb_icarus.c0.lq0.lsq.stq.ex0_i0_vld_q
+@22
+cocotb_icarus.c0.lq0.lsq.stq.ex0_i0_itag_q[0:6]
+@28
+cocotb_icarus.c0.lq0.lsq.stq.ex1_i0_vld_q
+@22
+cocotb_icarus.c0.lq0.lsq.stq.ex1_i0_itag_q[0:6]
+@28
+cocotb_icarus.c0.lq0.lsq.stq.ex0_i1_vld_q
+@22
+cocotb_icarus.c0.lq0.lsq.stq.ex0_i1_itag_q[0:6]
+@28
+cocotb_icarus.c0.lq0.lsq.stq.ex1_i1_vld_q
+@22
+cocotb_icarus.c0.lq0.lsq.stq.ex1_i1_itag_q[0:6]
+@28
+cocotb_icarus.c0.lq0.lsq.stq.ex2_streq_val
+cocotb_icarus.c0.lq0.lsq.stq.ex3_streq_val_q
+cocotb_icarus.c0.lq0.lsq.stq.ex4_streq_val
+cocotb_icarus.c0.lq0.lsq.stq.ex5_streq_val_q
+@22
+cocotb_icarus.c0.lq0.lsq.stq.stqe_ready_sent_q[0:12]
+cocotb_icarus.c0.lq0.lsq.stq.ex3_stq_data_val[0:12]
+cocotb_icarus.c0.lq0.lsq.stq.stq_wrt_i0_ptr[0:11]
+cocotb_icarus.c0.lq0.lsq.stq.stq_wrt_i1_ptr[0:11]
+cocotb_icarus.c0.lq0.lsq.stq.stq_tag_i0_upd_val[0:11]
+cocotb_icarus.c0.lq0.lsq.stq.stq_tag_i1_upd_val[0:11]
+cocotb_icarus.c0.lq0.lsq.stq.stq_tag_val_q[0:11]
+@28
+cocotb_icarus.c0.lq0.lsq.stq.stq_empty
+cocotb_icarus.c0.iuq0.iuq_slice_top0.dispatch.sq_cmdq_credit_cnt_minus_1[0:1]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.dispatch.last_thread_l2
+@c00200
+-IBuf
+@2
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_valid_q[0:15]
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_head_q[0:15]
+@4008
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[0].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[1].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[2].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[3].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[4].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[5].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[6].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[7].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[8].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[9].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[10].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[11].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[12].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[13].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[14].q[0:109]
+^>2 /data/projects/a2o/dev/sim/gtkwave/gtkf-ibuf.py
+cocotb_icarus.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.ibuf[15].q[0:109]
+@1401200
+-IBuf
+@4002
+[color] 4
+^>3 /data/projects/a2o/dev/sim/gtkwave/gtkf-ppc.py
+cocotb_icarus.c0.iu_rv_iu6_t0_i0_instr[0:31]
+[color] 4
+^>3 /data/projects/a2o/dev/sim/gtkwave/gtkf-ppc.py
+cocotb_icarus.c0.iu_rv_iu6_t0_i1_instr[0:31]
+@4008
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{iu6_i0_itag_dispatched} cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i0_dispatched_d cocotb_icarus.an_ac_sg_8 (0)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i0_itag[1:6] (1)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i0_itag[1:6] (2)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i0_itag[1:6] (3)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i0_itag[1:6] (4)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i0_itag[1:6] (5)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i0_itag[1:6]
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{iu6_i1_itag_dispatched} cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i1_dispatched_d cocotb_icarus.an_ac_sg_8 (0)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i1_itag[1:6] (1)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i1_itag[1:6] (2)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i1_itag[1:6] (3)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i1_itag[1:6] (4)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i1_itag[1:6] (5)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.rn_cp_iu6_i1_itag[1:6]
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{iu6_i0_itag_dispatched} cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i0_dispatched_q cocotb_icarus.an_ac_sg_8 (0)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i0_itag_q[1:6] (1)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i0_itag_q[1:6] (2)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i0_itag_q[1:6] (3)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i0_itag_q[1:6] (4)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i0_itag_q[1:6] (5)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i0_itag_q[1:6]
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{iu6_i1_itag_dispatched} cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i1_dispatched_q cocotb_icarus.an_ac_sg_8 (0)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i1_itag_q[1:6] (1)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i1_itag_q[1:6] (2)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i1_itag_q[1:6] (3)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i1_itag_q[1:6] (4)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i1_itag_q[1:6] (5)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.iu6_i1_itag_q[1:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx0_ex0_s1} cocotb_icarus.c0.rv_fx0_ex0_s1_v (0)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx0_ex0_s2} cocotb_icarus.c0.rv_fx0_ex0_s2_v (0)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx0_ex0_s3} cocotb_icarus.c0.rv_fx0_ex0_s3_v (0)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx1_ex0_s1} cocotb_icarus.c0.rv_fx1_ex0_s1_v (0)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx1_ex0_s2} (0)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx1_ex0_s3} (0)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx0_ex0_s1} cocotb_icarus.c0.rv_fx0_ex0_s1_v (0)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s1_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx0_ex0_s2} cocotb_icarus.c0.rv_fx0_ex0_s2_v (0)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s2_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx0_ex0_s3} cocotb_icarus.c0.rv_fx0_ex0_s3_v (0)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx0_ex0_s3_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx1_ex0_s1} cocotb_icarus.c0.rv_fx1_ex0_s1_v (0)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s1_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx1_ex0_s2} (0)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s2_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{rv0_fx1_ex0_s3} (0)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (1)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (2)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (3)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (4)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (5)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6] (6)cocotb_icarus.c0.rv0.rf_byp.fx1_ex0_s3_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{fx0_ex1} (0)cocotb_icarus.c0.xu0.xu0.dec.ex1_itag_q[0:6] (1)cocotb_icarus.c0.xu0.xu0.dec.ex1_itag_q[0:6] (2)cocotb_icarus.c0.xu0.xu0.dec.ex1_itag_q[0:6] (3)cocotb_icarus.c0.xu0.xu0.dec.ex1_itag_q[0:6] (4)cocotb_icarus.c0.xu0.xu0.dec.ex1_itag_q[0:6] (5)cocotb_icarus.c0.xu0.xu0.dec.ex1_itag_q[0:6] (6)cocotb_icarus.c0.xu0.xu0.dec.ex1_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{fx1_ex1} (0)cocotb_icarus.c0.xu0.xu1.dec.ex1_itag_q[0:6] (1)cocotb_icarus.c0.xu0.xu1.dec.ex1_itag_q[0:6] (2)cocotb_icarus.c0.xu0.xu1.dec.ex1_itag_q[0:6] (3)cocotb_icarus.c0.xu0.xu1.dec.ex1_itag_q[0:6] (4)cocotb_icarus.c0.xu0.xu1.dec.ex1_itag_q[0:6] (5)cocotb_icarus.c0.xu0.xu1.dec.ex1_itag_q[0:6] (6)cocotb_icarus.c0.xu0.xu1.dec.ex1_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{fx0_ex2} (0)cocotb_icarus.c0.xu0.xu0.dec.ex2_itag_q[0:6] (1)cocotb_icarus.c0.xu0.xu0.dec.ex2_itag_q[0:6] (2)cocotb_icarus.c0.xu0.xu0.dec.ex2_itag_q[0:6] (3)cocotb_icarus.c0.xu0.xu0.dec.ex2_itag_q[0:6] (4)cocotb_icarus.c0.xu0.xu0.dec.ex2_itag_q[0:6] (5)cocotb_icarus.c0.xu0.xu0.dec.ex2_itag_q[0:6] (6)cocotb_icarus.c0.xu0.xu0.dec.ex2_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{fx1_ex2} (0)cocotb_icarus.c0.xu0.xu1.dec.ex2_itag_q[0:6] (1)cocotb_icarus.c0.xu0.xu1.dec.ex2_itag_q[0:6] (2)cocotb_icarus.c0.xu0.xu1.dec.ex2_itag_q[0:6] (3)cocotb_icarus.c0.xu0.xu1.dec.ex2_itag_q[0:6] (4)cocotb_icarus.c0.xu0.xu1.dec.ex2_itag_q[0:6] (5)cocotb_icarus.c0.xu0.xu1.dec.ex2_itag_q[0:6] (6)cocotb_icarus.c0.xu0.xu1.dec.ex2_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{fx0_ex3} (0)cocotb_icarus.c0.xu0.xu0.dec.ex3_itag_q[0:6] (1)cocotb_icarus.c0.xu0.xu0.dec.ex3_itag_q[0:6] (2)cocotb_icarus.c0.xu0.xu0.dec.ex3_itag_q[0:6] (3)cocotb_icarus.c0.xu0.xu0.dec.ex3_itag_q[0:6] (4)cocotb_icarus.c0.xu0.xu0.dec.ex3_itag_q[0:6] (5)cocotb_icarus.c0.xu0.xu0.dec.ex3_itag_q[0:6] (6)cocotb_icarus.c0.xu0.xu0.dec.ex3_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{fx1_ex3} (0)cocotb_icarus.c0.xu0.xu1.dec.ex3_itag_q[0:6] (1)cocotb_icarus.c0.xu0.xu1.dec.ex3_itag_q[0:6] (2)cocotb_icarus.c0.xu0.xu1.dec.ex3_itag_q[0:6] (3)cocotb_icarus.c0.xu0.xu1.dec.ex3_itag_q[0:6] (4)cocotb_icarus.c0.xu0.xu1.dec.ex3_itag_q[0:6] (5)cocotb_icarus.c0.xu0.xu1.dec.ex3_itag_q[0:6] (6)cocotb_icarus.c0.xu0.xu1.dec.ex3_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{fx0_ex4} (0)cocotb_icarus.c0.xu0.xu0.dec.ex4_itag_q[0:6] (1)cocotb_icarus.c0.xu0.xu0.dec.ex4_itag_q[0:6] (2)cocotb_icarus.c0.xu0.xu0.dec.ex4_itag_q[0:6] (3)cocotb_icarus.c0.xu0.xu0.dec.ex4_itag_q[0:6] (4)cocotb_icarus.c0.xu0.xu0.dec.ex4_itag_q[0:6] (5)cocotb_icarus.c0.xu0.xu0.dec.ex4_itag_q[0:6] (6)cocotb_icarus.c0.xu0.xu0.dec.ex4_itag_q[0:6]
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{br_ex0_bta} cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{br_ex1_bta} cocotb_icarus.c0.xu0.xu0.br.ex1_bta_val_q (0)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (1)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (2)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (3)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (4)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (5)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (6)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (7)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (8)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (9)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (10)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (11)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (12)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (13)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (14)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (15)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (16)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (17)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (18)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] (19)cocotb_icarus.c0.xu0.xu0.br.ex1_pred_bta_q[42:61] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{br_ex2_bta} cocotb_icarus.c0.xu0.xu0.br.ex2_bta_val_q (0)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (1)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (2)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (3)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (4)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (5)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (6)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (7)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (8)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (9)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (10)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (11)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (12)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (13)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (14)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (15)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (16)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (17)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (18)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] (19)cocotb_icarus.c0.xu0.xu0.br.ex2_pred_bta_q[42:61] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+[color] 5
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{br_ex3_bta} cocotb_icarus.c0.xu0.xu0.br.ex3_bta_val_q (0)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (1)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (2)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (3)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (4)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (5)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (6)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (7)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (8)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (9)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (10)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (11)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (12)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (13)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (14)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (15)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (16)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (17)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (18)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] (19)cocotb_icarus.c0.xu0.xu0.br.ex3_pred_bta_q[42:61] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{cp2 i0_completed_itag} cocotb_icarus.c0.iu_lq_i0_completed (0)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (1)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (2)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (3)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (4)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (5)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (6)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6]
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{cp2 i1_completed_itag} cocotb_icarus.c0.iu_lq_i1_completed (0)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (1)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (2)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (3)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (4)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (5)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (6)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6]
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{cp2 i0_completed_ifar} cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp2_i0_complete_q (0)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (1)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (2)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (3)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (4)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (5)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (6)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (7)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (8)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (9)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (10)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (11)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (12)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (13)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (14)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (15)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (16)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (17)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (18)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (19)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{cp2 i1_completed_ifar} cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp2_i1_complete_q (0)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (1)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (2)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (3)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (4)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (5)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (6)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (7)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (8)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (9)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (10)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (11)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (12)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (13)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (14)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (15)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (16)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (17)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (18)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (19)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{cp2 i0_completed_itag/ifar} cocotb_icarus.c0.iu_lq_i0_completed cocotb_icarus.an_ac_sg_8 (0)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (1)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (2)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (3)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (4)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (5)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] (6)cocotb_icarus.c0.iu_lq_t0_i0_completed_itag[0:6] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8 (0)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (1)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (2)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (3)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (4)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (5)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (6)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (7)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (8)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (9)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (10)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (11)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (12)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (13)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (14)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (15)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (16)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (17)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (18)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] (19)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar[42:61] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+[color] 4
+^>4 /data/projects/a2o/dev/sim/gtkwave/gtkf-valid.py
+#{cp2 i1_completed_itag/ifar} cocotb_icarus.c0.iu_lq_i1_completed cocotb_icarus.an_ac_sg_8 (0)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (1)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (2)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (3)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (4)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (5)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] (6)cocotb_icarus.c0.iu_lq_t0_i1_completed_itag[0:6] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8 (0)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (1)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (2)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (3)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (4)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (5)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (6)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (7)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (8)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (9)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (10)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (11)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (12)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (13)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (14)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (15)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (16)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (17)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (18)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] (19)cocotb_icarus.c0.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar[42:61] cocotb_icarus.an_ac_sg_8 cocotb_icarus.an_ac_sg_8
+@1000200
+-Pipe
+@800200
+-t0 SPR
+@4008
+^>1 /data/projects/a2o/dev/sim/gtkwave/gtkf-64R.py
+cocotb_icarus.c0.xu0.spr.threads.thread[0].xu_spr_tspr.srr0_do[0:64]
+^>1 /data/projects/a2o/dev/sim/gtkwave/gtkf-64R.py
+cocotb_icarus.c0.xu0.spr.threads.thread[0].xu_spr_tspr.srr1_do[0:64]
+@800200
+-XER SO/OV/CA/LEN
+@22
+cocotb_icarus.c0.xu0.xer.entry[0].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[1].reg_latch.dout[0:9]
+@23
+cocotb_icarus.c0.xu0.xer.entry[2].reg_latch.dout[0:9]
+@22
+cocotb_icarus.c0.xu0.xer.entry[3].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[4].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[5].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[6].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[7].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[8].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[9].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[10].reg_latch.dout[0:9]
+cocotb_icarus.c0.xu0.xer.entry[11].reg_latch.dout[0:9]
+@1000200
+-XER SO/OV/CA/LEN
+@800200
+-CR
+@22
+cocotb_icarus.c0.xu0.cr.entry[0].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[1].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[2].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[3].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[4].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[5].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[6].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[7].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[8].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[9].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[10].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[11].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[12].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[13].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[14].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[15].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[16].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[17].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[18].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[19].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[20].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[21].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[22].reg_latch.dout[0:3]
+cocotb_icarus.c0.xu0.cr.entry[23].reg_latch.dout[0:3]
+@1000200
+-CR
+-t0 SPR
+@10000008
+[transaction_args] ""
+^<1 /data/projects/a2o/dev/sim/gtkwave/gtkf-a2l2.py
+#{A2L2 Trans (Req)} cocotb_icarus.ac_an_req cocotb_icarus.ac_an_req_endian (0)cocotb_icarus.ac_an_req_ld_core_tag[0:4] (1)cocotb_icarus.ac_an_req_ld_core_tag[0:4] (2)cocotb_icarus.ac_an_req_ld_core_tag[0:4] (3)cocotb_icarus.ac_an_req_ld_core_tag[0:4] (4)cocotb_icarus.ac_an_req_ld_core_tag[0:4] (0)cocotb_icarus.ac_an_req_ld_xfr_len[0:2] (1)cocotb_icarus.ac_an_req_ld_xfr_len[0:2] (2)cocotb_icarus.ac_an_req_ld_xfr_len[0:2] cocotb_icarus.ac_an_req_pwr_token (0)cocotb_icarus.ac_an_req_ra[22:63] (1)cocotb_icarus.ac_an_req_ra[22:63] (2)cocotb_icarus.ac_an_req_ra[22:63] (3)cocotb_icarus.ac_an_req_ra[22:63] (4)cocotb_icarus.ac_an_req_ra[22:63] (5)cocotb_icarus.ac_an_req_ra[22:63] (6)cocotb_icarus.ac_an_req_ra[22:63] (7)cocotb_icarus.ac_an_req_ra[22:63] (8)cocotb_icarus.ac_an_req_ra[22:63] (9)cocotb_icarus.ac_an_req_ra[22:63] (10)cocotb_icarus.ac_an_req_ra[22:63] (11)cocotb_icarus.ac_an_req_ra[22:63] (12)cocotb_icarus.ac_an_req_ra[22:63] (13)cocotb_icarus.ac_an_req_ra[22:63] (14)cocotb_icarus.ac_an_req_ra[22:63] (15)cocotb_icarus.ac_an_req_ra[22:63] (16)cocotb_icarus.ac_an_req_ra[22:63] (17)cocotb_icarus.ac_an_req_ra[22:63] (18)cocotb_icarus.ac_an_req_ra[22:63] (19)cocotb_icarus.ac_an_req_ra[22:63] (20)cocotb_icarus.ac_an_req_ra[22:63] (21)cocotb_icarus.ac_an_req_ra[22:63] (22)cocotb_icarus.ac_an_req_ra[22:63] (23)cocotb_icarus.ac_an_req_ra[22:63] (24)cocotb_icarus.ac_an_req_ra[22:63] (25)cocotb_icarus.ac_an_req_ra[22:63] (26)cocotb_icarus.ac_an_req_ra[22:63] (27)cocotb_icarus.ac_an_req_ra[22:63] (28)cocotb_icarus.ac_an_req_ra[22:63] (29)cocotb_icarus.ac_an_req_ra[22:63] (30)cocotb_icarus.ac_an_req_ra[22:63] (31)cocotb_icarus.ac_an_req_ra[22:63] (32)cocotb_icarus.ac_an_req_ra[22:63] (33)cocotb_icarus.ac_an_req_ra[22:63] (34)cocotb_icarus.ac_an_req_ra[22:63] (35)cocotb_icarus.ac_an_req_ra[22:63] (36)cocotb_icarus.ac_an_req_ra[22:63] (37)cocotb_icarus.ac_an_req_ra[22:63] (38)cocotb_icarus.ac_an_req_ra[22:63] (39)cocotb_icarus.ac_an_req_ra[22:63] (40)cocotb_icarus.ac_an_req_ra[22:63] (41)cocotb_icarus.ac_an_req_ra[22:63] (0)cocotb_icarus.ac_an_req_ttype[0:5] (1)cocotb_icarus.ac_an_req_ttype[0:5] (2)cocotb_icarus.ac_an_req_ttype[0:5] (3)cocotb_icarus.ac_an_req_ttype[0:5] (4)cocotb_icarus.ac_an_req_ttype[0:5] (5)cocotb_icarus.ac_an_req_ttype[0:5] cocotb_icarus.ac_an_req_wimg_w cocotb_icarus.ac_an_req_wimg_i cocotb_icarus.ac_an_req_wimg_m cocotb_icarus.ac_an_req_wimg_g
+[pattern_trace] 1
+[pattern_trace] 0
