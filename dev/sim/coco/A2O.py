@@ -5,6 +5,7 @@ from cocotb.triggers import Timer, RisingEdge
 from cocotb.binary import BinaryValue
 from cocotb.handle import Force
 from cocotb.handle import Release
+from cocotb.result import TestSuccess
 
 from dotmap import DotMap
 import itertools
@@ -134,6 +135,11 @@ async def A2OMonitor(dut, sim):
    for i in range(8):
       lr.append(dut.c0.xu0.lr.entry[i].reg_latch.dout)
 
+   lastComp = ''
+   lastCompCount = 0
+   lastStack = ''
+   lastPrintf = ''
+
    while ok:
 
       await RisingEdge(dut.clk_1x)
@@ -141,9 +147,21 @@ async def A2OMonitor(dut, sim):
       if not sim.resetDone:
          continue
 
+      # allow registered callbacks to be called here
+      stack = sim.mem.dump(0x1FD00, 0x1FFFF, cols=8, trimLeadingZeros=True, trimTrailingZeros=True)
+      if stack != lastStack:
+         sim.msg('Stack:\n' + stack)
+         lastStack = stack
+
+      printf = sim.mem.dump(0x1C000, 0x1C1FF, cols=8, trimLeadingZeros=True, trimTrailingZeros=True)
+      if printf != lastPrintf:
+         sim.msg('Print buffer:\n' + printf)
+         lastPrintf = printf
+
       comp = ''
       #wtf seeing something weird here
       # there are cases where x's are in some bits of comp ifar's; maybe ok (predict array?) but why is completed indicated?
+
       if iu0Comp.value == 1:
          comp = f'0:{sim.safeint(iu0CompIFAR.value.binstr + "00", 2):06X} '
 
@@ -153,6 +171,30 @@ async def A2OMonitor(dut, sim):
       if comp != '':
          comp = f'{comp}{sim.safeint(iuCompFlushIFAR.value.binstr + "00", 2):016X}'
          sim.msg(f'C0: CP {comp}')
+
+         if sim.a2o.iarPass is not None:
+            if sim.safeint(iu0CompIFAR.value.binstr + "00", 2) == sim.a2o.iarPass:
+               sim.msg(f'Passing IAR detected: {sim.a2o.iarPass:08X}')
+               raise TestSuccess('Test passed.')
+
+         if sim.a2o.iarPass is not None:
+            if sim.safeint(iu0CompIFAR.value.binstr + "00", 2) == sim.a2o.iarPass:
+               sim.ok = False
+               sim.fail = 'Failing IAR detected'
+               assert False, sim.fail
+               break
+
+         if sim.a2o.stopOnLoop is not None and sim.a2o.stopOnLoop > 0:
+            if comp == lastComp:
+               lastCompCount += 1
+               if lastCompCount == sim.a2o.stopOnLoop:
+                  sim.ok = False
+                  sim.fail = 'Code hang detected'
+                  assert False, sim.fail
+                  break
+            else:
+               lastCompCount = 0
+               lastComp = comp
 
       if sim.a2o.traceFacUpdates:
          # renamables
@@ -183,6 +225,8 @@ async def A2OMonitor(dut, sim):
                sim.msg(f'LR Update:{hex(lr[arch], 16)}')
                lastLrCompMap[i] = arch
 
+   sim.msg(f'{me}: ended.')
+
 # ------------------------------------------------------------------------------------------------
 # Classes
 
@@ -199,3 +243,6 @@ class A2OCore(DotMap):
       super().__init__()
       self.sim = sim
       self.traceFacUpdates = False
+      self.stopOnLoop = 0
+      self.iarPass = None
+      self.iarFail = None
