@@ -47,7 +47,7 @@ SECTIONS
 	{
 		. = ALIGN(8);
 		_fdata = .;
-		*(.data .data.* .gnu.linkonce.d.*)
+		*(.data .data.* .sdata .gnu.linkonce.d.*)
 		FILL(0);
 		. = ALIGN(8);
 		_edata = .;
@@ -63,7 +63,7 @@ SECTIONS
 
 	.bss :
 	{
-		. = ALIGN(8);
+		. = 0x0000C000; /*relative to start of ram! ALIGN(16384*4);*/
 		_fbss = .;
 		*(.dynsbss)
 		*(.sbss .sbss.* .gnu.linkonce.sb.*)

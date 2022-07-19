@@ -3,6 +3,12 @@
 export COMMONFLAGS="-ffreestanding -fomit-frame-pointer -Wall -fno-stack-protector"
 export CFLAGS="$COMMONFLAGS -fexceptions -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes"
 
+#LITEXLIB=
+#PRINTF=
+LITEXLIB="libc.o vsnprintf.o console.o"
+# getting dtlb in vsnprintf
+PRINTF="-DPRINTF"
+
 # defines
 
 ## define vars to init rom with csr's it uses...
@@ -43,7 +49,7 @@ echo -n "Compiling..."
 
 echo -n "boot.s "
 #powerpc-linux-gnu-as -mbig-endian -ma2 -defsym INT_SC=1 -defsym INT_UNHANDLED=1 -I. boot.s -ahlnd -o crt0.o > crt0.lst
-powerpc-linux-gnu-as -mbig-endian -ma2 -defsym TST_END=1 -defsym INT_UNHANDLED=1 -I. boot.s -ahlnd -o crt0.o > crt0.lst
+powerpc-linux-gnu-as -mbig-endian -ma2 -defsym TST_END=1 -defsym INT_UNHANDLED=1 -defsym TST_PASSFAIL=1 -I. boot.s -ahlnd -o crt0.o > crt0.lst
 
 if [ $? -ne 0 ]; then
    exit
@@ -58,11 +64,14 @@ fi
 
 echo ""
 echo -n "bios.c "
-powerpc-linux-gnu-gcc -c -I. $CFLAGS bios.c
+powerpc-linux-gnu-gcc $PRINTF -c -I. $CFLAGS bios.c
+if [ $? -ne 0 ]; then
+   exit
+fi
 
 echo ""
 echo "Linking..."
-powerpc-linux-gnu-ld -nostdlib -nodefaultlibs -T linker.ld crt0.o bios.o arcitst.o -o rom
+powerpc-linux-gnu-ld -nostdlib -nodefaultlibs -T linker.ld crt0.o bios.o arcitst.o $LITEXLIB -o rom
 if [ $? -ne 0 ]; then
    exit
 fi

@@ -1,12 +1,16 @@
-#ifndef BIOS_H
+#ifndef _BIOS_H_
+#define _BIOS_H_
 
-#define BIOS_H
+// need address for linker constants!
+extern int _fdata_rom;
+extern int _edata_rom;
+extern int _fdata;
+extern int _fbss;
+extern int _ebss;
 
-extern int *_fdata_rom;
-extern int *_edata_rom;
-extern int *_fdata;
-extern int *_fbss;
-extern int *_ebss;
+// printf to mem
+void putchar_handler(char c);
+
 
 void int_sc(int code, int srr0);
 void int_unhandled(void);

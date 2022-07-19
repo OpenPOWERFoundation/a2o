@@ -159,9 +159,9 @@ init_regs:
    lwz         r3,(init_r3-tst_inits)(r3)
 
 jmp2tst:
-   #rfi
+   rfi
    #rfid
-   ba 0x10000
+   #ba 0x10000
 
 tst_end:
    b           save_results
@@ -225,7 +225,7 @@ tst_cleanup:
    lis         r3,MAGIC@h
    ori         r3,r3,MAGIC@l
 
-   b           tst_done
+   bla         tst_done
 
 # -------------------------------------------------------------------------------------------------
 .align 5

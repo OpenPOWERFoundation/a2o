@@ -39,7 +39,8 @@
 .set BIOS_MSR,0x8002B000
 .endif
 
- # erat w2 (test)   # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wimge=52:56 vf=57 ux/sx=58:59 uw/sw=60:61 ur/sr=62:63
+#wtf this should to be done in bios based on the tst
+# erat w2 (test)   # word 2 wlc=40:41 rsvd=42 u=44:47 r=48 c=49 wimge=52:56 vf=57 ux/sx=58:59 uw/sw=60:61 ur/sr=62:63
 .ifdef BIOS_LE
 .set BIOS_ERATW2,0x000000BF
 .else
@@ -55,6 +56,7 @@
 .set BIOS_STACK_1,_stack_1
 .endif
 
+#wtf get rid of this and just make the low 1G a single erat entry - it can be fixed up by bios later
 .ifndef BIOS_START
 .set BIOS_START,0x00010000
 .endif
@@ -69,7 +71,8 @@ int_000:
       b         boot_start
 
 .ifdef TST_END
-      b         tst_end
+# tst ends with ba here, which switches to priv and jumps to tst_end
+      sc
 .endif
 
 # critical input
@@ -119,6 +122,10 @@ int_100:
 # sc
 .org 0x120
 int_120:
+.ifdef TST_END
+# tst results haven't been saved yet; if want to call bios, need to save r1, then restore or set stack
+      b         tst_end
+.else
 .ifdef INT_SC
       # lev is in 20:26, but supposed to use scv now
       li        r3,0
@@ -129,6 +136,7 @@ int_120:
       b         int_unhandled
 .else
       b         .
+.endif
 .endif
 .endif
 
@@ -335,6 +343,19 @@ boot_complete:
       b         kernel_return
 
 # ------------------------------------------------------------------------------------------------------------------------------
+
+.ifdef TST_PASSFAIL
+.global tst_pass
+.global tst_fail
+
+.org 0x7F0
+tst_pass:
+      b         .
+
+.org 0x7F4
+tst_fail:
+      b         .
+.endif
 
 .org 0x7FC
 kernel_return:

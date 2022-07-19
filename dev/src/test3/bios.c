@@ -1,22 +1,57 @@
 #include <stdint.h>
+#include <stdio.h>
 
 #include "bios.h"
 
-// arci stuff1
+#ifdef PRINTF
+#include "liblitex.h"
+
+//static char printbuf[1000]; // make this a pointer with address a define
+//const char* printbuf = (char *)0x12000;
+#ifndef PRINTBUF
+#define PRINTBUF 0x0001C000
+#endif
+//static int printbuf_ptr = 0;
+static char *printbuf_ptr = (char *)PRINTBUF;
+void putchar_handler(char c) {
+   //printbuf[printbuf_ptr++] = c;
+   //*(printbuf + printbuf_ptr++) = c;
+   *printbuf_ptr++ = c;
+}
+#endif
+
+// arci stuff
+//void tst_done(unsigned int rc);
 void tst_done(unsigned int rc);
-unsigned int checkResult(unsigned int r, char* name);
-// shouldn't need any of these if i use the .o from bios build???
-//#include "generated/soc.h"
+
+// in kernel (for constant locs)
+extern void tst_pass(void);
+extern void tst_fail(int i);
+/*
+void tst_pass(void);
+void tst_fail(int i);
+
+void tst_fail(int i) {
+   while(1) {}
+}
+
+void tst_pass(void) {
+   while(1) {}
+}
+*/
+
+//inline unsigned int checkResult(unsigned int r) __attribute__((always_inline));
+unsigned int checkResult(unsigned int r);
+
 extern unsigned int tst_start;
 extern unsigned int tst_end;
 extern unsigned int tst_inits;
 extern unsigned int tst_results;
 extern unsigned int tst_expects;
 
-
 int main(int tid) {
    int *p;
-   int *fdata = _fdata;
+   int *fdata = &_fdata;
    unsigned int *inits = &tst_inits;
 
    if (tid != 0) {
@@ -26,13 +61,22 @@ int main(int tid) {
    // r/w memory init
 
    // copy
-   for (p = _fdata_rom; p < _edata_rom; p++){
+   for (p = &_fdata_rom; p < &_edata_rom; p++){
       *(fdata++) = *p;
    }
    // zero
-   for (p = _fbss; p < _ebss; p++) {
-      *_fbss = 0;
+   for (p = &_fbss; p < &_ebss; p++) {
+      *(p++) = 0;
    }
+
+#ifdef PRINTF
+   console_set_write_hook(putchar_handler);
+   putchar('w');
+   putchar('t');
+   putchar('f');
+   putchar('\n');
+   printf("main(%i)\n", tid);
+#endif
 
    // core init
    set_epcr(0x03000000);                        // icm=gicm=1
@@ -63,50 +107,58 @@ int main(int tid) {
    );
 
    while(1) {}
-
    return 0;
 }
 
 #define MAGIC 0x08675309
 
-//void  __attribute__((noreturn)) tst_done(unsigned int rc) {
+// r1 has been restored to where it was for 'b init_tst' above
 void tst_done(unsigned int rc) {
-   unsigned int i, ok = 1, done = 0;
-   /*
-   char c;
-   char name[10];
-   unsigned int r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15;
-   unsigned int cr, xer, ctr, lr, tar;
-   unsigned int op, *cia;
-   */
+   unsigned int i, ok = 1;
+   unsigned int act, exp;
 
    if (rc != MAGIC) {
-      ok = 0;
+      tst_fail(0x80000000);
    }
 
-   // ops
+   // check GPR & CR
+   for (i = 0; i < 32; i++) {
+      act = *(&tst_results + i);
+      exp = *(&tst_expects + i);
+      ok = ok && (act == exp);
+      if (!ok) {
+         tst_fail(i);
+      }
+   }
 
-   // cr, xer, ctr, lr, tar
-   ok = ok && checkResult(32, "CR");
-   ok = ok && checkResult(33, "XER");
-   ok = ok && checkResult(34, "CTR");
-   ok = ok && checkResult(35, "LR");
-   ok = ok && checkResult(36, "TAR");
+   // check XER - a2o not compliant right now (only so/ov/ca/len)
+   i = 33;
+   act = *(&tst_results + i);
+   exp = *(&tst_expects + i) & 0xE000007F;
+   ok = ok && (act == exp);
+   if (!ok) {
+      tst_fail(i);
+   }
+
+   // check CLT - skip tar, a2o doesn't have usermode sprg to use for save reg, so using tar
+   //for (i = 34; i < 37; i++) {
+   for (i = 34; i < 36; i++) {
+      act = *(&tst_results + i);
+      exp = *(&tst_expects + i);
+      ok = ok && (act == exp);
+      if (!ok) {
+         tst_fail(i);
+      }
+   }
+
+   // could get back to kernel
+   tst_pass();
+   while (1) {}
 }
 
-unsigned int checkResult(unsigned int r, char* name) {
-   unsigned int init, act, exp, ok = 1;
+// these are branched to!  but if fun, they assume r1 is stack!!!!
 
-   init = *(&tst_inits + r);
-   act = *(&tst_results + r);
-   exp = *(&tst_expects + r);
-
-   ok = act != exp;
-
-   return ok;
-}
-
-// these are branched to!
+// tst is ended with sc to return to priv mode; then save results
 void int_sc(int code, int srr0) {
    asm (
       "b    tst_end\n"
@@ -119,3 +171,4 @@ void int_sc(int code, int srr0) {
 void int_unhandled(void) {
    while(1) {}
 }
+
