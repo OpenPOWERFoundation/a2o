@@ -1,5 +1,7 @@
 # OP Environment
 
+import math
+
 import cocotb
 from cocotb.triggers import Timer
 from cocotb.handle import Force
@@ -84,6 +86,7 @@ class TransQ(DotMap):
    def __init__(self):
       super().__init__()
 
+# could allow registering callback for loads and/or stores in range
 class Memory(DotMap):
 
    def __init__(self, sim, default=0, logStores=True):
@@ -140,11 +143,77 @@ class Memory(DotMap):
             self.sim.msg(f'Mem Update: @{addr:08X} {self.data[addr]:08X}->{data:08X}')
       self.data[addr] = data
 
+   def dump(self, start, end, cols=4, ascii=True, trimLeadingZeros=False, trimTrailingZeros=False):
+      #wtf check for start>end and do in reverse
+      #wtf trimTrailingZeros
+
+      # word-align
+      wordstart = (start >> 2) << 2
+      wordend = (end >> 2) << 2
+      # column align (handles powers of 2)
+      c = int(math.log2(cols))
+      # address of column 0 of first line
+      linestart = (wordstart >> 2 >> c) << c << 2
+      # column of wordstart
+      colstart = (wordstart>>2) - (linestart>>2)
+      # word address
+      word = wordstart>>2
+
+      text = ''
+      row = ''
+      rowTransDict = {}
+      for i in range(32):
+         rowTransDict[i] = '.'
+
+      # first line may be unaligned by row
+      zeros = True
+      if colstart != 0:
+         textRow += f'{linestart:08X}: '
+         for i in range(colstart):
+            textRow += f'{"":8s} '
+            row += f'{"":8s} '
+         for i in range(colstart, cols):
+            v = f'{self.read(word<<2):08X}'
+            textRow += v + ' '
+            if v != '00000000':
+               zeros = False
+            row += v
+            word +=1
+         rowb = bytearray.fromhex(row)
+         rowb = rowb.decode('iso-8859-1').translate(rowTransDict)
+         textRow += ('   ' +  rowb) if ascii else ''
+         textRow += '\n'
+         if not trimLeadingZeros or not zeros:
+            text += textRow
+
+      lastword = wordend >> 2
+      while (word <= lastword):
+         textRow = f'{word<<2:08X}: '
+         row = ''
+         for j in range(cols):
+            v = f'{self.read(word<<2):08X}'
+            textRow += v + ' '
+            if v != '00000000':
+               zeros = False
+            row += v
+            word += 1
+            if (word > lastword):
+               break
+         rowb = bytearray.fromhex(row)
+         rowb = rowb.decode('iso-8859-1').translate(rowTransDict)
+         textRow += ('   ' + rowb) if ascii else ''
+         textRow += '\n'
+         if not trimLeadingZeros or not zeros:
+            text += textRow
+
+      return text
+
 # ------------------------------------------------------------------------------------------------
 # Functions
 
+# the zero char pad should be based on pad value; currently 64 max
 def hex(n, pad=0):
    if pad:
-      return f'000000000000000000000000{n.value.hex()[2:].upper()}'[-pad:]
+      return f'0000000000000000000000000000000000000000000000000000000000000000{n.value.hex()[2:].upper()}'[-pad:]
    else:
       return n.value.hex()[2:].upper()
