@@ -72,7 +72,7 @@ Cacheable Return Modes:
 class A2L2Trans(DotMap):
    '''A2L2 Transaction'''
    nextID = itertools.count()
-   def __init__(self, sim, tid, tt, tag=None, addr=None, length=0, wimg=0, cycD=None, be=None, data=None):
+   def __init__(self, sim, tid, tt, tag=None, addr=None, length=0, wimg=0, cycD=None, be=None, data=None, le=False):
       super().__init__()
       self.sim = sim
       self.id = next(A2L2Trans.nextID)
@@ -80,7 +80,16 @@ class A2L2Trans(DotMap):
       self.tt = tt
       self.tag = tag
       self.addr = addr
-      self.len = length
+      if length == 0 or length == 3:
+         raise Exception(f'A2L2Trans: bad length encode: {length}')
+      elif length == 5:
+         self.len = 8
+      elif length == 6:
+         self.len = 16
+      elif length == 7:
+         self.len = 32
+      else:
+         self.len = length
       self.wimg = wimg
       self.xfers = 1
       self.xferNum = 0
@@ -92,6 +101,7 @@ class A2L2Trans(DotMap):
          self.cycD = cycD
       self.be = f'{int(be, 16):032b}' if be is not None else None
       self.data = data
+      self.LE = le
       self.done = False
 
       self.ieq1 = wimg & 0x4 == 0x4
@@ -103,7 +113,7 @@ class A2L2Trans(DotMap):
          self.addr = self.addr & 0xFFFFFFF0
       elif self.store:
          #self.addr = self.addr & 0xFFFFFFE0 #wtf definitely 16B-aligned occurring
-         self.addr = self.addr & 0xFFFFFFF0
+         #self.addr = self.addr & 0xFFFFFFF0 # keep low bits for 1B and 2B stores
          if self.be == None or self.data == None:
             raise Exception('A2L2Trans: store must have BE and data')
          else:
@@ -147,54 +157,95 @@ class A2L2Trans(DotMap):
       return w0,w1,w2,w3,beatNum
 
    def doStore(self):
-      addr = ((self.addr + self.storeStart) >> 2) << 2
+      addr = (((self.addr & 0xFFFFFFF0) + self.storeStart) >> 2) << 2   # word-align
       dataStart = self.storeStart*2
       if self.len == 1:
          word = self.sim.mem.read(addr)
          byte = self.addr & 0x3
-         if byte == 0:
-            mask = 0xFFFFFF00
-         elif byte == 1:
-            mask = 0xFFFF00FF
-         elif byte == 2:
-            mask = 0xFF00FFFF
+         if self.LE:
+            if byte == 0:
+               mask = 0xFFFFFF00
+            elif byte == 1:
+               mask = 0xFFFF00FF
+            elif byte == 2:
+               mask = 0xFF00FFFF
+            else:
+               mask = 0x00FFFFFF
+            word = (word & mask) | (int(self.data[dataStart:dataStart+2], 16) << (byte*8))
          else:
-            mask = 0x00FFFFFF
-         word = (word & mask) | (int(self.data[dataStart:dataStart+2], 16) << (byte*2))
+            if byte == 0:
+               mask = 0x00FFFFFF
+            elif byte == 1:
+               mask = 0xFF00FFFF
+            elif byte == 2:
+               mask = 0xFFFF00FF
+            else:
+               mask = 0xFFFFFF00
+            print(word, mask, dataStart, byte)
+            word = (word & mask) | (int(self.data[dataStart:dataStart+2], 16) << ((3-byte)*8))
          self.sim.mem.write(addr, word)
+         print(addr,word)
+         #quit()
 
       elif self.len == 2:
          word = self.sim.mem.read(addr)
          hw = (self.addr & 0x2) >> 1
-         if hw == 0:
-            mask = 0xFFFF0000
+         if self.LE:
+            if hw == 0:
+               mask = 0xFFFF0000
+            else:
+               mask = 0x0000FFFF
+            word = (word & mask) | (int(self.data[dataStart:dataStart+4], 16) << (hw*16))
          else:
-            mask = 0x0000FFFF
-         word = (word & mask) | (int(self.data[dataStart:dataStart+4], 16) << (hw*4))
+            if hw == 0:
+               mask = 0x0000FFFF
+            else:
+               mask = 0xFFFF0000
+            word = (word & mask) | (int(self.data[dataStart:dataStart+4], 16) << ((1-hw)*16))
          self.sim.mem.write(addr, word)
 
       elif self.len == 4:
          self.sim.mem.write(addr, int(self.data[dataStart:dataStart+8], 16))
 
       elif self.len == 8:
-         self.sim.mem.write(addr, int(self.data[dataStart:dataStart+16], 16))
-         self.sim.mem.write(addr+4, int(self.data[dataStart+16:dataStart+32], 16))
+         if self.LE:
+            self.sim.mem.write(addr, int(self.data[dataStart:dataStart+16], 16))
+            self.sim.mem.write(addr+4, int(self.data[dataStart+16:dataStart+32], 16))
+         else:
+            self.sim.mem.write(addr+4, int(self.data[dataStart:dataStart+16], 16))
+            self.sim.mem.write(addr, int(self.data[dataStart+16:dataStart+32], 16))
 
       elif self.len == 16:
-         self.sim.mem.write(addr, int(self.data[0:8], 16))
-         self.sim.mem.write(addr+4, int(self.data[8:16], 16))
-         self.sim.mem.write(addr+8, int(self.data[16:24], 16))
-         self.sim.mem.write(addr+12, int(self.data[24:32], 16))
+         if self.LE:
+            self.sim.mem.write(addr, int(self.data[0:8], 16))
+            self.sim.mem.write(addr+4, int(self.data[8:16], 16))
+            self.sim.mem.write(addr+8, int(self.data[16:24], 16))
+            self.sim.mem.write(addr+12, int(self.data[24:32], 16))
+         else:
+            self.sim.mem.write(addr+12, int(self.data[0:8], 16))
+            self.sim.mem.write(addr+8, int(self.data[8:16], 16))
+            self.sim.mem.write(addr+4, int(self.data[16:24], 16))
+            self.sim.mem.write(addr, int(self.data[24:32], 16))
 
       elif self.len == 32:
-         self.sim.mem.write(addr, int(self.data[0:8], 16))
-         self.sim.mem.write(addr+4, int(self.data[8:16], 16))
-         self.sim.mem.write(addr+8, int(self.data[16:24], 16))
-         self.sim.mem.write(addr+12, int(self.data[24:32], 16))
-         self.sim.mem.write(addr+16, int(self.data[32:40], 16))
-         self.sim.mem.write(addr+20, int(self.data[40:48], 16))
-         self.sim.mem.write(addr+24, int(self.data[48:56], 16))
-         self.sim.mem.write(addr+28, int(self.data[56:64], 16))
+         if self.LE:
+            self.sim.mem.write(addr, int(self.data[0:8], 16))
+            self.sim.mem.write(addr+4, int(self.data[8:16], 16))
+            self.sim.mem.write(addr+8, int(self.data[16:24], 16))
+            self.sim.mem.write(addr+12, int(self.data[24:32], 16))
+            self.sim.mem.write(addr+16, int(self.data[32:40], 16))
+            self.sim.mem.write(addr+20, int(self.data[40:48], 16))
+            self.sim.mem.write(addr+24, int(self.data[48:56], 16))
+            self.sim.mem.write(addr+28, int(self.data[56:64], 16))
+         else:
+            self.sim.mem.write(addr+28, int(self.data[0:8], 16))
+            self.sim.mem.write(addr+24, int(self.data[8:16], 16))
+            self.sim.mem.write(addr+20, int(self.data[16:24], 16))
+            self.sim.mem.write(addr+16, int(self.data[24:32], 16))
+            self.sim.mem.write(addr+12, int(self.data[32:40], 16))
+            self.sim.mem.write(addr+8, int(self.data[40:48], 16))
+            self.sim.mem.write(addr+4, int(self.data[48:56], 16))
+            self.sim.mem.write(addr, int(self.data[56:64], 16))
 
       else:
             raise Exception(f'A2L2Trans: unsupported store len={self.len}')
@@ -293,14 +344,14 @@ async def A2L2Driver(dut, sim):
                reldCyc = sim.cycle + 6                   # const for now
             else:
                reldCyc = readPending[-1].cycD + 4        # worst-case const for now
-            trans = A2L2Trans(sim, tid, int(tt, 16), int(tag, 16), int(ra, 16), int(lenEnc, 16), wimg, reldCyc)
+            trans = A2L2Trans(sim, tid, int(tt, 16), int(tag, 16), int(ra, 16), int(lenEnc, 16), wimg, reldCyc, le=le)
             readPending.append(trans)
             sim.msg(f'T{tid} {transType} {ra} tag={tag} len={trans.len} {le}WIMG:{wimg:X} reld data:{trans.cycD}')
          elif transType == 'STORE':
             # should verify st_data_pwr_token prev cycle
             be = hex(dut.ac_an_st_byte_enbl, 8)
             data = hex(dut.ac_an_st_data, 64)
-            trans = A2L2Trans(sim, tid, int(tt, 16), int(tag, 16), int(ra, 16), int(lenEnc, 16), wimg, None, be=be, data=data)
+            trans = A2L2Trans(sim, tid, int(tt, 16), int(tag, 16), int(ra, 16), int(lenEnc, 16), wimg, None, be=be, data=data, le=le)
             sim.msg(f'T{tid} {transType} {ra} tag={tag} len={trans.len} be={be} data={data} {le}WIMG:{wimg:X}')
             trans.doStore()
             dut.an_ac_req_st_pop.value = 1   #wtf can randomize, etc.
