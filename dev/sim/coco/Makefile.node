@@ -1,0 +1,33 @@
+# a2o tb-node
+
+SIM_BUILD ?= build_node
+SIM ?= icarus
+
+# icarus
+VERILOG_ROOT = ../../verilog
+
+COMPILE_ARGS = -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib_clk1x -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/a2node
+
+# other options
+
+# rtl
+TOPLEVEL_LANG = verilog
+# top-level to enable trace, etc.
+VERILOG_SOURCES = ./cocotb_icarus_node.v
+TOPLEVEL = cocotb_icarus_node
+
+# python test
+MODULE = tb_node
+
+# cocotb make rules
+include $(shell cocotb-config --makefiles)/Makefile.sim
+
+build: clean sim fst
+
+run: sim fst
+
+vcd: sim
+
+fst:
+	vcd2fst a2onode.vcd a2onode.fst
+	rm a2onode.vcd

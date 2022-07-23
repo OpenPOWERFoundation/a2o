@@ -106,21 +106,56 @@ module a2owb (
 	 output                                                 ac_an_coretrace_first_valid,
 	 output							                             ac_an_coretrace_valid,
 	 output [0:1]						                          ac_an_coretrace_type,
+    input                                                  an_ac_flh2l2_gate,
+    input                                                  an_ac_reset_1_complete,
+    input                                                  an_ac_reset_2_complete,
+    input                                                  an_ac_reset_3_complete,
+    input                                                  an_ac_reset_wd_complete,
+    output                                                 an_ac_checkstop,
+    input  [0:`THREADS-1]                                  an_ac_external_mchk,
+    output                                                 ac_an_power_managed,
+    output                                                 ac_an_rvwinkle_mode,
 
-    output                                                 wb_i_stb,
-    output                                                 wb_i_cyc,
-    output [31:0]                                          wb_i_adr,
-    input                                                  wb_i_ack,
-    input  [31:0]                                          wb_i_datr,
-    output                                                 wb_d_stb,
-    output                                                 wb_d_cyc,
-    output [31:0]                                          wb_d_adr,
-    output                                                 wb_d_we,
-    output [3:0]                                           wb_d_sel,
-    output [31:0]                                          wb_d_datw,
-    input                                                  wb_d_ack,
-    input  [31:0]                                          wb_d_datr
+    // direct-attach mem
+    output [0:31]                                          mem_adr,
+    input  [0:127]                                         mem_dat,
+    output                                                 mem_wr_val,
+    output [0:15]                                          mem_wr_be,
+    output [0:127]                                         mem_wr_dat,
+
+    // wishbone
+    output                                                 wb_stb,
+    output                                                 wb_cyc,
+    output [31:0]                                          wb_adr,
+    output                                                 wb_we,
+    output [3:0]                                           wb_sel,
+    output [31:0]                                          wb_datw,
+    input                                                  wb_ack,
+    input  [31:0]                                          wb_datr
 );
+
+wire   [0:`THREADS-1]            an_ac_stcx_complete;
+wire   [0:`THREADS-1]            an_ac_stcx_pass;
+wire   [0:1]                     an_ac_icbi_ack_thread;
+wire   [64-`REAL_IFAR_WIDTH:63]  ac_an_req_ra;
+wire   [0:4]                     an_ac_back_inv_target;
+wire   [0:7]                     an_ac_back_inv_lpar_id;
+wire   [0:7]                     ac_an_lpar_id;
+wire   [0:4]                     an_ac_reld_core_tag;
+wire   [0:127]                   an_ac_reld_data;
+wire   [0:1]                     an_ac_reld_qw;
+wire   [64-`REAL_IFAR_WIDTH:63]  an_ac_back_inv_addr;
+wire   [0:5]                     ac_an_req_ttype;
+wire   [0:2]                     ac_an_req_thread;
+wire   [0:3]                     ac_an_req_user_defined;
+wire   [0:3]                     ac_an_req_spare_ctrl_a0;
+wire   [0:4]                     ac_an_req_ld_core_tag;
+wire   [0:2]                     ac_an_req_ld_xfr_len;
+wire   [0:31]                    ac_an_st_byte_enbl;
+wire   [0:255]                   ac_an_st_data;
+wire   [0:3]                     an_ac_req_spare_ctrl_a1;
+wire   [0:`THREADS-1]            an_ac_sync_ack;
+wire   [0:`THREADS-1]            an_ac_reservation_vld;
 
 c c0(
       .nclk(nclk),
@@ -188,7 +223,6 @@ c c0(
       .an_ac_external_mchk(an_ac_external_mchk),
 
       .ac_an_event_bus0(ac_an_event_bus0),
-      .ac_an_event_bus1(ac_an_event_bus1),
 
       .an_ac_reset_1_complete(an_ac_reset_1_complete),
       .an_ac_reset_2_complete(an_ac_reset_2_complete),
@@ -260,7 +294,7 @@ a2l2wb n0(
       .ac_an_req_thread(ac_an_req_thread),
       .ac_an_req_ld_core_tag(ac_an_req_ld_core_tag),
       .ac_an_req_ld_xfr_len(ac_an_req_ld_xfr_len),
-      .ac_an_st_data_pwr_token(ac_an_st_data_pwr_token)
+      .ac_an_st_data_pwr_token(ac_an_st_data_pwr_token),
       .ac_an_st_byte_enbl(ac_an_st_byte_enbl),
       .ac_an_st_data(ac_an_st_data),
       .ac_an_req_wimg_w(ac_an_req_wimg_w),
@@ -310,65 +344,73 @@ a2l2wb n0(
       .an_ac_req_st_pop(an_ac_req_st_pop),
       .an_ac_req_st_gather(an_ac_req_st_gather),
       .an_ac_sync_ack(an_ac_sync_ack),
-      .an_ac_pm_fetch_halt(an_ac_pm_fetch_halt),
+      //.an_ac_pm_fetch_halt(an_ac_pm_fetch_halt),
 
       // misc
-      .an_ac_flh2l2_gate(an_ac_flh2l2_gate),
-      .an_ac_reset_1_complete(an_ac_reset_1_complete),
-      .an_ac_reset_2_complete(an_ac_reset_2_complete),
-      .an_ac_reset_3_complete(an_ac_reset_3_complete),
-      .an_ac_reset_wd_complete(an_ac_reset_wd_complete),
-      .an_ac_sleep_en(an_ac_sleep_en),
-      .an_ac_ext_interrupt(an_ac_ext_interrupt),
-      .an_ac_crit_interrupt(an_ac_crit_interrupt),
-      .an_ac_perf_interrupt(an_ac_perf_interrupt),
-      .an_ac_hang_pulse(an_ac_hang_pulse),
-      .an_ac_tb_update_enable(an_ac_tb_update_enable),
-      .an_ac_tb_update_pulse(an_ac_tb_update_pulse),
-      .an_ac_chipid_dc(an_ac_chipid_dc),
-      .an_ac_coreid(an_ac_coreid),
-      .an_ac_debug_stop(an_ac_debug_stop),
-      .ac_an_debug_trigger(ac_an_debug_trigger),
-      .an_ac_uncond_dbg_event(an_ac_uncond_dbg_event),
+      //.an_ac_flh2l2_gate(an_ac_flh2l2_gate),
+      //.an_ac_reset_1_complete(an_ac_reset_1_complete),
+      //.an_ac_reset_2_complete(an_ac_reset_2_complete),
+      //.an_ac_reset_3_complete(an_ac_reset_3_complete),
+      //.an_ac_reset_wd_complete(an_ac_reset_wd_complete),
+      //.an_ac_sleep_en(an_ac_sleep_en),
+      //.an_ac_ext_interrupt(an_ac_ext_interrupt),
+      //.an_ac_crit_interrupt(an_ac_crit_interrupt),
+      //.an_ac_perf_interrupt(an_ac_perf_interrupt),
+      //.an_ac_hang_pulse(an_ac_hang_pulse),
+      //.an_ac_tb_update_enable(an_ac_tb_update_enable),
+      //.an_ac_tb_update_pulse(an_ac_tb_update_pulse),
+      //.an_ac_chipid_dc(an_ac_chipid_dc),
+      //.an_ac_coreid(an_ac_coreid),
+      //.an_ac_debug_stop(an_ac_debug_stop),
+      //.ac_an_debug_trigger(ac_an_debug_trigger),
+      //.an_ac_uncond_dbg_event(an_ac_uncond_dbg_event),
 
       // scom
-      .an_ac_scom_sat_id(an_ac_scom_sat_id),
-      .an_ac_scom_dch(an_ac_scom_dch),
-      .an_ac_scom_cch(an_ac_scom_cch),
-      .ac_an_scom_dch(ac_an_scom_dch),
-      .ac_an_scom_cch(ac_an_scom_cch),
+      //.an_ac_scom_sat_id(an_ac_scom_sat_id),
+      //.an_ac_scom_dch(an_ac_scom_dch),
+      //.an_ac_scom_cch(an_ac_scom_cch),
+      //.ac_an_scom_dch(ac_an_scom_dch),
+      //.ac_an_scom_cch(ac_an_scom_cch),
 
       // errors
-      .ac_an_special_attn(ac_an_special_attn),
-      .ac_an_checkstop(ac_an_checkstop),
-      .ac_an_local_checkstop(ac_an_local_checkstop),
-      .ac_an_recov_err(ac_an_recov_err),
-      .ac_an_trace_error(ac_an_trace_error),
-      .ac_an_livelock_active(ac_an_livelock_active),
+      //.ac_an_special_attn(ac_an_special_attn),
+      //.ac_an_checkstop(ac_an_checkstop),
+      //.ac_an_local_checkstop(ac_an_local_checkstop),
+      //.ac_an_recov_err(ac_an_recov_err),
+      //.ac_an_trace_error(ac_an_trace_error),
+      //.ac_an_livelock_active(ac_an_livelock_active),
       .an_ac_checkstop(an_ac_checkstop),
-      .an_ac_external_mchk(an_ac_external_mchk),
-      .ac_an_machine_check(ac_an_machine_check),
+      //.an_ac_external_mchk(an_ac_external_mchk),
+      //.ac_an_machine_check(ac_an_machine_check),
 
       // perfmon
-      .ac_an_event_bus0(ac_an_event_bus0),
-      .ac_an_event_bus1(ac_an_event_bus1),
+      //.ac_an_event_bus0(ac_an_event_bus0),
+      //.ac_an_event_bus1(ac_an_event_bus1),
 
       // power
-      .ac_an_pm_thread_running(ac_an_pm_thread_running),
-      .an_ac_pm_thread_stop(an_ac_pm_thread_stop),
-      .ac_an_power_managed(ac_an_power_managed),
-      .ac_an_rvwinkle_mode(ac_an_rvwinkle_mode),
-   );
+      //.ac_an_pm_thread_running(ac_an_pm_thread_running),
+      //.an_ac_pm_thread_stop(an_ac_pm_thread_stop),
+      //.ac_an_power_managed(ac_an_power_managed),
+      //.ac_an_rvwinkle_mode(ac_an_rvwinkle_mode)
+      // direct-attach mem
+      .mem_adr(mem_adr),
+      .mem_dat(mem_dat),
+      .mem_wr_be(mem_wr_be),
+      .mem_wr_val(mem_wr_val),
 
-initial begin
-  $dumpfile ("a2owb.vcd");
-  // you can do it by levels and also by module so could prune down
-  $dumpvars;
-  // need to explicitly specify arrays for icarus
-  // guess not: $dumpvars cannot dump a vpiMemory
-  //$dumpvars(0, c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q);
-  #1;
-end
+      .mem_wr_dat(mem_wr_dat),
+
+      // wishbone
+      .wb_stb(wb_stb),
+      .wb_cyc(wb_cyc),
+      .wb_adr(wb_adr),
+      .wb_we(wb_we),
+      .wb_ack(wb_ack),
+      .wb_sel(wb_sel),
+      .wb_datr(wb_datr),
+      .wb_datw(wb_datw)
+
+   );
 
 wire clk_1x, clk_2x, clk_4x, rst;
 
