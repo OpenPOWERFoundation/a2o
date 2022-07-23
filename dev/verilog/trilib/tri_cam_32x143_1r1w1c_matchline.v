@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -155,7 +155,6 @@ module tri_cam_32x143_1r1w1c_matchline(
                                 {addr_in[0:51], comp_pgsize[0:2], comp_class[0:1], comp_extclass[0:1], comp_state[0:1], comp_pid[0:7], comp_thdid[0:3]}));
 
    generate
-   begin
      if (NUM_PGSIZES == 8)
      begin : numpgsz8
        // tie off unused signals
@@ -466,6 +465,5 @@ module tri_cam_32x143_1r1w1c_matchline(
                     thdid_match &       //  ThdID compare
                     pid_match &         //  PID compare
                     entry_v;            //  Valid
-   end
    endgenerate
 endmodule

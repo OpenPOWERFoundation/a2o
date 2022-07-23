@@ -72,7 +72,6 @@ module tri_rlmreg_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lclkr
    // tri_rlmreg_p
 
    generate
-   begin
      wire                       sreset;
      wire [0:WIDTH-1]           int_din;
      reg [0:WIDTH-1]            int_dout;
@@ -131,6 +130,6 @@ module tri_rlmreg_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lclkr
 
      assign unused[0] = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | vd | gd | (|nclk);
      assign unused[1:WIDTH] = scin;
-   end
+
    endgenerate
 endmodule

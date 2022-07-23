@@ -233,7 +233,7 @@ wire [0:scan_right]                        sov;
 (* analysis_not_referenced="true" *)
 wire                                       unused;
 
-generate begin
+generate
   // Read/Write Port Address Generate
   assign ramb_rd_addr[11:15] = 5'b0;
   assign ramb_wr_addr[11:15] = 5'b0;
@@ -385,7 +385,6 @@ generate begin
   assign repr_scan_out = 1'b0;
   assign bo_pc_failout = 4'h0;
   assign bo_pc_diagloop = 4'h0;
-end
 endgenerate
 
 assign unused = |({
@@ -461,8 +460,8 @@ tri_rlmreg_p #(.WIDTH(ways), .INIT(0), .NEEDS_SRESET(1)) rd_act_reg(
    .dout(rd_act_q)
 );
 
-generate begin : wayReg
-  genvar way;
+generate
+  //genvar way;
   for (way=0; way<ways; way=way+1) begin : wayReg
     // ###############################################################
     // ## LCB
@@ -498,7 +497,6 @@ generate begin : wayReg
        .qb(data_out_b_q[(way*port_bitwidth):((way+1)*port_bitwidth)-1])
     );
   end
-end
 endgenerate
 
 assign siv[0:(2*port_bitwidth)-1]                 = {sov[1:(2*port_bitwidth)-1], func_scan_in[0]};

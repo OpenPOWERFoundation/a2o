@@ -196,7 +196,6 @@ module tri_64x72_1r1w(
    wire                                unused;
 
    generate
-   begin
      assign tidn = 72'b0;
      assign clk = nclk[0];
      assign clk2x = nclk[2];
@@ -312,6 +311,6 @@ module tri_64x72_1r1w(
      assign bo_pc_diagloop = 1'b0;
 
      assign unused = | ({nclk[3:`NCLK_WIDTH-1], sg_0, abst_sl_thold_0, ary_nsl_thold_0, time_sl_thold_0, repr_sl_thold_0, scan_dis_dc_b, scan_diag_dc, ccflush_dc, clkoff_dc_b, d_mode_dc, mpw1_dc_b, mpw2_dc_b, delay_lclkr_dc, abist_di, abist_bw_odd, abist_bw_even, abist_wr_adr, abist_rd0_adr, wr_abst_act, rd0_abst_act, tc_lbist_ary_wrt_thru_dc, abist_ena_1, abist_g8t_rd0_comp_ena, abist_raw_dc_b, obs0_abist_cmp, rd0_act, tidn, lcb_bolt_sl_thold_0, pc_bo_enable_2, pc_bo_reset, pc_bo_unload, pc_bo_repair, pc_bo_shdata, pc_bo_select, tri_lcb_mpw1_dc_b, tri_lcb_mpw2_dc_b, tri_lcb_delay_lclkr_dc, tri_lcb_clkoff_dc_b, tri_lcb_act_dis_dc});
-  end
+
   endgenerate
 endmodule
