@@ -181,11 +181,8 @@ class A2L2Trans(DotMap):
                mask = 0xFFFF00FF
             else:
                mask = 0xFFFFFF00
-            print(word, mask, dataStart, byte)
             word = (word & mask) | (int(self.data[dataStart:dataStart+2], 16) << ((3-byte)*8))
          self.sim.mem.write(addr, word)
-         print(addr,word)
-         #quit()
 
       elif self.len == 2:
          word = self.sim.mem.read(addr)
@@ -253,14 +250,14 @@ class A2L2Trans(DotMap):
 # ------------------------------------------------------------------------------------------------
 # Tasks
 
+transTypes = {
+   '00': 'IFETCH',
+   '08': 'LOAD',
+   '20': 'STORE'
+}
+
 async def A2L2Driver(dut, sim):
    """A2L2 node interface"""
-
-   transTypes = {
-      '00': 'IFETCH',
-      '08': 'LOAD',
-      '20': 'STORE'
-   }
 
    ok = True
    readPending = []
@@ -268,66 +265,66 @@ async def A2L2Driver(dut, sim):
    mem = {}
    sim.msg('A2L2 Driver: started.')
 
-   dut.an_ac_flh2l2_gate.value = 0
+   sim.a2o.root.an_ac_flh2l2_gate.value = 0
 
    while ok and not sim.done:
 
       await RisingEdge(dut.clk_1x)
 
-      dut.an_ac_req_ld_pop.value = 0
-      dut.an_ac_req_st_pop.value = 0
-      dut.an_ac_req_st_gather.value = 0
+      sim.a2o.root.an_ac_req_ld_pop.value = 0
+      sim.a2o.root.an_ac_req_st_pop.value = 0
+      sim.a2o.root.an_ac_req_st_gather.value = 0
 
-      dut.an_ac_reld_data_coming.value = 0
-      dut.an_ac_reld_data_vld.value = 0
-      dut.an_ac_reld_ecc_err.value = 0
-      dut.an_ac_reld_ecc_err_ue.value = 0
-      dut.an_ac_reld_ditc.value = 0
-      dut.an_ac_reld_l1_dump.value = 0
-      dut.an_ac_req_spare_ctrl_a1.value = 0
+      sim.a2o.root.an_ac_reld_data_coming.value = 0
+      sim.a2o.root.an_ac_reld_data_vld.value = 0
+      sim.a2o.root.an_ac_reld_ecc_err.value = 0
+      sim.a2o.root.an_ac_reld_ecc_err_ue.value = 0
+      sim.a2o.root.an_ac_reld_ditc.value = 0
+      sim.a2o.root.an_ac_reld_l1_dump.value = 0
+      sim.a2o.root.an_ac_req_spare_ctrl_a1.value = 0
 
       if sim.threads == 1:
-         dut.an_ac_reservation_vld.value = 0
-         dut.an_ac_stcx_complete.value = 0
-         dut.an_ac_stcx_pass.value = 0
+         sim.a2o.root.an_ac_reservation_vld.value = 0
+         sim.a2o.root.an_ac_stcx_complete.value = 0
+         sim.a2o.root.an_ac_stcx_pass.value = 0
       else:
          for i in range(sim.threads):
-            dut.an_ac_reservation_vld[i].value = 0
-            dut.an_ac_stcx_complete[i].value = 0
-            dut.an_ac_stcx_pass[i].value = 0
+            sim.a2o.root.an_ac_reservation_vld[i].value = 0
+            sim.a2o.root.an_ac_stcx_complete[i].value = 0
+            sim.a2o.root.an_ac_stcx_pass[i].value = 0
 
-      dut.an_ac_sync_ack.value = 0
-      dut.an_ac_icbi_ack.value = 0
-      dut.an_ac_back_inv.value = 0
+      sim.a2o.root.an_ac_sync_ack.value = 0
+      sim.a2o.root.an_ac_icbi_ack.value = 0
+      sim.a2o.root.an_ac_back_inv.value = 0
 
       # bummer IndexError: Slice indexing is not supported
-      #dut.an_ac_reld_data[0:31].value = 0x48000000
-      #dut.an_ac_reld_data[32:63].value = 0x48000000
-      #dut.an_ac_reld_data[64:95].value = 0x48000000
-      #dut.an_ac_reld_data[96:127].value = 0x48000000
+      #sim.a2o.root.an_ac_reld_data[0:31].value = 0x48000000
+      #sim.a2o.root.an_ac_reld_data[32:63].value = 0x48000000
+      #sim.a2o.root.an_ac_reld_data[64:95].value = 0x48000000
+      #sim.a2o.root.an_ac_reld_data[96:127].value = 0x48000000
       # bummer TypeError: Unsupported type for value assignment: <class 'str'> ('48000000480000004800000048000000')
-      #dut.an_ac_reld_data.value = '48000000480000004800000048000000'
+      #sim.a2o.root.an_ac_reld_data.value = '48000000480000004800000048000000'
       #v = 0x48000000
       # bummer TypeError: Unsupported type for value assignment: <class 'str'> ('01001000000000000000000000000000010010000000000000000000000000000100100000000000000000000000000001001000000000000000000000000000')
-      #dut.an_ac_reld_data.value = f'{v:0>32b}{v:0>32b}{v:0>32b}{v:0>32b}'
+      #sim.a2o.root.an_ac_reld_data.value = f'{v:0>32b}{v:0>32b}{v:0>32b}{v:0>32b}'
       # otay!
       #v1 = cocotb.binary.BinaryValue()
       #v1.assign(f'{v:0>32b}{v:0>32b}{v:0>32b}{v:0>32b}')
-      #dut.an_ac_reld_data.value = v1.value
+      #sim.a2o.root.an_ac_reld_data.value = v1.value
 
-      if dut.ac_an_req.value:             # should first check ac_an_req_pwr_token prev cyc
+      if sim.a2o.root.ac_an_req.value:             # should first check ac_an_req_pwr_token prev cyc
 
-         tt = hex(dut.ac_an_req_ttype, 2)
+         tt = hex(sim.a2o.root.ac_an_req_ttype, 2)
          transType = transTypes[tt]
-         tid = hex(dut.ac_an_req_thread)
-         ra = hex(dut.ac_an_req_ra, 8)
-         tag = hex(dut.ac_an_req_ld_core_tag, 2)
-         lenEnc = hex(dut.ac_an_req_ld_xfr_len)
-         le = 'LE ' if dut.ac_an_req_endian.value else ''
-         wimg_w = dut.ac_an_req_wimg_w.value
-         wimg_i = dut.ac_an_req_wimg_i.value
-         wimg_m = dut.ac_an_req_wimg_m.value
-         wimg_g = dut.ac_an_req_wimg_g.value
+         tid = hex(sim.a2o.root.ac_an_req_thread)
+         ra = hex(sim.a2o.root.ac_an_req_ra, 8)
+         tag = hex(sim.a2o.root.ac_an_req_ld_core_tag, 2)
+         lenEnc = hex(sim.a2o.root.ac_an_req_ld_xfr_len)
+         le = 'LE ' if sim.a2o.root.ac_an_req_endian.value else ''
+         wimg_w = sim.a2o.root.ac_an_req_wimg_w.value
+         wimg_i = sim.a2o.root.ac_an_req_wimg_i.value
+         wimg_m = sim.a2o.root.ac_an_req_wimg_m.value
+         wimg_g = sim.a2o.root.ac_an_req_wimg_g.value
          wimg = 0
          if wimg_w:
             wimg += 8
@@ -349,39 +346,39 @@ async def A2L2Driver(dut, sim):
             sim.msg(f'T{tid} {transType} {ra} tag={tag} len={trans.len} {le}WIMG:{wimg:X} reld data:{trans.cycD}')
          elif transType == 'STORE':
             # should verify st_data_pwr_token prev cycle
-            be = hex(dut.ac_an_st_byte_enbl, 8)
-            data = hex(dut.ac_an_st_data, 64)
+            be = hex(sim.a2o.root.ac_an_st_byte_enbl, 8)
+            data = hex(sim.a2o.root.ac_an_st_data, 64)
             trans = A2L2Trans(sim, tid, int(tt, 16), int(tag, 16), int(ra, 16), int(lenEnc, 16), wimg, None, be=be, data=data, le=le)
             sim.msg(f'T{tid} {transType} {ra} tag={tag} len={trans.len} be={be} data={data} {le}WIMG:{wimg:X}')
             trans.doStore()
-            dut.an_ac_req_st_pop.value = 1   #wtf can randomize, etc.
+            sim.a2o.root.an_ac_req_st_pop.value = 1   #wtf can randomize, etc.
             #assert False, 'got a store'
 
       # data early indicator (d-3)
-      dut.an_ac_reld_data_coming.value = 0
+      sim.a2o.root.an_ac_reld_data_coming.value = 0
       for i in range(len(readPending)):
          trans = readPending[i]
          if trans.cycC == sim.cycle:
-            dut.an_ac_reld_data_coming.value = 1
+            sim.a2o.root.an_ac_reld_data_coming.value = 1
             if trans.xferNum == 0 and trans.xfers == 4:  # 4 beats b2b - need diff scheduling for all modes
                trans.cycC += 2
 
       # data valid indicator (d-2)
-      dut.an_ac_reld_data_vld.value = 0
-      dut.an_ac_reld_core_tag.value = 0x1F
-      dut.an_ac_reld_ditc.value = 1
-      dut.an_ac_reld_qw.value = 3
-      dut.an_ac_reld_crit_qw.value = 1
+      sim.a2o.root.an_ac_reld_data_vld.value = 0
+      sim.a2o.root.an_ac_reld_core_tag.value = 0x1F
+      sim.a2o.root.an_ac_reld_ditc.value = 1
+      sim.a2o.root.an_ac_reld_qw.value = 3
+      sim.a2o.root.an_ac_reld_crit_qw.value = 1
 
       for i in range(len(readPending)):
          trans = readPending[i]
          if trans.cycV == sim.cycle:
             trans.xferNum += 1
-            dut.an_ac_reld_data_vld.value = 1
-            dut.an_ac_reld_core_tag.value = trans.tag
-            dut.an_ac_reld_ditc.value = 1 if trans.ditc else 0
-            dut.an_ac_reld_qw.value = trans.xferNum - 1
-            dut.an_ac_reld_crit_qw.value = 1 if trans.xferNum == trans.xferCrit else 0
+            sim.a2o.root.an_ac_reld_data_vld.value = 1
+            sim.a2o.root.an_ac_reld_core_tag.value = trans.tag
+            sim.a2o.root.an_ac_reld_ditc.value = 1 if trans.ditc else 0
+            sim.a2o.root.an_ac_reld_qw.value = trans.xferNum - 1
+            sim.a2o.root.an_ac_reld_crit_qw.value = 1 if trans.xferNum == trans.xferCrit else 0
             if trans.xferNum < 4 and trans.xfers == 4:
                trans.cycV += 1
 
@@ -393,7 +390,7 @@ async def A2L2Driver(dut, sim):
 
          v1 = cocotb.binary.BinaryValue()
          v1.assign(f'{w0:0>32b}{w1:0>32b}{w2:0>32b}{w3:0>32b}')
-         dut.an_ac_reld_data.value = v1.value
+         sim.a2o.root.an_ac_reld_data.value = v1.value
 
          sim.msg(f'RELD tag={trans.tag:02X} {w0:08X}{w1:08X}{w2:08X}{w3:08X} {beatNum}of{trans.xfers}{" crit" if beatNum == trans.xferCrit else ""}')
 
@@ -404,7 +401,7 @@ async def A2L2Driver(dut, sim):
                readPending = []
             else:
                readPending = readPending[1:]
-            dut.an_ac_req_ld_pop.value = 1   #wtf can randomize, etc.
+            sim.a2o.root.an_ac_req_ld_pop.value = 1   #wtf can randomize, etc.
 
 
 # A2L2 Checker
@@ -423,23 +420,58 @@ async def A2L2Checker(dut, sim):
 # A2L2 Monitor
 # count transactions, etc.
 # fail on bad addresses
-async def A2L2Monitor(dut, sim):
+
+# TRANS MONITORING NOT COMPLETE!
+async def A2L2Monitor(dut, sim, watchTrans=False):
    """A2L2 interface monitor"""
 
    me = 'A2L2 Monitor'
    ok = True
    start = len(sim.config.a2l2.badAddr) > 0
    sim.msg(f'{me}: started.')
+   reqValid = []
+   rldValidCyc = []
+   dataValidCyc = []
 
    while start and ok:
 
       await RisingEdge(dut.clk_1x)
 
-      if dut.ac_an_req.value:             # should first check ac_an_req_pwr_token prev cyc
+      if sim.a2o.root.ac_an_req.value:             # should first check ac_an_req_pwr_token prev cyc
 
-         tt = hex(dut.ac_an_req_ttype, 2)
+         tt = hex(sim.a2o.root.ac_an_req_ttype, 2)
+         transType = transTypes[tt]
+         tid = hex(sim.a2o.root.ac_an_req_thread)
+         ra = hex(sim.a2o.root.ac_an_req_ra, 8)
+         tag = hex(sim.a2o.root.ac_an_req_ld_core_tag, 2)
+         lenEnc = hex(sim.a2o.root.ac_an_req_ld_xfr_len)
+         le = 'LE ' if sim.a2o.root.ac_an_req_endian.value else ''
+         wimg_w = sim.a2o.root.ac_an_req_wimg_w.value
+         wimg_i = sim.a2o.root.ac_an_req_wimg_i.value
+         wimg_m = sim.a2o.root.ac_an_req_wimg_m.value
+         wimg_g = sim.a2o.root.ac_an_req_wimg_g.value
+         wimg = 0
+         if wimg_w:
+            wimg += 8
+         if wimg_i:
+            wimg += 4
+         if wimg_m:
+            wimg += 2
+         if wimg_g:
+            wimg += 1
+
+         if transType == 'IFETCH' or transType == 'LOAD':
+            sim.msg(f'T{tid} {transType} {ra} tag={tag} len={lenEnc} {le}WIMG:{wimg:X}')
+            trans = A2L2Trans(sim, tid, int(tt, 16), int(tag, 16), int(ra, 16), int(lenEnc, 16), wimg, None, le=le)
+            reqValid.append(trans)
+         elif transType == 'STORE':
+            be = hex(sim.a2o.root.ac_an_st_byte_enbl, 8)
+            data = hex(sim.a2o.root.ac_an_st_data, 64)
+            trans = A2L2Trans(sim, tid, int(tt, 16), int(tag, 16), int(ra, 16), int(lenEnc, 16), wimg, None, be=be, data=data, le=le)
+            sim.msg(f'T{tid} {transType} {ra} tag={tag} len={lenEnc} be={be} data={data} {le}WIMG:{wimg:X}')
+
          if tt == '00':    #wtf someone should make this a enum/class
-            ra = dut.ac_an_req_ra.value.integer
+            ra = sim.a2o.root.ac_an_req_ra.value.integer
             for i in range(len(sim.config.a2l2.badAddr)):
                blk = sim.config.a2l2.badAddr[i]
                if 'I' in blk[2].upper():
@@ -447,7 +479,30 @@ async def A2L2Monitor(dut, sim):
                   blkEnd = int(blk[1], 16)
                   if ra >= blkStart and ra <= blkEnd:
                      ok = False
-                     assert False, (f'{me}: Bad IFetch @={ra:08X}')  #wtf want this to end back in main code for summary
+                     assert False, (f'{me}: Bad IFetch @={ra:08X}')
+
+         # coming (d-3_)
+         if sim.a2o.root.an_ac_reld_data_coming.value:
+            rldValidCyc.append(sim.cycle + 1)
+
+         # data valid indicator (d-2)
+         if len(rldValidCyc) > 0 and rldValidCyc[0] == sim.cycle:
+            if sim.a2o.root.an_ac_reld_data_vld.value:
+               #wtf append obj to rldValid!
+               tag = sim.a2o.root.an_ac_reld_core_tag.value
+               ditc = sim.a2o.root.an_ac_reld_ditc.value
+               qw = sim.a2o.root.an_ac_reld_qw.value
+               crit = sim.a2o.root.an_ac_reld_crit_qw.value
+               rldValidCyc = rldValidCyc[1:]
+               dataValidCyc.append(sim.cycle + 2)
+            else:
+               assert False, (f'{me}: Missing valid cycle')
+
+         # data beat (d-0)
+         if len(dataValidCyc) > 0 and dataValidCyc[0] == sim.cycle:
+            data = hex(sim.a2o.root.an_ac_reld_data, 32)
+            sim.msg(f'RELD tag={tag:02X} {data:32X}')  #wtf need qw,crit
+            dataValidCyc = dataValidCyc[1:]
 
 class A2L2:
    driver = A2L2Driver

@@ -231,7 +231,8 @@ async def tb(dut):
 
    sim = Sim(dut)
    sim.mem = Memory(sim)
-   sim.maxCycles = 20000
+   #sim.maxCycles = 2000000
+   sim.maxCycles = 300
    # original fpga design needed 4 cred, no fwd (set in logic currently)
    #sim.config.core.creditsSt = 32
    #sim.config.core.lsDataForward = 0   # disable=1
@@ -268,12 +269,21 @@ async def tb(dut):
    ]
    '''
 
-
+   '''
    # rom+bios+arcitst
    sim.memFiles = [
       {
       'addr': 0x00000000,
       'file' : '../mem/test3/rom.init'
+      }
+   ]
+   '''
+
+   # rom+bios+dhrystone
+   sim.memFiles = [
+      {
+      'addr': 0x00000000,
+      'file' : '../mem/dhrystone/rom.init'
       }
    ]
 

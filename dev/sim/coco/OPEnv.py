@@ -127,7 +127,7 @@ class Memory(DotMap):
          return self.default
 
    # word-aligned byte address + data
-   def write(self, addr, data):
+   def write(self, addr, data, be=None):
       try:
          addr = addr + 0
       except:
@@ -136,6 +136,23 @@ class Memory(DotMap):
          data = data + 0
       except:
          data = int(data, 16)
+
+      if be is not None:
+         try:
+            be = be + 0
+         except:
+            be = int(be, 2)
+         be = f'{be:04b}'
+         if be == '0000':
+            return
+
+         mask = 0
+         for i in range(4):
+            mask = mask << 8
+            if be[i]:
+               mask += 0xFF
+         data = (self.read(addr) & ~mask) | (data & mask)
+
       if self.logStores:
          if addr not in self.data:
             self.sim.msg(f'Mem Update: @{addr:08X} XXXXXXXX->{data:08X}')
@@ -163,6 +180,8 @@ class Memory(DotMap):
       row = ''
       rowTransDict = {}
       for i in range(32):
+         rowTransDict[i] = '.'
+      for i in range(127, 256):
          rowTransDict[i] = '.'
 
       # first line may be unaligned by row
