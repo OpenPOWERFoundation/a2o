@@ -86,6 +86,7 @@ module tri_144x78_2r4w(
    input [64-`GPR_WIDTH:77]  w_data_in_4
 );
 
+   wire unused;
    // sim array
    reg   [64-`GPR_WIDTH:77]   mem[0:143];
 

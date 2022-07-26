@@ -27,7 +27,7 @@ module bram_model (DIA, DIB, ENA, ENB, WEA, WEB, SSRA, SSRB, CLKA, CLKB, ADDRA, 
    initial begin
       integer i;
       for (i = 0; i < 2**addr_w; i = i + 1)
-         MEM[i] <= 0;
+         MEM[i] = 0;
    end
 
    always @(posedge CLKA, posedge CLKB) begin: BRAM_MODEL
