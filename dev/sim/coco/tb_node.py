@@ -25,29 +25,29 @@ async def init(dut, sim):
 
    dut.nclk.value = 0
    dut.scan_in.value = 0
-   dut.an_ac_scan_type_dc.value = 0x0
-   dut.an_ac_chipid_dc.value = 0x0
-   dut.an_ac_coreid.value = 0x0
-   dut.an_ac_scom_sat_id.value = 0x0
+   #dut.an_ac_scan_type_dc.value = 0x0
+   #dut.an_ac_chipid_dc.value = 0x0
+   #dut.an_ac_coreid.value = 0x0
+   #dut.an_ac_scom_sat_id.value = 0x0
 
-   dut.an_ac_lbist_ary_wrt_thru_dc.value = 0
-   dut.an_ac_gsd_test_enable_dc.value = 0
-   dut.an_ac_gsd_test_acmode_dc.value = 0
-   dut.an_ac_ccflush_dc.value = 0
-   dut.an_ac_ccenable_dc.value = 0
-   dut.an_ac_lbist_en_dc.value = 0
-   dut.an_ac_lbist_ip_dc.value = 0
-   dut.an_ac_lbist_ac_mode_dc.value = 0
-   dut.an_ac_scan_diag_dc.value = 0
-   dut.an_ac_scan_dis_dc_b.value = 0
+   #dut.an_ac_lbist_ary_wrt_thru_dc.value = 0
+   #dut.an_ac_gsd_test_enable_dc.value = 0
+   #dut.an_ac_gsd_test_acmode_dc.value = 0
+   #dut.an_ac_ccflush_dc.value = 0
+   #dut.an_ac_ccenable_dc.value = 0
+   #dut.an_ac_lbist_en_dc.value = 0
+   #dut.an_ac_lbist_ip_dc.value = 0
+   #dut.an_ac_lbist_ac_mode_dc.value = 0
+   #dut.an_ac_scan_diag_dc.value = 0
+   #dut.an_ac_scan_dis_dc_b.value = 0
 
-   dut.an_ac_rtim_sl_thold_8.value = 0
-   dut.an_ac_func_sl_thold_8.value = 0
-   dut.an_ac_func_nsl_thold_8.value = 0
-   dut.an_ac_ary_nsl_thold_8.value = 0
-   dut.an_ac_sg_8.value = 0
-   dut.an_ac_fce_8.value = 0
-   dut.an_ac_abst_scan_in.value = 0
+   #dut.an_ac_rtim_sl_thold_8.value = 0
+   #dut.an_ac_func_sl_thold_8.value = 0
+   #dut.an_ac_func_nsl_thold_8.value = 0
+   #dut.an_ac_ary_nsl_thold_8.value = 0
+   #dut.an_ac_sg_8.value = 0
+   #dut.an_ac_fce_8.value = 0
+   #dut.an_ac_abst_scan_in.value = 0
 
    dut.an_ac_reset_1_complete.value = 0
    dut.an_ac_reset_2_complete.value = 0
@@ -166,7 +166,7 @@ async def memory(dut, sim):
          dut.mem_dat.value = 0
 
       if dut.mem_wr_val.value:
-         addr = dut.mem_adr.value.integer
+         addr = dut.mem_adr.value.integer & 0xFFFFFF0
          dat = hex(dut.mem_wr_dat, 32)
          be = f'{dut.mem_wr_be.value.integer:016b}'
          for i in range(4):
@@ -206,8 +206,9 @@ async def checker(dut, sim):
 async def scom(dut, sim):
    """scom interface"""
 
-   dut.an_ac_scom_dch.value = 0
-   dut.an_ac_scom_cch.value = 0
+   #dut.an_ac_scom_dch.value = 0
+   #dut.an_ac_scom_cch.value = 0
+   pass
 
 
 # ------------------------------------------------------------------------------------------------
@@ -279,6 +280,7 @@ async def tb_node(dut):
 
    sim.a2o = A2OCore(sim, dut.c0.c0)
    sim.a2o.traceFacUpdates =  True
+   sim.a2o.stopOnHang = 200
    sim.a2o.stopOnLoop = 50
    sim.a2o.iarPass = 0x7F0
    sim.a2o.iarFail = 0x7F4
@@ -296,12 +298,15 @@ async def tb_node(dut):
       sim.fail = 'Reset active too long!'
 
    # config stuff
+
+   # config for a2onode w/1 req buffer
+   # a2node_verilotor defines have these set already
+   #sim.a2o.config.creditsLd = 1
+   #sim.a2o.config.creditsSt = 1
+   #sim.a2o.config.creditsLdStSingle = True
+
    # original fpga design needed 4 cred, no fwd (set in logic currently)
-   sim.a2o.config.creditsLd = 1
-   sim.a2o.config.creditsSt = 1
-   sim.a2o.config.creditsLdStSingle = True   # need for node right now
    #sim.a2o.lsDataForward = 0   # disable=1
-   #sim.a2o.cpcr4_sq_cnt = 0     # default=6
 
    await A2O.config(dut, sim)
 
