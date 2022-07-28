@@ -140,16 +140,15 @@ class Memory(DotMap):
       if be is not None:
          try:
             be = be + 0
+            be = f'{be:04b}'
          except:
-            be = int(be, 2)
-         be = f'{be:04b}'
+            pass
          if be == '0000':
             return
-
          mask = 0
          for i in range(4):
             mask = mask << 8
-            if be[i]:
+            if be[i] == '1':
                mask += 0xFF
          data = (self.read(addr) & ~mask) | (data & mask)
 
