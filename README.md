@@ -5,7 +5,8 @@
 * for now, /rel is the original and /dev has updates:
 
    * compiles with verilator, iverilog, yosys
-   * runs original simple boot code up to test invocation with cocotb (A2L2 interface partially implemented in Python)
+   * runs simple version of kernel/bios/random test with cocotb (A2L2 interface partially implemented in Python) and Verilog core wrapper (A2L2<->mem interface)
+   * verilator builds, but does not simulate correctly
 
 ## To Do
 
