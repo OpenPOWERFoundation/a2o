@@ -27,9 +27,7 @@ inline int get_xucr0(void) __attribute__((always_inline));
 
 inline void set_epcr(int v) {
    asm volatile(
-       "lis  4,%0@h\n"
-       "ori  4,4,%0@l\n"
-       "mtspr 307,4\n"              // epcr
+       "mtspr 307,%0\n"             // epcr
        :                            // outputs
        : "r"(v)                     // inputs
        : "r4"                       // clobbers
@@ -38,9 +36,7 @@ inline void set_epcr(int v) {
 
 inline void set_dec(int v) {
    asm volatile(
-       "lis  4,%0@h\n"
-       "ori  4,4,%0@l\n"
-       "mtspr 22,4\n"               // dec
+       "mtspr 22,%0\n"              // dec
        :                            // outputs
        : "r"(v)                     // inputs
        : "r4"                       // clobbers
@@ -49,9 +45,7 @@ inline void set_dec(int v) {
 
 inline void set_tbh(int v) {
    asm volatile(
-       "lis  4,%0@h\n"
-       "ori  4,4,%0@l\n"
-       "mtspr 285,4\n"              // tbh
+       "mtspr 285,%0\n"             // tbh
        :                            // outputs
        : "r"(v)                     // inputs
        : "r4"                       // clobbers
@@ -60,9 +54,7 @@ inline void set_tbh(int v) {
 
 inline void set_tbl(int v) {
    asm volatile(
-       "lis  4,%0@h\n"
-       "ori  4,4,%0@l\n"
-       "mtspr 284,4\n"              // tbl
+       "mtspr 284,%0\n"             // tbl
        :                            // outputs
        : "r"(v)                     // inputs
        : "r4"                       // clobbers
@@ -71,9 +63,7 @@ inline void set_tbl(int v) {
 
 inline void set_tsr(int v) {
    asm volatile(
-       "lis  4,%0@h\n"
-       "ori  4,4,%0@l\n"
-       "mtspr 336,4\n"              // tsr
+       "mtspr 336,%0\n"             // tsr
        :                            // outputs
        : "r"(v)                     // inputs
        : "r4"                       // clobbers
@@ -82,9 +72,7 @@ inline void set_tsr(int v) {
 
 inline void set_tcr(int v) {
    asm volatile(
-       "lis  4,%0@h\n"
-       "ori  4,4,%0@l\n"
-       "mtspr 340,4\n"              // tcr
+       "mtspr 340,%0\n"             // tcr
        :                            // outputs
        : "r"(v)                     // inputs
        : "r4"                       // clobbers
@@ -104,9 +92,7 @@ inline int get_xucr0(void) {
 
 inline void set_xucr0(int v) {
    asm volatile(
-       "lis  4,%0@h\n"
-       "ori  4,4,%0@l\n"
-       "mtspr 1014,4\n"             // xucr0
+       "mtspr 1014,%0\n"            // xucr0
        :                            // outputs
        : "r"(v)                     // inputs
        : "r4"                       // clobbers
@@ -115,9 +101,7 @@ inline void set_xucr0(int v) {
 
 inline void set_tens(int v) {
    asm volatile(
-       "lis  4,%0@h\n"
-       "ori  4,4,%0@l\n"
-       "mtspr 438,4\n"              // tens
+       "mtspr 438,%0\n"             // tens
        :                            // outputs
        : "r"(v)                     // inputs
        : "r4"                       // clobbers

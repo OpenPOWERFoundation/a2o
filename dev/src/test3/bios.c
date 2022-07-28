@@ -84,7 +84,7 @@ int main(int tid) {
    set_tbh(0);
    set_tbl(0);
    set_tsr(0xFE000000);                         // mask: clear enw,wis,wrs,dis,fis,udis
-   set_xucr0(get_xucr0() & 0x00000200);         // set tcs=0
+   set_xucr0(get_xucr0() & ~0x00000200);        // set tcs=0
    set_tsr(0);
    set_tcr(0);                                  // disable all timers
 
