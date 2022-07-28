@@ -153,8 +153,8 @@ module a2l2wb #(
    reg    [0:7]                  err_q;
 
    wire                          new_req;
-   wire                          ld_req_val;
-   wire                          st_req_val;
+   wire                          req_ld_val;
+   wire                          req_st_val;
    wire                          req_ieq1;
    wire                          req_le;
    wire 	 [64-`REAL_IFAR_WIDTH:63] req_adr;
@@ -167,10 +167,8 @@ module a2l2wb #(
    wire                          idle;
    wire                          ld_ready;
    wire                          st_ready;
-
-generate if (MEM_MODE == 1)
-   reg    [0:127]                mem[MEM_QW];
-endgenerate
+   wire                          do_store;
+   wire                          inc_qw;
 
    // FF
    always @(posedge clk) begin
@@ -215,12 +213,16 @@ endgenerate
 
 // internal memory
 generate if (MEM_MODE == 1) begin
+   reg    [0:127]                mem[MEM_QW];
+   wire   [0:127]                mem_dat_int;
+
+
    always @(posedge clk) begin
       if (mem_wr_val) begin
-         mem[req_adr] = mem_wr_data;
+         mem[req_adr] = mem_wr_dat;
       end
    end
-   assign mem_dat = mem[req_adr];
+   assign mem_dat_int = mem[req_adr];
    end
 endgenerate
 
