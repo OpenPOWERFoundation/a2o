@@ -500,8 +500,8 @@ module iuq_ic(
 
    wire [0:scan_right]             siv;
    wire [0:scan_right]             sov;
-   wire [0:1]                      tsiv;		// time scan path
-   wire [0:1]                      tsov;		// time scan path
+   wire [0:1]                      tsiv /*verilator split_var*/;		// time scan path
+   wire [0:1]                      tsov /*verilator split_var*/;		// time scan path
    wire                            func_scan_in_cam;
    wire                            func_scan_out_cam;
 

@@ -585,9 +585,9 @@ module mmq(
       wire                                  mm_xu_lsu_ind_sig;
       wire                                  mm_xu_lsu_lbit_sig;
       wire [64-`RS_DATA_WIDTH:63]            xu_mm_ex2_eff_addr_sig;
-      wire [0:5]                            repr_scan_int;
-      wire [0:5]                            time_scan_int;
-      wire [0:6]                            abst_scan_int;
+      wire [0:5]                            repr_scan_int /*verilator split_var*/;
+      wire [0:5]                            time_scan_int /*verilator split_var*/;
+      wire [0:6]                            abst_scan_int /*verilator split_var*/;
       wire                                  tlbwe_back_inv_valid_sig;
       wire [0:`MM_THREADS-1]                tlbwe_back_inv_thdid_sig;
       wire [52-`EPN_WIDTH:51]               tlbwe_back_inv_addr_sig;

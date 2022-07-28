@@ -127,7 +127,7 @@ module iuq_ibuf(
       // buffer latches
       reg [0:IBUFF_WIDTH-1]             buffer_data_din[0:`IBUFF_DEPTH-1];
       reg [0:IBUFF_WIDTH-1]             buffer_data_d[0:`IBUFF_DEPTH-1];
-      reg [0:IBUFF_WIDTH-1]             buffer_data_q[0:`IBUFF_DEPTH-1];
+      reg [0:IBUFF_WIDTH-1]             buffer_data_q[0:`IBUFF_DEPTH-1] /*verilator split_var*/;
       wire                               buffer_valid_act;
       wire [0:`IBUFF_DEPTH-1]             buffer_valid_din;
       wire [0:`IBUFF_DEPTH-1]             buffer_valid_d;
@@ -173,15 +173,15 @@ module iuq_ibuf(
 
       // data/valid out
       wire [0:1]                         valid_int;
-      wire [0:1]                         valid_out;
+      wire [0:1]                         valid_out /*verilator split_var*/;
       wire [0:IDATA_WIDTH-1]             data0_out;
       wire [0:IDATA_WIDTH-1]             data1_out;
       wire [0:IBUFF_WIDTH-1]             buffer0_ibuff_data;
       wire [0:IBUFF_WIDTH-1]             buffer1_ibuff_data;
       wire [0:IDATA_WIDTH-1]             buffer0_data;
       wire [0:IDATA_WIDTH-1]             buffer1_data;
-      reg  [0:IBUFF_WIDTH-1]             buffer0_data_muxed[0:`IBUFF_DEPTH-1];
-      reg  [0:IBUFF_WIDTH-1]             buffer1_data_muxed[0:`IBUFF_DEPTH-1];
+      reg  [0:IBUFF_WIDTH-1]             buffer0_data_muxed[0:`IBUFF_DEPTH-1] /*verilator split_var*/;
+      reg  [0:IBUFF_WIDTH-1]             buffer1_data_muxed[0:`IBUFF_DEPTH-1] /*verilator split_var*/;
 
       // output latches
       wire                               iu4_0_valid_din;

@@ -216,7 +216,7 @@ module tri_bht_512x4_1r1w(
       wire                force_t;
 
       wire [0:scan_right] siv;
-      wire [0:scan_right] sov;
+      wire [0:scan_right] sov  /*verilator split_var*/;
 
       wire                tiup;
 

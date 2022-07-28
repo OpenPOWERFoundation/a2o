@@ -426,7 +426,7 @@ module iuq_ic_miss(
    wire                           miss_thread_has_idle;
 
    wire                           release_sm;
-   wire [0:SM_MAX-1]              release_sm_hold;
+   wire [0:SM_MAX-1]              release_sm_hold /*verilator split_var*/;
 
    // IU0 inval
    wire [0:TAGS_USED-1]           iu0_inval_match;

@@ -397,7 +397,7 @@ module iuq_ic_select(
    wire [0:`THREADS-1]              iu0_erat_tid;
 
    wire [0:`THREADS-1]              need_fetch_reduce;
-   reg [0:(`IBUFF_DEPTH/4)-1]       need_fetch[0:`THREADS-1];
+   reg [0:(`IBUFF_DEPTH/4)-1]       need_fetch[0:`THREADS-1] /*verilator split_var*/;
    reg [0:(`IBUFF_DEPTH/4)-1]       next_fetch[0:`THREADS-1];
    reg [0:(`IBUFF_DEPTH/4)-2]       shift1_sent[0:`THREADS-1];
    reg [0:`THREADS-1]               shift1_sent_reduce;

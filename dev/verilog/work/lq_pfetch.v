@@ -426,7 +426,7 @@ module lq_pfetch(
    wire [0:1] 				                     rpt_rd_act;
    wire [0:1] 				                     rpt_byp_val;
    wire [0:4] 				                     rpt_wrt_addr;
-   wire [0:69] 				                  rpt_data_in;
+   wire [0:69] 				                  rpt_data_in /*verilator split_var*/;
    wire [0:4] 				                     rpt_rd_addr;
    wire [0:139] 			                     rpt_data_out;
    wire [0:69] 				                  rpt_byp_dat_d;

@@ -362,7 +362,7 @@ module fu_oscr(
    wire [0:23]         ex7_mrg;
    wire [0:3]          ex7_mrg_dfp;
    wire [0:3]          ex7_fpscr_dfp_din;
-   wire [0:23]         ex7_fpscr_din;
+   wire [0:23]         ex7_fpscr_din /*verilator split_var*/;
    wire                ex7_fpscr_din1_thr0;
    wire                ex7_fpscr_din1_thr1;
    wire [0:3]          ex7_cr_fld;
@@ -521,10 +521,10 @@ module fu_oscr(
    wire                re0_2_thr1;
    wire                re1_2_thr1;
 
-   wire [28:63]        cfpscr_thr0_din;
-   wire [28:63]        cfpscr_thr1_din;
-   wire [28:63]        cfpscr_thr0_din_i0;
-   wire [28:63]        cfpscr_thr1_din_i0;
+   wire [28:63]        cfpscr_thr0_din /*verilator split_var*/;
+   wire [28:63]        cfpscr_thr1_din /*verilator split_var*/;
+   wire [28:63]        cfpscr_thr0_din_i0 /*verilator split_var*/;
+   wire [28:63]        cfpscr_thr1_din_i0 /*verilator split_var*/;
 
    wire [28:63]        cfpscr_thr0_l2;
    wire [28:63]        cfpscr_thr1_l2;

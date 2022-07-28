@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 //********************************************************************
 //* TITLE: Memory Management Unit TLB Compare Logic
@@ -649,7 +649,7 @@ module mmq_tlb_cmp(
       wire [0:`ERAT_REL_DATA_WIDTH-1]          tlb_erat_rel_q;
       wire [0:`ERAT_REL_DATA_WIDTH-1]          tlb_erat_rel_clone_d;
       wire [0:`ERAT_REL_DATA_WIDTH-1]          tlb_erat_rel_clone_q;
-      wire [0:2*`THDID_WIDTH+13]               tlb_erat_dup_d;
+      wire [0:2*`THDID_WIDTH+13]               tlb_erat_dup_d /*verilator split_var*/;
       wire [0:2*`THDID_WIDTH+13]               tlb_erat_dup_q;
 
     (* NO_MODIFICATION="TRUE" *)
@@ -661,7 +661,7 @@ module mmq_tlb_cmp(
     (* NO_MODIFICATION="TRUE" *)
       wire [0:`TLB_ADDR_WIDTH-1]               lru_wr_addr_q;
     (* NO_MODIFICATION="TRUE" *)
-      wire [0:`LRU_WIDTH-1]                    lru_datain_d;
+      wire [0:`LRU_WIDTH-1]                    lru_datain_d /*verilator split_var*/;
     (* NO_MODIFICATION="TRUE" *)
       wire [0:`LRU_WIDTH-1]                    lru_datain_q;
 
@@ -990,7 +990,7 @@ module mmq_tlb_cmp(
 
       // possible eco signals
     (* NO_MODIFICATION="TRUE" *)
-      wire [4:9]                              lru_datain_alt_d;
+      wire [4:9]                              lru_datain_alt_d /*verilator split_var*/;
     (* NO_MODIFICATION="TRUE" *)
       wire [0:2]                              lru_update_data_alt;
     (* NO_MODIFICATION="TRUE" *)

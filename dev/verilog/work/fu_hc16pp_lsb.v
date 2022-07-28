@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -52,7 +52,7 @@ module fu_hc16pp_lsb(
    wire [0:12]   g01_b;
    wire [0:13]   t01_b;
    wire [0:13]   p01_b;
-   wire [0:13]   p01;
+   wire [0:13]   p01 /*verilator split_var*/;
 
    wire [0:5]    g01od;
    wire [0:6]    t01od;

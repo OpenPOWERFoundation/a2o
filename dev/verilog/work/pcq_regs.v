@@ -335,8 +335,8 @@ module pcq_regs(
    wire [0:BCFG_RIGHT]  	bcfg_sov;
    wire [0:DCFG_RIGHT]  	dcfg_siv;
    wire [0:DCFG_RIGHT]  	dcfg_sov;
-   wire [0:FUNC_RIGHT]  	func_siv;
-   wire [0:FUNC_RIGHT]  	func_sov;
+   wire [0:FUNC_RIGHT]  	func_siv /*verilator split_var*/;
+   wire [0:FUNC_RIGHT]  	func_sov /*verilator split_var*/;
    wire 		       	lcb_func_slp_sl_thold_0_b;
    wire 		       	lcb_cfg_slp_sl_thold_0_b;
    wire 		       	force_cfgslp;

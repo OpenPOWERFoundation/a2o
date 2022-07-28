@@ -301,11 +301,11 @@ end
 generate
    if (BYPASS == 1)
    begin : read_bypass
-      wire [0:10]            r0_byp_sel;
-      wire [0:10]            r1_byp_sel;
-      wire [0:10]            r2_byp_sel;
-      wire [0:10]            r3_byp_sel;
-      wire [0:10]            r4_byp_sel;
+      wire [0:10]            r0_byp_sel /*verilator split_var*/;
+      wire [0:10]            r1_byp_sel /*verilator split_var*/;
+      wire [0:10]            r2_byp_sel /*verilator split_var*/;
+      wire [0:10]            r3_byp_sel /*verilator split_var*/;
+      wire [0:10]            r4_byp_sel /*verilator split_var*/;
       assign r0_byp_sel[0] = w0e_q & (w0a_q == r0a_q);
       assign r0_byp_sel[1] = w1e_q & (w1a_q == r0a_q);
       assign r0_byp_sel[2] = w2e_q & (w2a_q == r0a_q);

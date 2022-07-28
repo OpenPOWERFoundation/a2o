@@ -36,7 +36,7 @@ module xu_spr_cspr
 #(
    parameter                             hvmode = 1,
    parameter                             a2mode = 1,
-   parameter                             spr_xucr0_init = 1120
+   parameter                             spr_xucr0_init = `INIT_XUCR0
 )(
    input [0:`NCLK_WIDTH-1] nclk,
 
@@ -370,7 +370,7 @@ module xu_spr_cspr
    wire  [0:0]                ex2_msr_gs_q                                           ;  // input=>ex1_msr_gs_q              , act=>1'b1              , scan=>N, sleep=>N, ring=>func, needs_sreset=>1
    wire                       ex2_tenc_we_q,              ex1_tenc_we                ;  // input=>ex1_tenc_we               , act=>exx_act[1]     , scan=>N, sleep=>N, ring=>func, needs_sreset=>1
    wire                       ex2_ccr0_we_q,              ex1_ccr0_we                ;  // input=>ex1_ccr0_we               , act=>exx_act[1]     , scan=>N, sleep=>N, ring=>func, needs_sreset=>1
-   wire  [2-`GPR_WIDTH/32:1]  ex2_aspr_re_q,              ex1_aspr_re                ;  // input=>ex1_aspr_re               , act=>exx_act[1]     , scan=>N, sleep=>N, ring=>func, needs_sreset=>1
+   wire  [2-`GPR_WIDTH/32:1]  ex2_aspr_re_q,              ex1_aspr_re /*verilator split_var*/                ;  // input=>ex1_aspr_re               , act=>exx_act[1]     , scan=>N, sleep=>N, ring=>func, needs_sreset=>1
    wire                       ex2_dnh_q,                  ex1_dnh                    ;  // input=>ex1_dnh                   , act=>exx_act[1]
    wire  [0:`THREADS-1]       ex3_val_q,                  ex2_val                    ;  // input=>ex2_val                   , act=>1'b1              , scan=>Y, sleep=>N, ring=>func, needs_sreset=>1
    wire                       ex3_val_rd_q,               ex3_val_rd_d               ;  // input=>ex3_val_rd_d              , act=>1'b1              , scan=>Y, sleep=>N, ring=>func, needs_sreset=>1

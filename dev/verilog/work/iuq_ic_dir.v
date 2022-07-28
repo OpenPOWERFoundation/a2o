@@ -563,7 +563,7 @@ module iuq_ic_dir(
    wire                           stage_abist_g6t_r_wb;
 
    // scan
-   wire [0:scan_right]            siv;
+   wire [0:scan_right]            siv /*verilator split_var*/;
    wire [0:scan_right]            sov;
    wire [0:44]                    abst_siv;
    wire [0:44]                    abst_sov;

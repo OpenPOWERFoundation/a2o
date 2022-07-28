@@ -557,7 +557,7 @@ module mmq_inval(
       wire [52-`EPN_WIDTH:51]         snoop_vpn_clone_q;
       wire [0:2]                     snoop_ack_d;
       wire [0:2]                     snoop_ack_q;
-      wire [0:4]                     snoop_coming_d;
+      wire [0:4]                     snoop_coming_d /*verilator split_var*/;
       wire [0:4]                     snoop_coming_q;
       wire [0:8]                     an_ac_back_inv_d;
       wire [0:8]                     an_ac_back_inv_q;

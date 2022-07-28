@@ -1347,7 +1347,7 @@ module lq_stq(
    wire                                                         perf_stq_cmmt_attmpt;
    wire                                                         perf_stq_cmmt_val;
    wire                                                         perf_stq_need_hole;
-   wire [0:15]                                                 stq_rotcmp;
+   wire [0:15]                                                 stq_rotcmp /*verilator split_var*/;
    wire [0:`STQ_ENTRIES]                                        ex3_agecmp;
    wire [0:3]                                                  ex4_rot_sel_be[0:`STQ_ENTRIES-1];
    wire [0:3]                                                  ex4_rot_sel_le[0:`STQ_ENTRIES-1];

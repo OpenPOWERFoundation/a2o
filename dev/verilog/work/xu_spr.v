@@ -443,20 +443,20 @@ module xu_spr
    localparam abist_g8t_bw_0_offset_abst                 = abist_g8t_bw_1_offset_abst     + 1;
    localparam scan_right_abst                            = abist_g8t_bw_0_offset_abst     + 2;
    // Scanchain Repower
-   wire [0:scan_right_abst-1]    siv_abst;
-   wire [0:scan_right_abst-1]    sov_abst;
+   wire [0:scan_right_abst-1]    siv_abst  /*verilator split_var*/;
+   wire [0:scan_right_abst-1]    sov_abst  /*verilator split_var*/;
    wire [0:2]                    siv_bcfg;
    wire [0:2]                    sov_bcfg;
    wire [0:`THREADS+2]           siv_ccfg;
    wire [0:`THREADS+2]           sov_ccfg;
    wire [0:`THREADS+2]           siv_dcfg;
    wire [0:`THREADS+2]           sov_dcfg;
-   wire [0:2]                    siv_time;
-   wire [0:2]                    sov_time;
+   wire [0:2]                    siv_time /*verilator split_var*/;
+   wire [0:2]                    sov_time /*verilator split_var*/;
    wire [0:2]                    siv_gptr;
    wire [0:2]                    sov_gptr;
-   wire [0:2]                    siv_repr;
-   wire [0:2]                    sov_repr;
+   wire [0:2]                    siv_repr /*verilator split_var*/;
+   wire [0:2]                    sov_repr /*verilator split_var*/;
    wire [0:`THREADS+1]           func_scan_rpwr_in;
    wire [0:`THREADS+1]           func_scan_rpwr_out;
    wire [0:`THREADS+1]           func_scan_gate_out;
