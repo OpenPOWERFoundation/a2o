@@ -11,6 +11,7 @@ module cocotb_icarus_node (
 	 input                                                  scan_in,
 	 output                                                 scan_out,
 
+/*
 	 // Pervasive clock control
 	 input                                                  an_ac_rtim_sl_thold_8,
 	 input                                                  an_ac_func_sl_thold_8,
@@ -24,6 +25,7 @@ module cocotb_icarus_node (
 	 input [0:3]                                            an_ac_scom_sat_id,
 	 input                                                  an_ac_scom_dch,
 	 input                                                  an_ac_scom_cch,
+*/
 	 output                                                 ac_an_scom_dch,
 	 output                                                 ac_an_scom_cch,
 
@@ -55,6 +57,7 @@ module cocotb_icarus_node (
 	 output                                                 ac_an_rvwinkle_mode,
 	 input                                                  an_ac_flh2l2_gate,
 
+/*
 	 // Clock, Test, and LCB Controls
 	 input                                                  an_ac_gsd_test_enable_dc,
 	 input                                                  an_ac_gsd_test_acmode_dc,
@@ -68,13 +71,16 @@ module cocotb_icarus_node (
 
 	 //Thold input to clock control macro
 	 input [0:8]                                            an_ac_scan_type_dc,
+*/
 
 	 // Pervasive
 	 output                                                 ac_an_reset_1_request,
 	 output                                                 ac_an_reset_2_request,
 	 output                                                 ac_an_reset_3_request,
 	 output                                                 ac_an_reset_wd_request,
+/*
 	 input                                                  an_ac_lbist_ary_wrt_thru_dc,
+*/
 	 input [0:`THREADS-1]                                   an_ac_sleep_en,
 	 input [0:`THREADS-1]                                   an_ac_ext_interrupt,
 	 input [0:`THREADS-1]                                   an_ac_crit_interrupt,
@@ -82,8 +88,10 @@ module cocotb_icarus_node (
 	 input [0:`THREADS-1]                                   an_ac_hang_pulse,
 	 input                                                  an_ac_tb_update_enable,
 	 input                                                  an_ac_tb_update_pulse,
+/*
 	 input [0:3]                                            an_ac_chipid_dc,
 	 input [0:7]                                            an_ac_coreid,
+*/
 	 output [0:`THREADS-1]                                  ac_an_machine_check,
 	 input                                                  an_ac_debug_stop,
 	 output [0:`THREADS-1]                                  ac_an_debug_trigger,
@@ -115,6 +123,7 @@ a2owb c0 (
       .scan_in(scan_in),
       .scan_out(scan_out),
 
+/*
       // Pervasive clock control
       .an_ac_rtim_sl_thold_8(an_ac_rtim_sl_thold_8),
       .an_ac_func_sl_thold_8(an_ac_func_sl_thold_8),
@@ -128,6 +137,7 @@ a2owb c0 (
       .an_ac_scom_sat_id(an_ac_scom_sat_id),
       .an_ac_scom_dch(an_ac_scom_dch),
       .an_ac_scom_cch(an_ac_scom_cch),
+*/
       .ac_an_scom_dch(ac_an_scom_dch),
       .ac_an_scom_cch(ac_an_scom_cch),
 
@@ -158,6 +168,7 @@ a2owb c0 (
       .ac_an_rvwinkle_mode(ac_an_rvwinkle_mode),
       .an_ac_pm_fetch_halt(an_ac_pm_fetch_halt),
 
+/*
       // Clock, Test, and LCB Controls
       .an_ac_gsd_test_enable_dc(an_ac_gsd_test_enable_dc),
       .an_ac_gsd_test_acmode_dc(an_ac_gsd_test_acmode_dc),
@@ -171,13 +182,15 @@ a2owb c0 (
 
       //Thold input to clock control macro
       .an_ac_scan_type_dc(an_ac_scan_type_dc),
-
+*/
       // Pervasive
       .ac_an_reset_1_request(ac_an_reset_1_request),
       .ac_an_reset_2_request(ac_an_reset_2_request),
       .ac_an_reset_3_request(ac_an_reset_3_request),
       .ac_an_reset_wd_request(ac_an_reset_wd_request),
+/*
       .an_ac_lbist_ary_wrt_thru_dc(an_ac_lbist_ary_wrt_thru_dc),
+*/
       .an_ac_sleep_en(an_ac_sleep_en),
       .an_ac_ext_interrupt(an_ac_ext_interrupt),
       .an_ac_crit_interrupt(an_ac_crit_interrupt),
@@ -185,8 +198,10 @@ a2owb c0 (
       .an_ac_hang_pulse(an_ac_hang_pulse),
       .an_ac_tb_update_enable(an_ac_tb_update_enable),
       .an_ac_tb_update_pulse(an_ac_tb_update_pulse),
+/*
       .an_ac_chipid_dc(an_ac_chipid_dc),
       .an_ac_coreid(an_ac_coreid),
+*/
       .ac_an_machine_check(ac_an_machine_check),
       .an_ac_debug_stop(an_ac_debug_stop),
       .ac_an_debug_trigger(ac_an_debug_trigger),
