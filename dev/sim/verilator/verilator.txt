@@ -1,0 +1,267 @@
+%Warning-SPLITVAR: verilog/work/iuq_ic_select.v:586:21: 'need_fetch' has split_var metacomment but will not be split because index cannot be determined statically.
+                                                      : ... In instance a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0
+  586 |          need_fetch[t][i] = ib_ic_need_fetch[t][i] & (~|(iu0_sent_l2[t][i]));
+      |                     ^
+                   verilog/work/iuq_ic.v:699:1: ... note: In file included from iuq_ic.v
+                   verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                   verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                   verilog/work/c.v:1817:1: ... note: In file included from c.v
+                   verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                   ... For warning description see https://verilator.org/warn/SPLITVAR?v=4.224
+                   ... Use "/* verilator lint_off SPLITVAR */" and lint_on around source to disable this message.
+%Warning-UNOPTFLAT: verilog/work/iuq_ic_ierat.v:93:38: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.__Vcellout__iuq_ic_ierat0__time_scan_out'
+                                                     : ... In instance a2owb
+   93 |    output                            time_scan_out,
+      |                                      ^~~~~~~~~~~~~
+                    verilog/work/iuq_ic.v:527:1: ... note: In file included from iuq_ic.v
+                    verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ic_ierat.v:93:38:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.__Vcellout__iuq_ic_ierat0__time_scan_out
+                    verilog/work/iuq_ic.v:566:8:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_ierat.v:91:38:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.__Vcellinp__iuq_ic_ierat0__time_scan_in
+                    verilog/trilib/tri_cam_16x143_1r1w1c.v:2696:25:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_ierat.v:93:38:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.__Vcellout__iuq_ic_ierat0__time_scan_out
+                    ... Widest candidate vars to split:
+                    ... Most fanned out candidate vars to split:
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_056_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/xu_spr.v:458:34: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.xu0.spr.siv_repr'
+                                                : ... In instance a2owb
+  458 |    wire [0:2]                    siv_repr /*verilator split_var*/ ;
+      |                                  ^~~~~~~~
+                    verilog/work/xu.v:1556:1: ... note: In file included from xu.v
+                    verilog/work/c.v:2515:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/xu_spr.v:458:34:      Example path: a2owb.c0.xu0.spr.siv_repr
+                    verilog/work/xu_spr.v:1129:8:      Example path: ASSIGNW
+                    verilog/trilib/tri_64x72_1r1w.v:127:40:      Example path: a2owb.c0.xu0.spr.__Vcellinp__xu_spr_aspr__repr_scan_in
+                    verilog/work/xu_spr.v:1844:25:      Example path: ASSIGNW
+                    verilog/work/xu_spr.v:458:34:      Example path: a2owb.c0.xu0.spr.siv_repr
+                    ... Widest candidate vars to split:
+                        verilog/work/xu_spr.v:458:34:  c0.xu0.spr.siv_repr, width 3, fanout 20, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/xu_spr.v:458:34:  c0.xu0.spr.siv_repr, width 3, fanout 20, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_057_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/xu_spr.v:454:34: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.xu0.spr.siv_time'
+                                                : ... In instance a2owb
+  454 |    wire [0:2]                    siv_time /*verilator split_var*/ ;
+      |                                  ^~~~~~~~
+                    verilog/work/xu.v:1556:1: ... note: In file included from xu.v
+                    verilog/work/c.v:2515:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/xu_spr.v:454:34:      Example path: a2owb.c0.xu0.spr.siv_time
+                    verilog/work/xu_spr.v:1127:8:      Example path: ASSIGNW
+                    verilog/trilib/tri_64x72_1r1w.v:125:40:      Example path: a2owb.c0.xu0.spr.__Vcellinp__xu_spr_aspr__time_scan_in
+                    verilog/work/xu_spr.v:1841:25:      Example path: ASSIGNW
+                    verilog/work/xu_spr.v:454:34:      Example path: a2owb.c0.xu0.spr.siv_time
+                    ... Widest candidate vars to split:
+                        verilog/work/xu_spr.v:454:34:  c0.xu0.spr.siv_time, width 3, fanout 20, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/xu_spr.v:454:34:  c0.xu0.spr.siv_time, width 3, fanout 20, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_058_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/xu_spr.v:446:34: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.xu0.spr.siv_abst'
+                                                : ... In instance a2owb
+  446 |    wire [0:scan_right_abst-1]    siv_abst  /*verilator split_var*/ ;
+      |                                  ^~~~~~~~
+                    verilog/work/xu.v:1556:1: ... note: In file included from xu.v
+                    verilog/work/c.v:2515:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/xu_spr.v:446:34:      Example path: a2owb.c0.xu0.spr.siv_abst
+                    verilog/work/xu_spr.v:1125:8:      Example path: ASSIGNW
+                    verilog/trilib/tri_64x72_1r1w.v:123:40:      Example path: a2owb.c0.xu0.spr.__Vcellinp__xu_spr_aspr__abst_scan_in
+                    verilog/work/xu_spr.v:1829:41:      Example path: ASSIGNW
+                    verilog/work/xu_spr.v:446:34:      Example path: a2owb.c0.xu0.spr.siv_abst
+                    ... Widest candidate vars to split:
+                        verilog/work/xu_spr.v:446:34:  c0.xu0.spr.siv_abst, width 28, fanout 20, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/xu_spr.v:446:34:  c0.xu0.spr.siv_abst, width 28, fanout 20, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_059_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/pcq_regs.v:338:26: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.fupc.pc0.pcq_regs.func_siv'
+  338 |    wire [0:FUNC_RIGHT]   func_siv /*verilator split_var*/ ;
+      |                          ^~~~~~~~
+                    verilog/work/pcq.v:393:1: ... note: In file included from pcq.v
+                    verilog/work/c_fu_pc.v:518:1: ... note: In file included from c_fu_pc.v
+                    verilog/work/c.v:4463:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/pcq_regs.v:338:26:      Example path: a2owb.c0.fupc.pc0.pcq_regs.func_siv
+                    verilog/work/pcq_regs.v:2277:87:      Example path: ASSIGNW
+                    verilog/work/pcq_regs.v:339:26:      Example path: a2owb.c0.fupc.pc0.pcq_regs.func_sov[194:201]
+                    verilog/work/pcq_regs.v:2402:34:      Example path: ASSIGNW
+                    verilog/work/pcq_regs.v:338:26:      Example path: a2owb.c0.fupc.pc0.pcq_regs.func_siv
+                    ... Widest candidate vars to split:
+                        verilog/work/pcq_regs.v:338:26:  c0.fupc.pc0.pcq_regs.func_siv, width 630, fanout 76, can split_var
+                        verilog/work/pcq_regs.v:339:26:  c0.fupc.pc0.pcq_regs.func_sov[0:176], width 177, fanout 12, can split_var
+                        verilog/work/pcq_regs.v:339:26:  c0.fupc.pc0.pcq_regs.func_sov[194:201], width 8, fanout 8, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/pcq_regs.v:338:26:  c0.fupc.pc0.pcq_regs.func_siv, width 630, fanout 76, can split_var
+                        verilog/work/pcq_regs.v:339:26:  c0.fupc.pc0.pcq_regs.func_sov[0:176], width 177, fanout 12, can split_var
+                        verilog/work/pcq_regs.v:339:26:  c0.fupc.pc0.pcq_regs.func_sov[194:201], width 8, fanout 8, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_060_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/trilib/tri_512x16_1r1w_1.v:124:51: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.bht0.__Vcellinp__bht0__func_scan_in'
+                                                             : ... In instance a2owb.c0.iuq0.bht0
+  124 |    input                                          func_scan_in;
+      |                                                   ^~~~~~~~~~~~
+                    verilog/trilib/tri_bht_1024x8_1r1w.v:332:1: ... note: In file included from tri_bht_1024x8_1r1w.v
+                    verilog/work/iuq.v:1831:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/trilib/tri_512x16_1r1w_1.v:124:51:      Example path: a2owb.c0.iuq0.bht0.__Vcellinp__bht0__func_scan_in
+                    verilog/trilib/tri_bht_1024x8_1r1w.v:348:17:      Example path: ASSIGNW
+                    verilog/trilib/tri_bht_1024x8_1r1w.v:220:27:      Example path: a2owb.c0.iuq0.bht0.sov
+                    verilog/trilib/tri_bht_1024x8_1r1w.v:347:17:      Example path: ASSIGNW
+                    verilog/trilib/tri_512x16_1r1w_1.v:124:51:      Example path: a2owb.c0.iuq0.bht0.__Vcellinp__bht0__func_scan_in
+                    ... Widest candidate vars to split:
+                        verilog/trilib/tri_bht_1024x8_1r1w.v:220:27:  sov, width 45, fanout 56, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/trilib/tri_bht_1024x8_1r1w.v:220:27:  sov, width 45, fanout 56, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_061_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/iuq_ic_dir.v:566:35: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.siv'
+                                                    : ... In instance a2owb
+  566 |    wire [0:scan_right]            siv /*verilator split_var*/ ;
+      |                                   ^~~
+                    verilog/work/iuq_ic.v:829:1: ... note: In file included from iuq_ic.v
+                    verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ic_dir.v:566:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.siv
+                    verilog/work/iuq_ic_dir.v:1449:8:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_dir.v:567:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.sov
+                    verilog/work/iuq_ic_dir.v:2468:29:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_dir.v:566:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.siv
+                    ... Widest candidate vars to split:
+                        verilog/work/iuq_ic_dir.v:566:35:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.siv, width 1177, fanout 3264, can split_var
+                        verilog/work/iuq_ic_dir.v:567:35:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.sov, width 1177, fanout 542, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/iuq_ic_dir.v:566:35:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.siv, width 1177, fanout 3264, can split_var
+                        verilog/work/iuq_ic_dir.v:567:35:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.sov, width 1177, fanout 542, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_062_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/rv_station.v:661:35: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.rv0.fx0_rvs.rvs.siv'
+                                                    : ... In instance a2owb
+  661 |    wire [0:scan_right-1]          siv /*verilator split_var*/ ;
+      |                                   ^~~
+                    verilog/work/rv_fx0_rvs.v:533:1: ... note: In file included from rv_fx0_rvs.v
+                    verilog/work/rv.v:1551:1: ... note: In file included from rv.v
+                    verilog/work/c.v:3163:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/rv_station.v:661:35:      Example path: a2owb.c0.rv0.fx0_rvs.rvs.siv
+                    verilog/work/rv_station.v:1827:63:      Example path: ASSIGNW
+                    verilog/work/rv_station.v:662:35:      Example path: a2owb.c0.rv0.fx0_rvs.rvs.sov
+                    verilog/work/rv_fx0_rvs.v:651:9:      Example path: ASSIGNW
+                    verilog/work/rv_fx0_rvs.v:443:30:      Example path: a2owb.c0.rv0.fx0_rvs.sov
+                    verilog/work/rv_station.v:3329:31:      Example path: ASSIGNW
+                    verilog/work/rv_station.v:661:35:      Example path: a2owb.c0.rv0.fx0_rvs.rvs.siv
+                    ... Widest candidate vars to split:
+                        verilog/work/rv_station.v:661:35:  c0.rv0.fx0_rvs.rvs.siv, width 1346, fanout 3564, can split_var
+                        verilog/work/rv_station.v:662:35:  c0.rv0.fx0_rvs.rvs.sov, width 1346, fanout 592, can split_var
+                        verilog/work/rv_fx0_rvs.v:443:30:  c0.rv0.fx0_rvs.sov, width 38, fanout 48, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/rv_station.v:661:35:  c0.rv0.fx0_rvs.rvs.siv, width 1346, fanout 3564, can split_var
+                        verilog/work/rv_station.v:662:35:  c0.rv0.fx0_rvs.rvs.sov, width 1346, fanout 592, can split_var
+                        verilog/work/rv_fx0_rvs.v:443:30:  c0.rv0.fx0_rvs.sov, width 38, fanout 48, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_063_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/iuq_bp.v:798:13: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_data_new'
+                                                : ... In instance a2owb
+  798 | wire [0:15] bcache_data_new /*verilator split_var*/ ;
+      |             ^~~~~~~~~~~~~~~
+                    verilog/work/iuq_ifetch.v:1062:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_bp.v:798:13:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_data_new
+                    verilog/work/iuq_bp.v:1049:28:      Example path: ASSIGNW
+                    verilog/work/iuq_bp.v:815:12:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_hit
+                    verilog/work/iuq_bp.v:1013:27:      Example path: ASSIGNW
+                    verilog/work/iuq_bp.v:791:12:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.ex5_bh0_hist
+                    verilog/work/iuq_bp.v:996:38:      Example path: ASSIGNW
+                    verilog/work/iuq_bp.v:795:12:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_bh0_wr_data
+                    verilog/work/iuq_bp.v:1022:36:      Example path: ASSIGNW
+                    verilog/work/iuq_bp.v:798:13:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_data_new
+                    ... Widest candidate vars to split:
+                        verilog/work/iuq_bp.v:798:13:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_data_new, width 16, fanout 5738, can split_var
+                        verilog/work/iuq_bp.v:815:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_hit, width 8, fanout 2850, can split_var
+                        verilog/work/iuq_bp.v:791:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.ex5_bh0_hist, width 2, fanout 642, can split_var
+                        verilog/work/iuq_bp.v:795:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_bh0_wr_data, width 2, fanout 316, can split_var
+                        verilog/work/iuq_bp.v:796:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_bh1_wr_data, width 2, fanout 316, can split_var
+                        verilog/work/iuq_bp.v:792:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.ex5_bh1_hist, width 2, fanout 642, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/iuq_bp.v:798:13:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_data_new, width 16, fanout 5738, can split_var
+                        verilog/work/iuq_bp.v:815:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_hit, width 8, fanout 2850, can split_var
+                        verilog/work/iuq_bp.v:791:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.ex5_bh0_hist, width 2, fanout 642, can split_var
+                        verilog/work/iuq_bp.v:792:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.ex5_bh1_hist, width 2, fanout 642, can split_var
+                        verilog/work/iuq_bp.v:795:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_bh0_wr_data, width 2, fanout 316, can split_var
+                        verilog/work/iuq_bp.v:796:12:  c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_bh1_wr_data, width 2, fanout 316, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_064_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/iuq_ibuf.v:130:41: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q(0)'
+                                                  : ... In instance a2owb
+  130 |       reg [0:IBUFF_WIDTH-1]             buffer_data_q[0:16-1] /*verilator split_var*/ ;
+      |                                         ^~~~~~~~~~~~~
+                    verilog/work/iuq_slice.v:471:1: ... note: In file included from iuq_slice.v
+                    verilog/work/iuq_slice_top.v:961:1: ... note: In file included from iuq_slice_top.v
+                    verilog/work/iuq.v:2033:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ibuf.v:130:41:      Example path: a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q(0)
+                    verilog/work/iuq_ibuf.v:431:8:      Example path: ALWAYS
+                    verilog/work/iuq_ibuf.v:130:41:      Example path: a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q(0)
+                    ... Widest candidate vars to split:
+                        verilog/work/iuq_ibuf.v:130:41:  c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q(0), width 110, fanout 181928, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/iuq_ibuf.v:130:41:  c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q(0), width 110, fanout 181928, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_065_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/iuq_ic_select.v:408:30: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.thread_ready'
+                                                       : ... In instance a2owb
+  408 |    wire [0:1-1]              thread_ready;
+      |                              ^~~~~~~~~~~~
+                    verilog/work/iuq_ic.v:699:1: ... note: In file included from iuq_ic.v
+                    verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ic_select.v:408:30:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.thread_ready
+                    verilog/work/iuq_ic_select.v:572:4:      Example path: ALWAYS
+                    verilog/work/iuq_ic_select.v:400:27:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.need_fetch
+                    verilog/work/iuq_ic_select.v:686:24:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_select.v:408:30:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.thread_ready
+                    ... Widest candidate vars to split:
+                        verilog/work/iuq_ic_select.v:400:27:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.need_fetch, width 4, fanout 6.56008e+07, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/iuq_ic_select.v:400:27:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.need_fetch, width 4, fanout 6.56008e+07, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_066_unoptflat.dot
+%Warning-UNOPTFLAT: verilog/work/iuq_ic_miss.v:428:35: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.release_sm'
+                                                     : ... In instance a2owb
+  428 |    wire                           release_sm;
+      |                                   ^~~~~~~~~~
+                    verilog/work/iuq_ic.v:1019:1: ... note: In file included from iuq_ic.v
+                    verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2node_verilator/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ic_miss.v:428:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.release_sm
+                    verilog/work/iuq_ic_miss_table.v:159:22:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_miss_table.v:68:25:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[0].miss_sm.miss_sm_pt
+                    verilog/work/iuq_ic_miss.v:802:24:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_miss.v:428:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.release_sm
+                    ... Widest candidate vars to split:
+                        verilog/work/iuq_ic_miss_table.v:68:25:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[0].miss_sm.miss_sm_pt, width 23, fanout 5.16787e+10, can split_var
+                        verilog/work/iuq_ic_miss_table.v:68:25:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[1].miss_sm.miss_sm_pt, width 23, fanout 5.16787e+10, can split_var
+                        verilog/work/iuq_ic_miss_table.v:68:25:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[2].miss_sm.miss_sm_pt, width 23, fanout 5.16787e+10, can split_var
+                        verilog/work/iuq_ic_miss_table.v:68:25:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[3].miss_sm.miss_sm_pt, width 23, fanout 5.16787e+10, can split_var
+                    ... Most fanned out candidate vars to split:
+                        verilog/work/iuq_ic_miss_table.v:68:25:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[0].miss_sm.miss_sm_pt, width 23, fanout 5.16787e+10, can split_var
+                        verilog/work/iuq_ic_miss_table.v:68:25:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[1].miss_sm.miss_sm_pt, width 23, fanout 5.16787e+10, can split_var
+                        verilog/work/iuq_ic_miss_table.v:68:25:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[2].miss_sm.miss_sm_pt, width 23, fanout 5.16787e+10, can split_var
+                        verilog/work/iuq_ic_miss_table.v:68:25:  c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[3].miss_sm.miss_sm_pt, width 23, fanout 5.16787e+10, can split_var
+                    ... Suggest add /*verilator split_var*/ to appropriate variables above.
+dot -Tpdf -o ~/a.pdf obj_dir/Va2owb_067_unoptflat.dot

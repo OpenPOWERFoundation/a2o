@@ -270,9 +270,9 @@ int main(int argc, char **argv) {
       }
 
       if (m->rootp->a2owb->ac_an_req == 1) {
-         cout << dec << setw(8) << cycle << "A2L2 Req RA=" << hex << m->rootp->a2owb->ac_an_ra << endl;
+         cout << dec << setw(8) << cycle << "A2L2 Req RA=" << hex << m->rootp->a2owb->ac_an_req_ra << endl;
       }
-)
+
 
       // finish clock stuff
       if ((tick % ticks1x) == 0) {
