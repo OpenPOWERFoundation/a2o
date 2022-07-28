@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
          cout << setw(8) << cycle << "Thread stop=" << threadStop << endl;
       }
 
-      m->nclk = (m->nclk & 0x10) | (clocks[tick % 8] << 2);
+      m->nclk = (m->nclk & 0x10) | (clocks[tick % ticks1x] << 2);
       tick++;
       m->eval();
 
