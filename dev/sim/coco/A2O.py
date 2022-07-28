@@ -43,6 +43,8 @@ async def A2OConfig(dut, sim):
       sim.msg(f'A2O: load credits changed from {creditsLd.value.integer} to {sim.a2o.config.creditsLd}.')
       await RisingEdge(dut.clk_1x)
       creditsLd.value = Release()
+   else:
+      sim.msg(f'A2O: load credits = {creditsLd.value.integer}.')
 
    if sim.a2o.config.creditsSt is not None:
       creditsSt.value = Force(sim.a2o.config.creditsSt)
@@ -50,6 +52,8 @@ async def A2OConfig(dut, sim):
       sim.msg(f'A2O: store credits changed from {creditsSt.value.integer} to {sim.a2o.config.creditsSt}.')
       await RisingEdge(dut.clk_1x)
       creditsSt.value = Release()
+   else:
+      sim.msg(f'A2O: store credits = {creditsSt.value.integer}.')
 
    if sim.a2o.config.creditsLdStSingle is not None:
       v = 1 if sim.a2o.config.creditsLdStSingle else 0
@@ -57,6 +61,8 @@ async def A2OConfig(dut, sim):
       sim.msg(f'A2O: only one load OR store allowed when credits=1/1.')
       await RisingEdge(dut.clk_1x)
       #creditsLdStSingle.value = Release()  # to release have to set _q with xucr0_d[51] and xucr0_act
+   elif sim.a2o.root.lq0.lsq.arb.load_cred_cnt_q.value.integer == 1 and sim.a2o.root.lq0.lsq.arb.store_cred_cnt_q.value.integer == 1 and sim.a2o.root.lq0.lsq.arb.spr_xucr0_cred_q.value.integer == 1:
+      sim.msg(f'A2O: single-credit mode is enabled.')
 
    #wtf make a function - needs mask,thread
    if sim.a2o.config.lsDataForward is not None:
@@ -208,6 +214,7 @@ async def A2OMonitor(dut, sim):
       lr.append(sim.a2o.root.xu0.lr.entry[i].reg_latch.dout)
 
    lastComp = ''
+   lastCompCycle = 0
    lastCompCount = 0
    lastStack = ''
    lastPrintf = ''
@@ -240,9 +247,16 @@ async def A2OMonitor(dut, sim):
       if iu1Comp.value == 1:
          comp = f'{comp}1:{sim.safeint(iu1CompIFAR.value.binstr + "00", 2):06X} '
 
-      if comp != '':
+      if comp == '':
+         if sim.a2o.stopOnHang != 0 and sim.cycle - lastCompCycle > sim.a2o.stopOnHang:
+            sim.ok = False
+            sim.fail = f'No completion detected in {sim.a2o.stopOnHang} cycles'
+            assert False, sim.fail
+            break
+      else:
          comp = f'{comp}{sim.safeint(iuCompFlushIFAR.value.binstr + "00", 2):016X}'
          sim.msg(f'C0: CP {comp}')
+         lastCompCycle = sim.cycle
 
          if sim.a2o.iarPass is not None:
             if sim.safeint(iu0CompIFAR.value.binstr + "00", 2) == sim.a2o.iarPass:
@@ -320,7 +334,8 @@ class A2OCore(DotMap):
       else:
          self.root = root
       self.traceFacUpdates = False
-      self.stopOnLoop = 0
+      self.stopOnHang = 0     # cycles of no completions; could be tuple(start cyc, hang cycs)
+      self.stopOnLoop = 0     # number of consecutive identical comopletions
       self.iarPass = None
       self.iarFail = None
       self.config =  DotMap({
