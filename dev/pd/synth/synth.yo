@@ -1,13 +1,36 @@
-#read_verilog ../verilog/unisims
-# blockbox versions
-read_verilog ../verilog/unisims_synth
 
-read_verilog -I../verilog/trilib ../verilog/trilib/*
-read_verilog -I../verilog/trilib ../verilog/work/*
+##### arrays
 
+# The blackbox attribute on modules is used to mark empty stub modules
+# that have the same ports as the real thing but do not contain information
+# on the internal configuration. This modules are only used by the synthesis
+# passes to identify input and output ports of cells. The Verilog backend also
+# does not output blackbox modules on default. read_verilog, unless called with
+# -noblackbox will automatically set the blackbox attribute on any empty module
+# it reads.
+# The whitebox attribute on modules triggers the same behavior as blackbox, but
+# is for whitebox modules, i.e. library modules that contain a behavioral model
+# of the cell type.
+#read_verilog ./verilog/unisims_synth     # blockbox versions
+
+# this ignores module bodies ands adds blackbox automatically
+read_verilog -lib ./verilog/unisims
+
+##### lib and macros
+read_verilog -I./verilog/trilib ./verilog/trilib/*
+read_verilog -I./verilog/trilib ./verilog/work/*
+
+##### synth
+
+#hierarchy -check -top c         # fails with blackbox
 hierarchy -top c
 
 proc; opt; memory -nomap; opt -fast
-#check -assert
 
-#synth -top c
+#check -assert                   # some driver errors, lots of array errors cuz blackbox?
+#synth -top c                    # fails with blackbox
+
+##### map
+
+##### finish
+
