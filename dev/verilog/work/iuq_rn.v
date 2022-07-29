@@ -2496,7 +2496,7 @@ module iuq_rn(
    assign frn_fdis_iu6_i1_t2_a_d = fdec_frn_iu5_i1_t2_a;
 
 
-   always @(fdec_frn_iu5_i0_t1_v or fdec_frn_iu5_i0_t1_t or fdec_frn_iu5_i1_t1_t or fdec_frn_iu5_i1_t1_a or next_gpr_0 or next_gpr_1 or next_cr_1 or next_cr_0 or au_iu_iu5_i0_t1_p or au_iu_iu5_i1_t1_p)
+   always @*
    begin: tar1_proc
       frn_fdis_iu6_i1_t1_p_d = fdec_frn_iu5_i1_t1_a;
       if (fdec_frn_iu5_i0_t1_v == 1'b1 & fdec_frn_iu5_i0_t1_t == `gpr_t & fdec_frn_iu5_i1_t1_t == `gpr_t)
@@ -2515,7 +2515,7 @@ module iuq_rn(
    end
 
 
-   always @(fdec_frn_iu5_i0_t2_v or fdec_frn_iu5_i0_t2_t or fdec_frn_iu5_i1_t2_t or fdec_frn_iu5_i1_t2_a or next_ctr_1 or next_xer_1 or next_ctr_0 or next_xer_0 or au_iu_iu5_i0_t2_p or au_iu_iu5_i1_t2_p)
+   always @*
    begin: tar2_proc
       frn_fdis_iu6_i1_t2_p_d = fdec_frn_iu5_i1_t2_a;
       if (fdec_frn_iu5_i0_t2_v == 1'b1 & fdec_frn_iu5_i0_t2_t == `ctr_t & fdec_frn_iu5_i1_t2_t == `ctr_t)
@@ -2538,7 +2538,7 @@ module iuq_rn(
    assign frn_fdis_iu6_i1_t3_a_d = fdec_frn_iu5_i1_t3_a;
 
 
-   always @(fdec_frn_iu5_i0_t3_v or fdec_frn_iu5_i0_t3_t or fdec_frn_iu5_i1_t3_t or fdec_frn_iu5_i1_t3_a or next_lr_1 or next_lr_0 or next_cr_1 or next_cr_0 or fdec_frn_iu5_i0_t1_v or fdec_frn_iu5_i0_t1_t)
+   always @*
    begin: tar3_proc
       frn_fdis_iu6_i1_t3_p_d = fdec_frn_iu5_i1_t3_a;
       if (fdec_frn_iu5_i0_t3_v == 1'b1 & fdec_frn_iu5_i0_t3_t == `lr_t & fdec_frn_iu5_i1_t3_t == `lr_t)

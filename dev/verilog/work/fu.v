@@ -802,7 +802,7 @@ module fu(
    //----------------------------------------------------------------------
    // Floating Point Register, ex0
 
-   fu_fpr #( .fpr_pool(`FPR_POOL * `THREADS), .fpr_pool_enc(`FPR_POOL_ENC + `THREAD_POOL_ENC), .axu_spare_enc(`AXU_SPARE_ENC), .threads(`THREADS)) fpr(
+   fu_fpr #( .fpr_pool(`FPR_POOL * `THREADS), .fpr_pool_enc(`FPR_POOL_ENC + `THREAD_POOL_ENC), .axu_spare_enc(`AXU_SPARE_ENC)) fpr(
       .nclk(nclk),
       .clkoff_b(clkoff_dc_b),
       .act_dis(act_dis),
@@ -1219,7 +1219,7 @@ module fu(
    //----------------------------------------------------------------------
    // Control and Decode
 
-   fu_dcd #(.ITAG_SIZE_ENC(`ITAG_SIZE_ENC), .EFF_IFAR(`EFF_IFAR), .REGMODE(`REGMODE), .THREAD_POOL_ENC(`THREAD_POOL_ENC), .CR_POOL_ENC(`CR_POOL_ENC), .THREADS(`THREADS)) dcd(
+   fu_dcd #(.ITAG_SIZE_ENC(`ITAG_SIZE_ENC), .EFF_IFAR(`EFF_IFAR), .REGMODE(`REGMODE), .THREAD_POOL_ENC(`THREAD_POOL_ENC), .CR_POOL_ENC(`CR_POOL_ENC)) dcd(
       // INPUTS
       .act_dis(act_dis),
       .bcfg_scan_in(bcfg_scan_in),

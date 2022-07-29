@@ -2366,7 +2366,7 @@ module lq_stq(
    assign ex5_qHit_set_oth_q[`STQ_ENTRIES] = 0;
    assign ex5_qHit_set_miss[`STQ_ENTRIES] = 0;
 
-   always @(stq_push_down)
+   always @*
      begin: dummy
         stq_cp_next_itag[`STQ_ENTRIES] = 0;
         set_stqe_odq_resolved[`STQ_ENTRIES] = 0;

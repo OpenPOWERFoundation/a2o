@@ -708,7 +708,7 @@ assign iu4_1_isram_din = 1'b0;
 //--------------------------------------
 
 
-always @(iu4_stall or buffer_valid_flush or iu4_uc_mode_din or iu4_0_valid_din or iu4_0_instr_din or iu4_0_bta_din or iu4_0_ifar_din or iu4_0_ucode_din or iu4_0_ucode_ext_din or iu4_0_isram_din or iu4_0_fuse_val_din or iu4_0_fuse_data_din or iu4_1_valid_din or iu4_1_instr_din or iu4_1_bta_din or iu4_1_ifar_din or iu4_1_ucode_din or iu4_1_ucode_ext_din or iu4_1_isram_din or iu4_1_fuse_val_din or iu4_1_fuse_data_din or iu4_uc_mode_q or iu4_0_valid_q or iu4_0_instr_q or iu4_0_bta_q or iu4_0_ifar_q or iu4_0_ucode_q or iu4_0_ucode_ext_q or iu4_0_isram_q or iu4_0_fuse_val_q or iu4_0_fuse_data_q or iu4_1_valid_q or iu4_1_instr_q or iu4_1_bta_q or iu4_1_ifar_q or iu4_1_ucode_q or iu4_1_ucode_ext_q or iu4_1_isram_q or iu4_1_fuse_val_q or iu4_1_fuse_data_q)
+always @*
 begin: iu4_proc
 
    iu4_uc_mode_d = iu4_uc_mode_din;

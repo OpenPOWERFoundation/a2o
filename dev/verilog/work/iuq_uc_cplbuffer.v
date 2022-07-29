@@ -175,8 +175,7 @@ module iuq_uc_cplbuffer(
      for (i = 0; i < buffer_depth; i = i + 1)
      begin : buff_loop
        wire [0:buffer_depth_log-1] index=i;
-       always @ (write_ptr_l2 or index or buff_instr_in or buffer_l2[i] or
-                 xer_write_ptr or xu_iu_ucode_xer_l2 or xer_l2[i])
+       always @*
        begin
          buffer_d[i] = (write_ptr_l2 == index) ? buff_instr_in :
                                                   buffer_l2[i];

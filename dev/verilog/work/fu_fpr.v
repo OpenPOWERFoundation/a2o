@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -162,7 +162,7 @@ module fu_fpr(
 );
    parameter           fpr_pool = 64;
    parameter           fpr_pool_enc = 7;
-   parameter           threads = 2;
+   //parameter           threads = 2;
    parameter           axu_spare_enc = 3;
 
    input  [0:`NCLK_WIDTH-1]              nclk;
@@ -219,7 +219,7 @@ module fu_fpr(
    input               iu_fu_rf0_str_v;
 
    // Interface to IU
-   input [0:threads-1] iu_fu_rf0_tid;		// one hot
+   input [0:`THREADS-1] iu_fu_rf0_tid;		// one hot
    input [0:5]         f_dcd_rf0_fra;
    input [0:5]         f_dcd_rf0_frb;
    input [0:5]         f_dcd_rf0_frc;
@@ -235,12 +235,12 @@ module fu_fpr(
    input               f_rnd_ex7_res_sign;
    //----------------------------------------------
    input               xu_fu_ex5_load_val;
-   input [0:7+threads] xu_fu_ex5_load_tag;
+   input [0:7+`THREADS] xu_fu_ex5_load_tag;
    input [192:255]     xu_fu_ex5_load_data;
 
    input               lq_gpr_rel_we;
    input               lq_gpr_rel_le;
-   input [0:7+threads] lq_gpr_rel_wa;
+   input [0:7+`THREADS] lq_gpr_rel_wa;
    input [64:127]      lq_gpr_rel_wd;		//      :out std_ulogic_vector((128-STQ_DATA_SIZE) to 127);
    //----------------------------------------------
    output [0:7]        f_fpr_ex6_load_addr;
@@ -606,14 +606,14 @@ module fu_fpr(
    // Load Data
 
    generate
-      if (threads == 1)
+      if (`THREADS == 1)
       begin : fpr_inj_perr_thr1_1
          assign pc_fu_inj_regfile_parity_int[0:3] = {pc_fu_inj_regfile_parity[0], tidn, tidn, tidn};
       end
    endgenerate
 
    generate
-      if (threads == 2)
+      if (`THREADS == 2)
       begin : fpr_inj_perr_thr2_2
          assign pc_fu_inj_regfile_parity_int[0:3] = {pc_fu_inj_regfile_parity[0], pc_fu_inj_regfile_parity[1], tidn, tidn};
       end
@@ -645,14 +645,14 @@ module fu_fpr(
    assign ex5_load_v = ex5_load_val;
 
    generate
-      if (threads == 1)
+      if (`THREADS == 1)
       begin : dcd_loadtag_thr1_1
          assign ex5_load_tag[0:9] = {xu_fu_ex5_load_tag[0:2], 1'b0, xu_fu_ex5_load_tag[3:8]};
       end
    endgenerate
 
    generate
-      if (threads == 2)
+      if (`THREADS == 2)
       begin : dcd_loadtag_thr2_1
          assign ex5_load_tag[0:9] = xu_fu_ex5_load_tag[0:9];
       end
@@ -662,14 +662,14 @@ module fu_fpr(
    assign ex5_reload_v = ex5_reload_val;
 
    generate
-      if (threads == 1)
+      if (`THREADS == 1)
       begin : dcd_reloadtag_thr1_1
          assign ex5_reload_tag[0:9] = {lq_gpr_rel_wa[0:2], 1'b0, lq_gpr_rel_wa[3:8]};
       end
    endgenerate
 
    generate
-      if (threads == 2)
+      if (`THREADS == 2)
       begin : dcd_reloadtag_thr2_1
          assign ex5_reload_tag[0:9] = lq_gpr_rel_wa[0:9];
       end
@@ -1065,7 +1065,7 @@ module fu_fpr(
    // Target Data
 
    generate
-      if (threads == 1)
+      if (`THREADS == 1)
       begin : frt_addr_thr_1
          assign frt_addr[1:7] = {1'b0, f_dcd_ex7_frt_addr[0:5]};
          assign spare_unused[1] = f_dcd_ex7_frt_tid[1];
@@ -1073,7 +1073,7 @@ module fu_fpr(
    endgenerate
 
    generate
-      if (threads == 2)
+      if (`THREADS == 2)
       begin : frt_addr_thr_2
          assign frt_addr[1:7] = {f_dcd_ex7_frt_addr[0:5], f_dcd_ex7_frt_tid[1]};
          assign spare_unused[1] = tidn;
@@ -1096,7 +1096,7 @@ module fu_fpr(
    // Source Address
 
    generate
-      if (threads == 1)
+      if (`THREADS == 1)
       begin : addr_gen_1
          assign rf0_fra_addr[1:7] = {1'b0, f_dcd_rf0_fra[0:5]};		//uc_hook
          assign rf0_frb_addr[1:7] = {1'b0, f_dcd_rf0_frb[0:5]};
@@ -1105,7 +1105,7 @@ module fu_fpr(
    endgenerate
 
    generate
-      if (threads == 2)
+      if (`THREADS == 2)
       begin : addr_gen_2
          assign rf0_fra_addr[1:7] = {f_dcd_rf0_fra[0:5], f_dcd_rf0_tid[1]};		//uc_hook
          assign rf0_frb_addr[1:7] = {f_dcd_rf0_frb[0:5], f_dcd_rf0_tid[1]};
@@ -1326,24 +1326,24 @@ module fu_fpr(
       .scan_out(scan_out_0),
       // Read Port FRA
       .r_late_en_1(r0e_en_func),
-      .r_addr_in_1(rf0_fra_addr[(3 - threads):7]),		// rf0_fra_addr(1 to 7),
+      .r_addr_in_1(rf0_fra_addr[(3 - `THREADS):7]),		// rf0_fra_addr(1 to 7),
       .r_data_out_1(fra_data_out),
       // Read Port FRC
       .r_late_en_2(r1e_en_func),
-      .r_addr_in_2(rf0_frc_addr[(3 - threads):7]),		//rf0_frc_addr(1 to 7),
+      .r_addr_in_2(rf0_frc_addr[(3 - `THREADS):7]),		//rf0_frc_addr(1 to 7),
       .r_data_out_2(frc_data_out),
       // Write Ports
       .w_late_en_1(w0e_en_func),
-      .w_addr_in_1(w0e_addr_func[(3 - threads):7]),		//w0e_addr_func(1 to 7),
+      .w_addr_in_1(w0e_addr_func[(3 - `THREADS):7]),		//w0e_addr_func(1 to 7),
       .w_data_in_1(w0e_data_func_f0),
       .w_late_en_2(w0l_en_func),
-      .w_addr_in_2(w0l_addr_func[(3 - threads):7]),		//w0l_addr_func(1 to 7)
+      .w_addr_in_2(w0l_addr_func[(3 - `THREADS):7]),		//w0l_addr_func(1 to 7)
       .w_data_in_2(w0l_data_func_f0),
       .w_late_en_3(reload_wen),
-      .w_addr_in_3(reload_addr[(3 - threads):7]),		//reload_addr(1 to 7),
+      .w_addr_in_3(reload_addr[(3 - `THREADS):7]),		//reload_addr(1 to 7),
       .w_data_in_3(rel_data_func_f0),
       .w_late_en_4(tilo),
-      .w_addr_in_4(zeros[(3 - threads):7]),
+      .w_addr_in_4(zeros[(3 - `THREADS):7]),
       .w_data_in_4(zeros[0:77])
    );
 
@@ -1364,24 +1364,24 @@ module fu_fpr(
       .scan_out(scan_out_1),
       // Read Port FRB
       .r_late_en_1(r0e_en_func),
-      .r_addr_in_1(rf0_frb_addr[(3 - threads):7]),		//rf0_frb_addr(1 to 7),
+      .r_addr_in_1(rf0_frb_addr[(3 - `THREADS):7]),		//rf0_frb_addr(1 to 7),
       .r_data_out_1(frb_data_out),
       // Read Port FRS
       .r_late_en_2(r1e_en_func),
-      .r_addr_in_2(rf0_frs_addr[(3 - threads):7]),		//rf0_frs_addr(1 to 7),
+      .r_addr_in_2(rf0_frs_addr[(3 - `THREADS):7]),		//rf0_frs_addr(1 to 7),
       .r_data_out_2(frs_data_out),
       // Write Ports
       .w_late_en_1(w0e_en_func),
-      .w_addr_in_1(w0e_addr_func[(3 - threads):7]),		//w0e_addr_func(1 to 7),
+      .w_addr_in_1(w0e_addr_func[(3 - `THREADS):7]),		//w0e_addr_func(1 to 7),
       .w_data_in_1(w0e_data_func_f1),
       .w_late_en_2(w0l_en_func),
-      .w_addr_in_2(w0l_addr_func[(3 - threads):7]),		//w0l_addr_func(1 to 7),
+      .w_addr_in_2(w0l_addr_func[(3 - `THREADS):7]),		//w0l_addr_func(1 to 7),
       .w_data_in_2(w0l_data_func_f1),
       .w_late_en_3(reload_wen),
-      .w_addr_in_3(reload_addr[(3 - threads):7]),		//reload_addr(1 to 7),
+      .w_addr_in_3(reload_addr[(3 - `THREADS):7]),		//reload_addr(1 to 7),
       .w_data_in_3(rel_data_func_f1),
       .w_late_en_4(tilo),
-      .w_addr_in_4(zeros[(3 - threads):7]),
+      .w_addr_in_4(zeros[(3 - `THREADS):7]),
       .w_data_in_4(zeros[0:77])
    );
 

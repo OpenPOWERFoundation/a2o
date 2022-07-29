@@ -299,7 +299,7 @@ module iuq_rn_map #(
          for (i = 0; i <= ARCHITECTED_REGISTER_DEPTH - 1; i = i + 1)
          begin : map_set0
 
-            always @(flush_map or spec_0_wr_val or spec_0_wr_arc or spec_0_wr_rename or spec_1_wr_val or spec_1_wr_arc or spec_1_wr_rename or spec_map_arc_l2[i] or comp_map_l2[i])
+            always @*
             begin: set_spec_map_arc_proc
                spec_map_arc_d[i] = spec_map_arc_l2[i];
                if (flush_map == 1'b1)
@@ -310,7 +310,7 @@ module iuq_rn_map #(
                   spec_map_arc_d[i] = spec_0_wr_rename;
             end
 
-            always @(flush_map or spec_0_wr_val or spec_0_wr_arc or spec_0_wr_itag or spec_1_wr_val or spec_1_wr_arc or spec_1_wr_itag or spec_map_itag_l2[i] or comp_0_wr_val or comp_0_wr_itag or comp_1_wr_val or comp_1_wr_itag)
+            always @*
             begin: set_spec_map_itag_proc
                spec_map_itag_d[i] = spec_map_itag_l2[i];
                if (flush_map == 1'b1)
@@ -385,7 +385,7 @@ module iuq_rn_map #(
 
    assign free_cnt_act = flush_map | take_a | take_b | pool_free_0_v_l2 | pool_free_1_v_l2;
 
-	always @(flush_map or take_a or take_b or pool_free_0_v_l2 or pool_free_1_v_l2 or free_cnt_l2)
+	always @*
    begin: free_cnt_proc
    	free_cnt_d = free_cnt_l2;
 

@@ -37,7 +37,8 @@
 //*  DESC:   This is Control and Decode
 //*
 //*****************************************************************************
-   `include "tri_a2o.vh"
+
+`include "tri_a2o.vh"
 
 module fu_dcd(
    act_dis,
@@ -357,7 +358,6 @@ module fu_dcd(
    rf0_act_b
 );
    parameter                                EFF_IFAR = 62;
-   parameter                                THREADS = 2;
    parameter                                ITAG_SIZE_ENC = 7;
    parameter                                THREAD_POOL_ENC = 1;
    parameter                                CR_POOL_ENC = 5;
@@ -1543,13 +1543,13 @@ module fu_dcd(
    assign cp_flush_int[0] = cp_flush[0];
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_flush_thr1_1
          assign  cp_flush_int[1] = tilo;
       end
    endgenerate
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_flush_thr2_1
          assign  cp_flush_int[1] = cp_flush[1];
       end
@@ -1602,7 +1602,7 @@ module fu_dcd(
    //-------------------------------------------
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_flush_thr1_2
          assign  xu_rf0_flush[0] = cp_flush_q[0];
          assign  xu_ex0_flush[0] = cp_flush_q[0];
@@ -1630,7 +1630,7 @@ module fu_dcd(
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_flush_thr2_2
          assign  xu_rf0_flush[0:1] = cp_flush_q[0:1];
          assign  xu_ex0_flush[0:1] = cp_flush_q[0:1];
@@ -1738,7 +1738,7 @@ module fu_dcd(
    // Act Latches
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_msr_bits_thr1_2
          assign  fu_msr_fp[0] = xu_fu_msr_fp[0];
          assign  fu_msr_fp[1] = tidn;
@@ -1750,7 +1750,7 @@ module fu_dcd(
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_msr_bits_thr2_2
          assign  fu_msr_fp = xu_fu_msr_fp;
          assign  fu_msr_fe0 = xu_fu_msr_fe0;
@@ -1796,7 +1796,7 @@ module fu_dcd(
    assign rf0_instr_match = iu_fu_rf0_instr_match;
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_tid_thr1_1
          assign  rf0_tid[0] = iu_fu_rf0_tid[0];
          assign  rf0_tid[1] = tidn;
@@ -1804,14 +1804,14 @@ module fu_dcd(
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_tid_thr2_1
          assign  rf0_tid[0:1] = iu_fu_rf0_tid[0:1];
       end
    endgenerate
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_axu0_vld_thr1_1
          assign  rf0_instr_tid_1hot[0] = rv_axu0_vld[0];
          assign  rf0_instr_tid_1hot[1] = 1'b0;		//rv_axu0_v(1);
@@ -1821,7 +1821,7 @@ module fu_dcd(
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_axu0_vld_thr2_1
          assign  rf0_instr_tid_1hot[0] = rv_axu0_vld[0];
          assign  rf0_instr_tid_1hot[1] = rv_axu0_vld[1];		//rv_axu0_v(1);
@@ -2127,7 +2127,7 @@ module fu_dcd(
    // LOADS
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_loadaddr_thr_1
          assign  ex6_load_addr[0:7] = f_fpr_ex6_load_addr[0:7];		// no tid bit
          assign  ex6_reload_addr[0:7] = f_fpr_ex6_reload_addr[0:7];		// no tid bit
@@ -2135,7 +2135,7 @@ module fu_dcd(
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_loadaddr_thr_2
          assign  ex6_load_addr[0:7] = {f_fpr_ex6_load_addr[0], f_fpr_ex6_load_addr[7], f_fpr_ex6_load_addr[1:6]};		// bit 7 is the tid but only in the 2 thread model
          assign  ex6_reload_addr[0:7] = {f_fpr_ex6_reload_addr[0], f_fpr_ex6_reload_addr[7], f_fpr_ex6_reload_addr[1:6]};		// bit 7 is the tid but only in the 2 thread model
@@ -2674,14 +2674,14 @@ module fu_dcd(
    assign ex2_ifar_val[0:3] = ex2_instr_valid[0:3];
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_store_data_val_thr1_1
          assign  fu_lq_ex2_store_data_val[0] = ex2_str_valid & ex2_instr_valid[0] & (~ex2_ucode_preissue) & (~ex2_abort_s);
       end
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_store_data_val_thr2_1
          assign  fu_lq_ex2_store_data_val[0] = ex2_str_valid & ex2_instr_valid[0] & (~ex2_ucode_preissue) & (~ex2_abort_s);
          assign  fu_lq_ex2_store_data_val[1] = ex2_str_valid & ex2_instr_valid[1] & (~ex2_ucode_preissue) & (~ex2_abort_s);
@@ -3657,14 +3657,14 @@ module fu_dcd(
    assign axu0_cr_w4e = ex8_cr_val | ex8_record_v;
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_cr_w4a_thr1_1
          assign  axu0_cr_w4a[0:4] = ex8_cr_bf[0:4];
       end
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_cr_w4a_thr2_1
          assign  axu0_cr_w4a[0:5] = {ex8_cr_bf[0:4], ex8_instr_tid[1]};
       end
@@ -3688,7 +3688,7 @@ module fu_dcd(
    assign ex5_any_cr_v = (|(ex5_instr_v) & (~ex5_divsqrt_v)) & (ex5_cr_val | ex5_record | ex5_mcrfs);
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_axu0_itag_vld_thr1_1
 
          assign  axu0_rv_itag_vld[0] = (ex3_instr_vns[0] & (~ex4_instr_vns[0]) & (~ex5_cr_or_divsqrt_v[0])) |
@@ -3698,7 +3698,7 @@ module fu_dcd(
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_axu0_itag_vld_thr2_1
 
          assign  axu0_rv_itag_vld[0] = (ex3_instr_vns[0] & (~(|(ex4_instr_vns))) & (~(|(ex5_cr_or_divsqrt_v)))) |
@@ -3734,14 +3734,14 @@ module fu_dcd(
                               (f_dsq_ex6_divsqrt_instr_frt &  {6{  ex6_divsqrt_v}});
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_itag_vld_thr1_1
          assign  axu1_rv_itag_vld[0] = tidn;
       end
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_itag_vld_thr2_1
          assign  axu1_rv_itag_vld = 2'b00;
       end
@@ -3757,14 +3757,14 @@ module fu_dcd(
 
    // AXU0 Instruction Executed
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_exe0_vld_thr2_1
          assign  axu0_iu_execute_vld[0] = (ex8_instr_valid[0] | (ex8_fdivsqrt_start[0] & (ex8_b_den_flush | ex8_regfile_err_det[0]))) & (~ex8_abort) & (~ex8_perr_sm_instr_v);
          assign  axu0_iu_execute_vld[1] = (ex8_instr_valid[1] | (ex8_fdivsqrt_start[1] & (ex8_b_den_flush | ex8_regfile_err_det[1]))) & (~ex8_abort) & (~ex8_perr_sm_instr_v);
       end
    endgenerate
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_exe0_vld_thr1_1
          assign  axu0_iu_execute_vld[0] = (ex8_instr_valid[0] | (ex8_fdivsqrt_start[0] & (ex8_b_den_flush | ex8_regfile_err_det[0]))) & (~ex8_abort)  & (~ex8_perr_sm_instr_v);
       end
@@ -3809,7 +3809,7 @@ module fu_dcd(
                                     (|(ex8_fu_unavail) | ex8_fpr_wr_dis)};
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_async_fex_thr1_1
          assign  axu0_iu_async_fex[0] = fp_async_fex_q[0];
          assign  spare_unused[12] = fp_async_fex_q[1];
@@ -3822,7 +3822,7 @@ module fu_dcd(
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_async_fex_thr2_1
          assign  axu0_iu_async_fex[0] = fp_async_fex_q[0];
          assign  axu0_iu_async_fex[1] = fp_async_fex_q[1];
@@ -3863,14 +3863,14 @@ module fu_dcd(
 
    // AXU1 Instruction Executed
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_exe_vld_thr1_1
          assign  axu1_iu_execute_vld = 1'b0;
       end
    endgenerate
 
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_exe_vld_thr2_1
          assign  axu1_iu_execute_vld = 2'b00;
       end
@@ -3887,7 +3887,7 @@ module fu_dcd(
    //----------------------------------------------------------------------
    // Parity State Machine / parity section
 
-   tri_parity_recovery #(.THREADS(`THREADS)) fu_parity_recovery(
+   tri_parity_recovery fu_parity_recovery(
     .perr_si(perr_si),
     .perr_so(perr_so),
     .mpw1_b(mpw1_b),
@@ -4170,14 +4170,14 @@ module fu_dcd(
    assign ex7_ram_expo[3:13] = f_rnd_ex7_res_expo[3:13];
 
    generate
-      if (THREADS == 1)
+      if (`THREADS == 1)
       begin : dcd_ramactive_thr1_1
          assign  ex7_ram_active[0] = pc_fu_ram_active[0];
          assign  ex7_ram_active[1] = tilo;
       end
    endgenerate
    generate
-      if (THREADS == 2)
+      if (`THREADS == 2)
       begin : dcd_ramactive_thr2_1
          assign  ex7_ram_active[0] = pc_fu_ram_active[0];
          assign  ex7_ram_active[1] = pc_fu_ram_active[1];

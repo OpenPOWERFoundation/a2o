@@ -1535,7 +1535,7 @@ assign uc_legal =
    end
    endgenerate
 
-   always @(iu4_ov_valid_l2 or iu4_ifar_l2 or iu4_instr0_l2 or iu4_instr1_l2 or iu4_valid_l2 or iu4_ext0_l2 or iu4_ext1_l2 or iu4_done_l2 or iu4_ov_ifar_l2 or iu4_ov_instr0_l2 or iu4_ov_instr1_l2 or iu4_ov_ext0_l2 or iu4_ov_ext1_l2 or iu4_ov_done_l2)
+   always @*
    begin: ib_proc
       uc_ib_val = iu4_valid_l2;
       iu4_ifar_out = iu4_ifar_l2;

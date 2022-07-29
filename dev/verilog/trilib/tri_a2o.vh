@@ -135,10 +135,11 @@
 
 //wtf: change for verilatorsim - didnt help
 //`define  INIT_BHT  1			      // 0=> array init time set to 16 clocks, 1=> increased to 512 to init BHT
-`define  INIT_BHT  0			      // 0=> array init time set to 16 clocks, 1=> increased to 512 to init BHT
-//`define  INIT_IUCR0  16'h0000	   // BP disabled
-`define  INIT_IUCR0  16'h00FA	   // BP enabled
+`define  INIT_BHT  0			         // 0=> array init time set to 16 clocks, 1=> increased to 512 to init BHT
 
+//`define  INIT_IUCR0  16'h0000	   // BP disabled
+`define  INIT_IUCR0 16'h00FA	      // BP enabled
+`define  INIT_XUCR0 32'h00000460    // normal
 
 `define  INIT_MASK  2'b10
 `define  RELQ_INCLUDE  0		   // Reload Queue Included

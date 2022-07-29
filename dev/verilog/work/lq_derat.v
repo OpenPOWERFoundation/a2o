@@ -3398,7 +3398,7 @@ module lq_derat(
 
    // power-on reset sequencer to load initial erat entries
 
-   always @(por_seq_q or init_alias or bcfg_q[0:106])
+   always @*
    begin: Por_Sequencer
       por_wr_cam_val    = {2{1'b0}};
       por_wr_array_val  = {2{1'b0}};

@@ -1379,17 +1379,7 @@ module mmq_tlb_ctl(
 
 
       // TLB access sequencer for multiple page size compares for reloads
-      always @(tlb_seq_q or tlb_tag0_q[`tagpos_is + 1:`tagpos_is + 3] or tlb_tag0_q[`tagpos_size:`tagpos_size + 3] or
-            tlb_tag0_q[`tagpos_type:`tagpos_type + 7] or tlb_tag0_q[`tagpos_type:`tagpos_type + 7] or tlb_tag1_q[`tagpos_endflag] or
-            tlb_tag0_tid_notzero or tlb_tag0_q[`tagpos_nonspec] or tlb_tag4_hit_or_parerr or tlb_tag4_way_ind or tlb_addr_maxcntm1 or
-            tlb_cmp_erat_dup_wait or tlb_seq_ierat_req or tlb_seq_derat_req or tlb_search_req or tlb_searchresv_req or snoop_val_q[0] or
-            tlb_read_req or tlb_write_req or ptereload_req_valid or mmucr2[12:31] or derat_taken_q or
-            tlb_hashed_addr1 or tlb_hashed_addr2 or tlb_hashed_addr3 or tlb_hashed_addr4 or tlb_hashed_addr5 or
-            tlb_hashed_tid0_addr1 or tlb_hashed_tid0_addr2 or tlb_hashed_tid0_addr3 or tlb_hashed_tid0_addr4 or tlb_hashed_tid0_addr5 or
-            pgsize2_valid or pgsize3_valid or pgsize4_valid or pgsize5_valid or
-            pgsize2_tid0_valid or pgsize3_tid0_valid or pgsize4_tid0_valid or pgsize5_tid0_valid or
-            size_1M_hashed_addr or size_1M_hashed_tid0_addr or size_256M_hashed_addr or size_256M_hashed_tid0_addr or
-            tlb_tag0_hashed_addr or tlb_tag0_hashed_tid0_addr or tlb0cfg_ind or tlbwe_back_inv_holdoff)
+      always @*
       begin: Tlb_Sequencer
          tlb_seq_addr = {`TLB_ADDR_WIDTH{1'b0}};
          tlb_seq_pgsize = mmucr2[28:31];

@@ -417,9 +417,7 @@ module tri_serial_scom2(
    //-----------------------------------------------------------------------------
    // FSM: serial => parallel => serial state machine
    //
-   always @(state_lt or got_head or gor_eofwdata or got_eofwpar or got_ulhead or sent_rdata or
-   	    p0_err or any_ack_error or match or do_write or do_read or cch_lt[0] or dch_lt  or
-	    sc_ack or wpar_err or read_nvld)
+   always @*
 
    begin: fsm_transition
      next_state = state_lt;

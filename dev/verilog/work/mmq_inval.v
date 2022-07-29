@@ -916,7 +916,7 @@ module mmq_inval(
       //Inv_Sequencer: PROCESS (inv_seq_q, por_seq_q, an_ac_back_inv, an_ac_back_inv_target,
       //                           ex6_valid_q, ex6_ttype_q)
 
-      always @(inv_seq_q or xu_mm_lmq_stq_empty or iu_mm_lmq_empty or hold_ack_q or lsu_tokens_q or xu_mm_ccr2_notlb_q[0] or snoop_ack_q or ex6_valid_q or ex6_ttype_q[0:3] or ex6_ind_q or ex6_isel_q or bus_snoop_seq_ready or mmucsr0_tlb0fi or tlbwe_back_inv_q[`MM_THREADS+1] or an_ac_back_inv_q[6] or an_ac_back_inv_addr_q[54:55] or htw_lsu_req_valid or lsu_req_q or cswitch_q[0:1] or cswitch_q[3] or power_managed_q[0] or power_managed_q[2] or power_managed_q[3])
+      always @*
       begin: Inv_Sequencer
          inv_seq_idle = 1'b0;
          inv_seq_snoop_inprogress = 1'b0;
@@ -1441,7 +1441,7 @@ module mmq_inval(
                              hold_ack_q[1];
 `endif
 
-      always @(bus_snoop_seq_q or inval_snoop_forme or bus_snoop_hold_ack_q or inv_seq_snoop_done or power_managed_q)
+      always @*
       begin: Bus_Snoop_Sequencer
          bus_snoop_seq_idle = 1'b0;
          bus_snoop_seq_hold_req = 1'b0;

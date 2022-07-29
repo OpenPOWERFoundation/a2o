@@ -569,7 +569,7 @@ module mmq_htw(
 
 
       // HTW sequencer for servicing indirect tlb entry hits
-      always @(htw_seq_q or tlb_htw_req_valid_vec or tlb_htw_pte_machines_full or htw_lsu_req_taken)
+      always @*
       begin: Htw_Sequencer
          htw_seq_load_pteaddr = 1'b0;
          htw_lsu_req_valid = 1'b0;
@@ -604,7 +604,7 @@ module mmq_htw(
 
       // PTE sequencer for servicing pte data reloads
 
-      always @(pte0_seq_q or pte_load_ptr_q or ptereload_ptr_q or htw_lsu_req_taken or ptereload_req_taken or pte0_score_pending_q or pte0_score_dataval_q or pte0_score_error_q or pte0_score_qwbeat_q or pte0_score_ibit_q)
+      always @*
       begin: Pte0_Sequencer
          pte0_reload_req_valid = 1'b0;
          pte0_reload_req_taken = 1'b0;
@@ -683,7 +683,7 @@ module mmq_htw(
                              1'b0;
       // PTE sequencer for servicing pte data reloads
 
-      always @(pte1_seq_q or pte_load_ptr_q or ptereload_ptr_q or htw_lsu_req_taken or ptereload_req_taken or pte1_score_pending_q or pte1_score_dataval_q or pte1_score_error_q or pte1_score_qwbeat_q or pte1_score_ibit_q)
+      always @*
       begin: Pte1_Sequencer
          pte1_reload_req_valid = 1'b0;
          pte1_reload_req_taken = 1'b0;
