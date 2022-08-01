@@ -7572,14 +7572,18 @@ assign select_lq =
       .dout(cp3_preissue_q)
    );
 
+// original behavior unless overridden in tri_a2o.vh
+`ifndef RESET_VECTOR
+   `define RESET_VECTOR 32'hFFFFFFFC
+`endif
 
    generate
       begin : xhdl6
          genvar i;
          for (i = 0; i < `EFF_IFAR_ARCH; i = i + 1)
          begin : q_depth_gen
-            if((62-`EFF_IFAR_ARCH+i) > 31)
-               tri_rlmlatch_p #(.INIT(1), .NEEDS_SRESET(1)) cp3_nia_a_latch(
+            if ((62-`EFF_IFAR_ARCH+i) > 31)
+               tri_rlmlatch_p #(.INIT(`RESET_VECTOR>>(63-(62-`EFF_IFAR_ARCH+i))), .NEEDS_SRESET(1)) cp3_nia_a_latch(
                   .nclk(nclk),
                   .vd(vdd),
                   .gd(gnd),

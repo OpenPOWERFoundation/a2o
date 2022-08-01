@@ -1,0 +1,36 @@
+# a2o - litex
+
+SIM_BUILD ?= build_node
+SIM ?= icarus
+
+# icarus
+VERILOG_ROOT = ../../verilog
+
+# litex version
+NODE = $(VERILOG_ROOT)/a2o_litex
+COMPILE_ARGS = -I$(NODE) -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(NODE) -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib_clk1x -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work
+
+# other options
+
+# rtl
+TOPLEVEL_LANG = verilog
+# top-level to enable trace, etc.
+VERILOG_SOURCES = ./cocotb_litex.v
+TOPLEVEL = cocotb
+
+# python test
+MODULE = tb_node
+TESTCASE = tb_litex
+
+# cocotb make rules
+include $(shell cocotb-config --makefiles)/Makefile.sim
+
+build: clean sim fst
+
+run: sim fst
+
+vcd: sim
+
+fst:
+	vcd2fst a2olitex.vcd a2olitex.fst
+	rm a2olitex.vcd

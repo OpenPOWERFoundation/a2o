@@ -25,30 +25,6 @@ async def init(dut, sim):
 
    dut.nclk.value = 0
    dut.scan_in.value = 0
-   #dut.an_ac_scan_type_dc.value = 0x0
-   #dut.an_ac_chipid_dc.value = 0x0
-   #dut.an_ac_coreid.value = 0x0
-   #dut.an_ac_scom_sat_id.value = 0x0
-
-   #dut.an_ac_lbist_ary_wrt_thru_dc.value = 0
-   #dut.an_ac_gsd_test_enable_dc.value = 0
-   #dut.an_ac_gsd_test_acmode_dc.value = 0
-   #dut.an_ac_ccflush_dc.value = 0
-   #dut.an_ac_ccenable_dc.value = 0
-   #dut.an_ac_lbist_en_dc.value = 0
-   #dut.an_ac_lbist_ip_dc.value = 0
-   #dut.an_ac_lbist_ac_mode_dc.value = 0
-   #dut.an_ac_scan_diag_dc.value = 0
-   #dut.an_ac_scan_dis_dc_b.value = 0
-
-   #dut.an_ac_rtim_sl_thold_8.value = 0
-   #dut.an_ac_func_sl_thold_8.value = 0
-   #dut.an_ac_func_nsl_thold_8.value = 0
-   #dut.an_ac_ary_nsl_thold_8.value = 0
-   #dut.an_ac_sg_8.value = 0
-   #dut.an_ac_fce_8.value = 0
-   #dut.an_ac_abst_scan_in.value = 0
-
    dut.an_ac_reset_1_complete.value = 0
    dut.an_ac_reset_2_complete.value = 0
    dut.an_ac_reset_3_complete.value = 0
@@ -216,6 +192,7 @@ async def scom(dut, sim):
 # ------------------------------------------------------------------------------------------------
 # Do something
 
+# ************************************************************************************************
 @cocotb.test()
 async def tb_node(dut):
    """A Vulgar Display of OpenPower"""
@@ -332,6 +309,7 @@ async def tb_node(dut):
       dut._log.info(f'[{sim.cycle:08d}] {sim.fail}')
       assert False
 
+# ************************************************************************************************
 @cocotb.test()
 async def tb_node_wb(dut):
    """A2O with WB and cocoext slave"""
@@ -359,8 +337,8 @@ async def tb_node_wb(dut):
    await init(dut, sim)
 
    # start clocks,reset
-   await cocotb.start(genClocks(dut, sim))
-   await cocotb.start(genReset(dut, sim))
+   await cocotb.start(genClocksLitex(dut, sim))
+   await cocotb.start(genResetLitex(dut, sim))
 
    # start interfaces
    await cocotb.start(scom(dut, sim))
@@ -424,6 +402,160 @@ async def tb_node_wb(dut):
    dut.an_ac_pm_thread_stop.value = 0
    await RisingEdge(dut.clk_1x)
    dut._log.info(f'[{sim.cycle:08d}] Threads enabled.')
+
+   # should await sim.done
+   await Timer((sim.maxCycles+100)*8, units='ns')
+
+   if sim.ok:
+      dut._log.info(f'[{sim.cycle:08d}] You has opulence.')
+   else:
+      dut._log.info(f'[{sim.cycle:08d}] You are worthless and weak!')
+      dut._log.info(f'[{sim.cycle:08d}] {sim.fail}')
+      assert False
+
+# ************************************************************************************************
+
+# make these generic someday (sigs could be in sim, or passed in)
+async def genResetLitex(dut, sim):
+   """Generate reset. """
+
+   first = True
+   done = False
+
+   while not done:
+      await RisingEdge(dut.clk_1x)
+      if sim.cycle < sim.resetCycle:
+         if first:
+            dut._log.info(f'[{sim.cycle:08d}] Resetting...')
+            first = False
+         dut.rst.value = 1
+      elif not done:
+         dut._log.info(f'[{sim.cycle:08d}] Releasing reset.')
+         dut.rst.value = 0
+         done = True
+         sim.resetDone = True
+
+async def genClocksLitex(dut, sim):
+   """Generate 1x, 2x clock pulses, depending on parms. """
+
+   if sim.clk2x:
+      sim.clk1x = Clock(dut.clk_1x, 8, 'ns')
+      await cocotb.start(sim.clk1x.start())
+      sim.clk2x = Clock(dut.clk_2x, 4, 'ns')
+      await cocotb.start(sim.clk2x.start())
+   else:
+      sim.clk1x = Clock(dut.clk_1x, 8, 'ns')
+      await cocotb.start(sim.clk1x.start())
+
+   for cycle in range(sim.maxCycles):
+
+      sim.cycle = cycle
+
+      if cycle % sim.hbCycles == 0:
+         dut._log.info(f'[{cycle:08d}] ...tick...')
+
+      await RisingEdge(dut.clk_1x)
+
+   dut._log.info(f'[{sim.cycle:08d}] Reached max cycle.  Clocks stopped.')
+   sim.ok = False
+   sim.fail = 'Max cycle reached.'
+
+@cocotb.test()
+async def tb_litex(dut):
+   """A2O wit litex interface"""
+
+   sim = Sim(dut)
+   sim.mem = Memory(sim)
+   sim.maxCycles = 20000
+
+   # rom+bios+arcitst
+   sim.memFiles = [
+      {
+      'addr': 0x00000000,
+      'file' : '../mem/test3/rom.init'
+      }
+   ]
+
+   for i in range(len(sim.memFiles)):  #wtf el should be object with name, format, etc.
+      sim.mem.loadFile(sim.memFiles[i]['file'], addr=sim.memFiles[i]['addr'])
+
+   if sim.resetAddr is not None and sim.mem.read(sim.resetAddr) == sim.mem.default:
+      sim.mem.write(sim.resetAddr, sim.resetOp)
+      sim.msg(f'Set reset fetch @{sim.resetAddr:08X} to {sim.resetOp:08X}.')
+
+   # init stuff
+   #await init(dut, sim)
+   dut.externalInterrupt.value = 0;
+   dut.externalInterruptS.value = 0;
+   dut.timerInterrupt.value = 0;
+   dut.softwareInterrupt.value = 0;
+
+   # start clocks,reset
+   await cocotb.start(genClocksLitex(dut, sim))
+   await cocotb.start(genResetLitex(dut, sim))
+
+   # start interfaces
+   await cocotb.start(scom(dut, sim))
+
+   sim.a2o = A2OCore(sim, dut.c0.c0)
+   sim.a2o.traceFacUpdates =  True
+   sim.a2o.stopOnHang = 200
+   sim.a2o.stopOnLoop = 50
+   sim.a2o.iarPass = 0x7F0
+   sim.a2o.iarFail = 0x7F4
+
+   await cocotb.start(A2O.driver(dut, sim))
+
+   # sim memory
+   #await cocotb.start(memory(dut, sim))
+   # wishbone memory
+   from cocotbext.wishbone.monitor import WishboneSlave
+   # slave should take non-iterator for datgen and call it with f(self.bus) if next(f) fails
+   wbSignals = {"cyc": "wb_cyc",
+                "stb": "wb_stb",
+                "adr": "wb_adr",
+                "we":  "wb_we",
+                "sel": "wb_sel",
+                "datwr": "wb_datw",
+                "ack":  "wb_ack",
+                "datrd": "wb_datr"
+               }
+   a2l2Iterable = A2L2Iterable()
+   wbs = WishboneSlave(dut, None, dut.clk_1x, width=32, signals_dict=wbSignals, datgen=iter(a2l2Iterable))
+   A2L2.addWBSlave(dut, sim, wbSignals)
+   wbs.add_callback(A2L2.wbSlave)
+
+   #await cocotb.start(A2L2.driver(dut, sim))
+   await cocotb.start(A2L2.checker(dut, sim))
+   await cocotb.start(A2L2.monitor(dut, sim, watchTrans=True))
+
+   await Timer((sim.resetCycle + 5)*8, units='ns')
+   if dut.rst.value != 0:
+      sim.ok = False
+      sim.fail = 'Reset active too long!'
+
+   # config stuff
+
+   # config for a2onode w/1 req buffer
+   # a2node_verilator defines have these set already
+   #sim.a2o.config.creditsLd = 1
+   #sim.a2o.config.creditsSt = 1
+   #sim.a2o.config.creditsLdStSingle = True
+
+   # original fpga design needed 4 cred, no fwd (set in logic currently)
+   #sim.a2o.lsDataForward = 0   # disable=1
+
+   await A2O.config(dut, sim)
+
+   await cocotb.start(A2O.checker(dut, sim))
+   await cocotb.start(A2O.monitor(dut, sim))
+
+   #await cocotb.start(checker(dut, sim))
+
+   # release thread(s)
+   #dut.an_ac_pm_thread_stop.value = 0
+   #await RisingEdge(dut.clk_1x)
+   #dut._log.info(f'[{sim.cycle:08d}] Threads enabled.')
 
    # should await sim.done
    await Timer((sim.maxCycles+100)*8, units='ns')
