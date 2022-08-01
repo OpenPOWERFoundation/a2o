@@ -504,10 +504,59 @@ async def A2L2Monitor(dut, sim, watchTrans=False):
             sim.msg(f'RELD tag={tag:02X} {data:32X}')  #wtf need qw,crit
             dataValidCyc = dataValidCyc[1:]
 
-class A2L2:
+# added wb stuff to try to use cocoext_wishbone
+class A2L2():
    driver = A2L2Driver
    checker = A2L2Checker
    monitor = A2L2Monitor
 
    def __init__(self):
       pass
+
+   @classmethod
+   def addWBSlave(cls, dut, sim, signals):
+      cls.dut = dut
+      cls.sim = sim
+      cls.wbSignals = signals
+
+   @classmethod
+   def wbSlave(cls, trans):
+      for t in trans:
+         adr = t.adr.integer
+         if t.datwr is not None:
+            be = t.sel.integer
+            dat = t.datwr.value
+            cls.sim.msg(f'WB Slave: WR @{adr:08X} sel={be:X} dat={dat:08X}')
+            cls.sim.mem.write(adr, dat, be)
+         else: # reads either no wait or waitIdle?
+            #cls.sim.msg(f'WB Slave: RD @{adr:08X} {t.datrd:08X}')
+            pass # datgen msg only
+         if t.waitAck or t.waitStall or t.waitIdle:
+            #cls.sim.msg(f'WB Slave: stall={t.waitStall} ack={t.waitAck} idle={t.waitIdle}')
+            #cls.sim.msg(f'WB Slave: got wait!')
+            pass
+
+   @classmethod
+   # no adr from slave!
+   def wbDatgen(cls):
+      sigAdr = getattr(cls.dut, cls.wbSignals['adr'])
+      try:
+         adr = sigAdr.value.integer
+      except:
+         adr = 0
+      dat = cls.sim.mem.read(adr)
+      cls.sim.msg(f'WB Slave: RD @{adr:08X}={dat:08X}')
+      return dat #yield dat
+
+class A2L2Iterable:
+   def __init__(self):
+      self.a2l2 = A2L2
+
+   def __iter__(self):
+      return self
+
+   def __next__(self):
+      return A2L2.wbDatgen()
+
+
+

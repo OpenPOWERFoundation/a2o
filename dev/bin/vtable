@@ -222,7 +222,7 @@ else:
    openBracket = '['
    closeBracket = ']'
    opAnd = '&'
-   opOr = '+'
+   opOr = '|'
    opNot = '~'
    zero = "'b0"
    tablePattern = re.compile(r'^\s*?\/\/tbl(?:\s+([^\s]+).*$|\s*$)')

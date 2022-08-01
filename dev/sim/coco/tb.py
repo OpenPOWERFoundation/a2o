@@ -231,8 +231,7 @@ async def tb(dut):
 
    sim = Sim(dut)
    sim.mem = Memory(sim)
-   #sim.maxCycles = 2000000
-   sim.maxCycles = 300
+   sim.maxCycles = 20000
    # original fpga design needed 4 cred, no fwd (set in logic currently)
    #sim.config.core.creditsSt = 32
    #sim.config.core.lsDataForward = 0   # disable=1
@@ -269,7 +268,6 @@ async def tb(dut):
    ]
    '''
 
-   '''
    # rom+bios+arcitst
    sim.memFiles = [
       {
@@ -277,8 +275,8 @@ async def tb(dut):
       'file' : '../mem/test3/rom.init'
       }
    ]
-   '''
 
+   '''
    # rom+bios+dhrystone
    sim.memFiles = [
       {
@@ -286,6 +284,7 @@ async def tb(dut):
       'file' : '../mem/dhrystone/rom.init'
       }
    ]
+   '''
 
    for i in range(len(sim.memFiles)):  #wtf el should be object with name, format, etc.
       sim.mem.loadFile(sim.memFiles[i]['file'], addr=sim.memFiles[i]['addr'])

@@ -89,12 +89,13 @@ class TransQ(DotMap):
 # could allow registering callback for loads and/or stores in range
 class Memory(DotMap):
 
-   def __init__(self, sim, default=0, logStores=True):
+   def __init__(self, sim, default=0, logReads=False, logStores=True):
       super().__init__()
       self.sim = sim
       self.data = {}
       self.le = False
       self.default = default  # default word data for unloaded
+      self.logReads = logReads
       self.logStores = logStores
 
    def loadFile(self, filename, format='ascii', addr=0, le=0):
@@ -121,6 +122,11 @@ class Memory(DotMap):
          addr = addr + 0
       except:
          addr = int(addr, 16)
+      if self.logReads:
+         if addr not in self.data:
+            self.sim.msg(f'Mem Read: @{addr:08X} XXXXXXXX')
+         else:
+            self.sim.msg(f'Mem Read: @{addr:08X} {self.data[addr]:08X}')
       if addr in self.data:
          return self.data[addr]
       else:
