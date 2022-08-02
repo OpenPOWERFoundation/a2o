@@ -467,6 +467,7 @@ async def tb_litex(dut):
    sim = Sim(dut)
    sim.mem = Memory(sim)
    sim.maxCycles = 20000
+   sim.resetAddr = None    # set to 00000000 in rtl define
 
    # rom+bios+arcitst
    sim.memFiles = [
@@ -476,7 +477,7 @@ async def tb_litex(dut):
       }
    ]
 
-   for i in range(len(sim.memFiles)):  #wtf el should be object with name, format, etc.
+   for i in range(len(sim.memFiles)):
       sim.mem.loadFile(sim.memFiles[i]['file'], addr=sim.memFiles[i]['addr'])
 
    if sim.resetAddr is not None and sim.mem.read(sim.resetAddr) == sim.mem.default:
@@ -484,11 +485,11 @@ async def tb_litex(dut):
       sim.msg(f'Set reset fetch @{sim.resetAddr:08X} to {sim.resetOp:08X}.')
 
    # init stuff
-   #await init(dut, sim)
-   dut.externalInterrupt.value = 0;
-   dut.externalInterruptS.value = 0;
-   dut.timerInterrupt.value = 0;
-   dut.softwareInterrupt.value = 0;
+   dut.externalInterrupt.value = 0
+   dut.externalInterruptS.value = 0
+   dut.timerInterrupt.value = 0
+   dut.softwareInterrupt.value = 0
+   dut.cfg_wr.value = 0
 
    # start clocks,reset
    await cocotb.start(genClocksLitex(dut, sim))
@@ -549,13 +550,6 @@ async def tb_litex(dut):
 
    await cocotb.start(A2O.checker(dut, sim))
    await cocotb.start(A2O.monitor(dut, sim))
-
-   #await cocotb.start(checker(dut, sim))
-
-   # release thread(s)
-   #dut.an_ac_pm_thread_stop.value = 0
-   #await RisingEdge(dut.clk_1x)
-   #dut._log.info(f'[{sim.cycle:08d}] Threads enabled.')
 
    # should await sim.done
    await Timer((sim.maxCycles+100)*8, units='ns')

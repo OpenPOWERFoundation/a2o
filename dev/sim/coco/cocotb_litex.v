@@ -5,23 +5,27 @@
 
 module cocotb (
 
-    input                                                  clk_1x,
-    input                                                  clk_2x,
-    input                                                  rst,
+    input                            clk_1x,
+    input                            clk_2x,
+    input                            rst,
 
-    input                                                  timerInterrupt,
-    input                                                  externalInterrupt,
-    input                                                  softwareInterrupt,
-    input                                                  externalInterruptS,
+    input  [0:31]                    cfg_dat,
+    input                            cfg_wr,
+    output [0:31]                    status,
 
-    output                                                 wb_stb,
-    output                                                 wb_cyc,
-    output [31:0]                                          wb_adr,
-    output                                                 wb_we,
-    output [3:0]                                           wb_sel,
-    output [31:0]                                          wb_datw,
-    input                                                  wb_ack,
-    input  [31:0]                                          wb_datr
+    input                            timerInterrupt,
+    input                            externalInterrupt,
+    input                            softwareInterrupt,
+    input                            externalInterruptS,
+
+    output                           wb_stb,
+    output                           wb_cyc,
+    output [31:0]                    wb_adr,
+    output                           wb_we,
+    output [3:0]                     wb_sel,
+    output [31:0]                    wb_datw,
+    input                            wb_ack,
+    input  [31:0]                    wb_datr
 
 );
 
@@ -29,6 +33,10 @@ a2owb c0 (
       .clk_1x(clk_1x),
       .clk_2x(clk_2x),
       .rst(rst),
+
+      .cfg_wr(cfg_wr),
+      .cfg_dat(cfg_dat),
+      .status(status),
 
       .timerInterrupt(timerInterrupt),
       .externalInterrupt(externalInterrupt),

@@ -287,28 +287,28 @@ async def A2OMonitor(dut, sim):
          for i in range(36):
             good, arch = sim.safeint(gprCompMap[i].value.binstr, 2, rc=True)
             if good and arch != lastGprCompMap[i]:
-               sim.msg(f'GPR Update: R{i:02d}={hex(gpr[arch], 16)}')
+               sim.msg(f'C0: GPR Update: R{i:02d}={hex(gpr[arch], 16)}')
                lastGprCompMap[i] = arch
          for i in range(8):
             good, arch = sim.safeint(crCompMap[i].value.binstr, 2, rc=True)
             if good and arch != lastCrCompMap[i]:
-               sim.msg(f'CR Update: F{i:01d}={hex(cr[arch], 1)}')
+               sim.msg(f'C0: CR Update: F{i:01d}={hex(cr[arch], 1)}')
                lastCrCompMap[i] = arch
          for i in range(1):
             good, arch = sim.safeint(xerCompMap[i].value.binstr, 2, rc=True)
             if good and arch != lastXerCompMap[i]:
                v = xer[arch].value.binstr
-               sim.msg(f'XER Update: SO/OV/CA={v[0:3]} LEN={int(v[3:],2):02X}')
+               sim.msg(f'C0: XER Update: SO/OV/CA={v[0:3]} LEN={int(v[3:],2):02X}')
                lastXerCompMap[i] = arch
          for i in range(1):
             good, arch = sim.safeint(ctrCompMap[i].value.binstr, 2, rc=True)
             if good and arch != lastCtrCompMap[i]:
-               sim.msg(f'CTR Update:{hex(ctr[arch], 16)}')
+               sim.msg(f'C0: CTR Update:{hex(ctr[arch], 16)}')
                lastCtrCompMap[i] = arch
          for i in range(1):
             good, arch = sim.safeint(lrCompMap[i].value.binstr, 2, rc=True)
             if good and arch != lastLrCompMap[i]:
-               sim.msg(f'LR Update:{hex(lr[arch], 16)}')
+               sim.msg(f'C0: LR Update:{hex(lr[arch], 16)}')
                lastLrCompMap[i] = arch
 
    sim.msg(f'{me}: ended.')
