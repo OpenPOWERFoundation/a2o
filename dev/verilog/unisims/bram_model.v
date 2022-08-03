@@ -24,25 +24,26 @@ module bram_model (DIA, DIB, ENA, ENB, WEA, WEB, SSRA, SSRB, CLKA, CLKB, ADDRA, 
    reg [data_w-1:0]    DOB_q;
 
 
-   initial begin
+   initial begin: init
       integer i;
       for (i = 0; i < 2**addr_w; i = i + 1)
          MEM[i] = 0;
    end
 
-   always @(posedge CLKA, posedge CLKB) begin: BRAM_MODEL
+   always @(posedge CLKA) begin: BRAM_MODEL
       if (ENA) begin
          if (WEA) begin
             MEM[ADDRA] <= DIA;
          end
       end
+   end
 
+   always @(posedge CLKB) begin: BRAM_MODEL_B
       if (ENB) begin
          if (WEB) begin
             MEM[ADDRB] <= DIB;
          end
       end
-
    end
 
    always @(posedge CLKA) begin

@@ -1058,6 +1058,7 @@ module iuq_ifetch(
      for (i = 0; i < `THREADS; i = i + 1)
      begin : bp_gen
         iuq_bp  iuq_bp0(
+               .bp_ic_iu3_hold(),                     // tied 0 in iuq_bp
                .iu2_0_bh0_rd_data(iu2_0_bh0_rd_data),
                .iu2_1_bh0_rd_data(iu2_1_bh0_rd_data),
                .iu2_2_bh0_rd_data(iu2_2_bh0_rd_data),

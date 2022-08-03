@@ -601,12 +601,17 @@ module iuq_dispatch(
    output [0:`GPR_POOL_ENC-1]   iu_rv_iu6_t0_i1_s3_p,
    output [0:`ITAG_SIZE_ENC-1]  iu_rv_iu6_t0_i1_s3_itag,
    output [0:2]                 iu_rv_iu6_t0_i1_s3_t,
+`ifdef THREADS1
+   output                       iu_rv_iu6_t0_i1_s3_dep_hit
+`else
    output                       iu_rv_iu6_t0_i1_s3_dep_hit,
+`endif
 
 `ifndef THREADS1
    //----------------------------------------------------------------
    // Interface with rename
    //----------------------------------------------------------------
+
    output                       iu_rv_iu6_t1_i0_vld,
    output                       iu_rv_iu6_t1_i0_act,
    output [0:`ITAG_SIZE_ENC-1]  iu_rv_iu6_t1_i0_itag,
@@ -749,9 +754,9 @@ module iuq_dispatch(
    output [0:`GPR_POOL_ENC-1]   iu_rv_iu6_t1_i1_s3_p,
    output [0:`ITAG_SIZE_ENC-1]  iu_rv_iu6_t1_i1_s3_itag,
    output [0:2]                 iu_rv_iu6_t1_i1_s3_t,
-   output                       iu_rv_iu6_t1_i1_s3_dep_hit,
+   output                       iu_rv_iu6_t1_i1_s3_dep_hit
 `endif
-   input [0:`THREADS-1]         spr_cpcr2_we
+   //input [0:`THREADS-1]         spr_cpcr2_we
    );
 
    localparam [0:31]            value_1 = 32'h00000001;

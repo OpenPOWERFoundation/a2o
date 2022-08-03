@@ -3325,7 +3325,9 @@ endgenerate
 
 generate
    if (`BUILD_PFETCH == 0) begin : nopf
-      assign pf_dec_req_addr = {(63 - `CL_SIZE-64 - (2 ** `GPR_WIDTH_ENC))+1{1'b0}};
+      //assign pf_dec_req_addr = {(63 - `CL_SIZE-64 - (2 ** `GPR_WIDTH_ENC))+1{1'b0}}; //wtf failed trying downsizing: -70 repeat
+      // [64-(2**`GPR_WIDTH_ENC):63-`CL_SIZE]
+      assign pf_dec_req_addr = 0;
       assign pf_dec_req_thrd = {`THREADS{1'b0}};
       assign pf_dec_req_val  = 1'b0;
       assign func_scan_out_int[10] = spr_pf_func_scan;

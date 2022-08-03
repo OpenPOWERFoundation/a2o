@@ -609,7 +609,7 @@ assign get_address_pt[1] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 16'b0001001101001110);
+     }) == 16'b0001001101001110);
 assign get_address_pt[2] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -619,7 +619,7 @@ assign get_address_pt[2] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 16'b1111110010000000);
+     }) == 16'b1111110010000000);
 assign get_address_pt[3] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -629,7 +629,7 @@ assign get_address_pt[3] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 16'b0111111000000000);
+     }) == 16'b0111111000000000);
 assign get_address_pt[4] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -638,7 +638,7 @@ assign get_address_pt[4] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111101011111);
+    next_instr[30] }) == 15'b011111101011111);
 assign get_address_pt[5] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -648,7 +648,7 @@ assign get_address_pt[5] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[30] , iu3_2ucode_l2
-     }) === 16'b0111110000110110);
+     }) == 16'b0111110000110110);
 assign get_address_pt[6] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -658,7 +658,7 @@ assign get_address_pt[6] =
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
     next_instr[30] , iu3_2ucode_l2
-     }) === 16'b0111111001101110);
+     }) == 16'b0111111001101110);
 assign get_address_pt[7] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -668,7 +668,7 @@ assign get_address_pt[7] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[30] , iu3_2ucode_l2
-     }) === 16'b0111110101110111);
+     }) == 16'b0111110101110111);
 assign get_address_pt[8] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -677,7 +677,7 @@ assign get_address_pt[8] =
     next_instr[23] , next_instr[24] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111010110101);
+    next_instr[30] }) == 15'b011111010110101);
 assign get_address_pt[9] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -687,7 +687,7 @@ assign get_address_pt[9] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30] ,
-    iu3_2ucode_l2 }) === 17'b01111101001101110);
+    iu3_2ucode_l2 }) == 17'b01111101001101110);
 assign get_address_pt[10] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -696,7 +696,7 @@ assign get_address_pt[10] =
     next_instr[23] , next_instr[24] ,
     next_instr[25] , next_instr[26] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111101101111);
+    next_instr[30] }) == 15'b011111101101111);
 assign get_address_pt[11] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -705,7 +705,7 @@ assign get_address_pt[11] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111111010111);
+    next_instr[30] }) == 15'b011111111010111);
 assign get_address_pt[12] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -714,7 +714,7 @@ assign get_address_pt[12] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b01111100011111);
+     }) == 14'b01111100011111);
 assign get_address_pt[13] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[3] , next_instr[4] ,
@@ -723,7 +723,7 @@ assign get_address_pt[13] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b111111011000111);
+    next_instr[30] }) == 15'b111111011000111);
 assign get_address_pt[14] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -732,7 +732,7 @@ assign get_address_pt[14] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[30]
-     }) === 14'b01111100001111);
+     }) == 14'b01111100001111);
 assign get_address_pt[15] =
     (({ next_instr[1] , next_instr[2] ,
     next_instr[3] , next_instr[4] ,
@@ -741,7 +741,7 @@ assign get_address_pt[15] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b11111110010110);
+     }) == 14'b11111110010110);
 assign get_address_pt[16] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -751,7 +751,7 @@ assign get_address_pt[16] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[30] , iu3_2ucode_l2
-     }) === 16'b0111110101110110);
+     }) == 16'b0111110101110110);
 assign get_address_pt[17] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -760,7 +760,7 @@ assign get_address_pt[17] =
     next_instr[23] , next_instr[24] ,
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
-    next_instr[30] }) === 15'b011111010101011);
+    next_instr[30] }) == 15'b011111010101011);
 assign get_address_pt[18] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -769,7 +769,7 @@ assign get_address_pt[18] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111100010101);
+    next_instr[30] }) == 15'b011111100010101);
 assign get_address_pt[19] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -779,7 +779,7 @@ assign get_address_pt[19] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 16'b0111110010010000);
+     }) == 16'b0111110010010000);
 assign get_address_pt[20] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -789,7 +789,7 @@ assign get_address_pt[20] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 16'b0111111101110111);
+     }) == 16'b0111111101110111);
 assign get_address_pt[21] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -799,7 +799,7 @@ assign get_address_pt[21] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 16'b0111110001110111);
+     }) == 16'b0111110001110111);
 assign get_address_pt[22] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -808,7 +808,7 @@ assign get_address_pt[22] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111101110111);
+    next_instr[30] }) == 15'b011111101110111);
 assign get_address_pt[23] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -817,7 +817,7 @@ assign get_address_pt[23] =
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
     next_instr[30] , iu3_2ucode_l2
-     }) === 14'b01111100101111);
+     }) == 14'b01111100101111);
 assign get_address_pt[24] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -826,7 +826,7 @@ assign get_address_pt[24] =
     next_instr[23] , next_instr[24] ,
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28]
-     }) === 14'b01111110100101);
+     }) == 14'b01111110100101);
 assign get_address_pt[25] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -835,7 +835,7 @@ assign get_address_pt[25] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b01111101001111);
+     }) == 14'b01111101001111);
 assign get_address_pt[26] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -844,7 +844,7 @@ assign get_address_pt[26] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30] ,
-    iu3_2ucode_l2 }) === 15'b011111001101111);
+    iu3_2ucode_l2 }) == 15'b011111001101111);
 assign get_address_pt[27] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -853,7 +853,7 @@ assign get_address_pt[27] =
     next_instr[23] , next_instr[24] ,
     next_instr[25] , next_instr[26] ,
     next_instr[28] , next_instr[30]
-     }) === 14'b01111100100111);
+     }) == 14'b01111100100111);
 assign get_address_pt[28] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -862,7 +862,7 @@ assign get_address_pt[28] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b01111100001111);
+     }) == 14'b01111100001111);
 assign get_address_pt[29] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -872,7 +872,7 @@ assign get_address_pt[29] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 16'b0111110000010011);
+     }) == 16'b0111110000010011);
 assign get_address_pt[30] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -881,7 +881,7 @@ assign get_address_pt[30] =
     next_instr[23] , next_instr[24] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[30]
-     }) === 14'b01111100101011);
+     }) == 14'b01111100101011);
 assign get_address_pt[31] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -890,7 +890,7 @@ assign get_address_pt[31] =
     next_instr[23] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[30]
-     }) === 14'b01111110101011);
+     }) == 14'b01111110101011);
 assign get_address_pt[32] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[3] , next_instr[4] ,
@@ -898,7 +898,7 @@ assign get_address_pt[32] =
     next_instr[22] , next_instr[24] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 13'b1111100000000);
+    next_instr[30] }) == 13'b1111100000000);
 assign get_address_pt[33] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -907,7 +907,7 @@ assign get_address_pt[33] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29]
-     }) === 14'b01111110001011);
+     }) == 14'b01111110001011);
 assign get_address_pt[34] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -916,7 +916,7 @@ assign get_address_pt[34] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111000110101);
+    next_instr[30] }) == 15'b011111000110101);
 assign get_address_pt[35] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -925,7 +925,7 @@ assign get_address_pt[35] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b01111110010110);
+     }) == 14'b01111110010110);
 assign get_address_pt[36] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -934,7 +934,7 @@ assign get_address_pt[36] =
     next_instr[23] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b01111110110111);
+     }) == 14'b01111110110111);
 assign get_address_pt[37] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -943,7 +943,7 @@ assign get_address_pt[37] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111010110111);
+    next_instr[30] }) == 15'b011111010110111);
 assign get_address_pt[38] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
@@ -951,7 +951,7 @@ assign get_address_pt[38] =
     next_instr[22] , next_instr[24] ,
     next_instr[25] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 13'b1111111101110);
+    next_instr[30] }) == 13'b1111111101110);
 assign get_address_pt[39] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -960,7 +960,7 @@ assign get_address_pt[39] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29]
-     }) === 14'b01111110001010);
+     }) == 14'b01111110001010);
 assign get_address_pt[40] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -969,7 +969,7 @@ assign get_address_pt[40] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111101010101);
+    next_instr[30] }) == 15'b011111101010101);
 assign get_address_pt[41] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -978,7 +978,7 @@ assign get_address_pt[41] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b01111100001101);
+     }) == 14'b01111100001101);
 assign get_address_pt[42] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -987,7 +987,7 @@ assign get_address_pt[42] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 15'b011111111010111);
+    next_instr[30] }) == 15'b011111111010111);
 assign get_address_pt[43] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -996,7 +996,7 @@ assign get_address_pt[43] =
     next_instr[25] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b01111100110111);
+     }) == 14'b01111100110111);
 assign get_address_pt[44] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -1005,7 +1005,7 @@ assign get_address_pt[44] =
     next_instr[24] , next_instr[25] ,
     next_instr[26] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 14'b01111110101111);
+     }) == 14'b01111110101111);
 assign get_address_pt[45] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -1013,13 +1013,13 @@ assign get_address_pt[45] =
     next_instr[21] , next_instr[24] ,
     next_instr[25] , next_instr[26] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 13'b0111110001111);
+    next_instr[30] }) == 13'b0111110001111);
 assign get_address_pt[46] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
     next_instr[4] , next_instr[5] ,
     next_instr[30] , next_instr[31] ,
-    iu3_2ucode_l2 }) === 9'b111010010);
+    iu3_2ucode_l2 }) == 9'b111010010);
 assign get_address_pt[47] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
@@ -1027,156 +1027,156 @@ assign get_address_pt[47] =
     next_instr[21] , next_instr[22] ,
     next_instr[26] , next_instr[27] ,
     next_instr[28] , next_instr[29] ,
-    next_instr[30] }) === 13'b0111111010111);
+    next_instr[30] }) == 13'b0111111010111);
 assign get_address_pt[48] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[28] , next_instr[30]
-     }) === 8'b00000001);
+     }) == 8'b00000001);
 assign get_address_pt[49] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[27] , next_instr[30]
-     }) === 8'b00000110);
+     }) == 8'b00000110);
 assign get_address_pt[50] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[27] , next_instr[28]
-     }) === 8'b00000111);
+     }) == 8'b00000111);
 assign get_address_pt[51] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[28] , next_instr[29]
-     }) === 8'b00000110);
+     }) == 8'b00000110);
 assign get_address_pt[52] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
     next_instr[4] , next_instr[5] ,
-    iu3_2ucode_l2 }) === 7'b1100110);
+    iu3_2ucode_l2 }) == 7'b1100110);
 assign get_address_pt[53] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[30] ,
-    next_instr[31] }) === 7'b1111001);
+    next_instr[31] }) == 7'b1111001);
 assign get_address_pt[54] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
     next_instr[4] , next_instr[5] ,
-    iu3_2ucode_l2 }) === 7'b1010010);
+    iu3_2ucode_l2 }) == 7'b1010010);
 assign get_address_pt[55] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
     next_instr[4] , next_instr[5] ,
     next_instr[30] , next_instr[31]
-     }) === 8'b11101010);
+     }) == 8'b11101010);
 assign get_address_pt[56] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
     next_instr[4] , next_instr[5] ,
-    iu3_2ucode_l2 }) === 7'b1010110);
+    iu3_2ucode_l2 }) == 7'b1010110);
 assign get_address_pt[57] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[27] , next_instr[28] ,
     next_instr[29] , next_instr[30]
-     }) === 10'b1111110010);
+     }) == 10'b1111110010);
 assign get_address_pt[58] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
     next_instr[5] , iu3_2ucode_l2
-     }) === 6'b110010);
+     }) == 6'b110010);
 assign get_address_pt[59] =
     (({ next_instr[0] , next_instr[2] ,
     next_instr[3] , next_instr[5] ,
-    iu3_2ucode_l2 }) === 5'b10010);
+    iu3_2ucode_l2 }) == 5'b10010);
 assign get_address_pt[60] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[3] , next_instr[4] ,
     next_instr[5] , next_instr[30]
-     }) === 6'b111100);
+     }) == 6'b111100);
 assign get_address_pt[61] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
     next_instr[4] , next_instr[5]
-     }) === 6'b100011);
+     }) == 6'b100011);
 assign get_address_pt[62] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[3] , next_instr[4]
-     }) === 4'b1010);
+     }) == 4'b1010);
 assign get_address_pt[63] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[3] , next_instr[5]
-     }) === 4'b1001);
+     }) == 4'b1001);
 assign get_address_pt[64] =
     (({ next_instr[0] , next_instr[2] ,
     next_instr[4] , next_instr[5]
-     }) === 4'b1001);
+     }) == 4'b1001);
 assign get_address_pt[65] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[4] , next_instr[5] ,
-    next_instr[30] }) === 5'b11100);
+    next_instr[30] }) == 5'b11100);
 assign get_address_pt[66] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[27] , next_instr[30]
-     }) === 8'b11111110);
+     }) == 8'b11111110);
 assign get_address_pt[67] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4]
-     }) === 4'b1011);
+     }) == 4'b1011);
 assign get_address_pt[68] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3]
-     }) === 4'b1101);
+     }) == 4'b1101);
 assign get_address_pt[69] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
-    next_instr[4] }) === 5'b10111);
+    next_instr[4] }) == 5'b10111);
 assign get_address_pt[70] =
     (({ next_instr[0] , next_instr[2] ,
-    next_instr[4] }) === 3'b100);
+    next_instr[4] }) == 3'b100);
 assign get_address_pt[71] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[27] , next_instr[28]
-     }) === 8'b11111111);
+     }) == 8'b11111111);
 assign get_address_pt[72] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[28] , next_instr[29]
-     }) === 8'b11111110);
+     }) == 8'b11111110);
 assign get_address_pt[73] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[3] ,
-    next_instr[5] }) === 5'b10111);
+    next_instr[5] }) == 5'b10111);
 assign get_address_pt[74] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[5]
-     }) === 4'b1101);
+     }) == 4'b1101);
 assign get_address_pt[75] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4] ,
     next_instr[5] , next_instr[26] ,
     next_instr[28] , next_instr[30]
-     }) === 8'b11111110);
+     }) == 8'b11111110);
 assign get_address_pt[76] =
     (({ next_instr[0] , next_instr[1] ,
-    next_instr[2] }) === 3'b110);
+    next_instr[2] }) == 3'b110);
 assign get_address_pt[77] =
     (({ next_instr[0] , next_instr[1] ,
-    next_instr[2] }) === 3'b101);
+    next_instr[2] }) == 3'b101);
 assign get_address_pt[78] =
     (({ next_instr[0] , next_instr[1] ,
     next_instr[2] , next_instr[4]
-     }) === 4'b1101);
+     }) == 4'b1101);
 assign start_addr[0] =
     (get_address_pt[1] | get_address_pt[5]
      | get_address_pt[9] | get_address_pt[13]

@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 // *!****************************************************************
 // *! FILENAME    : mmu_a2o.vh
@@ -35,8 +35,15 @@
 
 `ifndef _mmu_a2o_vh_
 `define _mmu_a2o_vh_
-`define  EXPAND_TYPE  2       // 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
-`define  EXPAND_TLB_TYPE  2   // 0 = erat-only, 1 = tlb logic, 2 = tlb array
+
+// why not use main setting?
+`ifndef EXPAND_TYPE
+`define EXPAND_TYPE  1       // 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
+`endif
+
+`ifndef EXPAND_TLB_TYPE
+`define EXPAND_TLB_TYPE 2    // 0 = erat-only, 1 = tlb logic, 2 = tlb array
+`endif
 
 // Use this line for A2o core.  Comment out for A2i design.
 `define A2O
@@ -62,8 +69,6 @@
     `define  MM_THREADS  1
     `define  MM_THREADS_POOL_ENC  0
 `endif
-
-
 
 `define            THDID_WIDTH             4    // this is a pre-defined tag field width
 `define            PID_WIDTH               14
@@ -111,9 +116,11 @@
 `define            CHECK_PARITY            1
 
 `ifdef A2O
+`ifndef EMQ_ENTRIES
+`define            EMQ_ENTRIES              4
+`endif
 `define            DEBUG_TRACE_WIDTH       32
 `define            ITAG_SIZE_ENC            7
-`define            EMQ_ENTRIES              4
 `define            TLB_TAG_WIDTH            122
 `define            MESR1_WIDTH     24   // 4 x 6 bits, 1 of 64 events
 `define            MESR2_WIDTH     24

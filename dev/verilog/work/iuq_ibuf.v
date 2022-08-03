@@ -381,6 +381,7 @@ module iuq_ibuf(
       assign buffer_valid_act = buffer_valid_flush | valid_in[0] | (buffer_valid_q[0] & (buffer_advance[1] | buffer_advance[2]));
 
       //wtf update for IBUFF_DEPTH < 5
+      // still fails - the right-side here and below have a -5
       assign buffer_valid_din[0:`IBUFF_DEPTH - 1] = (buffer_advance[0] == 1'b1 & valid_in[3] == 1'b1) ? {4'b1111, buffer_valid_q[0:`IBUFF_DEPTH - 5]} :
                                                    (buffer_advance[1] == 1'b1 & valid_in[3] == 1'b1) ? {3'b111, buffer_valid_q[0:`IBUFF_DEPTH - 4]} :
                                                    (buffer_advance[2] == 1'b1 & valid_in[3] == 1'b1) ? {2'b11, buffer_valid_q[0:`IBUFF_DEPTH - 3]} :
@@ -404,6 +405,7 @@ module iuq_ibuf(
       assign buffer_head_act = buffer_valid_flush | valid_in[0];
 
       //wtf update for IBUFF_DEPTH < 5
+      // still fails
       assign buffer_head_din[0:`IBUFF_DEPTH - 1] = (buffer_bypass[2] == 1'b1 & valid_in[3] == 1'b1) ? {buffer_head_q[`IBUFF_DEPTH - 2:`IBUFF_DEPTH - 1], buffer_head_q[0:`IBUFF_DEPTH - 3]} :
                                                   (buffer_bypass[2] == 1'b1 & valid_in[2] == 1'b1) ? {buffer_head_q[`IBUFF_DEPTH - 1], buffer_head_q[0:`IBUFF_DEPTH - 2]} :
                                                   (buffer_bypass[1] == 1'b1 & valid_in[3] == 1'b1) ? {buffer_head_q[`IBUFF_DEPTH - 3:`IBUFF_DEPTH - 1], buffer_head_q[0:`IBUFF_DEPTH - 4]} :

@@ -49,6 +49,17 @@ module a2l2wb #(
    input                            rst,
 
    input  [0:31]                    cfg_dat,
+
+// chg to cfg_cmd
+//  000 nop
+//  001
+//  010
+//  011
+//  100 write
+//  101 write mask set
+//  110 write mask rst
+//  111 write mask xor
+
    input                            cfg_wr,
    output [0:31]                    status,
 
@@ -120,7 +131,7 @@ module a2l2wb #(
 	output                           an_ac_tb_update_pulse,
 	input  [0:7]                     ac_an_lpar_id,
    input  [0:`THREADS-1]            ac_an_special_attn,
-   input  [0:`THREADS-1]            ac_an_checkstop, //supposed to be 0:2 always?
+   input  [0:2]                     ac_an_checkstop,
    output                           an_ac_checkstop,
    input  [0:`THREADS-1]            ac_an_machine_check,
    output [0:`THREADS-1]            an_ac_external_mchk,
@@ -206,7 +217,7 @@ module a2l2wb #(
    reg    [0:31]                 cfg_q;
 
    // depend on MEM_MODE
-   reg    [0:127]                mem[MEM_QW];
+   reg    [0:127]                mem[0:MEM_QW-1];
    wire   [0:127]                mem_dat_int;
    reg    [0:3]                  wbseq_q;
    wire   [0:3]                  wbseq_d;
@@ -629,10 +640,10 @@ endgenerate
    assign an_ac_pm_thread_stop[0] = cfg_q[0];
    assign an_ac_pm_fetch_halt[0] = cfg_q[1];
 
-   assign status = {ac_an_pm_thread_running[0], ac_an_special_attn[0], ac_an_machine_check[0], ac_an_checkstop[0],
-                    ac_an_debug_trigger[0], ac_an_power_managed, ac_an_rvwinkle_mode, 1'b0,
+   assign status = {ac_an_pm_thread_running[0], ac_an_special_attn[0], ac_an_machine_check[0],
+                    ac_an_debug_trigger[0], ac_an_power_managed, ac_an_rvwinkle_mode, 2'b0,
                     8'b0, 8'b0,
-                    7'b0, err_q
+                    4'b0, ac_an_checkstop[0:2], err_q
                    };
 
 

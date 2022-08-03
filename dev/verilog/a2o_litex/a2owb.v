@@ -60,140 +60,27 @@
 
 module a2owb (
 
-/*
-	 input  [0:`NCLK_WIDTH-1]                               nclk,
-	 input                                                  scan_in,
-	 output                                                 scan_out,
-*/
-    input                                                  clk_1x,
-    input                                                  clk_2x,
-    input                                                  rst,
+    input                            clk_1x,
+    input                            clk_2x,
+    input                            rst,
 
-/*
-	 // Pervasive clock control
-	 input                                                  an_ac_rtim_sl_thold_8,
-	 input                                                  an_ac_func_sl_thold_8,
-	 input                                                  an_ac_func_nsl_thold_8,
-	 input                                                  an_ac_ary_nsl_thold_8,
-	 input                                                  an_ac_sg_8,
-	 input                                                  an_ac_fce_8,
-	 input  [0:7]                                           an_ac_abst_scan_in,
+    input  [0:31]                    cfg_dat,
+    input                            cfg_wr,
+    output [0:31]                    status,
 
+    input                            timerInterrupt,
+    input                            externalInterrupt,
+    input                            softwareInterrupt,
+    input                            externalInterruptS,
 
-	 //SCOM Satellite
-	 input  [0:3]                                           an_ac_scom_sat_id,
-	 input                                                  an_ac_scom_dch,
-	 input                                                  an_ac_scom_cch,
-*/
-
-/*
-	 output                                                 ac_an_scom_dch,
-	 output                                                 ac_an_scom_cch,
-
-	 // FIR and Error Signals
-	 output [0:`THREADS-1]                                  ac_an_special_attn,
-	 output [0:2]                                           ac_an_checkstop,
-	 output [0:2]                                           ac_an_local_checkstop,
-	 output [0:2]                                           ac_an_recov_err,
-	 output                                                 ac_an_trace_error,
-    output                                                 ac_an_livelock_active,
-
-	 // Perfmon Event Bus
-	 output [0:4*`THREADS-1]                                ac_an_event_bus0,
-	 output [0:4*`THREADS-1]                                ac_an_event_bus1,
-*/
-
-/*
-	 // Power Management
-	 output [0:`THREADS-1]                                  ac_an_pm_thread_running,
-	 input  [0:`THREADS-1]                                  an_ac_pm_thread_stop,
-	 input  [0:`THREADS-1]                                  an_ac_pm_fetch_halt,
-*/
-
-/*
-	 // Clock, Test, and LCB Controls
-	 input                                                  an_ac_gsd_test_enable_dc,
-	 input                                                  an_ac_gsd_test_acmode_dc,
-	 input                                                  an_ac_ccflush_dc,
-	 input                                                  an_ac_ccenable_dc,
-	 input                                                  an_ac_lbist_en_dc,
-	 input                                                  an_ac_lbist_ip_dc,
-	 input                                                  an_ac_lbist_ac_mode_dc,
-	 input                                                  an_ac_scan_diag_dc,
-	 input                                                  an_ac_scan_dis_dc_b,
-
-	 //Thold input to clock control macro
-	 input  [0:8]                                           an_ac_scan_type_dc,
-*/
-/*
-	 // Pervasive
-	 output                                                 ac_an_reset_1_request,
-	 output                                                 ac_an_reset_2_request,
-	 output                                                 ac_an_reset_3_request,
-	 output                                                 ac_an_reset_wd_request,
-*/
-/*
-	 input                                                  an_ac_lbist_ary_wrt_thru_dc,
-*/
-// intr
-    input                                                  timerInterrupt,
-    input                                                  externalInterrupt,
-    input                                                  softwareInterrupt,
-    input                                                  externalInterruptS,
-
-/*
-	 input  [0:`THREADS-1]                                  an_ac_ext_interrupt,
-	 input  [0:`THREADS-1]                                  an_ac_crit_interrupt,
-	 input  [0:`THREADS-1]                                  an_ac_perf_interrupt,
-*/
-/*
-	 input  [0:`THREADS-1]                                  an_ac_sleep_en,
-	 input  [0:`THREADS-1]                                  an_ac_hang_pulse,
-*/
-/*
-	 input                                                  an_ac_tb_update_enable,
-	 input                                                  an_ac_tb_update_pulse,
-*/
-/*
-	 input  [0:3]                                           an_ac_chipid_dc,
-	 input  [0:7]                                           an_ac_coreid,
-*/
-/*
-	 output [0:`THREADS-1]                                  ac_an_machine_check,
-	 input                                                  an_ac_debug_stop,
-	 output [0:`THREADS-1]                                  ac_an_debug_trigger,
-	 input  [0:`THREADS-1]                                  an_ac_uncond_dbg_event,
-	 output [0:31]                                          ac_an_debug_bus,
-	 output                                                 ac_an_coretrace_first_valid,
-	 output							                             ac_an_coretrace_valid,
-	 output [0:1]						                          ac_an_coretrace_type,
-    input                                                  an_ac_flh2l2_gate,
-    input                                                  an_ac_reset_1_complete,
-    input                                                  an_ac_reset_2_complete,
-    input                                                  an_ac_reset_3_complete,
-    input                                                  an_ac_reset_wd_complete,
-    output                                                 an_ac_checkstop,
-    input  [0:`THREADS-1]                                  an_ac_external_mchk,
-    output                                                 ac_an_power_managed,
-    output                                                 ac_an_rvwinkle_mode,
-*/
-/*
-    // direct-attach mem
-    output [0:31]                                          mem_adr,
-    input  [0:127]                                         mem_dat,
-    output                                                 mem_wr_val,
-    output [0:15]                                          mem_wr_be,
-    output [0:127]                                         mem_wr_dat,
-*/
-    // wishbone
-    output                                                 wb_stb,
-    output                                                 wb_cyc,
-    output [31:0]                                          wb_adr,
-    output                                                 wb_we,
-    output [3:0]                                           wb_sel,
-    output [31:0]                                          wb_datw,
-    input                                                  wb_ack,
-    input  [31:0]                                          wb_datr
+    output                           wb_stb,
+    output                           wb_cyc,
+    output [31:0]                    wb_adr,
+    output                           wb_we,
+    output [3:0]                     wb_sel,
+    output [31:0]                    wb_datw,
+    input                            wb_ack,
+    input  [31:0]                    wb_datr
 );
 
 wire   [0:`NCLK_WIDTH-1]         nclk;
@@ -284,25 +171,24 @@ wire                             an_ac_reset_2_complete;
 wire                             an_ac_reset_3_complete;
 wire                             an_ac_reset_wd_complete;
 wire  [0:`THREADS-1]             an_ac_uncond_dbg_event;
+wire  [0:2]                      ac_an_checkstop;
+wire  [0:127]                    mem_wr_dat;
 
 // not connected
-wire                             scan_out;
-wire  [0:31]                     ac_an_debug_bus;
-wire  [0:31]                     mem_adr;
-wire                             mem_wr_val;
-wire  [0:15]                     mem_wr_be;
-wire  [0:127]                    mem_wr_dat;
-wire  [0:2]                      ac_an_checkstop;
-wire  [0:2]                      ac_an_local_checkstop;
-wire  [0:2]                      ac_an_recov_err;
-wire                             ac_an_trace_err;
-wire                             ac_an_livelock_active;
-wire  [0:4*`THREADS-1]           ac_an_event_bus0;
-wire  [0:4*`THREADS-1]           ac_an_event_bus1;
-wire                             ac_an_reset_1_request;
-wire                             ac_an_reset_2_request;
-wire                             ac_an_reset_3_request;
-wire                             ac_an_reset_wd_request;
+//wire                             scan_out;
+//wire  [0:31]                     mem_adr;
+//wire                             mem_wr_val;
+//wire  [0:15]                     mem_wr_be;
+//wire  [0:2]                      ac_an_local_checkstop;
+//wire  [0:2]                      ac_an_recov_err;
+//wire                             ac_an_trace_err;
+//wire                             ac_an_livelock_active;
+//wire  [0:4*`THREADS-1]           ac_an_event_bus0;
+//wire  [0:4*`THREADS-1]           ac_an_event_bus1;
+//wire                             ac_an_reset_1_request;
+//wire                             ac_an_reset_2_request;
+//wire                             ac_an_reset_3_request;
+//wire                             ac_an_reset_wd_request;
 
 assign nclk = {clk_1x, rst, clk_2x, 3'b00};
 
@@ -351,7 +237,7 @@ assign an_ac_uncond_dbg_event = 0;
 c c0(
       .nclk(nclk),
       .scan_in(scan_in),
-      .scan_out(scan_out),
+      .scan_out(),
 
       .an_ac_rtim_sl_thold_8(an_ac_rtim_sl_thold_8),
       .an_ac_func_sl_thold_8(an_ac_func_sl_thold_8),
@@ -406,14 +292,14 @@ c c0(
 
       .ac_an_special_attn(ac_an_special_attn),
       .ac_an_checkstop(ac_an_checkstop),
-      .ac_an_local_checkstop(ac_an_local_checkstop),
-      .ac_an_recov_err(ac_an_recov_err),
-      .ac_an_trace_error(ac_an_trace_error),
-      .ac_an_livelock_active(ac_an_livelock_active),
+      .ac_an_local_checkstop(),
+      .ac_an_recov_err(),
+      .ac_an_trace_error(),
+      .ac_an_livelock_active(),
       .an_ac_checkstop(an_ac_checkstop),
       .an_ac_external_mchk(an_ac_external_mchk),
 
-      .ac_an_event_bus0(ac_an_event_bus0),
+      .ac_an_event_bus0(),
 
       .an_ac_reset_1_complete(an_ac_reset_1_complete),
       .an_ac_reset_2_complete(an_ac_reset_2_complete),
@@ -435,10 +321,10 @@ c c0(
       .an_ac_scan_diag_dc(an_ac_scan_diag_dc),
       .an_ac_scan_dis_dc_b(an_ac_scan_dis_dc_b),
       .an_ac_scan_type_dc(an_ac_scan_type_dc),
-      .ac_an_reset_1_request(ac_an_reset_1_request),
-      .ac_an_reset_2_request(ac_an_reset_2_request),
-      .ac_an_reset_3_request(ac_an_reset_3_request),
-      .ac_an_reset_wd_request(ac_an_reset_wd_request),
+      .ac_an_reset_1_request(),
+      .ac_an_reset_2_request(),
+      .ac_an_reset_3_request(),
+      .ac_an_reset_wd_request(),
       .an_ac_lbist_ary_wrt_thru_dc(an_ac_lbist_ary_wrt_thru_dc),
       .an_ac_sleep_en(an_ac_sleep_en),
       .an_ac_ext_interrupt(an_ac_ext_interrupt),
@@ -476,6 +362,10 @@ c c0(
 a2l2wb n0(
       .clk(clk_1x),
       .rst(rst),
+
+      .cfg_wr(cfg_wr),
+      .cfg_dat(cfg_dat),
+      .status(status),
 
       .timerInterrupt(timerInterrupt),
       .externalInterrupt(externalInterrupt),
@@ -592,10 +482,10 @@ a2l2wb n0(
       .ac_an_rvwinkle_mode(ac_an_rvwinkle_mode),
 
       // direct-attach mem
-      .mem_adr(mem_adr),
+      .mem_adr(),
       .mem_dat(mem_dat),
-      .mem_wr_be(mem_wr_be),
-      .mem_wr_val(mem_wr_val),
+      .mem_wr_be(),
+      .mem_wr_val(),
 
       .mem_wr_dat(mem_wr_dat),
 

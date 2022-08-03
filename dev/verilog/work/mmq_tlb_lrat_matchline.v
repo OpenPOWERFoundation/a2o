@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 //********************************************************************
 //*
@@ -43,9 +43,16 @@
 
 `include "tri_a2o.vh"
 `include "mmu_a2o.vh"
-`define   LRAT_MAXSIZE_LOG2  40		// 1T largest pgsize
-`define   LRAT_MINSIZE_LOG2  20		// 1M smallest pgsize
-`define   LRAT_CMPMASK_WIDTH      7
+
+`ifndef LRATE_MAXSIZE_LOG2    // 1T largest pgsize
+`define LRAT_MAXSIZE_LOG2 40
+`endif
+`ifndef LRAT_MINSIZE_LOG2     // 1M smallest pgsize
+`define LRAT_MINSIZE_LOG2 20
+`endif
+`ifndef LRAT_CMPMASK_WIDTH
+`define LRAT_CMPMASK_WIDTH 7
+`endif
 
 module mmq_tlb_lrat_matchline(
 

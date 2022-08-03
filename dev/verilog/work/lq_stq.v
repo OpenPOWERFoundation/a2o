@@ -2167,7 +2167,9 @@ module lq_stq(
    assign stq_push_down = stq7_cmmt_flushed_q | (stq7_cmmt_val_q & stq7_cmmt_ptr_q[0]);
 
    // since the stq is pushed down in stq7, the stq3 commit pointer will never be higher than 4
-
+   /*wtf downsizing experiments - this is wrong if STQ_ENTRIES < 5; is this a real requirement?
+   wire [0:`STQ_ENTRIES-1]                                      stq3_cmmt_ptr_q;
+   */
    assign stq_arb_stq3_cTag[2:4] = (stq3_cmmt_ptr_q[0:4] == 5'b10000) ? 3'b000 :
                                    (stq3_cmmt_ptr_q[0:4] == 5'b01000) ? 3'b001 :
                                    (stq3_cmmt_ptr_q[0:4] == 5'b00100) ? 3'b010 :
@@ -2366,11 +2368,11 @@ module lq_stq(
    assign ex5_qHit_set_oth_q[`STQ_ENTRIES] = 0;
    assign ex5_qHit_set_miss[`STQ_ENTRIES] = 0;
 
-   always @*
-     begin: dummy
-        stq_cp_next_itag[`STQ_ENTRIES] = 0;
-        set_stqe_odq_resolved[`STQ_ENTRIES] = 0;
-     end
+   //always @*
+   initial begin
+      stq_cp_next_itag[`STQ_ENTRIES] = 0;
+      set_stqe_odq_resolved[`STQ_ENTRIES] = 0;
+   end
 
 
    always @(*)
