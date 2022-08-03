@@ -37,10 +37,11 @@ double sc_time_stamp() {      // $time in verilog
 }
 
 const int resetCycle = 10;
-const int threadRunCycle = 25;
+const int threadRunCycle = resetCycle + 5;
 const int runCycles = 500;
 const int hbCycles = 500;
 const int threads = 1;
+const std::string testFile = "../mem/test1/rom.init";
 
 // Cythonize this and use it for cocotb too...
 
@@ -169,31 +170,29 @@ int main(int argc, char **argv) {
    */
 
    mem.write(0xFFFFFFFC, 0x48000002);
-   mem.loadFile("../mem/test3/rom.init");
+   mem.loadFile(testFile);
 
    m->nclk = 0x38;
-   cout << setw(8) << cycle << "Resetting..." << endl;
+   cout << dec << setw(8) << cycle << " Resetting..." << endl;
 
    m->an_ac_pm_thread_stop = threadStop;
-   cout << setw(8) << cycle << "Thread stop=" << threadStop << endl;
+   cout << dec << setw(8) << cycle << " Thread stop=" << threadStop << endl;
 
    const int clocks[4] = {0xA, 0x8, 0x2, 0x0};     // 1x, 2x
    const int ticks1x = 4;
-   //const int clocks[8] = {11, 10, 9, 8, 3, 2, 1, 0};     // 1x, 2x, 4x
-   //const int ticks1x = 8;
 
    while (!Verilated::gotFinish()) {
 
       if (!resetDone && (cycle > resetCycle)) {
          m->nclk &= 0x2F;
-         cout << setw(8) << cycle << "Releasing reset." << endl;
+         cout << dec << setw(8) << cycle << " Releasing reset." << endl;
          resetDone = true;
       }
 
       if (threadStop && (cycle > threadRunCycle)) {
          threadStop = 0x0;
          m->an_ac_pm_thread_stop = threadStop;
-         cout << setw(8) << cycle << "Thread stop=" << threadStop << endl;
+         cout << dec << setw(8) << cycle << " Thread stop=" << threadStop << endl;
       }
 
       m->nclk = (m->nclk & 0x10) | (clocks[tick % ticks1x] << 2);
@@ -202,14 +201,6 @@ int main(int argc, char **argv) {
 
       // bus is 1x clock
       if ((tick % ticks1x) == 0) {
-
-         /*
-            cout << setw(8) << cycle << " an_ac_rsp: data="<< hex << uppercase << setw(8) << m->an_ac_reld_data[3]
-               << hex << uppercase << setw(8) << m->an_ac_reld_data[2]
-               << hex << uppercase << setw(8) << m->an_ac_reld_data[1]
-               << hex << uppercase << setw(8) << m->an_ac_reld_data[0]
-               << dec << nouppercase << endl;
-         */
 
 /* 16B BE read/write interface and sparse mem
 
@@ -251,34 +242,17 @@ int main(int argc, char **argv) {
          unsigned int mem_we = m->mem_wr_val;
          unsigned int mem_be = m->mem_wr_be;
          //unsigned int mem_datw[8] = m->mem_wr_dat;
-
-         // check can access - ok
-         //m->rootp->a2owb->ac_an_req = 1;
-         //m->rootp->a2owb->ac_an_req = 0;
-         //m->rootp->a2owb->n0->cmdseq_q = 0;
-         /*
-         if (m->ac_an_req) {
-            readAddr = m->ac_an_req_ra;
-            readTag = m->ac_an_req_ld_core_tag;
-            readTID = m->ac_an_req_thread;
-            readPending = cycle + 3;
-            cout << setw(8) << cycle << " ac_an_req: T" << readTID << " ra=" << hex << uppercase <<  setw(8) << readAddr << dec << nouppercase << endl;
-            m->an_ac_req_ld_pop = 1;
+         if (m->rootp->a2owb->ac_an_req == 1) {
+            cout << dec << setw(8) << setfill('0') << uppercase << cycle << " A2L2 Req RA=" << setw(8)  << hex << setfill('0') << m->rootp->a2owb->ac_an_req_ra << endl;
          }
-         */
 
       }
-
-      if (m->rootp->a2owb->ac_an_req == 1) {
-         cout << dec << setw(8) << cycle << "A2L2 Req RA=" << hex << m->rootp->a2owb->ac_an_req_ra << endl;
-      }
-
 
       // finish clock stuff
       if ((tick % ticks1x) == 0) {
          cycle++;
          if ((cycle % hbCycles) == 0) {
-            cout << dec << setw(8) << cycle << " ...tick..." << endl;
+            cout << dec << setw(8) << setfill('0') << cycle << " ...tick..." << endl;
          }
       }
       #ifdef TRACING
