@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:/data/projects/a2o/dev/build/litex/build/cmod7/gateware/cmod7.xdc rfile:../cmod7.xdc id:1 order:EARLY} [current_design]
+set_property SRC_FILE_INFO {cfile:/afs/apd.pok.ibm.com/projects/eb2020/github-opf/a2o/dev/build/litex/build/cmod7/gateware/cmod7.xdc rfile:../cmod7.xdc id:1 order:EARLY} [current_design]
 set_property src_info {type:XDC file:1 line:5 export:INPUT save:INPUT read:READ} [current_design]
 set_property LOC J18 [get_ports {serial_tx}]
 set_property src_info {type:XDC file:1 line:9 export:INPUT save:INPUT read:READ} [current_design]

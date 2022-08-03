@@ -1,7 +1,8 @@
+# vivado -mode tcl -source cmod7_xc7k410t.tcl 
 
 # Create Project
 
-create_project -force -name cmod7 -part xc7a200t-SBG484-1
+create_project -force -name cmod7 -part xc7k410t-ffv676-1 
 set_msg_config -id {Common 17-55} -new_severity {Warning}
 
 # Add Sources
@@ -28,7 +29,7 @@ set_property PROCESSING_ORDER EARLY [get_files cmod7.xdc]
 
 # Synthesis
 
-synth_design -directive default -top cmod7 -part xc7k325t-ffv676-1 ;* xc7a200t-SBG484-1
+synth_design -directive default -top cmod7 -part xc7k410t-ffv676-1 
 
 # Synthesis report
 
@@ -49,7 +50,7 @@ place_design -directive default
 
 # Placement report
 
-report_utilization -hierarchical -file cmod7_utilization_hierarchical_place.rpt
+report_utilization -hierarchical -hierarchical_depth 4 -hierarchical_percentages -file cmod7_utilization_hierarchical_place.rpt
 report_utilization -file cmod7_utilization_place.rpt
 report_io -file cmod7_io.rpt
 report_control_sets -verbose -file cmod7_control_sets.rpt
