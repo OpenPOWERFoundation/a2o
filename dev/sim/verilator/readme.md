@@ -75,3 +75,15 @@ make -C obj_dir -f Va2owb.mk Va2owb
 obj_dir/Va2owb
 
 ```
+
+### core + node wb (litex)
+
+* verilog/a2onode_litex
+
+```
+verilator -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1  -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib_clk1x -Iverilog/trilib -Iverilog/unisims a2owb.v tb_litex.cpp
+
+make -C obj_dir -f Va2owb.mk Va2owb
+obj_dir/Va2owb
+
+```
