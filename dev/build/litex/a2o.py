@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # A2O Test - build with core.py
-# a2o.py --csr-csv csr.csv --no-compile-software --build --sys-clk-freq 10e6
+# a2o.py --csr-csv csr.csv --no-compile-software --build  [--sys-clk-freq 50e6]
 #
 
 import os
@@ -80,8 +80,9 @@ class BaseSoC(SoCCore):
 
         # try build using different fpga's
         #platform = cmod7.Platform()
-        platform = cmod7.Platform(fpga='xc7a200t-SBG484-1')  # arty-200
-        #platform = cmod7.Platform(fpga='xc7k325t-FFG676-1') #xc7k325t-ffv676-1 ?? need to try it on machine with license
+        #platform = cmod7.Platform(fpga='xc7a200t-SBG484-1')  # arty-200
+        #platform = cmod7.Platform(fpga='xc7k325t-ffv676-1 )  #
+        platform = cmod7.Platform(fpga='xc7k410t-ffv676-1')   #
 
         SoCCore.__init__(self, platform, sys_clk_freq, csr_data_width=32,
             with_uart=coreUART, integrated_sram_size=0, integrated_rom_size=0,

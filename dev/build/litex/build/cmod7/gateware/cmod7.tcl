@@ -1,16 +1,16 @@
 
 # Create Project
 
-create_project -force -name cmod7 -part xc7a200t-SBG484-1
+create_project -force -name cmod7 -part xc7k410t-ffv676-1
 set_msg_config -id {Common 17-55} -new_severity {Warning}
 
 # Add Sources
 
-add_files {../../../a2o/verilog/a2o_litex}
-add_files {../../../a2o/verilog/trilib}
-add_files {../../../a2o/verilog/trilib_clk1x}
-add_files {../../../a2o/verilog/work}
-read_verilog {../../../build/cmod7/gateware/cmod7.v}
+add_files {/data/projects/a2o/dev/build/litex/a2o/verilog/a2o_litex}
+add_files {/data/projects/a2o/dev/build/litex/a2o/verilog/trilib}
+add_files {/data/projects/a2o/dev/build/litex/a2o/verilog/trilib_clk1x}
+add_files {/data/projects/a2o/dev/build/litex/a2o/verilog/work}
+read_verilog {/data/projects/a2o/dev/build/litex/build/cmod7/gateware/cmod7.v}
 
 # Add EDIFs
 
@@ -28,7 +28,7 @@ set_property PROCESSING_ORDER EARLY [get_files cmod7.xdc]
 
 # Synthesis
 
-synth_design -directive default -top cmod7 -part xc7k325t-ffv676-1 ;* xc7a200t-SBG484-1
+synth_design -directive default -top cmod7 -part xc7k410t-ffv676-1
 
 # Synthesis report
 
