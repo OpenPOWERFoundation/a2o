@@ -534,22 +534,22 @@ generate if (MEM_MODE == 2) begin
 
    assign wb_datr_d[0][0:31]   = (req_ld_val & wb_ack & qw_sel_0 & dat_sel == 2'b00) ? wb_datr : wb_datr_q[0][0:31];
    assign wb_datr_d[0][32:63]  = (req_ld_val & wb_ack & qw_sel_0 & dat_sel == 2'b01) ? wb_datr : wb_datr_q[0][32:63];
-   assign wb_datr_d[0][64:95]  = (req_ld_val & wb_ack & qw_sel_0 & dat_sel == 2'b10) ? wb_datr : wb_datr_q[0][63:95];
+   assign wb_datr_d[0][64:95]  = (req_ld_val & wb_ack & qw_sel_0 & dat_sel == 2'b10) ? wb_datr : wb_datr_q[0][64:95];
    assign wb_datr_d[0][96:127] = (req_ld_val & wb_ack & qw_sel_0 & dat_sel == 2'b11) ? wb_datr : wb_datr_q[0][96:127];
 
    assign wb_datr_d[1][0:31]   = (req_ld_val & wb_ack & qw_sel_1 & dat_sel == 2'b00) ? wb_datr : wb_datr_q[1][0:31];
    assign wb_datr_d[1][32:63]  = (req_ld_val & wb_ack & qw_sel_1 & dat_sel == 2'b01) ? wb_datr : wb_datr_q[1][32:63];
-   assign wb_datr_d[1][64:95]  = (req_ld_val & wb_ack & qw_sel_1 & dat_sel == 2'b10) ? wb_datr : wb_datr_q[1][63:95];
+   assign wb_datr_d[1][64:95]  = (req_ld_val & wb_ack & qw_sel_1 & dat_sel == 2'b10) ? wb_datr : wb_datr_q[1][64:95];
    assign wb_datr_d[1][96:127] = (req_ld_val & wb_ack & qw_sel_1 & dat_sel == 2'b11) ? wb_datr : wb_datr_q[1][96:127];
 
    assign wb_datr_d[2][0:31]   = (req_ld_val & wb_ack & qw_sel_2 & dat_sel == 2'b00) ? wb_datr : wb_datr_q[2][0:31];
    assign wb_datr_d[2][32:63]  = (req_ld_val & wb_ack & qw_sel_2 & dat_sel == 2'b01) ? wb_datr : wb_datr_q[2][32:63];
-   assign wb_datr_d[2][64:95]  = (req_ld_val & wb_ack & qw_sel_2 & dat_sel == 2'b10) ? wb_datr : wb_datr_q[2][63:95];
+   assign wb_datr_d[2][64:95]  = (req_ld_val & wb_ack & qw_sel_2 & dat_sel == 2'b10) ? wb_datr : wb_datr_q[2][64:95];
    assign wb_datr_d[2][96:127] = (req_ld_val & wb_ack & qw_sel_2 & dat_sel == 2'b11) ? wb_datr : wb_datr_q[2][96:127];
 
    assign wb_datr_d[3][0:31]   = (req_ld_val & wb_ack & qw_sel_3 & dat_sel == 2'b00) ? wb_datr : wb_datr_q[3][0:31];
    assign wb_datr_d[3][32:63]  = (req_ld_val & wb_ack & qw_sel_3 & dat_sel == 2'b01) ? wb_datr : wb_datr_q[3][32:63];
-   assign wb_datr_d[3][64:95]  = (req_ld_val & wb_ack & qw_sel_3 & dat_sel == 2'b10) ? wb_datr : wb_datr_q[3][63:95];
+   assign wb_datr_d[3][64:95]  = (req_ld_val & wb_ack & qw_sel_3 & dat_sel == 2'b10) ? wb_datr : wb_datr_q[3][64:95];
    assign wb_datr_d[3][96:127] = (req_ld_val & wb_ack & qw_sel_3 & dat_sel == 2'b11) ? wb_datr : wb_datr_q[3][96:127];
 
    assign wb_sel = dat_sel == 2'b00 ? req_st_be[0:3]  :
