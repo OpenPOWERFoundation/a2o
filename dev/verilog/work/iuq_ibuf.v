@@ -173,7 +173,7 @@ module iuq_ibuf(
 
       // data/valid out
       wire [0:1]                         valid_int;
-      wire [0:1]                         valid_out /*verilator split_var*/;
+      wire [0:1]                         valid_out;
       wire [0:IDATA_WIDTH-1]             data0_out;
       wire [0:IDATA_WIDTH-1]             data1_out;
       wire [0:IBUFF_WIDTH-1]             buffer0_ibuff_data;
@@ -594,6 +594,12 @@ assign valid_int[1] = (stall_q[0] == 1'b0) ? (buffer_valid_q[0] & iu3_val[0]) | 
                       buffer_valid_q[0] | iu3_val[0] | stall_q[1];
 
 assign valid_out[0] = valid_int[0];
+//wtf verilator bug  ibuf_valid*vcd
+// using stable:
+//*Verilator 4.224 2022-06-19 rev v4.224-26-g8b7480806
+// signal now sims correctly, but sim dies a little later for diff reason
+//assign valid_out[1] = valid_int[1];
+// removed /*verilator split_var*/ from valid_out, and signal sims ok
 assign valid_out[1] = valid_int[1] & (~uc_hole[1]) & (~error_hole[1]);
 
 assign stall_d[0] = (uc_swap == 1'b0) ? valid_int[0] & (iu4_stall | uc_stall) & (~buffer_valid_flush) :
