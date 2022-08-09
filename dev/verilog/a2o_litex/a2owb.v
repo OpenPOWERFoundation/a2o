@@ -173,6 +173,22 @@ wire                             an_ac_reset_wd_complete;
 wire  [0:`THREADS-1]             an_ac_uncond_dbg_event;
 wire  [0:2]                      ac_an_checkstop;
 wire  [0:127]                    mem_wr_dat;
+wire                             an_ac_flh2l2_gate;
+wire                             ac_an_scom_dch;
+wire                             ac_an_scom_cch;
+wire                             ac_an_special_attn;
+wire                             an_ac_checkstop;
+wire                             an_ac_external_mchk;
+wire                             ac_an_pm_thread_running;
+wire                             ac_an_power_managed;
+wire                             ac_an_rvwinkle_mode;
+wire                             an_ac_sleep_en;
+wire                             an_ac_ext_interrupt;
+wire                             an_ac_crit_interrupt;
+wire                             an_ac_perf_interrupt;
+wire                             an_ac_hang_pulse;
+
+
 
 // not connected
 //wire                             scan_out;
@@ -339,7 +355,10 @@ c c0(
       .an_ac_debug_stop(an_ac_debug_stop),
       .ac_an_debug_trigger(ac_an_debug_trigger),
       .an_ac_uncond_dbg_event(an_ac_uncond_dbg_event),
-
+      .ac_an_debug_bus(),
+      .ac_an_coretrace_first_valid(),
+      .ac_an_coretrace_valid(),
+      .ac_an_coretrace_type(),
       .ac_an_req_pwr_token(ac_an_req_pwr_token),
       .ac_an_req(ac_an_req),
       .ac_an_req_ra(ac_an_req_ra),
