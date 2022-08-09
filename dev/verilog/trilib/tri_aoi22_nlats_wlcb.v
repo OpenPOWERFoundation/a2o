@@ -128,10 +128,12 @@ module tri_aoi22_nlats_wlcb(
       assign vthold_b = {WIDTH{thold_b}};
       assign vthold = {WIDTH{~thold_b}};
 
-
-      always @(posedge nclk[0])
-      begin: l
-        int_dout <= (((vact & vthold_b) | vsreset) & int_din) | (((vact_b | vthold) & vsreset_b) & int_dout);
+      always @(posedge nclk[0]) begin: l
+        //int_dout <= (((vact & vthold_b) | vsreset) & int_din) | (((vact_b | vthold) & vsreset_b) & int_dout);
+        if (sreset)
+          int_dout <= int_din;
+        else if ((act | force_t) & thold_b)
+          int_dout <= int_din;
       end
 
       assign qb = (~int_dout);

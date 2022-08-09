@@ -71,42 +71,22 @@ module tri_rlmlatch_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lcl
        (* analysis_not_referenced="true" *)
      wire                  unused;
 
-     if (NEEDS_SRESET == 1)
-     begin : rst
-       assign sreset = nclk[1];
-     end
-     if (NEEDS_SRESET != 1)
-     begin : no_rst
-       assign sreset = 1'b0;
+     assign sreset = (NEEDS_SRESET == 1) ? nclk[1] : 0;
+
+     assign int_din = IBUF ? ~din : din;
+
+     always @(posedge nclk[0]) begin: l
+       if (sreset)                              // reset value
+         int_dout <= init_v[0];
+       else if ((act | force_t) & thold_b)      // activate or force, and not clk off
+         int_dout <= int_din;
      end
 
-     if (IBUF == 1'b1)
-     begin : cib
-       assign int_din = ((~sreset) & (~din)) | (sreset & init_v[0]);
-     end
-     if (IBUF == 1'b0)
-     begin : cnib
-       assign int_din = ((~sreset) & din) | (sreset & init_v[0]);
-     end
-
-     always @(posedge nclk[0])
-     begin: l
-       int_dout <= ((((act | force_t) & thold_b) | sreset) & int_din) | ((((~act) & (~force_t)) | (~thold_b)) & (~sreset) & int_dout);
-     end
-
-     if (IBUF == 1'b1)
-     begin : cob
-       assign dout = (~int_dout);
-     end
-
-     if (IBUF == 1'b0)
-     begin : cnob
-       assign dout = int_dout;
-     end
+     assign dout = IBUF ? ~int_dout : int_dout;
 
      assign scout = 1'b0;
 
-     assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | scin | vd | gd | (|nclk);
+     assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | scin | vd | gd | (|nclk[2:`NCLK_WIDTH-1]) | ((NEEDS_SRESET == 1) ? 0 : nclk[1]);
 
    endgenerate
 endmodule

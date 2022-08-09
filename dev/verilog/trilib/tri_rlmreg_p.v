@@ -67,68 +67,31 @@ module tri_rlmreg_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lclkr
  /* verilator lint_off WIDTH */
    parameter [0:WIDTH-1]        init_v = INIT;  //wtf causes width mismatch warnings; would have to handle both greater and less than 32 bit cases
  /* verilator lint_on WIDTH */
-   parameter [0:WIDTH-1]        ZEROS = {WIDTH{1'b0}};
-
-   // tri_rlmreg_p
 
    generate
      wire                       sreset;
      wire [0:WIDTH-1]           int_din;
      reg [0:WIDTH-1]            int_dout;
-     wire [0:WIDTH-1]           vact;
-     wire [0:WIDTH-1]           vact_b;
-     wire [0:WIDTH-1]           vsreset;
-     wire [0:WIDTH-1]           vsreset_b;
-     wire [0:WIDTH-1]           vthold;
-     wire [0:WIDTH-1]           vthold_b;
+
        (* analysis_not_referenced="true" *)
      wire [0:WIDTH]             unused;
 
-     if (NEEDS_SRESET == 1)
-     begin : rst
-       assign sreset = nclk[1];
-     end
-     if (NEEDS_SRESET != 1)
-     begin : no_rst
-       assign sreset = 1'b0;
-     end
+     assign sreset = (NEEDS_SRESET == 1) ? nclk[1] : 0;
 
-     assign vsreset = {WIDTH{sreset}};
-     assign vsreset_b = {WIDTH{~sreset}};
+     assign int_din = sreset ? init_v : (IBUF == 1'b1) ? ~din : din;  //wtf why is sreset needed here??? sim fails w/o it.
 
-     if (IBUF == 1'b1)
-     begin : cib
-       assign int_din = (vsreset_b & (~din)) | (vsreset & init_v);
-     end
-     if (IBUF == 1'b0)
-     begin : cnib
-       assign int_din = (vsreset_b & din) | (vsreset & init_v);
+     always @(posedge nclk[0]) begin: l
+       if (sreset)                              // reset value
+         int_dout <= init_v;
+       else if ((act | force_t) & thold_b)      // activate or force, and not clk off
+         int_dout <= int_din;
      end
 
-     assign vact = {WIDTH{act | force_t | ALWAYS_ACT == 1}};
-     assign vact_b = {WIDTH{~(act | force_t | ALWAYS_ACT == 1)}};
+     assign dout = (IBUF == 1'b1) ? ~int_dout : int_dout;
 
-     assign vthold_b = {WIDTH{thold_b}};
-     assign vthold = {WIDTH{~thold_b}};
+     assign scout = {WIDTH{1'b0}};
 
-     always @(posedge nclk[0])
-     begin: l
-       int_dout <= (((vact & vthold_b) | vsreset) & int_din) | (((vact_b | vthold) & vsreset_b) & int_dout);
-     end
-
-     if (IBUF == 1'b1)
-     begin : cob
-       assign dout = (~int_dout);
-     end
-
-     if (IBUF == 1'b0)
-     begin : cnob
-       assign dout = int_dout;
-     end
-
-     assign scout = ZEROS;
-
-     assign unused[0] = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | vd | gd | (|nclk);
+     assign unused[0] = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | vd | gd | (|nclk[2:`NCLK_WIDTH-1]) | ((NEEDS_SRESET == 1) ? 0 : nclk[1]);
      assign unused[1:WIDTH] = scin;
 
    endgenerate

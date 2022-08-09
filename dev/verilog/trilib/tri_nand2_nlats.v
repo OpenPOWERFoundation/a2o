@@ -106,10 +106,14 @@ module tri_nand2_nlats(
       assign vthold_b = {WIDTH{d2clk}};
       assign vthold = {WIDTH{~d2clk}};
 
-      always @(posedge lclk[0])
-      begin: l
-        int_dout <= (((vact & vthold_b) | vsreset) & int_din) | (((vact_b | vthold) & vsreset_b) & int_dout);
+      always @(posedge lclk[0]) begin: l
+        //int_dout <= (((vact & vthold_b) | vsreset) & int_din) | (((vact_b | vthold) & vsreset_b) & int_dout);
+        if (sreset)
+          int_dout <= int_din;
+        else if (d1clk & d2clk)
+          int_dout <= int_din;
       end
+
       assign qb = (~int_dout);
       assign scanout = ZEROS;
 
