@@ -1,13 +1,12 @@
 # Verilator
 
-### core-only initial experiment - used to work
+### core-only initial experiment
 
 ```
 verilator -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -Iverilog/work -Iverilog/trilib_clk1x -Iverilog/trilib -Iverilog/unisims c.v tb.cpp
 
 make -C obj_dir -f Vc.mk Vc
 obj_dir/Vc
-
 ```
 
 ### core + node (extmem version)
@@ -17,64 +16,10 @@ verilator -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-
 
 make -C obj_dir -f Va2owb.mk Va2owb
 obj_dir/Va2owb
-
 ```
 
 * doesn't work (test3/mem.init), which does work for coccotb/icarus
 * tid compare at start looks like it's using wrong value (imm from following bc?) and erat code is skipped
-
-
-### core + node (extmem version) with cg disabled
-
-* add inits for iucr0, xucr0, mmucr2 to disable controllable clk gating to verilog/clkgating
-
-```
-verilator -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -Iverilog/clkgating -Iverilog/work -Iverilog/trilib_clk1x -Iverilog/trilib -Iverilog/unisims -Iverilog/a2node a2owb.v tb_node.cpp
-
-make -C obj_dir -f Va2owb.mk Va2owb
-obj_dir/Va2owb
-
-```
-
-### core + node (extmem version) with cg disabled, test, etc. inputs tied in a2owb.v to optimize out
-
-* verilog/a2onode_verilator
-
-```
-verilator -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -Iverilog/clkgating -Iverilog/work -Iverilog/trilib_clk1x -Iverilog/trilib -Iverilog/unisims -Iverilog/a2node_verilator a2owb.v tb_node.cpp
-
-make -C obj_dir -f Va2owb.mk Va2owb
-obj_dir/Va2owb
-
-```
-
-* nothing fixed it yet; comparing wave with coco, rv is issuing ops/itags in different order; renaming must be messed up because seems like the thread compare is using the r0 from the erat setup (1F) after the branch (getting nonzero compare and branching)
-
-```
-00000400 <boot_start>:
- 400:	7c be 6a a6 	mfspr   r5,446
- 404:	2c 25 00 00 	cmpdi   r5,0
- 408:	40 82 00 e0 	bne     4e8 <init_t123>
- 40c:	3c 60 8c 00 	lis     r3,-29696
- 410:	38 00 00 1f 	li      r0,31
- 414:	38 40 00 15 	li      r2,21
- 418:	38 80 00 00 	li      r4,0
- 41c:	39 00 02 3f 	li      r8,575
-```
-
-* doesn't occur with cocotb with normal credits or 1-only credit
-
-* cleaned up many UNOPTFLATs
-
-* go back to 'normal' (no clkgating disable); also enable BP since it was disabled from original test
-
-```
-verilator -cc --exe --trace --Mdir obj_dir --language 1364-2001 --timescale 1ns/1ns --report-unoptflat -Wno-fatal -Wno-PINMISSING -Wno-WIDTH -Wno-LITENDIAN --error-limit 1  -Iverilog/a2node_verilator -Iverilog/trilib_clk1x -Iverilog/trilib -Iverilog/unisims -Iverilog/work a2owb.v tb_node.cpp 2>&1 | tee verilator.txt
-
-make -C obj_dir -f Va2owb.mk Va2owb
-obj_dir/Va2owb
-
-```
 
 ### core + node wb (litex)
 
@@ -85,5 +30,114 @@ verilator -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-
 
 make -C obj_dir -f Va2owb.mk Va2owb
 obj_dir/Va2owb
+```
+
+* debugged several fails near start of test (in issues) - first few are cases of ff behaving incorrectly; syntax changes in trilib got to reaching i=1 ifetches
+* added CP signals to track completions (/*verilator public*/) and now first isync fails (flushes to @04)
+
+### Verilator Debug
+
+* install multiple versions concurrently
 
 ```
+git pull
+git checkout master
+#..or...
+#git checkout stable
+#git checkout vxxx
+
+unset VERILATOR_ROOT
+export VERILATOR_VERSION=`git describe | sed "s/verilator_//"`
+./configure --prefix /tools/verilator/$VERILATOR_VERSION
+make -j <n>
+make install
+cp -r include /tools/verilator/$VERILATOR_VERSION   # had to do this too
+
+# symlink
+ln -sf /tools/verilator/$VERILATOR_VERSION /tools/verilator/latest
+```
+
+* pick and run...
+
+```
+export VERILATOR_ROOT=/tools/verilator/latest
+
+# rm -r obj_dir   # to be safe?
+verilator -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1  -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib_clk1x -Iverilog/trilib -Iverilog/unisims a2owb.v tb_litex.cpp
+
+make -C obj_dir -f Va2owb.mk Va2owb
+obj_dir/Va2owb
+```
+
+#### Try different versions with same RTL
+
+* rtl and tb_litex.cpp
+
+```
+git log | head -1
+commit 7cbbf9f3844a9287c5fac88867bcbcd5739914cf
+```
+
+* export VERILATOR_ROOT=/tools/verilator/v4.106
+* #define OLD_PUBLIC in tb_litex.cpp
+
+* the ifetch is bad, but so are the completes a little before it; @42C=```eratwe    r8,r0,0```
+...
+00000250 Completed: I0:1 000000000000042C
+00000262 WB RD RA=00000460
+00000263 WB RD ACK RA=00000460 DATA=7D4011A6
+00000264 WB RD RA=00000464
+00000265 WB RD ACK RA=00000464 DATA=7C8009A6
+00000266 WB RD RA=00000468
+00000267 WB RD ACK RA=00000468 DATA=7D0001A6
+00000268 WB RD RA=0000046C
+00000269 WB RD ACK RA=0000046C DATA=4C00012C
+00000272 Completed: I0:1 0000000000000000 I1:1 0000000000000000
+00000286 WB RD RA=00000000
+*** Fetch to boot address (00000000) after initial boot! ***
+```
+
+* export VERILATOR_ROOT=/tools/verilator/v4.204
+
+```
+00000250 Completed: I0:1 000000000000042C
+00000262 WB RD RA=00000460
+00000263 WB RD ACK RA=00000460 DATA=7D4011A6
+00000264 WB RD RA=00000464
+00000265 WB RD ACK RA=00000464 DATA=7C8009A6
+00000266 WB RD RA=00000468
+00000267 WB RD ACK RA=00000468 DATA=7D0001A6
+00000268 WB RD RA=0000046C
+00000269 WB RD ACK RA=0000046C DATA=4C00012C
+00000272 Completed: I0:1 0000000000000000 I1:1 0000000000000000
+00000286 WB RD RA=00000000
+*** Fetch to boot address (00000000) after initial boot! ***
+...
+
+* export VERILATOR_ROOT=/tools/verilator/stable  (v4.224-26-g8b7480806)
+
+```
+00000250 Completed: I0:1 000000000000042C
+00000262 WB RD RA=00000460
+00000263 WB RD ACK RA=00000460 DATA=7D4011A6
+00000264 WB RD RA=00000464
+00000265 WB RD ACK RA=00000464 DATA=7C8009A6
+00000266 WB RD RA=00000468
+00000267 WB RD ACK RA=00000468 DATA=7D0001A6
+00000268 WB RD RA=0000046C
+00000269 WB RD ACK RA=0000046C DATA=4C00012C
+00000272 Completed: I0:1 0000000000000000 I1:1 0000000000000000
+00000286 WB RD RA=00000000
+*** Fetch to boot address (00000000) after initial boot! ***
+```
+
+* export VERILATOR_ROOT=/tools/verilator/latest  (v4.224-82-gcbe1b8e26)
+
+```
+%Error: Verilator internal fault, sorry. Suggest trying --debug --gdbbt
+%Error: Command Failed /tools/verilator/latest/bin/verilator_bin -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -Iverilog/a2o_litex -Iverilog/work -I
+
+verilator -cc --debug --gddbt--exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1  -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib_clk1x -Iverilog/trilib -Iverilog/unisims a2owb.v tb_litex.cpp  |& tee verilator-v224-82-debug.txt
+
+```
+
