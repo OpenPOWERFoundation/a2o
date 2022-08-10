@@ -26,7 +26,7 @@
 #include "Va2owb_iuq.h"
 #include "Va2owb_iuq_cpl_top.h"
 #include "Va2owb_iuq_cpl.h"
-#include "Va2owb_iuq_cpl_ctrl.h"
+//#include "Va2owb_iuq_cpl_ctrl.h" // getting rid of public sim.a2o.root.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp3_nia_q fixed sim probs?#??!?~@?
 
 #ifdef TRACING
 #include "verilated_vcd_c.h"
@@ -54,11 +54,13 @@ double sc_time_stamp() {      // $time in verilog
 
 const int resetCycle = 10;
 const int threadRunCycle = resetCycle + 5;
-const int runCycles = 501;
+const int runCycles = 15000;
 const int hbCycles = 500;
+const int quiesceCycles = 50;
 const int threads = 1;
 const std::string testFile = "../mem/test3/rom.init";
 const unsigned int bootAdr = 0x00000000;
+const int stopOnHang = 200;
 
 
 // Cythonize this and use it for cocotb too...
@@ -112,16 +114,13 @@ int Memory::read(unsigned int adr) {
 // adr is word-aligned byte address
 void Memory::write(unsigned int adr, unsigned int dat) {
    unsigned int startDat = this->read(adr);
-   this->mem[adr] = dat;
-   if (this->logStores) {
-      std::cout << std::setw(8) << std::hex << " * Mem Update @" << adr << " " << startDat << "->" << dat << std::endl;
-   }
+   this->write(adr, 0xF, dat);
 }
 
 void Memory::write(unsigned int adr, unsigned int be, unsigned int dat) {
    if (be == 0) return;
 
-   int mask, startDat;
+   int mask = 0, startDat;
    if (be >= 8) {
       be = be - 8;
       mask = 0xFF000000;
@@ -143,7 +142,9 @@ void Memory::write(unsigned int adr, unsigned int be, unsigned int dat) {
    startDat = this->read(adr);
    this->mem[adr] = (startDat & ~mask) | (dat & mask);
    if (this->logStores) {
-      std::cout << std::setw(8) << std::hex << " * Mem Update @" << adr << " " << startDat << "->" << dat << std::endl;
+      std::cout << " * Mem Update @" << std::setw(8) << std::setfill('0') << std::uppercase << std::hex << adr <<
+       " " <<std::setw(8) << std::setfill('0') << std::uppercase << std::hex << startDat <<
+       "->" <<std::setw(8) << std::setfill('0') << std::uppercase << std::hex << this->read(adr) << std::endl;
    }
 
 }
@@ -174,6 +175,7 @@ int main(int argc, char **argv) {
    bool ok = true;
    bool resetDone = false;
    bool booted = false;
+   unsigned int quiesceCount = 0;
    unsigned int threadStop = 0x3;
 
    unsigned int tick = 0;
@@ -183,10 +185,12 @@ int main(int argc, char **argv) {
    unsigned int readTag = 0;
    unsigned int readTID = 0;
    unsigned int countReads = 0;
+   unsigned int lastCompCycle = 0;
    bool wbRdPending = false, wbWrPending = false;
 
+   //unsigned int wbSel, wbDatW;
    unsigned int iu0Comp, iu1Comp;
-   unsigned long iu0CompIFAR, iu1CompIFAR, cp3NIA;
+   unsigned long iu0CompIFAR, iu1CompIFAR, iuCompFlushIFAR;
 /*
    creditsLdErr = sim.a2o.root.lq0.lsq.arb.ld_cred_err_q
    creditsStErr = sim.a2o.root.lq0.lsq.arb.st_cred_err_q
@@ -291,10 +295,13 @@ int main(int argc, char **argv) {
    //m->an_ac_pm_thread_stop = threadStop;
    //cout << dec << setw(8) << cycle << " Thread stop=" << threadStop << endl;
 
-   const int clocks[4] = {0x3, 0x2, 0x1, 0x0};     // 1x, 2x
-   const int ticks1x = 4;
+   //const int clocks[4] = {0x3, 0x2, 0x1, 0x0};   // 1x, 2x
+   //const int ticks1x = 4;
+   // all clk2x and clk4x fpga arrays overridden
+   const int clocks[2] = {0x1, 0x0};               // 1x
+   const int ticks1x = 2;
 
-   while (!Verilated::gotFinish() && ok && cycle <= runCycles) {
+   while (!Verilated::gotFinish() && (ok | quiesceCount > 0) && cycle <= runCycles) {
 
       if (!resetDone && (cycle > resetCycle)) {
          m->rst = 0;
@@ -308,8 +315,7 @@ int main(int argc, char **argv) {
          //cout << dec << setw(8) << cycle << " Thread stop=" << threadStop << endl;
       }
 
-      m->clk_1x = clocks[tick % ticks1x] >> 1;
-      m->clk_2x = clocks[tick % ticks1x] & 0x1;
+      m->clk_1x = clocks[tick % ticks1x];
       m->eval();
 
       // 1x clock
@@ -320,43 +326,60 @@ int main(int argc, char **argv) {
          iu1Comp = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_completed;
          iu0CompIFAR = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i0_ifar;
          iu1CompIFAR = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_ifar;
+         iuCompFlushIFAR = root->a2owb->c0->cp_t0_flush_ifar;
 
          if (iu0Comp || iu1Comp) {
-            cout << dec << setw(8) << setfill('0') << uppercase << cycle << " Completed:";
+            cout << dec << setw(8) << setfill('0') << uppercase << cycle << " C0: CP";
             if (iu0Comp)
-               cout << " I0:" << iu0Comp << " "  << setw(16) << setfill('0') << hex << (iu0CompIFAR << 2);
+               cout << " 0:" << setw(6) << setfill('0') << hex << (iu0CompIFAR << 2);
             if (iu1Comp)
-               cout << " I1:" << iu1Comp << " "  << setw(16) << setfill('0') << hex << (iu1CompIFAR << 2);
+               cout << " 1:" << setw(6) << setfill('0') << hex << (iu1CompIFAR << 2);
+            cout << " " << setw(16) << setfill('0') << hex << (iuCompFlushIFAR << 2);
             cout << endl;
+            lastCompCycle = cycle;
+         } else if (!quiesceCount && (stopOnHang != 0) && (cycle - lastCompCycle > stopOnHang)) {
+            ok = false;
+            cout << "*** No completion detected in " << dec << stopOnHang << " cycles ***" << endl;
          }
 
          // wb
          m->wb_ack = 0;
          if (wbRdPending) {
+
             m->wb_datr = mem.read(m->wb_adr & 0xFFFFFFFC);
             m->wb_ack = 1;
-            cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD ACK RA=" << setw(8)  << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
-                  " DATA=" <<  m->wb_datr << endl;
+            cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD ACK RA=" << setw(8) << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
+                  " DATA=" << setw(8)  << hex << setfill('0') <<  m->wb_datr << endl;
             wbRdPending = false;
+
          } else if (wbWrPending) {
-            mem.write(m->wb_adr, m->wb_datw, m->wb_sel);
+
+            mem.write(m->wb_adr, m->wb_sel, m->wb_datw);
             m->wb_ack = 1;
+            cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR ACK RA=" << setw(8) << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
+                  " SEL=" << setw(1) << setfill('0') << uppercase << hex << (unsigned int)m->wb_sel <<
+                  " DATA=" << setw(8)  << hex << setfill('0') <<  m->wb_datw << endl;
             wbWrPending = false;
+
          } else if (m->wb_cyc && m->wb_stb) {
+
             if (!m->wb_we) {
-               cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD RA=" << setw(8)  << hex << setfill('0') << m->wb_adr << endl;
+               //cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD RA=" << setw(8) << hex << setfill('0') << m->wb_adr << endl;
                wbRdPending = true;
+
+               /* only for debug - completions should be checked for loops, hangs, boot re-execute
                if (m->wb_adr == bootAdr) {
                   if (booted) {
-                     cout << "*** Fetch to boot address (" << dec << setw(8) << bootAdr << ") after initial boot! ***" << endl;
+                     cout << "*** Fetch to boot address (" << dec << setw(8) << bootAdr << ") after initial boot ***" << endl;
                      ok = false;
                   } else {
                      booted = true;
                   }
                }
+               */
             } else {
-               cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR RA=" << setw(8)  << hex << setfill('0') << m->wb_adr <<
-                  " SEL=" << m->wb_sel << " DATA=" << m->wb_datw << endl;
+               //cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR RA=" << setw(8)  << hex << setfill('0') << m->wb_adr <<
+               //   " SEL=" << m->wb_sel << " DATA=" << setw(8)  << hex << setfill('0') << m->wb_datw << endl;
                wbWrPending = true;
             }
          }
@@ -381,6 +404,13 @@ int main(int argc, char **argv) {
       #endif
 
       // check for fails
+
+      if (!ok && quiesceCount == 0) {
+         quiesceCount = quiesceCycles;
+         cout << "Quiescing..." << endl;
+      } else if (!ok) {
+         quiesceCount--;
+      }
 
    }
 

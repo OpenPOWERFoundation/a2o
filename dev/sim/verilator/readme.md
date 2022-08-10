@@ -141,3 +141,100 @@ verilator -cc --debug --gddbt--exe --trace --Mdir obj_dir --language 1364-2001 -
 
 ```
 
+#### Try options (using stable)
+
+* ```--clk clk_1x --clk clk_2x``` no change
+
+* ```-O0``` didn't finish compiling
+
+* all clk2x arrays rewritten - no change
+
+* remove public from iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp3_nia_q - advances farther
+
+   * now making it to first store (stack) after jump to bios
+   * an_ac_req_st_pop is active but lsq.an_ac_req_st_pop_q does not follow _d (tri_rlmlatch_p)
+   * all the publics (nothing in lsq)
+   ```
+work/c.v:   wire [62-`EFF_IFAR_ARCH:61] cp_t0_flush_ifar /* verilator public */;
+work/c.v:   wire [62-`EFF_IFAR_ARCH:61] 					cp_t1_flush_ifar /* verilator public */;
+work/iuq_cpl.v:   wire [62-`EFF_IFAR_WIDTH:61]   cp2_i0_ifar /*verilator public*/;
+work/iuq_cpl.v:   wire [62-`EFF_IFAR_WIDTH:61]   cp2_i1_ifar /*verilator public*/;
+work/iuq_cpl.v:   wire                          cp2_i0_completed /*verilator public*/;
+work/iuq_cpl.v:   wire                          cp2_i1_completed /*verilator public*/;
+   ```
+
+   * do_store === an_ac_req_st_pop; what is the 'if'? tholds, etc. (tri_plat)
+
+   ```
+   Va2owb_c__DepSet_hff80e8fd__0.cpp
+
+   if ((1U & (~ ((IData)(vlSelf->__PVT__lq0__DOT__lsq__DOT__perv_1to0_reg__DOT__int_dout)
+                      >> 7U)))) {
+                        ...
+            vlSelf->__PVT__lq0__DOT__lsq__DOT__an_ac_req_st_pop_reg__DOT__int_dout
+                = vlSymsp->TOP__a2owb__n0.__PVT__do_store;
+            vlSelf->__PVT__lq0__DOT__lsq__DOT__an_ac_req_ld_pop_reg__DOT__int_dout
+                = vlSymsp->TOP__a2owb__n0.__PVT__rld_done;
+   ```
+
+   * lsq.perv_1to0_reg.int_dout[0:9]=0000011000; so 'if' should be ok, and it doesn't change and works for ld_pop a few cycles before
+
+   * these are essentially identical and load is working
+   ```
+   tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) an_ac_req_ld_pop_reg(
+      .vd(vdd),
+      .gd(gnd),
+      .nclk(nclk),
+      .act(tiup),
+      .force_t(func_slp_sl_force),
+      .d_mode(d_mode_dc),
+      .delay_lclkr(delay_lclkr_dc),
+      .mpw1_b(mpw1_dc_b),
+      .mpw2_b(mpw2_dc_b),
+      .thold_b(func_slp_sl_thold_0_b),
+      .sg(sg_0),
+      .scin(siv[an_ac_req_ld_pop_offset]),
+      .scout(sov[an_ac_req_ld_pop_offset]),
+      .din(an_ac_req_ld_pop_d),
+      .dout(an_ac_req_ld_pop_q)
+   );
+
+
+   tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) an_ac_req_st_pop_reg(
+      .vd(vdd),
+      .gd(gnd),
+      .nclk(nclk),
+      .act(tiup),
+      .force_t(func_slp_sl_force),
+      .d_mode(d_mode_dc),
+      .delay_lclkr(delay_lclkr_dc),
+      .mpw1_b(mpw1_dc_b),
+      .mpw2_b(mpw2_dc_b),
+      .thold_b(func_slp_sl_thold_0_b),
+      .sg(sg_0),
+      .scin(siv[an_ac_req_st_pop_offset]),
+      .scout(sov[an_ac_req_st_pop_offset]),
+      .din(an_ac_req_st_pop_d),
+      .dout(an_ac_req_st_pop_q)
+   );
+   ```
+
+   ```
+grep "vlSymsp->TOP__a2owb__n0.__PVT__rld_done" obj_dir/*
+obj_dir/Va2owb_c__DepSet_hff80e8fd__0.cpp:                = vlSymsp->TOP__a2owb__n0.__PVT__rld_done;
+obj_dir/Va2owb__Trace__45.cpp:        bufp->chgBit(oldp+3713,(vlSymsp->TOP__a2owb__n0.__PVT__rld_done));
+obj_dir/Va2owb__Trace__48.cpp:    } else if (((IData)(vlSymsp->TOP__a2owb__n0.__PVT__rld_done)
+obj_dir/Va2owb__Trace__79__Slow.cpp:    bufp->fullBit(oldp+149084,(vlSymsp->TOP__a2owb__n0.__PVT__rld_done));
+obj_dir/Va2owb__Trace__82__Slow.cpp:    } else if (((IData)(vlSymsp->TOP__a2owb__n0.__PVT__rld_done)
+
+grep "vlSymsp->TOP__a2owb__n0.__PVT__do_store" obj_dir/*
+obj_dir/Va2owb_c__DepSet_hff80e8fd__0.cpp:                = vlSymsp->TOP__a2owb__n0.__PVT__do_store;
+obj_dir/Va2owb__Trace__38__Slow.cpp:    bufp->fullBit(oldp+23204,(vlSymsp->TOP__a2owb__n0.__PVT__do_store));
+obj_dir/Va2owb__Trace__39__Slow.cpp:    } else if (vlSymsp->TOP__a2owb__n0.__PVT__do_store) {
+obj_dir/Va2owb__Trace__48.cpp:                | (IData)(vlSymsp->TOP__a2owb__n0.__PVT__do_store))) {
+obj_dir/Va2owb__Trace__4.cpp:        bufp->chgBit(oldp+3766,(vlSymsp->TOP__a2owb__n0.__PVT__do_store));
+obj_dir/Va2owb__Trace__5.cpp:        } else if (vlSymsp->TOP__a2owb__n0.__PVT__do_store) {
+obj_dir/Va2owb__Trace__82__Slow.cpp:                | (IData)(vlSymsp->TOP__a2owb__n0.__PVT__do_store))) {
+
+   ```
+

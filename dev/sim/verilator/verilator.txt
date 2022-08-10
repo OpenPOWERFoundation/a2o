@@ -1,7 +1,7 @@
 %Warning-PINMISSING: verilog/a2o_litex/a2owb.v:253:3: Cell has missing pin: 'ac_an_event_bus1'
   253 | c c0(
       |   ^~
-                     ... For warning description see https://verilator.org/warn/PINMISSING?v=4.225
+                     ... For warning description see https://verilator.org/warn/PINMISSING?v=4.224
                      ... Use "/* verilator lint_off PINMISSING */" and lint_on around source to disable this message.
 %Warning-PINMISSING: verilog/work/c.v:1815:4: Cell has missing pin: 'iu_rv_iu6_t0_i0_s1_a'
  1815 |    iuq0(
@@ -1956,6 +1956,14 @@
                      verilog/work/c_fu_pc.v:518:1: ... note: In file included from c_fu_pc.v
                      verilog/work/c.v:4463:1: ... note: In file included from c.v
                      verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-IMPLICIT: verilog/trilib_clk1x/tri_64x72_1r1w.v:214:11: Signal definition not found, creating implicitly: 'clk'
+                                                               : ... Suggested alternative: 'nclk'
+  214 |    assign clk = nclk[0];
+      |           ^~~
+                   verilog/work/iuq_btb.v:170:1: ... note: In file included from iuq_btb.v
+                   verilog/work/iuq.v:1375:1: ... note: In file included from iuq.v
+                   verilog/work/c.v:1817:1: ... note: In file included from c.v
+                   verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
 %Warning-WIDTH: verilog/trilib/tri_slat_scan.v:68:35: Operator VAR 'initv' expects 16 bits on the Initial value, but Initial value's VARREF 'INIT' generates 32 bits.
                                                     : ... In instance a2owb.c0.lq0.ctl.derat.bcfg_epn_32to47_latch
    68 |    parameter [0:WIDTH-1]          initv = INIT;
@@ -2851,6 +2859,66 @@
                 verilog/work/iuq.v:2033:1: ... note: In file included from iuq.v
                 verilog/work/c.v:1817:1: ... note: In file included from c.v
                 verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_16x143_1r1w1c.v:2537:13: Bit extraction of array[15:0] requires 4 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_ierat0.ierat_cam
+ 2537 |          mem[bram0_addra][0:55] <= wr_array_data_bram[0:55];
+      |             ^
+                verilog/work/iuq_ic_ierat.v:4471:1: ... note: In file included from iuq_ic_ierat.v
+                verilog/work/iuq_ic.v:527:1: ... note: In file included from iuq_ic.v
+                verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_16x143_1r1w1c.v:2540:13: Bit extraction of array[15:0] requires 4 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_ierat0.ierat_cam
+ 2540 |          mem[bram0_addra][56:62] <= wr_array_data_bram[66:72];
+      |             ^
+                verilog/work/iuq_ic_ierat.v:4471:1: ... note: In file included from iuq_ic_ierat.v
+                verilog/work/iuq_ic.v:527:1: ... note: In file included from iuq_ic.v
+                verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_16x143_1r1w1c.v:2545:42: Bit extraction of array[15:0] requires 4 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_ierat0.ierat_cam
+ 2545 |    assign rd_array_data_d_std[0:55] = mem[bram0_addra][0:55];
+      |                                          ^
+                verilog/work/iuq_ic_ierat.v:4471:1: ... note: In file included from iuq_ic_ierat.v
+                verilog/work/iuq_ic.v:527:1: ... note: In file included from iuq_ic.v
+                verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_16x143_1r1w1c.v:2546:43: Bit extraction of array[15:0] requires 4 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_ierat0.ierat_cam
+ 2546 |    assign rd_array_data_d_std[66:72] = mem[bram0_addra][56:62];
+      |                                           ^
+                verilog/work/iuq_ic_ierat.v:4471:1: ... note: In file included from iuq_ic_ierat.v
+                verilog/work/iuq_ic.v:527:1: ... note: In file included from iuq_ic.v
+                verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_16x143_1r1w1c.v:2547:46: Bit extraction of array[15:0] requires 4 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_ierat0.ierat_cam
+ 2547 |    assign array_cmp_data_bram_std[0:55] = mem[bram0_addrb][0:55];
+      |                                              ^
+                verilog/work/iuq_ic_ierat.v:4471:1: ... note: In file included from iuq_ic_ierat.v
+                verilog/work/iuq_ic.v:527:1: ... note: In file included from iuq_ic.v
+                verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_16x143_1r1w1c.v:2548:48: Bit extraction of array[15:0] requires 4 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_ierat0.ierat_cam
+ 2548 |    assign array_cmp_data_bramp_std[66:72] = mem[bram0_addrb][56:62];
+      |                                                ^
+                verilog/work/iuq_ic_ierat.v:4471:1: ... note: In file included from iuq_ic_ierat.v
+                verilog/work/iuq_ic.v:527:1: ... note: In file included from iuq_ic.v
+                verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
 %Warning-WIDTH: verilog/work/lq_ldq_relq.v:593:24: Operator AND expects 4 bits on the LHS, but LHS's SEL generates 3 bits.
                                                  : ... In instance a2owb.c0.lq0.lsq.ldq.relq
   593 |       cTag = (ldq[2:0] & {4{ldqe_rel_sel[ldq]}}) | cTag;
@@ -2860,44 +2928,98 @@
                 verilog/work/lq.v:2072:1: ... note: In file included from lq.v
                 verilog/work/c.v:3658:1: ... note: In file included from c.v
                 verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
-%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:133:13: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_32x143_1r1w1c.v:4671:13: Bit extraction of array[31:0] requires 5 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.lq0.ctl.derat.derat_cam
+ 4671 |          mem[bram0_addra][0:55] <= wr_array_data_bram[0:55];
+      |             ^
+                verilog/work/lq_derat.v:4346:1: ... note: In file included from lq_derat.v
+                verilog/work/lq_ctl.v:2985:1: ... note: In file included from lq_ctl.v
+                verilog/work/lq.v:1390:1: ... note: In file included from lq.v
+                verilog/work/c.v:3658:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_32x143_1r1w1c.v:4674:13: Bit extraction of array[31:0] requires 5 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.lq0.ctl.derat.derat_cam
+ 4674 |          mem[bram0_addra][56:62] <= wr_array_data_bram[66:72];
+      |             ^
+                verilog/work/lq_derat.v:4346:1: ... note: In file included from lq_derat.v
+                verilog/work/lq_ctl.v:2985:1: ... note: In file included from lq_ctl.v
+                verilog/work/lq.v:1390:1: ... note: In file included from lq.v
+                verilog/work/c.v:3658:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_32x143_1r1w1c.v:4679:42: Bit extraction of array[31:0] requires 5 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.lq0.ctl.derat.derat_cam
+ 4679 |    assign rd_array_data_d_std[0:55] = mem[bram0_addra][0:55];
+      |                                          ^
+                verilog/work/lq_derat.v:4346:1: ... note: In file included from lq_derat.v
+                verilog/work/lq_ctl.v:2985:1: ... note: In file included from lq_ctl.v
+                verilog/work/lq.v:1390:1: ... note: In file included from lq.v
+                verilog/work/c.v:3658:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_32x143_1r1w1c.v:4680:43: Bit extraction of array[31:0] requires 5 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.lq0.ctl.derat.derat_cam
+ 4680 |    assign rd_array_data_d_std[66:72] = mem[bram0_addra][56:62];
+      |                                           ^
+                verilog/work/lq_derat.v:4346:1: ... note: In file included from lq_derat.v
+                verilog/work/lq_ctl.v:2985:1: ... note: In file included from lq_ctl.v
+                verilog/work/lq.v:1390:1: ... note: In file included from lq.v
+                verilog/work/c.v:3658:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_32x143_1r1w1c.v:4681:46: Bit extraction of array[31:0] requires 5 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.lq0.ctl.derat.derat_cam
+ 4681 |    assign array_cmp_data_bram_std[0:55] = mem[bram0_addrb][0:55];
+      |                                              ^
+                verilog/work/lq_derat.v:4346:1: ... note: In file included from lq_derat.v
+                verilog/work/lq_ctl.v:2985:1: ... note: In file included from lq_ctl.v
+                verilog/work/lq.v:1390:1: ... note: In file included from lq.v
+                verilog/work/c.v:3658:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_cam_32x143_1r1w1c.v:4682:48: Bit extraction of array[31:0] requires 5 bit index, not 9 bits.
+                                                                    : ... In instance a2owb.c0.lq0.ctl.derat.derat_cam
+ 4682 |    assign array_cmp_data_bramp_std[66:72] = mem[bram0_addrb][56:62];
+      |                                                ^
+                verilog/work/lq_derat.v:4346:1: ... note: In file included from lq_derat.v
+                verilog/work/lq_ctl.v:2985:1: ... note: In file included from lq_ctl.v
+                verilog/work/lq.v:1390:1: ... note: In file included from lq.v
+                verilog/work/c.v:3658:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:134:13: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
                                                              : ... In instance a2owb.c0.fupc.dp.a_fuq.fpr.fpr1
-  133 |          mem[w_addr_in_1] <= w_data_in_1;
+  134 |          mem[w_addr_in_1] <= w_data_in_1;
       |             ^
                 verilog/work/rv.v:2247:1: ... note: In file included from rv.v
                 verilog/work/c.v:3163:1: ... note: In file included from c.v
                 verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
-%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:136:13: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
+%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:137:13: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
                                                              : ... In instance a2owb.c0.fupc.dp.a_fuq.fpr.fpr1
-  136 |          mem[w_addr_in_2] <= w_data_in_2;
+  137 |          mem[w_addr_in_2] <= w_data_in_2;
       |             ^
                 verilog/work/rv.v:2247:1: ... note: In file included from rv.v
                 verilog/work/c.v:3163:1: ... note: In file included from c.v
                 verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
-%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:139:13: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
+%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:140:13: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
                                                              : ... In instance a2owb.c0.fupc.dp.a_fuq.fpr.fpr1
-  139 |          mem[w_addr_in_3] <= w_data_in_3;
+  140 |          mem[w_addr_in_3] <= w_data_in_3;
       |             ^
                 verilog/work/rv.v:2247:1: ... note: In file included from rv.v
                 verilog/work/c.v:3163:1: ... note: In file included from c.v
                 verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
-%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:142:13: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
+%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:143:13: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
                                                              : ... In instance a2owb.c0.fupc.dp.a_fuq.fpr.fpr1
-  142 |          mem[w_addr_in_4] <= w_data_in_4;
+  143 |          mem[w_addr_in_4] <= w_data_in_4;
       |             ^
-                verilog/work/rv.v:2247:1: ... note: In file included from rv.v
-                verilog/work/c.v:3163:1: ... note: In file included from c.v
-                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
-%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:148:22: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
-                                                             : ... In instance a2owb.c0.fupc.dp.a_fuq.fpr.fpr1
-  148 |    assign r1d_d = mem[r1a_q];
-      |                      ^
                 verilog/work/rv.v:2247:1: ... note: In file included from rv.v
                 verilog/work/c.v:3163:1: ... note: In file included from c.v
                 verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
 %Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:149:22: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
                                                              : ... In instance a2owb.c0.fupc.dp.a_fuq.fpr.fpr1
-  149 |    assign r2d_d = mem[r2a_q];
+  149 |    assign r1d_d = mem[r1a_q];
+      |                      ^
+                verilog/work/rv.v:2247:1: ... note: In file included from rv.v
+                verilog/work/c.v:3163:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_144x78_2r4w.v:150:22: Bit extraction of array[143:0] requires 8 bit index, not 6 bits.
+                                                             : ... In instance a2owb.c0.fupc.dp.a_fuq.fpr.fpr1
+  150 |    assign r2d_d = mem[r2a_q];
       |                      ^
                 verilog/work/rv.v:2247:1: ... note: In file included from rv.v
                 verilog/work/c.v:3163:1: ... note: In file included from c.v
@@ -3078,6 +3200,59 @@
                 verilog/work/lq.v:2072:1: ... note: In file included from lq.v
                 verilog/work/c.v:3658:1: ... note: In file included from c.v
                 verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_64x72_1r1w.v:221:29: Bit extraction of array[71:0] requires 7 bit index, not 6 bits.
+                                                            : ... In instance a2owb.c0.xu0.spr.xu_spr_aspr
+  221 |       r0_d_q <= r0_e_q ? mem[r0_a_q] : 0;
+      |                             ^
+                verilog/work/iuq_btb.v:170:1: ... note: In file included from iuq_btb.v
+                verilog/work/iuq.v:1375:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_64x72_1r1w.v:221:24: Operator COND expects 72 bits on the Conditional True, but Conditional True's ARRAYSEL generates 64 bits.
+                                                            : ... In instance a2owb.c0.xu0.spr.xu_spr_aspr
+  221 |       r0_d_q <= r0_e_q ? mem[r0_a_q] : 0;
+      |                        ^
+                verilog/work/iuq_btb.v:170:1: ... note: In file included from iuq_btb.v
+                verilog/work/iuq.v:1375:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_64x72_1r1w.v:224:13: Bit extraction of array[71:0] requires 7 bit index, not 6 bits.
+                                                            : ... In instance a2owb.c0.xu0.spr.xu_spr_aspr
+  224 |          mem[w0_a_q] <= w0_d_q;
+      |             ^
+                verilog/work/iuq_btb.v:170:1: ... note: In file included from iuq_btb.v
+                verilog/work/iuq.v:1375:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_64x72_1r1w.v:224:22: Operator ASSIGNDLY expects 64 bits on the Assign RHS, but Assign RHS's VARREF 'w0_d_q' generates 72 bits.
+                                                            : ... In instance a2owb.c0.xu0.spr.xu_spr_aspr
+  224 |          mem[w0_a_q] <= w0_d_q;
+      |                      ^~
+                verilog/work/iuq_btb.v:170:1: ... note: In file included from iuq_btb.v
+                verilog/work/iuq.v:1375:1: ... note: In file included from iuq.v
+                verilog/work/c.v:1817:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_128x16_1r1w_1.v:255:29: Bit extraction of array[127:0] requires 7 bit index, not 9 bits.
+                                                               : ... In instance a2owb.c0.mmu0.tlb_gen_instance.lru_array0
+  255 |        r_data_out_1_q <= mem[b0addrb];
+      |                             ^
+                verilog/work/mmq.v:4059:1: ... note: In file included from mmq.v
+                verilog/work/c.v:4173:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_128x16_1r1w_1.v:257:13: Bit extraction of array[127:0] requires 7 bit index, not 9 bits.
+                                                               : ... In instance a2owb.c0.mmu0.tlb_gen_instance.lru_array0
+  257 |          mem[b0addra] <= w_data_in_0;
+      |             ^
+                verilog/work/mmq.v:4059:1: ... note: In file included from mmq.v
+                verilog/work/c.v:4173:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+%Warning-WIDTH: verilog/trilib_clk1x/tri_128x16_1r1w_1.v:262:36: Bit extraction of array[127:0] requires 7 bit index, not 9 bits.
+                                                               : ... In instance a2owb.c0.mmu0.tlb_gen_instance.lru_array0
+  262 |      assign r_data_out_0_bram = mem[b0addra];
+      |                                    ^
+                verilog/work/mmq.v:4059:1: ... note: In file included from mmq.v
+                verilog/work/c.v:4173:1: ... note: In file included from c.v
+                verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
 %Warning-WIDTH: verilog/a2o_litex/a2l2wb.v:643:18: Operator ASSIGNW expects 32 bits on the Assign RHS, but Assign RHS's REPLICATE generates 39 bits.
                                                  : ... In instance a2owb.n0
   643 |    assign status = {ac_an_pm_thread_running[0], ac_an_special_attn[0], ac_an_machine_check[0],
@@ -3092,5 +3267,244 @@
                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
                    verilog/work/c.v:1817:1: ... note: In file included from c.v
                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
-%Error: Verilator internal fault, sorry. Suggest trying --debug --gdbbt
-%Error: Command Failed /tools/verilator/latest/bin/verilator_bin -cc --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib_clk1x -Iverilog/trilib -Iverilog/unisims a2owb.v tb_litex.cpp
+%Warning-MULTIDRIVEN: verilog/unisims/bram_model.v:22:24: Signal has multiple driving blocks with different clocking: 'unnamedblk1.ra[3].bram_model.MEM'
+                                                        : ... In instance a2owb.c0.lq0.ctl.dc32Kdir64B.arr.arr0_A
+                      verilog/unisims/bram_model.v:44:13: ... Location of first driving block
+   44 |             MEM[ADDRB] <= DIB;
+      |             ^~~
+                      verilog/unisims/RAMB16_S36_S36.v:72:1: ... note: In file included from RAMB16_S36_S36.v
+                      verilog/trilib/tri_128x168_1w_0.v:225:1: ... note: In file included from tri_128x168_1w_0.v
+                      verilog/work/mmq.v:3813:1: ... note: In file included from mmq.v
+                      verilog/work/c.v:4173:1: ... note: In file included from c.v
+                      verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                      verilog/unisims/bram_model.v:36:13: ... Location of other driving block
+   36 |             MEM[ADDRA] <= DIA;
+      |             ^~~
+%Warning-MULTIDRIVEN: verilog/unisims/bram_model.v:22:24: Signal has multiple driving blocks with different clocking: 'unnamedblk1.ra[2].bram_model.MEM'
+                                                        : ... In instance a2owb.c0.lq0.ctl.dc32Kdir64B.arr.arr0_A
+                      verilog/unisims/bram_model.v:44:13: ... Location of first driving block
+   44 |             MEM[ADDRB] <= DIB;
+      |             ^~~
+                      verilog/unisims/RAMB16_S36_S36.v:72:1: ... note: In file included from RAMB16_S36_S36.v
+                      verilog/trilib/tri_128x168_1w_0.v:225:1: ... note: In file included from tri_128x168_1w_0.v
+                      verilog/work/mmq.v:3813:1: ... note: In file included from mmq.v
+                      verilog/work/c.v:4173:1: ... note: In file included from c.v
+                      verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                      verilog/unisims/bram_model.v:36:13: ... Location of other driving block
+   36 |             MEM[ADDRA] <= DIA;
+      |             ^~~
+%Warning-MULTIDRIVEN: verilog/unisims/bram_model.v:22:24: Signal has multiple driving blocks with different clocking: 'unnamedblk1.ra[1].bram_model.MEM'
+                                                        : ... In instance a2owb.c0.lq0.ctl.dc32Kdir64B.arr.arr0_A
+                      verilog/unisims/bram_model.v:44:13: ... Location of first driving block
+   44 |             MEM[ADDRB] <= DIB;
+      |             ^~~
+                      verilog/unisims/RAMB16_S36_S36.v:72:1: ... note: In file included from RAMB16_S36_S36.v
+                      verilog/trilib/tri_128x168_1w_0.v:225:1: ... note: In file included from tri_128x168_1w_0.v
+                      verilog/work/mmq.v:3813:1: ... note: In file included from mmq.v
+                      verilog/work/c.v:4173:1: ... note: In file included from c.v
+                      verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                      verilog/unisims/bram_model.v:36:13: ... Location of other driving block
+   36 |             MEM[ADDRA] <= DIA;
+      |             ^~~
+%Warning-MULTIDRIVEN: verilog/unisims/bram_model.v:22:24: Signal has multiple driving blocks with different clocking: 'unnamedblk1.ra[0].bram_model.MEM'
+                                                        : ... In instance a2owb.c0.lq0.ctl.dc32Kdir64B.arr.arr0_A
+                      verilog/unisims/bram_model.v:44:13: ... Location of first driving block
+   44 |             MEM[ADDRB] <= DIB;
+      |             ^~~
+                      verilog/unisims/RAMB16_S36_S36.v:72:1: ... note: In file included from RAMB16_S36_S36.v
+                      verilog/trilib/tri_128x168_1w_0.v:225:1: ... note: In file included from tri_128x168_1w_0.v
+                      verilog/work/mmq.v:3813:1: ... note: In file included from mmq.v
+                      verilog/work/c.v:4173:1: ... note: In file included from c.v
+                      verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                      verilog/unisims/bram_model.v:36:13: ... Location of other driving block
+   36 |             MEM[ADDRA] <= DIA;
+      |             ^~~
+%Warning-UNOPTFLAT: verilog/work/iuq_ic_ierat.v:93:38: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.__Vcellout__iuq_ic_ierat0__time_scan_out'
+                                                     : ... In instance a2owb.c0.iuq0
+   93 |    output                            time_scan_out,
+      |                                      ^~~~~~~~~~~~~
+                    verilog/work/iuq_ic.v:527:1: ... note: In file included from iuq_ic.v
+                    verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ic_ierat.v:93:38:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.__Vcellout__iuq_ic_ierat0__time_scan_out
+                    verilog/work/iuq_ic.v:566:8:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_ierat.v:91:38:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.__Vcellinp__iuq_ic_ierat0__time_scan_in
+                    verilog/trilib_clk1x/tri_cam_16x143_1r1w1c.v:2684:25:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_ierat.v:93:38:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.__Vcellout__iuq_ic_ierat0__time_scan_out
+%Warning-UNOPTFLAT: verilog/work/xu_spr.v:458:34: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.xu0.spr.siv_repr'
+                                                : ... In instance a2owb.c0
+  458 |    wire [0:2]                    siv_repr /*verilator split_var*/ ;
+      |                                  ^~~~~~~~
+                    verilog/work/xu.v:1556:1: ... note: In file included from xu.v
+                    verilog/work/c.v:2515:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/xu_spr.v:458:34:      Example path: a2owb.c0.xu0.spr.siv_repr
+                    verilog/work/xu_spr.v:1129:8:      Example path: ASSIGNW
+                    verilog/trilib_clk1x/tri_64x72_1r1w.v:129:40:      Example path: a2owb.c0.xu0.spr.__Vcellinp__xu_spr_aspr__repr_scan_in
+                    verilog/work/xu_spr.v:1844:25:      Example path: ASSIGNW
+                    verilog/work/xu_spr.v:458:34:      Example path: a2owb.c0.xu0.spr.siv_repr
+%Warning-UNOPTFLAT: verilog/work/xu_spr.v:454:34: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.xu0.spr.siv_time'
+                                                : ... In instance a2owb.c0
+  454 |    wire [0:2]                    siv_time /*verilator split_var*/ ;
+      |                                  ^~~~~~~~
+                    verilog/work/xu.v:1556:1: ... note: In file included from xu.v
+                    verilog/work/c.v:2515:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/xu_spr.v:454:34:      Example path: a2owb.c0.xu0.spr.siv_time
+                    verilog/work/xu_spr.v:1127:8:      Example path: ASSIGNW
+                    verilog/trilib_clk1x/tri_64x72_1r1w.v:127:40:      Example path: a2owb.c0.xu0.spr.__Vcellinp__xu_spr_aspr__time_scan_in
+                    verilog/work/xu_spr.v:1841:25:      Example path: ASSIGNW
+                    verilog/work/xu_spr.v:454:34:      Example path: a2owb.c0.xu0.spr.siv_time
+%Warning-UNOPTFLAT: verilog/work/xu_spr.v:446:34: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.xu0.spr.siv_abst'
+                                                : ... In instance a2owb.c0
+  446 |    wire [0:scan_right_abst-1]    siv_abst  /*verilator split_var*/ ;
+      |                                  ^~~~~~~~
+                    verilog/work/xu.v:1556:1: ... note: In file included from xu.v
+                    verilog/work/c.v:2515:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/xu_spr.v:446:34:      Example path: a2owb.c0.xu0.spr.siv_abst
+                    verilog/work/xu_spr.v:1125:8:      Example path: ASSIGNW
+                    verilog/trilib_clk1x/tri_64x72_1r1w.v:125:40:      Example path: a2owb.c0.xu0.spr.__Vcellinp__xu_spr_aspr__abst_scan_in
+                    verilog/work/xu_spr.v:1829:41:      Example path: ASSIGNW
+                    verilog/work/xu_spr.v:446:34:      Example path: a2owb.c0.xu0.spr.siv_abst
+%Warning-UNOPTFLAT: verilog/work/pcq_regs.v:338:26: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.fupc.pc0.pcq_regs.func_siv'
+  338 |    wire [0:FUNC_RIGHT]   func_siv /*verilator split_var*/ ;
+      |                          ^~~~~~~~
+                    verilog/work/pcq.v:393:1: ... note: In file included from pcq.v
+                    verilog/work/c_fu_pc.v:518:1: ... note: In file included from c_fu_pc.v
+                    verilog/work/c.v:4463:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/pcq_regs.v:338:26:      Example path: a2owb.c0.fupc.pc0.pcq_regs.func_siv
+                    verilog/work/pcq_regs.v:2277:87:      Example path: ASSIGNW
+                    verilog/work/pcq_regs.v:339:26:      Example path: a2owb.c0.fupc.pc0.pcq_regs.func_sov[194:201]
+                    verilog/work/pcq_regs.v:2402:34:      Example path: ASSIGNW
+                    verilog/work/pcq_regs.v:338:26:      Example path: a2owb.c0.fupc.pc0.pcq_regs.func_siv
+%Warning-UNOPTFLAT: verilog/trilib_clk1x/tri_512x16_1r1w_1.v:126:51: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.bht0.__Vcellinp__bht0__func_scan_in'
+                                                                   : ... In instance a2owb.c0.iuq0.bht0
+  126 |    input                                          func_scan_in;
+      |                                                   ^~~~~~~~~~~~
+                    verilog/trilib/tri_bht_1024x8_1r1w.v:332:1: ... note: In file included from tri_bht_1024x8_1r1w.v
+                    verilog/work/iuq.v:1831:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/trilib_clk1x/tri_512x16_1r1w_1.v:126:51:      Example path: a2owb.c0.iuq0.bht0.__Vcellinp__bht0__func_scan_in
+                    verilog/trilib/tri_bht_1024x8_1r1w.v:348:17:      Example path: ASSIGNW
+                    verilog/trilib/tri_bht_1024x8_1r1w.v:220:27:      Example path: a2owb.c0.iuq0.bht0.sov
+                    verilog/trilib/tri_bht_1024x8_1r1w.v:347:17:      Example path: ASSIGNW
+                    verilog/trilib_clk1x/tri_512x16_1r1w_1.v:126:51:      Example path: a2owb.c0.iuq0.bht0.__Vcellinp__bht0__func_scan_in
+%Warning-UNOPTFLAT: verilog/work/iuq_ibuf.v:176:42: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.valid_out'
+                                                  : ... In instance a2owb.c0.iuq0
+  176 |       wire [0:1]                         valid_out;
+      |                                          ^~~~~~~~~
+                    verilog/work/iuq_slice.v:471:1: ... note: In file included from iuq_slice.v
+                    verilog/work/iuq_slice_top.v:961:1: ... note: In file included from iuq_slice_top.v
+                    verilog/work/iuq.v:2033:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ibuf.v:176:42:      Example path: a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.valid_out
+                    verilog/work/iuq_ibuf.v:682:22:      Example path: ASSIGNW
+                    verilog/work/iuq_ibuf.v:261:42:      Example path: a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.error_hole
+                    verilog/work/iuq_ibuf.v:596:21:      Example path: ASSIGNW
+                    verilog/work/iuq_ibuf.v:176:42:      Example path: a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.valid_out
+%Warning-UNOPTFLAT: verilog/work/iuq_ic_dir.v:566:35: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.siv'
+                                                    : ... In instance a2owb.c0.iuq0
+  566 |    wire [0:scan_right]            siv /*verilator split_var*/ ;
+      |                                   ^~~
+                    verilog/work/iuq_ic.v:829:1: ... note: In file included from iuq_ic.v
+                    verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ic_dir.v:566:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.siv
+                    verilog/work/iuq_ic_dir.v:1449:8:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_dir.v:567:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.sov
+                    verilog/work/iuq_ic_dir.v:2468:29:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_dir.v:566:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_dir0.siv
+%Warning-UNOPTFLAT: verilog/work/rv_station.v:661:35: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.rv0.fx0_rvs.rvs.siv'
+                                                    : ... In instance a2owb.c0
+  661 |    wire [0:scan_right-1]          siv /*verilator split_var*/ ;
+      |                                   ^~~
+                    verilog/work/rv_fx0_rvs.v:533:1: ... note: In file included from rv_fx0_rvs.v
+                    verilog/work/rv.v:1551:1: ... note: In file included from rv.v
+                    verilog/work/c.v:3163:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/rv_station.v:661:35:      Example path: a2owb.c0.rv0.fx0_rvs.rvs.siv
+                    verilog/work/rv_station.v:1827:63:      Example path: ASSIGNW
+                    verilog/work/rv_station.v:662:35:      Example path: a2owb.c0.rv0.fx0_rvs.rvs.sov
+                    verilog/work/rv_fx0_rvs.v:651:9:      Example path: ASSIGNW
+                    verilog/work/rv_fx0_rvs.v:443:30:      Example path: a2owb.c0.rv0.fx0_rvs.sov
+                    verilog/work/rv_station.v:3329:31:      Example path: ASSIGNW
+                    verilog/work/rv_station.v:661:35:      Example path: a2owb.c0.rv0.fx0_rvs.rvs.siv
+%Warning-UNOPTFLAT: verilog/work/iuq_bp.v:798:13: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_data_new'
+                                                : ... In instance a2owb.c0.iuq0
+  798 | wire [0:15] bcache_data_new /*verilator split_var*/ ;
+      |             ^~~~~~~~~~~~~~~
+                    verilog/work/iuq_ifetch.v:1062:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_bp.v:798:13:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_data_new
+                    verilog/work/iuq_bp.v:1049:28:      Example path: ASSIGNW
+                    verilog/work/iuq_bp.v:815:12:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_hit
+                    verilog/work/iuq_bp.v:1013:27:      Example path: ASSIGNW
+                    verilog/work/iuq_bp.v:791:12:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.ex5_bh0_hist
+                    verilog/work/iuq_bp.v:996:38:      Example path: ASSIGNW
+                    verilog/work/iuq_bp.v:795:12:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_bh0_wr_data
+                    verilog/work/iuq_bp.v:1022:36:      Example path: ASSIGNW
+                    verilog/work/iuq_bp.v:798:13:      Example path: a2owb.c0.iuq0.iuq_ifetch0.xhdl0.bp_gen[0].iuq_bp0.bcache_data_new
+%Warning-UNOPTFLAT: verilog/work/iuq_ibuf.v:130:41: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q(0)'
+                                                  : ... In instance a2owb.c0.iuq0
+  130 |       reg [0:IBUFF_WIDTH-1]             buffer_data_q[0:16-1] /*verilator split_var*/ ;
+      |                                         ^~~~~~~~~~~~~
+                    verilog/work/iuq_slice.v:471:1: ... note: In file included from iuq_slice.v
+                    verilog/work/iuq_slice_top.v:961:1: ... note: In file included from iuq_slice_top.v
+                    verilog/work/iuq.v:2033:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ibuf.v:130:41:      Example path: a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q(0)
+                    verilog/work/iuq_ibuf.v:433:8:      Example path: ALWAYS
+                    verilog/work/iuq_ibuf.v:130:41:      Example path: a2owb.c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q(0)
+%Warning-UNOPTFLAT: verilog/work/iuq_ic_select.v:408:30: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.thread_ready'
+                                                       : ... In instance a2owb.c0.iuq0
+  408 |    wire [0:1-1]              thread_ready;
+      |                              ^~~~~~~~~~~~
+                    verilog/work/iuq_ic.v:699:1: ... note: In file included from iuq_ic.v
+                    verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ic_select.v:408:30:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.thread_ready
+                    verilog/work/iuq_ic_select.v:572:4:      Example path: ALWAYS
+                    verilog/work/iuq_ic_select.v:400:27:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.need_fetch
+                    verilog/work/iuq_ic_select.v:686:24:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_select.v:408:30:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_select0.thread_ready
+%Warning-UNOPTFLAT: verilog/work/iuq_ic_miss.v:428:35: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.release_sm'
+                                                     : ... In instance a2owb.c0.iuq0
+  428 |    wire                           release_sm;
+      |                                   ^~~~~~~~~~
+                    verilog/work/iuq_ic.v:1019:1: ... note: In file included from iuq_ic.v
+                    verilog/work/iuq_ifetch.v:810:1: ... note: In file included from iuq_ifetch.v
+                    verilog/work/iuq.v:1403:1: ... note: In file included from iuq.v
+                    verilog/work/c.v:1817:1: ... note: In file included from c.v
+                    verilog/a2o_litex/a2owb.v:255:1: ... note: In file included from a2owb.v
+                    verilog/work/iuq_ic_miss.v:428:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.release_sm
+                    verilog/work/iuq_ic_miss_table.v:159:22:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_miss_table.v:68:25:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.unnamedblk1.miss_sm_loop[0].miss_sm.miss_sm_pt
+                    verilog/work/iuq_ic_miss.v:802:24:      Example path: ASSIGNW
+                    verilog/work/iuq_ic_miss.v:428:35:      Example path: a2owb.c0.iuq0.iuq_ifetch0.iuq_ic0.iuq_ic_miss0.release_sm
+%Warning-UNOPTFLAT: verilog/a2o_litex/a2owb.v:86:24: Signal unoptimizable: Feedback to clock or circular logic: 'a2owb.nclk'
+                                                   : ... In instance a2owb
+   86 | wire   [0:6-1]         nclk;
+      |                        ^~~~
+                    verilog/a2o_litex/a2owb.v:86:24:      Example path: a2owb.nclk
+                    verilog/trilib_clk1x/tri_512x16_1r1w_1.v:213:17:      Example path: ASSIGNW
+                    verilog/trilib_clk1x/tri_512x16_1r1w_1.v:178:51:      Example path: a2owb.c0.iuq0.bht2.bht0.clk
+                    verilog/trilib_clk1x/tri_512x16_1r1w_1.v:217:8:      Example path: ACTIVE
+                    verilog/trilib_clk1x/tri_512x16_1r1w_1.v:217:8:      Example path: ASSIGNPRE
+                    verilog/trilib_clk1x/tri_512x16_1r1w_1.v:188:51:      Example path: a2owb.c0.iuq0.bht2.bht0.__Vdly__reset_q
+                    verilog/trilib_clk1x/tri_512x16_1r1w_1.v:215:6:      Example path: ALWAYS
+                    verilog/a2o_litex/a2owb.v:86:24:      Example path: a2owb.nclk
+                    verilog/a2o_litex/a2owb.v:209:13:      Example path: ASSIGNW
+                    verilog/a2o_litex/a2owb.v:86:24:      Example path: a2owb.nclk
