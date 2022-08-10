@@ -558,8 +558,8 @@ module iuq_cpl(
    wire [0:entry_length-1]       di1;
    wire [0:entry_length-1]       do0;
    wire [0:entry_length-1]       do1;
-   wire [62-`EFF_IFAR_WIDTH:61]   cp2_i0_ifar;
-   wire [62-`EFF_IFAR_WIDTH:61]   cp2_i1_ifar;
+   wire [62-`EFF_IFAR_WIDTH:61]   cp2_i0_ifar /*verilator public*/;
+   wire [62-`EFF_IFAR_WIDTH:61]   cp2_i1_ifar /*verilator public*/;
    wire                          cp2_i0_bp_pred;
    wire                          cp2_i1_bp_pred;
    wire                          cp2_i0_br_pred;
@@ -666,8 +666,8 @@ module iuq_cpl(
    wire                          cp2_i1_btb_entry;
    wire [0:1]                    cp2_i0_btb_hist;
    wire [0:1]                    cp2_i1_btb_hist;
-   wire                          cp2_i0_completed;
-   wire                          cp2_i1_completed;
+   wire                          cp2_i0_completed /*verilator public*/;
+   wire                          cp2_i1_completed /*verilator public*/;
    wire [1:`ITAG_SIZE_ENC-1]      cp0_i0_completed_itag;
    wire [1:`ITAG_SIZE_ENC-1]      cp0_i1_completed_itag;
    wire                          cp2_i0_axu_exception_val;

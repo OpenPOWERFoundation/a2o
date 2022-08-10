@@ -752,7 +752,7 @@ module c(
    wire [0:`THREADS-1] 		cp_flush;
    wire [0:`ITAG_SIZE_ENC-1] cp_t0_next_itag;
    wire [0:`ITAG_SIZE_ENC-1] cp_t0_flush_itag;
-   wire [62-`EFF_IFAR_ARCH:61] cp_t0_flush_ifar;
+   wire [62-`EFF_IFAR_ARCH:61] cp_t0_flush_ifar /* verilator public */;
    wire [0:`THREADS-1]		cp_axu_i0_t1_v;
    wire [0:`THREADS-1]		cp_axu_i1_t1_v;
 
@@ -763,7 +763,7 @@ module c(
 
    wire [0:`ITAG_SIZE_ENC-1] 					cp_t1_next_itag;
    wire [0:`ITAG_SIZE_ENC-1] 					cp_t1_flush_itag;
-   wire [62-`EFF_IFAR_ARCH:61] 					cp_t1_flush_ifar;
+   wire [62-`EFF_IFAR_ARCH:61] 					cp_t1_flush_ifar /* verilator public */;
    wire [0:2] 							cp_axu_t1_i0_t1_t;
    wire [0:`GPR_WIDTH_ENC-1] 					cp_axu_t1_i0_t1_p;
    wire [0:2] 							cp_axu_t1_i1_t1_t;
