@@ -112,7 +112,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
    lsq_perv_odq_events,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -254,19 +255,11 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
    // Performance Events
    output [0:4+`THREADS-1]           lsq_perv_odq_events;
 
-   // TODO: What else???
-
    // Pervasive
-
-
    inout                             vdd;
-
-
    inout                             gnd;
-
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-   input [0:`NCLK_WIDTH-1]           nclk;
+   input                             clk;
+   input                             rst;
    input                             sg_0;
    input                             func_sl_thold_0_b;
    input                             func_sl_force;
@@ -1936,7 +1929,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 		   (
 		    .vd(vdd),
 		    .gd(gnd),
-		    .nclk(nclk),
+		    .clk(clk),
+	.rst(rst),
 		    .act(tiup),
 		    .force_t(func_sl_force),
 		    .d_mode(d_mode_dc),
@@ -1956,7 +1950,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
 	      .vd(vdd),
 	      .gd(gnd),
-	      .nclk(nclk),
+	      .clk(clk),
+	.rst(rst),
 	      .act(tiup),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc),
@@ -1976,7 +1971,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
 	      .vd(vdd),
 	      .gd(gnd),
-	      .nclk(nclk),
+	      .clk(clk),
+	.rst(rst),
 	      .act(tiup),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc),
@@ -1996,7 +1992,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
 	      .vd(vdd),
 	      .gd(gnd),
-	      .nclk(nclk),
+	      .clk(clk),
+	.rst(rst),
 	      .act(tiup),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc),
@@ -2016,7 +2013,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2036,7 +2034,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2056,7 +2055,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2076,7 +2076,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2096,7 +2097,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2115,7 +2117,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2134,7 +2137,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2153,7 +2157,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2173,7 +2178,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2193,7 +2199,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2213,7 +2220,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2233,7 +2241,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2253,7 +2262,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2273,7 +2283,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2293,7 +2304,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2313,7 +2325,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2333,7 +2346,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2353,7 +2367,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2373,7 +2388,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2393,7 +2409,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2413,7 +2430,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2433,7 +2451,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2454,7 +2473,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2474,7 +2494,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2494,7 +2515,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2514,7 +2536,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2534,7 +2557,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2554,7 +2578,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 	     (
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .force_t(func_sl_force),
               .d_mode(d_mode_dc),
@@ -2581,7 +2606,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2601,7 +2627,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2621,7 +2648,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2641,7 +2669,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2661,7 +2690,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2681,7 +2711,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2701,7 +2732,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2721,7 +2753,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2741,7 +2774,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2761,7 +2795,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2781,7 +2816,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2801,7 +2837,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2821,7 +2858,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2841,7 +2879,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2861,7 +2900,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2881,7 +2921,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2901,7 +2942,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2921,7 +2963,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2941,7 +2984,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2961,7 +3005,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2981,7 +3026,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3001,7 +3047,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3021,7 +3068,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3041,7 +3089,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3061,7 +3110,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3080,7 +3130,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3099,7 +3150,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3119,7 +3171,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3139,7 +3192,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3159,7 +3213,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3179,7 +3234,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3199,7 +3255,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3219,7 +3276,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3244,7 +3302,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 		 (
 		  .vd(vdd),
 		  .gd(gnd),
-		  .nclk(nclk),
+		  .clk(clk),
+	.rst(rst),
 		  .act(tiup),
 		  .force_t(func_sl_force),
 		  .d_mode(d_mode_dc),
@@ -3266,7 +3325,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 
            tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp_i0_completed_itag_latch
 		 (
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .vd(vdd),
                   .gd(gnd),
                   .act(iu_lq_i0_completed[tid]),
@@ -3289,7 +3349,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 
            tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp_i1_completed_itag_latch
 		 (
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .vd(vdd),
                   .gd(gnd),
                   .act(iu_lq_i1_completed[tid]),
@@ -3314,7 +3375,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 		 (
                   .vd(vdd),
                   .gd(gnd),
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .act(tiup),
                   .force_t(func_sl_force),
                   .d_mode(d_mode_dc),
@@ -3337,7 +3399,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_i0_completed_latch
      (
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3356,7 +3419,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_i1_completed_latch
      (
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3378,7 +3442,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3398,7 +3463,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3418,7 +3484,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3438,7 +3505,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3458,7 +3526,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3478,7 +3547,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3498,7 +3568,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3518,7 +3589,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3538,7 +3610,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3558,7 +3631,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3578,7 +3652,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3598,7 +3673,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3618,7 +3694,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3638,7 +3715,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3658,7 +3736,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3678,7 +3757,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3698,7 +3778,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3718,7 +3799,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3738,7 +3820,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3758,7 +3841,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3778,7 +3862,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3798,7 +3883,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3818,7 +3904,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3838,7 +3925,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3858,7 +3946,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3878,7 +3967,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3898,7 +3988,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3918,7 +4009,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3938,7 +4030,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3958,7 +4051,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3978,7 +4072,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -3998,7 +4093,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -4018,7 +4114,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -4038,7 +4135,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -4058,7 +4156,8 @@ module lq_odq(		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
      (
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),

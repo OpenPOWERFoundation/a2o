@@ -41,7 +41,8 @@ module pcq_clks(
 
    inout			vdd,
    inout			gnd,
-   input  [0:`NCLK_WIDTH-1]	nclk,
+   input       clk,
+   input       rst,
    input			rtim_sl_thold_7,
    input			func_sl_thold_7,
    input			func_nsl_thold_7,
@@ -142,7 +143,8 @@ module pcq_clks(
    pcq_clks_ctrl  clkctrl(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .rtim_sl_thold_6(rtim_sl_thold_6),
       .func_sl_thold_6(func_sl_thold_6),
       .func_nsl_thold_6(func_nsl_thold_6),
@@ -185,7 +187,8 @@ module pcq_clks(
    pcq_clks_stg  clkstg(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .ccflush_out_dc(ccflush_out_dc),
       .gptr_sl_thold_5(gptr_sl_thold_5),
       .time_sl_thold_5(time_sl_thold_5),
@@ -252,17 +255,14 @@ module pcq_clks(
       .pc_pc_sg_0(pc_pc_sg_0)
    );
 
-
-
    tri_plat #(.WIDTH(6)) lvl7to6_plat(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(ccflush_dc),
-
       .din({rtim_sl_thold_7,  func_sl_thold_7,  func_nsl_thold_7,
 	    ary_nsl_thold_7,  sg_7,             fce_7}),
-
       .q(  {rtim_sl_thold_6,  func_sl_thold_6,  func_nsl_thold_6,
 	    ary_nsl_thold_6,  sg_6,             fce_6})
    );

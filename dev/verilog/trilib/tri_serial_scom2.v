@@ -37,8 +37,9 @@
 
 `include "tri_a2o.vh"
 
-module tri_serial_scom2(
-   nclk,
+module tri_serial_scom2 (
+   clk,
+   rst,
    vdd,
    gnd,
    scom_func_thold,
@@ -94,17 +95,18 @@ module tri_serial_scom2(
    parameter         	  RINGID_NOBITS = 3;
 
    // clock, scan and misc interfaces
-   input  [0:`NCLK_WIDTH-1]               		     nclk;
    inout                            			     vdd;
-   inout                               			     gnd;
-   input                               			     scom_func_thold;
+   inout                               			  gnd;
+   input                                 		     clk;
+   input                                          rst;
+   input                               			  scom_func_thold;
    input                             			     sg;
    input                            			     act_dis_dc;
    input                              			     clkoff_dc_b;
    input                             			     mpw1_dc_b;
    input                              			     mpw2_dc_b;
    input                             			     d_mode_dc;
-   input                           			     delay_lclkr_dc;
+   input                           			        delay_lclkr_dc;
 
    //lcb_align_0          : in  std_ulogic;
 
@@ -336,14 +338,15 @@ module tri_serial_scom2(
       .thold_b(func_thold_b)
    );
 
-   tri_lcbnd  lcb_func(
+   tri_lcbnd lcb_func(
       .vd(vdd),
       .gd(gnd),
       .act(local_act_int),
       .delay_lclkr(delay_lclkr_dc),
       .mpw1_b(mpw1_dc_b),
       .mpw2_b(mpw2_dc_b),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .force_t(func_force),
       .sg(sg),
       .thold_b(func_thold_b),

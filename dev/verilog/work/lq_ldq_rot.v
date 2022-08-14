@@ -59,7 +59,8 @@ module lq_ldq_rot(
    ldq_rel2_dvc,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -110,16 +111,11 @@ output [0:127]                      ldq_rel2_rot_data;
 output [0:1]                        ldq_rel2_dvc;
 
 // Pervasive
-
-
 inout                               vdd;
-
-
 inout                               gnd;
 
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-input [0:`NCLK_WIDTH-1]             nclk;
+input                               clk;
+input                               rst;
 input                               sg_0;
 input                               func_sl_thold_0_b;
 input                               func_sl_force;
@@ -418,7 +414,8 @@ assign ldq_rel2_dvc = {rel2_dvc1r_cmpr, rel2_dvc2r_cmpr};
 tri_rlmreg_p #(.WIDTH((2**`GPR_WIDTH_ENC)/8), .INIT(0), .NEEDS_SRESET(1)) rel2_byte_mask_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(ldq_rel1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -437,7 +434,8 @@ tri_rlmreg_p #(.WIDTH((2**`GPR_WIDTH_ENC)/8), .INIT(0), .NEEDS_SRESET(1)) rel2_b
 tri_rlmreg_p #(.WIDTH(128), .INIT(0), .NEEDS_SRESET(1)) rel2_rot_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(ldq_rel1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -456,7 +454,8 @@ tri_rlmreg_p #(.WIDTH(128), .INIT(0), .NEEDS_SRESET(1)) rel2_rot_data_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_dvc1_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -475,7 +474,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_dvc1_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_dvc2_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

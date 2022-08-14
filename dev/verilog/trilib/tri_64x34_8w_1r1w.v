@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -36,11 +36,12 @@
 
 `include "tri_a2o.vh"
 
-module tri_64x34_8w_1r1w(
+module tri_64x34_8w_1r1w (
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    rd_act,
    wr_act,
    sg_0,
@@ -116,7 +117,8 @@ inout                             vdd;
 inout                             vcs;
 
 // CLOCK and CLOCKCONTROL ports
-input [0:`NCLK_WIDTH-1]           nclk;
+input                             clk;
+input                             rst;
 input                             rd_act;
 input                             wr_act;
 input                             sg_0;
@@ -319,8 +321,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .CASCADEINLATB(1'b0),
    .CASCADEINREGA(1'b0),
    .CASCADEINREGB(1'b0),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(arr_data_in),
    .DIB(tidn[0:31]),
    .DIPA(arr_par_in),
@@ -329,8 +331,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .ENB(rd_act),
    .REGCEA(1'b0),
    .REGCEB(1'b0),
-   .SSRA(nclk[1]),   //sreset
-   .SSRB(nclk[1]),   //sreset
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_way[0]),
    .WEB(tidn[0:3])
 );
@@ -351,8 +353,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .CASCADEINLATB(1'b0),
    .CASCADEINREGA(1'b0),
    .CASCADEINREGB(1'b0),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(arr_data_in),
    .DIB(tidn[0:31]),
    .DIPA(arr_par_in),
@@ -361,8 +363,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .ENB(rd_act),
    .REGCEA(1'b0),
    .REGCEB(1'b0),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_way[1]),
    .WEB(tidn[0:3])
 );
@@ -383,8 +385,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .CASCADEINLATB(1'b0),
    .CASCADEINREGA(1'b0),
    .CASCADEINREGB(1'b0),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(arr_data_in),
    .DIB(tidn[0:31]),
    .DIPA(arr_par_in),
@@ -393,8 +395,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .ENB(rd_act),
    .REGCEA(1'b0),
    .REGCEB(1'b0),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_way[2]),
    .WEB(tidn[0:3])
 );
@@ -415,8 +417,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .CASCADEINLATB(1'b0),
    .CASCADEINREGA(1'b0),
    .CASCADEINREGB(1'b0),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(arr_data_in),
    .DIB(tidn[0:31]),
    .DIPA(arr_par_in),
@@ -425,8 +427,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .ENB(rd_act),
    .REGCEA(1'b0),
    .REGCEB(1'b0),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_way[3]),
    .WEB(tidn[0:3])
 );
@@ -447,8 +449,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .CASCADEINLATB(1'b0),
    .CASCADEINREGA(1'b0),
    .CASCADEINREGB(1'b0),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(arr_data_in),
    .DIB(tidn[0:31]),
    .DIPA(arr_par_in),
@@ -457,8 +459,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .ENB(rd_act),
    .REGCEA(1'b0),
    .REGCEB(1'b0),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_way[4]),
    .WEB(tidn[0:3])
 );
@@ -479,8 +481,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .CASCADEINLATB(1'b0),
    .CASCADEINREGA(1'b0),
    .CASCADEINREGB(1'b0),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(arr_data_in),
    .DIB(tidn[0:31]),
    .DIPA(arr_par_in),
@@ -489,8 +491,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .ENB(rd_act),
    .REGCEA(1'b0),
    .REGCEB(1'b0),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_way[5]),
    .WEB(tidn[0:3])
 );
@@ -511,8 +513,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .CASCADEINLATB(1'b0),
    .CASCADEINREGA(1'b0),
    .CASCADEINREGB(1'b0),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(arr_data_in),
    .DIB(tidn[0:31]),
    .DIPA(arr_par_in),
@@ -521,8 +523,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .ENB(rd_act),
    .REGCEA(1'b0),
    .REGCEB(1'b0),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_way[6]),
    .WEB(tidn[0:3])
 );
@@ -543,8 +545,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .CASCADEINLATB(1'b0),
    .CASCADEINREGA(1'b0),
    .CASCADEINREGB(1'b0),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(arr_data_in),
    .DIB(tidn[0:31]),
    .DIPA(arr_par_in),
@@ -553,8 +555,8 @@ RAMB36 #(.SIM_COLLISION_CHECK("NONE"), .READ_WIDTH_A(36), .READ_WIDTH_B(36), .WR
    .ENB(rd_act),
    .REGCEA(1'b0),
    .REGCEB(1'b0),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_way[7]),
    .WEB(tidn[0:3])
 );
@@ -566,7 +568,7 @@ assign bo_pc_failout = tidn[0:3];
 assign bo_pc_diagloop = tidn[0:3];
 
 assign unused = |({cascadeoutlata, cascadeoutlatb, cascadeoutrega, cascadeoutregb, tiup, wr_act,
-                   ramb_data_p0_concat, nclk[2:`NCLK_WIDTH-1], gnd, vdd, vcs, sg_0, abst_sl_thold_0, ary_nsl_thold_0,
+                   ramb_data_p0_concat, gnd, vdd, vcs, sg_0, abst_sl_thold_0, ary_nsl_thold_0,
                    time_sl_thold_0, repr_sl_thold_0, g8t_clkoff_dc_b, ccflush_dc, scan_dis_dc_b, scan_diag_dc,
                    g8t_d_mode_dc, g8t_mpw1_dc_b, g8t_mpw2_dc_b, g8t_delay_lclkr_dc, wr_abst_act, rd0_abst_act, abist_di,
                    abist_bw_odd, abist_bw_even, abist_wr_adr, abist_rd0_adr, tc_lbist_ary_wrt_thru_dc, abist_ena_1,
@@ -582,7 +584,8 @@ assign unused = |({cascadeoutlata, cascadeoutlatb, cascadeoutrega, cascadeoutreg
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rd_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -600,7 +603,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rd_act_reg(
 tri_rlmreg_p #(.WIDTH((ways*port_bitwidth)), .INIT(0), .NEEDS_SRESET(1)) data_out_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(rd_act_q),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

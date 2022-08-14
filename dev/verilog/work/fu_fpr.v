@@ -41,7 +41,8 @@
    `include "tri_a2o.vh"
 
 module fu_fpr(
-   nclk,
+   clk,
+   rst,
    clkoff_b,
    act_dis,
    flush,
@@ -165,7 +166,8 @@ module fu_fpr(
    //parameter           threads = 2;
    parameter           axu_spare_enc = 3;
 
-   input  [0:`NCLK_WIDTH-1]              nclk;
+   input               clk;
+   input               rst;
    input               clkoff_b;		// tiup
    input               act_dis;		// ??tidn??
    input               flush;		// ??tidn??
@@ -541,7 +543,8 @@ module fu_fpr(
    tri_plat  thold_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(thold_1),
       .q(thold_0)
@@ -551,7 +554,8 @@ module fu_fpr(
    tri_plat  sg_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(sg_1),
       .q(sg_0)
@@ -571,7 +575,8 @@ module fu_fpr(
    tri_plat #(.WIDTH(4)) ab_thold_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din({abst_sl_thold_1,
             time_sl_thold_1,
@@ -620,7 +625,8 @@ module fu_fpr(
    endgenerate
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(5)) ex6_lctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -689,7 +695,8 @@ module fu_fpr(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(2)) ex6_ldv(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -710,7 +717,8 @@ module fu_fpr(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(12)) ex7_lctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -732,7 +740,8 @@ module fu_fpr(
    );
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(10)) ex7_rlctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_reload_v),
       .force_t(force_t),
       .d_mode(tiup),
@@ -751,7 +760,8 @@ module fu_fpr(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(64), .NEEDS_SRESET(0)) ex7_ldat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_load_v),
       .force_t(force_t),
       .d_mode(tiup),
@@ -770,7 +780,8 @@ module fu_fpr(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(64), .NEEDS_SRESET(0)) ex7_rldat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_reload_v),
       .force_t(force_t),
       .d_mode(tiup),
@@ -1313,7 +1324,8 @@ module fu_fpr(
    tri_144x78_2r4w  fpr0( // .regsize(64),  #( .gpr_pool(fpr_pool), .gpr_pool_enc(fpr_pool_enc))
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .delay_lclkr_dc(delay_lclkra[0]),
       .mpw1_dc_b(mpw1_ba[0]),
       .mpw2_dc_b(mpw2_b[0]),
@@ -1347,11 +1359,11 @@ module fu_fpr(
       .w_data_in_4(zeros[0:77])
    );
 
-
    tri_144x78_2r4w  fpr1(// .regsize(64),#(  .gpr_pool(fpr_pool), .gpr_pool_enc(fpr_pool_enc))
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .delay_lclkr_dc(delay_lclkra[0]),
       .mpw1_dc_b(mpw1_ba[0]),
       .mpw2_dc_b(mpw2_b[0]),
@@ -1388,7 +1400,8 @@ module fu_fpr(
    // ABIST timing latches
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(53), .NEEDS_SRESET(0)) ab_reg(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(ab_force),
       .d_mode(tiup),
@@ -1430,7 +1443,8 @@ module fu_fpr(
       .vdd(vdd),
       .gnd(gnd),
       .sg(sg_0),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .scan_in(time_scan_in),		// Connects to time scan ring
       .scan_diag_dc(scan_diag_dc),
       .thold(time_sl_thold_0),		//Connects to time thold
@@ -1469,7 +1483,8 @@ module fu_fpr(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(34), .NEEDS_SRESET(0)) ex1_par(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -1533,7 +1548,8 @@ module fu_fpr(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(132), .NEEDS_SRESET(0)) ldwt_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -1555,7 +1571,8 @@ module fu_fpr(
    );
    //-------------------------------------------
    tri_rlmreg_p #(.INIT(0),  .WIDTH(132), .NEEDS_SRESET(0)) reldwt_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -1614,7 +1631,8 @@ module fu_fpr(
    // Target Bypass
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(134), .NEEDS_SRESET(0)) tgwt_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),

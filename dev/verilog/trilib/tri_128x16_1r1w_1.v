@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -33,13 +33,16 @@
 //
 //*****************************************************************************
 
+// sim version, clk1x
+
 `include "tri_a2o.vh"
 
-module tri_128x16_1r1w_1(
+module tri_128x16_1r1w_1 (
    vdd,
    vcs,
    gnd,
-   nclk,
+   clk,
+   rst,
    rd_act,
    wr_act,
    lcb_d_mode_dc,
@@ -106,7 +109,8 @@ module tri_128x16_1r1w_1(
    inout                                          vcs;
    inout                                          gnd;
 
-   input [0:`NCLK_WIDTH-1]                        nclk;
+   input                                          clk;
+   input                                          rst;
 
    input                                          rd_act;
    input                                          wr_act;
@@ -179,67 +183,38 @@ module tri_128x16_1r1w_1(
    //for all:ramb16_s36_s36 use entity unisim.RAMB16_S36_S36;
 
    wire                                           clk;
-   wire                                           clk2x;
    wire [0:8]                                     b0addra;
    wire [0:8]                                     b0addrb;
    wire                                           wea;
    wire                                           web;
    wire                                           wren_a;
+   wire [0:15]                                    w_data_in_0;
+   wire [0:15]                                    r_data_out_0_bram;
+
    // Latches
-   reg                                            reset_q;
-   reg                                            gate_fq;
-   wire                                           gate_d;
-   wire [0:35]                                    r_data_out_1_d;
-   reg [0:35]                                     r_data_out_1_fq;
-   wire [0:35]                                    w_data_in_0;
+   reg [0:15]                                     r_data_out_1_q;
 
-   wire [0:35]                                    r_data_out_0_bram;
-   wire [0:35]                                    r_data_out_1_bram;
-
-   wire                                           toggle_d;
-   reg                                            toggle_q;
-   wire                                           toggle2x_d;
-   reg                                            toggle2x_q;
 
    (* analysis_not_referenced="true" *)
    wire                                           unused;
 
-     assign clk = nclk[0];
-     assign clk2x = nclk[2];
+  // sim array
+   reg   [0:15]                  mem[0:127];
 
+   integer i;
+   initial begin
+      for (i = 0; i < 128; i = i + 1)
+         mem[i] = 0;
+   end
 
-     always @(posedge clk)
-     begin: rlatch
-       reset_q <= nclk[1];
-     end
-
-     //
-     //  NEW clk2x gate logic start
-     //
-
-     always @(posedge nclk[0])
-     begin: tlatch
-       if (reset_q == 1'b1)
-         toggle_q <= 1'b1;
-       else
-         toggle_q <= toggle_d;
-     end
-
-
-     always @(posedge nclk[2])
-     begin: flatch
-       toggle2x_q <= toggle2x_d;
-       gate_fq <= gate_d;
-       r_data_out_1_fq <= r_data_out_1_d;
-     end
-
-     assign toggle_d = (~toggle_q);
-     assign toggle2x_d = toggle_q;
-
-     // should force gate_fq to be on during odd 2x clock (second half of 1x clock).
-     //gate_d <= toggle_q xor toggle2x_q;
-     // if you want the first half do the following
-     assign gate_d = (~(toggle_q ^ toggle2x_q));
+   //wtf:icarus $dumpvars cannot dump a vpiMemory
+   generate
+       genvar j;
+       for (j = 0; j < 128; j=j+1) begin: loc
+          wire [0:15] dat;
+          assign dat = mem[j][0:15];
+       end
+   endgenerate
 
      assign b0addra[2:8] = wr_adr;
      assign b0addrb[2:8] = rd_adr;
@@ -249,72 +224,37 @@ module tri_128x16_1r1w_1(
      assign b0addrb[0:1] = 2'b00;
 
      // port a is a read-modify-write port
-     assign wren_a = ((bw != 16'b0000000000000000 & wr_act == 1'b1)) ? 1'b1 :
-                     1'b0;
-     assign wea = wren_a & (~(gate_fq));		// write in 2nd half of nclk
+     assign wren_a = (bw != 0) & wr_act;
+     assign wea = wren_a;
      assign web = 1'b0;
-     assign w_data_in_0[0] = (bw[0] == 1'b1) ? di[0] :
-                             r_data_out_0_bram[0];
-     assign w_data_in_0[1] = (bw[1] == 1'b1) ? di[1] :
-                             r_data_out_0_bram[1];
-     assign w_data_in_0[2] = (bw[2] == 1'b1) ? di[2] :
-                             r_data_out_0_bram[2];
-     assign w_data_in_0[3] = (bw[3] == 1'b1) ? di[3] :
-                             r_data_out_0_bram[3];
-     assign w_data_in_0[4] = (bw[4] == 1'b1) ? di[4] :
-                             r_data_out_0_bram[4];
-     assign w_data_in_0[5] = (bw[5] == 1'b1) ? di[5] :
-                             r_data_out_0_bram[5];
-     assign w_data_in_0[6] = (bw[6] == 1'b1) ? di[6] :
-                             r_data_out_0_bram[6];
-     assign w_data_in_0[7] = (bw[7] == 1'b1) ? di[7] :
-                             r_data_out_0_bram[7];
-     assign w_data_in_0[8] = (bw[8] == 1'b1) ? di[8] :
-                             r_data_out_0_bram[8];
-     assign w_data_in_0[9] = (bw[9] == 1'b1) ? di[9] :
-                             r_data_out_0_bram[9];
-     assign w_data_in_0[10] = (bw[10] == 1'b1) ? di[10] :
-                             r_data_out_0_bram[10];
-     assign w_data_in_0[11] = (bw[11] == 1'b1) ? di[11] :
-                             r_data_out_0_bram[11];
-     assign w_data_in_0[12] = (bw[12] == 1'b1) ? di[12] :
-                             r_data_out_0_bram[12];
-     assign w_data_in_0[13] = (bw[13] == 1'b1) ? di[13] :
-                             r_data_out_0_bram[13];
-     assign w_data_in_0[14] = (bw[14] == 1'b1) ? di[14] :
-                             r_data_out_0_bram[14];
-     assign w_data_in_0[15] = (bw[15] == 1'b1) ? di[15] :
-                             r_data_out_0_bram[15];
-     assign w_data_in_0[16:35] = {20{1'b0}};
+     assign w_data_in_0[0]  = bw[0]  ? di[0]  : r_data_out_0_bram[0];
+     assign w_data_in_0[1]  = bw[1]  ? di[1]  : r_data_out_0_bram[1];
+     assign w_data_in_0[2]  = bw[2]  ? di[2]  : r_data_out_0_bram[2];
+     assign w_data_in_0[3]  = bw[3]  ? di[3]  : r_data_out_0_bram[3];
+     assign w_data_in_0[4]  = bw[4]  ? di[4]  : r_data_out_0_bram[4];
+     assign w_data_in_0[5]  = bw[5]  ? di[5]  : r_data_out_0_bram[5];
+     assign w_data_in_0[6]  = bw[6]  ? di[6]  : r_data_out_0_bram[6];
+     assign w_data_in_0[7]  = bw[7]  ? di[7]  : r_data_out_0_bram[7];
+     assign w_data_in_0[8]  = bw[8]  ? di[8]  : r_data_out_0_bram[8];
+     assign w_data_in_0[9]  = bw[9]  ? di[9]  : r_data_out_0_bram[9];
+     assign w_data_in_0[10] = bw[10] ? di[10] : r_data_out_0_bram[10];
+     assign w_data_in_0[11] = bw[11] ? di[11] : r_data_out_0_bram[11];
+     assign w_data_in_0[12] = bw[12] ? di[12] : r_data_out_0_bram[12];
+     assign w_data_in_0[13] = bw[13] ? di[13] : r_data_out_0_bram[13];
+     assign w_data_in_0[14] = bw[14] ? di[14] : r_data_out_0_bram[14];
+     assign w_data_in_0[15] = bw[15] ? di[15] : r_data_out_0_bram[15];
 
-     assign r_data_out_1_d = r_data_out_1_bram;
+     always @(posedge clk) begin
 
+       r_data_out_1_q <= mem[b0addrb];
+       if (wea) begin
+         mem[b0addra] <= w_data_in_0;
+       end
 
+     end
 
-     RAMB16_S36_S36
-                #(.SIM_COLLISION_CHECK("NONE"))            // all, none, warning_only, generate_x_only
-     bram0a(
-               .CLKA(clk2x),
-               .CLKB(clk2x),
-               .SSRA(reset_q),
-               .SSRB(reset_q),
-               .ADDRA(b0addra),
-               .ADDRB(b0addrb),
-               .DIA(w_data_in_0[0:31]),
-               .DIB({32{1'b0}}),
-               .DOA(r_data_out_0_bram[0:31]),
-               .DOB(r_data_out_1_bram[0:31]),
-               .DOPA(r_data_out_0_bram[32:35]),
-               .DOPB(r_data_out_1_bram[32:35]),
-               .DIPA(w_data_in_0[32:35]),
-               .DIPB(4'b0000),
-               .ENA(1'b1),
-               .ENB(1'b1),
-               .WEA(wea),
-               .WEB(web)
-            );
-
-     assign dout = r_data_out_1_fq[0:15];
+     assign r_data_out_0_bram = mem[b0addra];
+     assign dout = r_data_out_1_q[0:15];
 
      assign func_scan_out = func_scan_in;
      assign time_scan_out = time_scan_in;
@@ -324,12 +264,12 @@ module tri_128x16_1r1w_1(
      assign bo_pc_failout = 1'b0;
      assign bo_pc_diagloop = 1'b0;
 
-     assign unused = |{vdd, vcs, gnd, nclk, lcb_d_mode_dc, lcb_clkoff_dc_b, lcb_mpw1_dc_b, lcb_mpw2_dc_b,
+     assign unused = |{vdd, vcs, gnd, lcb_d_mode_dc, lcb_clkoff_dc_b, lcb_mpw1_dc_b, lcb_mpw2_dc_b,
                        lcb_delay_lclkr_dc, ccflush_dc, scan_dis_dc_b, scan_diag_dc, lcb_sg_0, lcb_sl_thold_0_b,
                        lcb_time_sl_thold_0, lcb_abst_sl_thold_0, lcb_ary_nsl_thold_0, lcb_repr_sl_thold_0,
                        abist_di, abist_bw_odd, abist_bw_even, abist_wr_adr, wr_abst_act, abist_rd0_adr, rd0_abst_act,
                        tc_lbist_ary_wrt_thru_dc, abist_ena_1, abist_g8t_rd0_comp_ena, abist_raw_dc_b, obs0_abist_cmp,
                        lcb_bolt_sl_thold_0, pc_bo_enable_2, pc_bo_reset, pc_bo_unload, pc_bo_repair, pc_bo_shdata,
                        pc_bo_select, tri_lcb_mpw1_dc_b, tri_lcb_mpw2_dc_b, tri_lcb_delay_lclkr_dc, tri_lcb_clkoff_dc_b,
-                       tri_lcb_act_dis_dc, rd_act, r_data_out_0_bram[16:35], r_data_out_1_bram[16:35], r_data_out_1_fq[16:35]};
+                       tri_lcb_act_dis_dc, rd_act};
 endmodule

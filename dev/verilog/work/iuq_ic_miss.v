@@ -42,7 +42,8 @@
 module iuq_ic_miss(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_func_sl_thold_0_b,
    pc_iu_sg_0,
    force_t,
@@ -133,11 +134,10 @@ module iuq_ic_miss(
 
 
    inout                           vdd;
-
    inout                           gnd;
 
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]         nclk;
+   input                           clk;
+   input                           rst;
    input                           pc_iu_func_sl_thold_0_b;
    input                           pc_iu_sg_0;
    input                           force_t;
@@ -1438,7 +1438,8 @@ assign next_lru_way[3] =
    tri_rlmlatch_p #(.INIT(0)) spr_ic_cls_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1456,7 +1457,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) bp_config_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1474,7 +1476,8 @@ assign next_lru_way[3] =
    tri_rlmlatch_p #(.INIT(0)) an_ac_reld_data_vld_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1492,7 +1495,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(5), .INIT(0)) an_ac_reld_core_tag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1510,7 +1514,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) an_ac_reld_qw_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1528,7 +1533,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) reld_r1_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1546,7 +1552,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) reld_r1_qw_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1564,7 +1571,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(128), .INIT(0)) reld_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(reld_r2_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1582,7 +1590,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) reld_r2_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1600,7 +1609,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) reld_r2_qw_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(reld_r2_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1618,7 +1628,8 @@ assign next_lru_way[3] =
    tri_rlmlatch_p #(.INIT(0)) r2_crit_qw_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1636,7 +1647,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) reld_r3_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1654,7 +1666,8 @@ assign next_lru_way[3] =
    tri_rlmlatch_p #(.INIT(0)) r3_loaded_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1672,7 +1685,8 @@ assign next_lru_way[3] =
    tri_rlmlatch_p #(.INIT(0)) an_ac_reld_ecc_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1690,7 +1704,8 @@ assign next_lru_way[3] =
    tri_rlmlatch_p #(.INIT(0)) an_ac_reld_ecc_err_ue_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1708,7 +1723,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) request_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(miss_or_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1726,7 +1742,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) req_ctag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(icd_icm_any_iu2_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1744,7 +1761,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH-4), .INIT(0)) req_ra_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(icd_icm_any_iu2_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1762,7 +1780,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(5), .INIT(0)) req_wimge_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(icd_icm_any_iu2_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1780,7 +1799,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) req_userdef_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(icd_icm_any_iu2_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1798,7 +1818,8 @@ assign next_lru_way[3] =
    tri_rlmlatch_p #(.INIT(0)) iu3_miss_match_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(icd_icm_any_iu2_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1822,7 +1843,8 @@ assign next_lru_way[3] =
        tri_rlmreg_p #(.WIDTH(CHECK_ECC+1), .INIT({1'b1, {CHECK_ECC{1'b0}} })) miss_tid_sm_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(miss_or_default_act),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -1840,7 +1862,8 @@ assign next_lru_way[3] =
        tri_rlmreg_p #(.WIDTH(3), .INIT(0)) miss_count_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(miss_or_default_act),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -1861,7 +1884,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) miss_flush_occurred_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1879,7 +1903,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) miss_flushed_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1897,7 +1922,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) miss_inval_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1915,7 +1941,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) miss_block_fp_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(miss_or_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1933,7 +1960,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) miss_ecc_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1951,7 +1979,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) miss_ecc_err_ue_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1969,7 +1998,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0), .NEEDS_SRESET(1)) miss_wrote_dir_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1987,7 +2017,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0), .NEEDS_SRESET(1)) miss_need_hold_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(miss_or_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2010,7 +2041,8 @@ assign next_lru_way[3] =
        tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH - 2), .INIT(0)) miss_addr_real_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(miss_act[i]),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -2028,7 +2060,8 @@ assign next_lru_way[3] =
        tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH - 10), .INIT(0)) miss_addr_eff_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(miss_act[i]),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -2046,7 +2079,8 @@ assign next_lru_way[3] =
       tri_rlmlatch_p #(.INIT(0)) miss_ci_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(miss_act[i]),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -2064,7 +2098,8 @@ assign next_lru_way[3] =
       tri_rlmlatch_p #(.INIT(0)) miss_endian_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(miss_act[i]),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -2082,7 +2117,8 @@ assign next_lru_way[3] =
       tri_rlmlatch_p #(.INIT(0)) miss_2ucode_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(miss_act[i]),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -2100,7 +2136,8 @@ assign next_lru_way[3] =
       tri_rlmlatch_p #(.INIT(0)) miss_2ucode_type_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(miss_act[i]),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -2118,7 +2155,8 @@ assign next_lru_way[3] =
       tri_rlmreg_p #(.WIDTH(4), .INIT(0)) miss_way_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(reld_r2_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -2139,7 +2177,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) lru_write_next_cycle_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2157,7 +2196,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(TAGS_USED), .INIT(0)) lru_write_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(default_reld_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2180,7 +2220,8 @@ assign next_lru_way[3] =
         tri_rlmreg_p #(.WIDTH(3), .INIT(0)) perf_event_latch(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(event_bus_enable),
            .thold_b(pc_iu_func_sl_thold_0_b),
            .sg(pc_iu_sg_0),
@@ -2201,7 +2242,8 @@ assign next_lru_way[3] =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) miss_prefetch_perf_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),

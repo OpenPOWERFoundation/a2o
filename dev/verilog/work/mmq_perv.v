@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 // *********************************************************************
 //
@@ -41,8 +41,8 @@ module mmq_perv(
 
    inout                                   vdd,
    inout                                   gnd,
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]                  nclk,
+   input                                   clk,
+   input                                   rst,
 
    input [0:1]  pc_mm_sg_3,
    input [0:1]  pc_mm_func_sl_thold_3,
@@ -330,7 +330,8 @@ module mmq_perv(
       tri_plat #(.WIDTH(20)) perv_3to2_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .flush(tc_ac_ccflush_dc),
          .din( {pc_mm_sg_3[0:1],
                   pc_mm_func_slp_sl_thold_3[0:1],
@@ -373,7 +374,8 @@ module mmq_perv(
       tri_plat #(.WIDTH(19)) perv_2to1_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .flush(tc_ac_ccflush_dc),
          .din( {pc_sg_2_int[0:1],
                  pc_func_slp_sl_thold_2_int[0:1],
@@ -413,7 +415,8 @@ module mmq_perv(
       tri_plat #(.WIDTH(19)) perv_1to0_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .flush(tc_ac_ccflush_dc),
          .din( {pc_sg_1_int[0:1],
                   pc_func_slp_sl_thold_1_int[0:1],
@@ -483,7 +486,8 @@ module mmq_perv(
          .vdd(vdd),
          .gnd(gnd),
          .sg(pc_sg_0_int[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .scan_in(gptr_scan_in_q),
          .scan_diag_dc(tc_scan_diag_dc),
          .thold(pc_gptr_sl_thold_0_int),
@@ -501,7 +505,8 @@ module mmq_perv(
          .vdd(vdd),
          .gnd(gnd),
          .sg(pc_sg_0_int[1]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .scan_in(gptr_scan_lcbctrl[0]),
          .scan_diag_dc(tc_scan_diag_dc),
          .thold(pc_gptr_sl_thold_0_int),
@@ -519,7 +524,8 @@ module mmq_perv(
          .vdd(vdd),
          .gnd(gnd),
          .sg(pc_sg_0_int[1]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .scan_in(gptr_scan_lcbctrl[1]),
          .scan_diag_dc(tc_scan_diag_dc),
          .thold(pc_gptr_sl_thold_0_int),
@@ -569,7 +575,8 @@ module mmq_perv(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(lcb_delay_lclkr_dc_int[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(slat_force[1]),
          .thold_b(abst_slat_thold_b),
          .dclk(abst_slat_d2clk),
@@ -593,7 +600,8 @@ module mmq_perv(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(lcb_delay_lclkr_dc_int[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(slat_force[1]),
          .thold_b(time_slat_thold_b),
          .dclk(time_slat_d2clk),
@@ -617,7 +625,8 @@ module mmq_perv(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(lcb_delay_lclkr_dc_int[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(slat_force[1]),
          .thold_b(repr_slat_thold_b),
          .dclk(repr_slat_d2clk),
@@ -641,7 +650,8 @@ module mmq_perv(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(tiup),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(slat_force[0]),
          .thold_b(gptr_slat_thold_b),
          .dclk(gptr_slat_d2clk),
@@ -665,7 +675,8 @@ module mmq_perv(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(lcb_delay_lclkr_dc_int[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(slat_force[0]),
          .thold_b(bcfg_slat_thold_b),
          .dclk(bcfg_slat_d2clk),
@@ -689,7 +700,8 @@ module mmq_perv(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(lcb_delay_lclkr_dc_int[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(slat_force[0]),
          .thold_b(ccfg_slat_thold_b),
          .dclk(ccfg_slat_d2clk),
@@ -713,7 +725,8 @@ module mmq_perv(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(lcb_delay_lclkr_dc_int[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(slat_force[0]),
          .thold_b(dcfg_slat_thold_b),
          .dclk(dcfg_slat_d2clk),
@@ -737,7 +750,8 @@ module mmq_perv(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(lcb_delay_lclkr_dc_int[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(slat_force[0]),
          .thold_b(func_slat_thold_b),
          .dclk(func_slat_d2clk),
@@ -814,7 +828,8 @@ module mmq_perv(
       tri_rlmreg_p #(.INIT(0), .WIDTH(42), .NEEDS_SRESET(0)) abist_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(pc_mm_abist_ena_dc),
          .thold_b(pc_abst_sl_thold_0_b),
          .sg(pc_sg_0_int[1]),

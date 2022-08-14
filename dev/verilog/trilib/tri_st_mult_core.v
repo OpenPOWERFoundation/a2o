@@ -40,7 +40,8 @@
 `include "tri_a2o.vh"
 
 module tri_st_mult_core(
-   nclk,
+   clk,
+   rst,
    vdd,
    gnd,
    delay_lclkr_dc,
@@ -63,9 +64,10 @@ module tri_st_mult_core(
    ex5_pp5_0c_out
 );
    // Pervasive ---------------------------------------
-   input [0:`NCLK_WIDTH-1]  nclk;
    inout            vdd;
    inout            gnd;
+   input            clk;
+   input            rst;
    input            delay_lclkr_dc;
    input            mpw1_dc_b;
    input            mpw2_dc_b;
@@ -7231,7 +7233,8 @@ module tri_st_mult_core(
       .mpw1_b(mpw1_dc_b),		//in -- 0 ,
       .mpw2_b(mpw2_dc_b),		//in -- 0 ,
       .force_t(func_sl_force),		//in -- 0 ,
-      .nclk(nclk),		//in
+      .clk(clk),
+      .rst(rst),
       .vd(vdd),		//inout
       .gd(gnd),		//inout
       .act(ex3_act),		//in
@@ -7248,7 +7251,8 @@ module tri_st_mult_core(
       .mpw1_b(mpw1_dc_b),		//in -- 0 ,
       .mpw2_b(mpw2_dc_b),		//in -- 0 ,
       .force_t(func_sl_force),		//in -- 0 ,
-      .nclk(nclk),		//in
+      .clk(clk),
+      .rst(rst),
       .vd(vdd),		//inout
       .gd(gnd),		//inout
       .act(ex4_act),		//in

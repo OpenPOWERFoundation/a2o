@@ -36,11 +36,12 @@
 
 `include "tri_a2o.vh"
 
-module tri_128x168_1w_0(
+module tri_128x168_1w_0 (
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    act,
    ccflush_dc,
    scan_dis_dc_b,
@@ -102,7 +103,8 @@ module tri_128x168_1w_0(
    inout                                        vcs;
 
    // CLOCK and CLOCKCONTROL ports
-   input [0:`NCLK_WIDTH-1]                      nclk;
+   input                                        clk;
+   input                                        rst;
    input                                        act;
    input                                        ccflush_dc;
    input                                        scan_dis_dc_b;
@@ -227,7 +229,7 @@ module tri_128x168_1w_0(
                .DOPB(unused_dob[x * ramb_base_width + 32:x * ramb_base_width + 35]),
                .ADDRA(ramb_addr),
                .ADDRB(ramb_addr),
-               .CLKA(nclk[0]),
+               .CLKA(clk),
                .CLKB(tidn),
                .DIA(ramb_data_in[x * ramb_base_width:x * ramb_base_width + 31]),
                .DIB(ramb_data_in[x * ramb_base_width:x * ramb_base_width + 31]),
@@ -235,7 +237,7 @@ module tri_128x168_1w_0(
                .DIPB(ramb_data_in[x * ramb_base_width + 32:x * ramb_base_width + 35]),
                .ENA(act),
                .ENB(tidn),
-               .SSRA(nclk[1]),
+               .SSRA(rst),
                .SSRB(tidn),
                .WEA(write[w]),
                .WEB(tidn)
@@ -252,5 +254,5 @@ module tri_128x168_1w_0(
    assign bo_pc_failout = 1'b0;
    assign bo_pc_diagloop = 1'b0;
 
-   assign unused = |({ramb_data_out[0][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ccflush_dc, scan_dis_dc_b, scan_diag_dc, lcb_d_mode_dc, lcb_clkoff_dc_b, lcb_act_dis_dc, lcb_mpw1_dc_b, lcb_mpw2_dc_b, lcb_delay_lclkr_dc, lcb_sg_1, lcb_time_sg_0, lcb_repr_sg_0, lcb_abst_sl_thold_0, lcb_repr_sl_thold_0, lcb_time_sl_thold_0, lcb_ary_nsl_thold_0, lcb_bolt_sl_thold_0, tc_lbist_ary_wrt_thru_dc, abist_en_1, din_abist, abist_cmp_en, abist_raw_b_dc, data_cmp_abist, addr_abist, r_wb_abist, pc_bo_enable_2, pc_bo_reset, pc_bo_unload, pc_bo_repair, pc_bo_shdata, pc_bo_select, tri_lcb_mpw1_dc_b, tri_lcb_mpw2_dc_b, tri_lcb_delay_lclkr_dc, tri_lcb_clkoff_dc_b, tri_lcb_act_dis_dc, gnd, vdd, vcs, nclk, unused_dob});
+   assign unused = |({ramb_data_out[0][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ccflush_dc, scan_dis_dc_b, scan_diag_dc, lcb_d_mode_dc, lcb_clkoff_dc_b, lcb_act_dis_dc, lcb_mpw1_dc_b, lcb_mpw2_dc_b, lcb_delay_lclkr_dc, lcb_sg_1, lcb_time_sg_0, lcb_repr_sg_0, lcb_abst_sl_thold_0, lcb_repr_sl_thold_0, lcb_time_sl_thold_0, lcb_ary_nsl_thold_0, lcb_bolt_sl_thold_0, tc_lbist_ary_wrt_thru_dc, abist_en_1, din_abist, abist_cmp_en, abist_raw_b_dc, data_cmp_abist, addr_abist, r_wb_abist, pc_bo_enable_2, pc_bo_reset, pc_bo_unload, pc_bo_repair, pc_bo_shdata, pc_bo_select, tri_lcb_mpw1_dc_b, tri_lcb_mpw2_dc_b, tri_lcb_delay_lclkr_dc, tri_lcb_clkoff_dc_b, tri_lcb_act_dis_dc, gnd, vdd, vcs, unused_dob});
 endmodule

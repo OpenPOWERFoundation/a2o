@@ -38,8 +38,8 @@
 
 
 module iuq_slice_top(
-   (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]       	nclk,
+   input                            clk,
+   input                            rst,
    input                         	pc_iu_sg_2,
    input                         	pc_iu_func_sl_thold_2,
    input                            pc_iu_func_slp_sl_thold_2,
@@ -959,7 +959,8 @@ module iuq_slice_top(
                iuq_slice  slice0(
                   .vdd(vdd),
                   .gnd(gnd),
-                  .nclk(nclk),
+                  .clk(clk),
+                  .rst(rst),
                   .pc_iu_sg_2(pc_iu_sg_2),
                   .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
                   .clkoff_b(clkoff_b),
@@ -1242,7 +1243,8 @@ module iuq_slice_top(
               iuq_slice  slice1(
                   .vdd(vdd),
                   .gnd(gnd),
-                  .nclk(nclk),
+                  .clk(clk),
+                  .rst(rst),
                   .pc_iu_sg_2(pc_iu_sg_2),
                   .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
                   .clkoff_b(clkoff_b),
@@ -1525,7 +1527,8 @@ module iuq_slice_top(
          iuq_dispatch dispatch(
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
             .pc_iu_func_slp_sl_thold_2(pc_iu_func_slp_sl_thold_2),
             .pc_iu_sg_2(pc_iu_sg_2),

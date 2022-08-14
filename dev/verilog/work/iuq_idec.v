@@ -42,7 +42,8 @@
 module iuq_idec(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_sg_2,
    pc_iu_func_sl_thold_2,
    clkoff_b,
@@ -179,7 +180,8 @@ module iuq_idec(
 `include "tri_a2o.vh"
    inout                         vdd;
    inout                         gnd;
-   input [0:`NCLK_WIDTH-1]       nclk;
+   input                         clk;
+   input                         rst;
    input                         pc_iu_sg_2;
    input                         pc_iu_func_sl_thold_2;
    input                         clkoff_b;
@@ -5570,7 +5572,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_vld(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5588,7 +5591,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_ucode(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5606,7 +5610,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_2ucode(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5624,7 +5629,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_fuse_nop(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5642,7 +5648,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_error(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5660,7 +5667,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_btb_entry(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5678,7 +5686,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu5_btb_hist(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5696,7 +5705,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_bta_val(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5714,7 +5724,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(20), .INIT(0)) iu5_fusion(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5732,7 +5743,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_rte_lq(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5750,7 +5762,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_rte_sq(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5768,7 +5781,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_rte_fx0(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5786,7 +5800,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_rte_fx1(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5804,7 +5819,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_rte_axu0(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5822,7 +5838,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_rte_axu1(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5840,7 +5857,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_valop(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5858,7 +5876,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_ord(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5876,7 +5895,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_cord(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5894,7 +5914,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_spec(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5912,7 +5933,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_type_fp(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5930,7 +5952,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_type_ap(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5948,7 +5971,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_type_spv(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5966,7 +5990,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_type_st(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -5984,7 +6009,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_async_block(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6002,7 +6028,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_np1_flush(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6020,7 +6047,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_core_block(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6038,7 +6066,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_isram(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6056,7 +6085,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_isload(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6074,7 +6104,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_isstore(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6092,7 +6123,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(32), .INIT(0)) iu5_instr(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6110,7 +6142,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu5_ifar(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6128,7 +6161,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu5_bta(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6146,7 +6180,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(4), .INIT(0)) iu5_ilat(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6164,7 +6199,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_t1_v(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6182,7 +6218,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_t1_t(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6200,7 +6237,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) iu5_t1_a(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6218,7 +6256,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_t2_v(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6236,7 +6275,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) iu5_t2_a(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6254,7 +6294,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_t2_t(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6272,7 +6313,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_t3_v(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_valid_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6290,7 +6332,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) iu5_t3_a(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6308,7 +6351,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_t3_t(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6326,7 +6370,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_s1_v(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6344,7 +6389,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) iu5_s1_a(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6362,7 +6408,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_s1_t(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6380,7 +6427,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_s2_v(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6398,7 +6446,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) iu5_s2_a(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6416,7 +6465,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_s2_t(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6434,7 +6484,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_s3_v(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6452,7 +6503,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) iu5_s3_a(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6470,7 +6522,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_s3_t(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6488,7 +6541,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_br_pred(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6506,7 +6560,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_bh_update(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6524,7 +6579,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu5_bh0_hist(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6542,7 +6598,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu5_bh1_hist(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6560,7 +6617,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu5_bh2_hist(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6578,7 +6636,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(18), .INIT(0)) iu5_gshare(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6596,7 +6655,8 @@ assign no_pre =
       tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu5_ls_ptr(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6614,7 +6674,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) iu5_match(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(iu5_instr_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6632,7 +6693,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) spr_epcr_dgtmi_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6650,7 +6712,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) spr_msrp_uclep_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6668,7 +6731,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) spr_msr_pr_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6686,7 +6750,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) spr_msr_gs_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6704,7 +6769,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) spr_msr_ucle_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6722,7 +6788,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) spr_ccr2_ucode_dis_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6740,7 +6807,8 @@ assign no_pre =
       tri_rlmlatch_p #(.INIT(0)) cp_flush_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -6821,7 +6889,8 @@ assign no_pre =
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2,pc_iu_sg_2}),
       .q({pc_iu_func_sl_thold_1,pc_iu_sg_1})
@@ -6831,7 +6900,8 @@ assign no_pre =
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1,pc_iu_sg_1}),
       .q({pc_iu_func_sl_thold_0,pc_iu_sg_0})

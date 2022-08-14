@@ -49,6 +49,9 @@
 `define EXPAND_TLB_TYPE 2    // 0 = erat-only, 1 = tlb logic, 2 = tlb array
 //`define EXPAND_TLB_TYPE 0     // doesn't work in sim
 
+// 0: none   1: DP
+//`define FLOAT_TYPE 0          // fails with completion x's in sim
+`define FLOAT_TYPE 1
 
 /*wtf these are a mess; need to be doc'd and create dependency reqts and legal ranges;
       shrinking values causes lots of bit sel vector problems, and sim fails

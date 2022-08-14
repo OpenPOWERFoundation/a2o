@@ -39,8 +39,8 @@
 module mmq_tlb_cmp(
    inout                                   vdd,
    inout                                   gnd,
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]                 nclk,
+   input                                   clk,
+   input                                   rst,
 
    input                                   tc_ccflush_dc,
    input                                   tc_scan_dis_dc_b,
@@ -5409,7 +5409,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_way0_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[12]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5427,7 +5428,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_way1_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[12]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5445,7 +5447,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_way2_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[13]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5463,7 +5466,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_way3_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[13]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5482,7 +5486,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_TAG_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_tag3_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[9]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5500,7 +5505,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_TAG_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_tag3_clone1_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[12]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5518,7 +5524,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_TAG_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_tag3_clone2_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[13]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5537,7 +5544,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_ADDR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_addr3_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[9]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5557,7 +5565,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) lru_tag3_dataout_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[9]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5576,7 +5585,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_tag3_cmpmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[12]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5594,7 +5604,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_tag3_cmpmask_clone_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[13]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5613,7 +5624,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_way0_cmpmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[12]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5631,7 +5643,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_way1_cmpmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[12]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5649,7 +5662,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_way2_cmpmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[13]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5667,7 +5681,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_way3_cmpmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[13]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5685,7 +5700,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_way0_xbitmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[12]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5703,7 +5719,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_way1_xbitmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[12]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5721,7 +5738,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_way2_xbitmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[13]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5739,7 +5757,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_way3_xbitmask_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[13]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5758,7 +5777,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_TAG_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_tag4_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[10]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5776,7 +5796,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH((`TLB_WAYS+1)), .INIT(0), .NEEDS_SRESET(1)) tlb_tag4_wayhit_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[10]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5794,7 +5815,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_ADDR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_addr4_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[10]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5812,7 +5834,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_dataina_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[14]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5830,7 +5853,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_datainb_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[15]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5848,7 +5872,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`LRU_WIDTH), .INIT(0), .NEEDS_SRESET(1)) lru_tag4_dataout_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[10]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5866,7 +5891,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_tag4_way_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_tag4_way_act),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5884,7 +5910,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_tag4_way_clone_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_tag4_way_clone_act),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5902,7 +5929,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_tag4_way_rw_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_tag4_way_rw_act),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5920,7 +5948,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_WAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_tag4_way_rw_clone_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_tag4_way_rw_clone_act),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5938,7 +5967,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS+1), .INIT(0), .NEEDS_SRESET(1)) tlbwe_tag4_back_inv_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[10]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5956,7 +5986,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) tlbwe_tag4_back_inv_attr_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[10]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5975,7 +6006,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH((2*`THDID_WIDTH+1+1)), .INIT(0), .NEEDS_SRESET(1)) tlb_erat_val_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[14]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -5993,7 +6025,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`ERAT_REL_DATA_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_erat_rel_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[14]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6011,7 +6044,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`ERAT_REL_DATA_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_erat_rel_clone_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[15]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6029,7 +6063,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH((2*`THDID_WIDTH+13+1)), .INIT(0), .NEEDS_SRESET(1)) tlb_erat_dup_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(xu_mm_ccr2_notlb_b),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6047,7 +6082,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) lru_write_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6065,7 +6101,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`TLB_ADDR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) lru_wr_addr_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6083,7 +6120,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) lru_datain_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6101,7 +6139,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) eratmiss_done_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6119,7 +6158,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_miss_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6137,7 +6177,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_inelig_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6155,7 +6196,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) lrat_miss_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6173,7 +6215,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) pt_fault_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6191,7 +6234,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) hv_priv_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6209,7 +6253,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_tag5_except_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6227,7 +6272,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) mm_xu_ord_par_mhit_err_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6245,7 +6291,8 @@ module mmq_tlb_cmp(
       tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lru_update_clear_enab_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6263,7 +6310,8 @@ module mmq_tlb_cmp(
       tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_tag5_parerr_zeroize_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6281,7 +6329,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) tlb_tag5_itag_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6299,7 +6348,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) tlb_tag5_emq_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6317,7 +6367,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) tlb_tag5_perf_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[11]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6335,7 +6386,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_dsi_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6353,7 +6405,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_isi_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6371,7 +6424,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) esr_pt_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6389,7 +6443,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) esr_data_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6407,7 +6462,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) esr_st_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6425,7 +6481,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) esr_epid_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6443,7 +6500,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) cr0_eq_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6461,7 +6519,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) cr0_eq_valid_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6479,7 +6538,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_multihit_err_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6497,7 +6557,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH((`TLB_WAYS+1)), .INIT(0), .NEEDS_SRESET(1)) tag4_parerr_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[10]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6515,7 +6576,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_par_err_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6533,7 +6595,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) lru_par_err_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6552,7 +6615,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(9), .INIT(0), .NEEDS_SRESET(1)) mmucr1_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(xu_mm_ccr2_notlb_b),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6571,7 +6635,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(9), .INIT(0), .NEEDS_SRESET(1)) mmucr1_clone_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(xu_mm_ccr2_notlb_b),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6589,7 +6654,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) spare_a_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[14]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6607,7 +6673,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) spare_b_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[15]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6625,7 +6692,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(8), .INIT(MMQ_TLB_CMP_CSWITCH_0TO7), .NEEDS_SRESET(1)) cswitch_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6651,7 +6719,8 @@ module mmq_tlb_cmp(
       tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) spare_c_latch(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tlb_delayed_act[16]),
          .thold_b(pc_func_slp_sl_thold_0_b),
          .sg(pc_sg_0),
@@ -6670,7 +6739,8 @@ module mmq_tlb_cmp(
       // Changed these to spares
 
       tri_regk #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(0)) spare_nsl_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(xu_mm_ccr2_notlb_b),
@@ -6688,7 +6758,8 @@ module mmq_tlb_cmp(
       );
 
       tri_regk #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(0)) spare_nsl_clone_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(xu_mm_ccr2_notlb_b),
@@ -6706,7 +6777,8 @@ module mmq_tlb_cmp(
       );
 
       tri_regk #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(0)) epcr_dmiuh_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(xu_mm_ccr2_notlb_b),
@@ -6724,7 +6796,8 @@ module mmq_tlb_cmp(
       );
 
       tri_regk #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(0)) msr_gs_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(xu_mm_ccr2_notlb_b),
@@ -6742,7 +6815,8 @@ module mmq_tlb_cmp(
       );
 
       tri_regk #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(0)) msr_pr_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(xu_mm_ccr2_notlb_b),
@@ -6768,7 +6842,8 @@ module mmq_tlb_cmp(
       tri_plat #(.WIDTH(5)) perv_2to1_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .flush(tc_ccflush_dc),
          .din( {pc_func_sl_thold_2, pc_func_slp_sl_thold_2, pc_func_slp_nsl_thold_2, pc_sg_2, pc_fce_2} ),
          .q(    {pc_func_sl_thold_1, pc_func_slp_sl_thold_1, pc_func_slp_nsl_thold_1, pc_sg_1, pc_fce_1} )
@@ -6777,7 +6852,8 @@ module mmq_tlb_cmp(
       tri_plat #(.WIDTH(5)) perv_1to0_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .flush(tc_ccflush_dc),
          .din( {pc_func_sl_thold_1, pc_func_slp_sl_thold_1, pc_func_slp_nsl_thold_1, pc_sg_1, pc_fce_1} ),
          .q(    {pc_func_sl_thold_0, pc_func_slp_sl_thold_0, pc_func_slp_nsl_thold_0, pc_sg_0, pc_fce_0} )

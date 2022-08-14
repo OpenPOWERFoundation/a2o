@@ -137,7 +137,8 @@ module rv_station(
 		  rvs_dbg_bus,
 		  vdd,
 		  gnd,
-		  nclk,
+        clk,
+        rst,
 		  sg_1,
 		  func_sl_thold_1,
 		  ccflush_dc,
@@ -275,8 +276,8 @@ module rv_station(
    // pervasive
    inout 			vdd;
    inout 			gnd;
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1] 	nclk;
+   input          clk;
+   input          rst;
    input 			sg_1;
    input 			func_sl_thold_1;
    input 			ccflush_dc;
@@ -693,7 +694,8 @@ module rv_station(
 	.w_act(w_act),
 	.r0_addr(ex0_barf_addr_q),
 	.r0_dat(ex0_instr_dat),
-	.nclk(nclk),
+	.clk(clk),
+   .rst(rst),
 	.vdd(vdd),
 	.gnd(gnd),
 	.sg_1(sg_1),
@@ -1531,7 +1533,8 @@ module rv_station(
 		   q_cord_q_reg(
 				.vd(vdd),
 				.gd(gnd),
-				.nclk(nclk),
+				.clk(clk),
+	.rst(rst),
 				.act(q_cord_act[n]),
 				.thold_b(func_sl_thold_0_b),
 				.sg(sg_0),
@@ -1598,7 +1601,8 @@ module rv_station(
               	   q_ord_q_reg(
                                .vd(vdd),
                                .gd(gnd),
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .act(q_dat_act[n]),
                                .thold_b(func_sl_thold_0_b),
                                .sg(sg_0),
@@ -1673,7 +1677,8 @@ module rv_station(
 		   q_spec_q_reg(
 				.vd(vdd),
 				.gd(gnd),
-				.nclk(nclk),
+				.clk(clk),
+	.rst(rst),
 				.act(tiup),
 				.thold_b(func_sl_thold_0_b),
 				.sg(sg_0),
@@ -1715,7 +1720,8 @@ module rv_station(
 		   tri_rlmlatch_p #(.INIT(0)) q_e_miss_q_reg(
                                                              .vd(vdd),
                                                              .gd(gnd),
-                                                             .nclk(nclk),
+                                                             .clk(clk),
+	.rst(rst),
                                                              .act(q_e_miss_act[n]),
                                                              .thold_b(func_sl_thold_0_b),
                                                              .sg(sg_0),
@@ -1737,7 +1743,8 @@ module rv_station(
 	   lq_rv_itag1_restart_reg(
 				   .vd(vdd),
 				   .gd(gnd),
-				   .nclk(nclk),
+				   .clk(clk),
+	.rst(rst),
 				   .act(tiup),
 				   .thold_b(func_sl_thold_0_b),
 				   .sg(sg_0),
@@ -1757,7 +1764,8 @@ module rv_station(
                  lq_rv_itag1_hold_reg(
                         .vd(vdd),
                         .gd(gnd),
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .act(tiup),
                         .thold_b(func_sl_thold_0_b),
                         .sg(sg_0),
@@ -1777,7 +1785,8 @@ module rv_station(
                  lq_rv_itag1_cord_reg(
                         .vd(vdd),
                         .gd(gnd),
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .act(tiup),
                         .thold_b(func_sl_thold_0_b),
                         .sg(sg_0),
@@ -1797,7 +1806,8 @@ module rv_station(
                  lq_rv_clr_hold_reg(
                       .vd(vdd),
                       .gd(gnd),
-                      .nclk(nclk),
+                      .clk(clk),
+	.rst(rst),
                       .act(tiup),
                       .thold_b(func_sl_thold_0_b),
                       .sg(sg_0),
@@ -1907,7 +1917,8 @@ module rv_station(
                  q_hold_brick_q_reg(
                       .vd(vdd),
                       .gd(gnd),
-                      .nclk(nclk),
+                      .clk(clk),
+	.rst(rst),
                       .act(tiup),
                       .thold_b(func_sl_thold_0_b),
                       .sg(sg_0),
@@ -1927,7 +1938,8 @@ module rv_station(
                  q_hold_brick_cnt_q_reg(
                           .vd(vdd),
                           .gd(gnd),
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .act(tiup),
                           .thold_b(func_sl_thold_0_b),
                           .sg(sg_0),
@@ -1949,7 +1961,8 @@ module rv_station(
               	   q_is_brick_q_reg(
                             .vd(vdd),
                             .gd(gnd),
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .act(q_dat_act[n]),
                             .thold_b(func_sl_thold_0_b),
                             .sg(sg_0),
@@ -1968,7 +1981,8 @@ module rv_station(
               	   q_brick_q_reg(
                          .vd(vdd),
                          .gd(gnd),
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .act(tiup),
                          .thold_b(func_sl_thold_0_b),
                          .sg(sg_0),
@@ -2535,7 +2549,8 @@ module rv_station(
    ex0_barf_addr_reg(
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .thold_b(func_sl_thold_0_b),
               .sg(sg_0),
@@ -2559,7 +2574,8 @@ module rv_station(
 	      issued_vld_reg(
 			  .vd(vdd),
 			  .gd(gnd),
-			  .nclk(nclk),
+			  .clk(clk),
+	.rst(rst),
 			  .act(tiup),
 			  .thold_b(func_sl_thold_0_b),
 			  .sg(sg_0),
@@ -2577,7 +2593,8 @@ module rv_station(
 	      issued_addr_reg(
 			  .vd(vdd),
 			  .gd(gnd),
-			  .nclk(nclk),
+			  .clk(clk),
+	.rst(rst),
 			  .act(tiup),
 			  .thold_b(func_sl_thold_0_b),
 			  .sg(sg_0),
@@ -2599,7 +2616,8 @@ module rv_station(
    xx_rv_ex3_abort_reg(
              .vd(vdd),
              .gd(gnd),
-             .nclk(nclk),
+             .clk(clk),
+	.rst(rst),
              .act(tiup),
              .thold_b(func_sl_thold_0_b),
              .sg(sg_0),
@@ -2617,7 +2635,8 @@ module rv_station(
    xx_rv_ex4_abort_reg(
              .vd(vdd),
              .gd(gnd),
-             .nclk(nclk),
+             .clk(clk),
+	.rst(rst),
              .act(tiup),
              .thold_b(func_sl_thold_0_b),
              .sg(sg_0),
@@ -2636,7 +2655,8 @@ module rv_station(
    flush_reg(
              .vd(vdd),
              .gd(gnd),
-             .nclk(nclk),
+             .clk(clk),
+	.rst(rst),
              .act(tiup),
              .thold_b(func_sl_thold_0_b),
              .sg(sg_0),
@@ -2656,7 +2676,8 @@ module rv_station(
    flush2_reg(
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .thold_b(func_sl_thold_0_b),
               .sg(sg_0),
@@ -2682,7 +2703,8 @@ module rv_station(
 	      barf_ev_reg(
 			  .vd(vdd),
 			  .gd(gnd),
-			  .nclk(nclk),
+			  .clk(clk),
+	.rst(rst),
 			  .act(tiup),
 			  .thold_b(func_sl_thold_0_b),
 			  .sg(sg_0),
@@ -2709,7 +2731,8 @@ module rv_station(
 	      xx_rv_rel_vld_reg(
 			  .vd(vdd),
 			  .gd(gnd),
-			  .nclk(nclk),
+			  .clk(clk),
+	.rst(rst),
 			  .act(tiup),
 			  .thold_b(func_sl_thold_0_b),
 			  .sg(sg_0),
@@ -2727,7 +2750,8 @@ module rv_station(
 	      xx_rv_rel_itag_reg(
 			  .vd(vdd),
 			  .gd(gnd),
-			  .nclk(nclk),
+			  .clk(clk),
+	.rst(rst),
 			  .act(tiup),
 			  .thold_b(func_sl_thold_0_b),
 			  .sg(sg_0),
@@ -2749,7 +2773,8 @@ module rv_station(
 	      xx_rv_abort_reg(
 			  .vd(vdd),
 			  .gd(gnd),
-			  .nclk(nclk),
+			  .clk(clk),
+	.rst(rst),
 			  .act(tiup),
 			  .thold_b(func_sl_thold_0_b),
 			  .sg(sg_0),
@@ -2773,7 +2798,8 @@ module rv_station(
 	      q_dat_q_reg(
                           .vd(vdd),
                           .gd(gnd),
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .act(q_dat_act[n]),
                           .thold_b(func_sl_thold_0_b),
                           .sg(sg_0),
@@ -2793,7 +2819,8 @@ module rv_station(
 	      q_itag_q_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(q_dat_act[n]),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -2815,7 +2842,8 @@ module rv_station(
 	      q_ilat_q_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(q_dat_act[n]),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -2835,7 +2863,8 @@ module rv_station(
 	      q_tid_q_reg(
                           .vd(vdd),
                           .gd(gnd),
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .act(q_dat_act[n]),
                           .thold_b(func_sl_thold_0_b),
                           .sg(sg_0),
@@ -2853,7 +2882,8 @@ module rv_station(
 	      q_bard_addr_q_reg(
                           .vd(vdd),
                           .gd(gnd),
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .act(q_dat_act[n]),
                           .thold_b(func_sl_thold_0_b),
                           .sg(sg_0),
@@ -2873,7 +2903,8 @@ module rv_station(
 	      q_s1_itag_q_reg(
                               .vd(vdd),
                               .gd(gnd),
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .act(q_dat_act[n]),
                               .thold_b(func_sl_thold_0_b),
                               .sg(sg_0),
@@ -2893,7 +2924,8 @@ module rv_station(
 	      q_s2_itag_q_reg(
                               .vd(vdd),
                               .gd(gnd),
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .act(q_dat_act[n]),
                               .thold_b(func_sl_thold_0_b),
                               .sg(sg_0),
@@ -2913,7 +2945,8 @@ module rv_station(
 	      q_s3_itag_q_reg(
                               .vd(vdd),
                               .gd(gnd),
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .act(q_dat_act[n]),
                               .thold_b(func_sl_thold_0_b),
                               .sg(sg_0),
@@ -2933,7 +2966,8 @@ module rv_station(
 	      q_s1_v_q_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(q_dat_act[n]),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -2953,7 +2987,8 @@ module rv_station(
 	      q_s2_v_q_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(q_dat_act[n]),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -2973,7 +3008,8 @@ module rv_station(
 	      q_s3_v_q_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(q_dat_act[n]),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -2993,7 +3029,8 @@ module rv_station(
 	      q_issued_q_reg(
                              .vd(vdd),
                              .gd(gnd),
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .act(tiup),
                              .thold_b(func_sl_thold_0_b),
                              .sg(sg_0),
@@ -3012,7 +3049,8 @@ module rv_station(
 	      q_s1_rdy_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(tiup),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -3032,7 +3070,8 @@ module rv_station(
 	      q_s2_rdy_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(tiup),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -3052,7 +3091,8 @@ module rv_station(
 	      q_s3_rdy_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(tiup),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -3083,7 +3123,8 @@ module rv_station(
 	      q_rdy_q_reg(
                           .vd(vdd),
                           .gd(gnd),
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .act(tiup),
                           .thold_b(func_sl_thold_0_b),
                           .sg(sg_0),
@@ -3108,7 +3149,8 @@ module rv_station(
    lq_rv_itag1_rst_vld_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(tiup),
                            .thold_b(func_sl_thold_0_b),
                            .sg(sg_0),
@@ -3128,7 +3170,8 @@ module rv_station(
    lq_rv_itag1_rst_reg(
                        .vd(vdd),
                        .gd(gnd),
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .act(tiup),
                        .thold_b(func_sl_thold_0_b),
                        .sg(sg_0),
@@ -3149,7 +3192,8 @@ module rv_station(
    q_ev_q_reg(
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .thold_b(func_sl_thold_0_b),
               .sg(sg_0),
@@ -3169,7 +3213,8 @@ module rv_station(
    q_flushed_q_reg(
                    .vd(vdd),
                    .gd(gnd),
-                   .nclk(nclk),
+                   .clk(clk),
+	.rst(rst),
                    .act(tiup),
                    .thold_b(func_sl_thold_0_b),
                    .sg(sg_0),
@@ -3189,7 +3234,8 @@ module rv_station(
    q_credit_q_reg(
                   .vd(vdd),
                   .gd(gnd),
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .act(tiup),
                   .thold_b(func_sl_thold_0_b),
                   .sg(sg_0),
@@ -3209,7 +3255,8 @@ module rv_station(
    ex1_credit_free_q_reg(
                          .vd(vdd),
                          .gd(gnd),
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .act(tiup),
                          .thold_b(func_sl_thold_0_b),
                          .sg(sg_0),
@@ -3229,7 +3276,8 @@ module rv_station(
    rvs_empty_q_reg(
                    .vd(vdd),
                    .gd(gnd),
-                   .nclk(nclk),
+                   .clk(clk),
+	.rst(rst),
                    .act(tiup),
                    .thold_b(func_sl_thold_0_b),
                    .sg(sg_0),
@@ -3249,7 +3297,8 @@ module rv_station(
    q_hold_all_q_reg(
                     .vd(vdd),
                     .gd(gnd),
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .act(tiup),
                     .thold_b(func_sl_thold_0_b),
                     .sg(sg_0),
@@ -3268,7 +3317,8 @@ module rv_station(
    q_hold_ord_q_reg(
                     .vd(vdd),
                     .gd(gnd),
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .act(tiup),
                     .thold_b(func_sl_thold_0_b),
                     .sg(sg_0),
@@ -3287,7 +3337,8 @@ module rv_station(
    perf_bus_reg(
                     .vd(vdd),
                     .gd(gnd),
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .act(tiup),
                     .thold_b(func_sl_thold_0_b),
                     .sg(sg_0),
@@ -3306,7 +3357,8 @@ module rv_station(
    dbg_bus_reg(
                     .vd(vdd),
                     .gd(gnd),
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .act(tiup),
                     .thold_b(func_sl_thold_0_b),
                     .sg(sg_0),
@@ -3338,7 +3390,8 @@ module rv_station(
    perv_1to0_reg(
 		 .vd(vdd),
 		 .gd(gnd),
-		 .nclk(nclk),
+		 .clk(clk),
+	.rst(rst),
 		 .flush(ccflush_dc),
 		 .din({func_sl_thold_1, sg_1}),
                  .q({func_sl_thold_0, sg_0})

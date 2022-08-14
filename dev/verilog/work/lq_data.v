@@ -77,7 +77,8 @@ module lq_data(
    vdd,
    gnd,
    vcs,
-   nclk,
+   clk,
+   rst,
    pc_lq_ccflush_dc,
    sg_2,
    fce_2,
@@ -188,7 +189,8 @@ inout                            vcs;
 inout                            vdd;
 inout                            gnd;
 (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-input [0:`NCLK_WIDTH-1]          nclk;
+input                            clk;
+input                            rst;
 input                            pc_lq_ccflush_dc;
 input                            sg_2;
 input                            fce_2;
@@ -493,7 +495,8 @@ lq_data_st  l1dcst(
    // Pervasive
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .sg_0(sg_0),
    .func_sl_thold_0_b(func_sl_thold_0_b),
    .func_sl_force(func_sl_force),
@@ -527,7 +530,8 @@ generate if ((2 ** `DC_SIZE) == 32768) begin : dc32K
       .gnd(gnd),
 
       // CLOCK AND CLOCKCONTROL PORTS
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .wr_act(dcarr_wr_stg_act),
       .rd_act(dcarr_rd_stg_act),
       .sg_0(sg_0),
@@ -656,7 +660,8 @@ lq_data_ld  l1dcld(
    // Pervasive
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .sg_0(sg_0),
    .func_sl_thold_0_b(func_sl_thold_0_b),
    .func_sl_force(func_sl_force),
@@ -697,7 +702,8 @@ assign func_scan_out = func_scan_out_q & {7{an_ac_scan_dis_dc_b}};
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_dcache_parity_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -716,7 +722,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_dcache_parity_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_dcdis_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -734,7 +741,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_dcdis_reg(
 tri_regk #(.WIDTH(`STQ_DATA_SIZE), .INIT(0), .NEEDS_SRESET(1)) stq5_rot_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(stq4_stg_act_q),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -753,7 +761,8 @@ tri_regk #(.WIDTH(`STQ_DATA_SIZE), .INIT(0), .NEEDS_SRESET(1)) stq5_rot_data_reg
 tri_rlmreg_p #(.WIDTH(`STQ_DATA_SIZE), .INIT(0), .NEEDS_SRESET(1)) stq6_rot_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(stq5_stg_act_q),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -775,7 +784,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_DATA_SIZE), .INIT(0), .NEEDS_SRESET(1)) stq6_rot_data
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_stg_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -794,7 +804,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_stg_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_stg_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -813,7 +824,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_stg_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stg_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -832,7 +844,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stg_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_stg_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -851,7 +864,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_stg_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_stg_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -870,7 +884,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_stg_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_stg_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -889,7 +904,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_stg_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq5_stg_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -910,7 +926,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq5_stg_act_reg(
 tri_rlmreg_p #(.INIT(0), .WIDTH(29), .NEEDS_SRESET(1)) abist0_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_abist_ena_dc),
    .thold_b(abst_sl_thold_0_b),
    .sg(sg_0),
@@ -948,7 +965,8 @@ tri_rlmreg_p #(.INIT(0), .WIDTH(29), .NEEDS_SRESET(1)) abist0_reg(
 tri_plat #(.WIDTH(9)) perv_2to1_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .flush(pc_lq_ccflush_dc),
    .din({func_nsl_thold_2,
          func_sl_thold_2,
@@ -974,7 +992,8 @@ tri_plat #(.WIDTH(9)) perv_2to1_reg(
 tri_plat #(.WIDTH(9)) perv_1to0_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .flush(pc_lq_ccflush_dc),
    .din({func_nsl_thold_1,
          func_sl_thold_1,
@@ -1038,7 +1057,8 @@ tri_lcbs  perv_lcbs_abst(
    .vd(vdd),
    .gd(gnd),
    .delay_lclkr(delay_lclkr_dc),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .force_t(slat_force),
    .thold_b(abst_slat_thold_b),
    .dclk(abst_slat_d2clk),
@@ -1062,7 +1082,8 @@ tri_lcbs  perv_lcbs_time(
    .vd(vdd),
    .gd(gnd),
    .delay_lclkr(delay_lclkr_dc),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .force_t(slat_force),
    .thold_b(time_slat_thold_b),
    .dclk(time_slat_d2clk),
@@ -1086,7 +1107,8 @@ tri_lcbs  perv_lcbs_repr(
    .vd(vdd),
    .gd(gnd),
    .delay_lclkr(delay_lclkr_dc),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .force_t(slat_force),
    .thold_b(repr_slat_thold_b),
    .dclk(repr_slat_d2clk),
@@ -1110,7 +1132,8 @@ tri_lcbs  perv_lcbs_func(
    .vd(vdd),
    .gd(gnd),
    .delay_lclkr(delay_lclkr_dc),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .force_t(slat_force),
    .thold_b(func_slat_thold_b),
    .dclk(func_slat_d2clk),

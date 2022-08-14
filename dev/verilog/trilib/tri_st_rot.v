@@ -35,7 +35,8 @@
 `include "tri_a2o.vh"
 
 module tri_st_rot(
-   nclk,
+   clk,
+   rst,
    vdd,
    gnd,
    d_mode_dc,
@@ -59,7 +60,8 @@ module tri_st_rot(
    ex3_xer_ca,
    ex3_cr_eq
 );
-   input [0:`NCLK_WIDTH-1] nclk;
+   input                 clk;
+   input                 rst;
    inout                 vdd;
    inout                 gnd;
    input                 d_mode_dc;
@@ -430,7 +432,8 @@ module tri_st_rot(
    //-------------------------------------------------------------------
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_act_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -448,7 +451,8 @@ module tri_st_rot(
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex2_mb_ins_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -466,7 +470,8 @@ module tri_st_rot(
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex2_me_ins_b_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -484,7 +489,8 @@ module tri_st_rot(
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex2_sh_amt_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -502,7 +508,8 @@ module tri_st_rot(
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) ex2_sh_right_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -520,7 +527,8 @@ module tri_st_rot(
    );
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex2_sh_word_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -538,7 +546,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_zm_ins_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -556,7 +565,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_chk_shov_wd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -574,7 +584,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_chk_shov_dw_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -592,7 +603,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_sh_amt_hi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -610,7 +622,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_sh_amt_lo_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -628,7 +641,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_rb_amt_hi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -646,7 +660,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_rb_amt_lo_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -664,7 +679,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_me_rb_hi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -682,7 +698,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_me_rb_lo_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -700,7 +717,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_mb_rb_hi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -718,7 +736,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_mb_rb_lo_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -736,7 +755,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_me_ins_hi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -754,7 +774,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_me_ins_lo_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -772,7 +793,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_mb_ins_hi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -790,7 +812,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_use_mb_ins_lo_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -808,7 +831,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_ins_prtyw_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -826,7 +850,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_ins_prtyd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -844,7 +869,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_mb_gt_me_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -862,7 +888,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_cmp_byte_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -880,7 +907,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sgnxtd_byte_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -898,7 +926,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sgnxtd_half_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -916,7 +945,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sgnxtd_wd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -934,7 +964,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sra_wd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -952,7 +983,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sra_dw_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -970,7 +1002,8 @@ module tri_st_rot(
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ex2_log_fcn_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -988,7 +1021,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sel_rot_log_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1006,7 +1040,8 @@ module tri_st_rot(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_sh_word_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_q),
@@ -1030,7 +1065,8 @@ module tri_st_rot(
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_unqiue),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .force_t(func_sl_force),
       .thold_b(func_sl_thold_0_b),
       .delay_lclkr(delay_lclkr_dc),
@@ -1083,7 +1119,8 @@ module tri_st_rot(
    //-------------------------------------------------------------------
 
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex3_sra_se_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_q),
@@ -1102,7 +1139,8 @@ module tri_st_rot(
 
 
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) dummy_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b0),

@@ -36,8 +36,8 @@
 
 module iuq_cpl_top(
    // Clocks
-    (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]    nclk,
+   input                      clk,
+   input                      rst,
 
    // Pervasive
    input                       tc_ac_ccflush_dc,
@@ -757,7 +757,8 @@ module iuq_cpl_top(
 	iuq_cpl iuq_cpl0(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .tc_ac_ccflush_dc(tc_ac_ccflush_dc),
       .clkoff_dc_b(clkoff_dc_b),
       .d_mode_dc(d_mode_dc),
@@ -1129,7 +1130,8 @@ module iuq_cpl_top(
 	iuq_cpl iuq_cpl1(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .tc_ac_ccflush_dc(tc_ac_ccflush_dc),
       .clkoff_dc_b(clkoff_dc_b),
       .d_mode_dc(d_mode_dc),
@@ -1499,7 +1501,8 @@ module iuq_cpl_top(
 iuq_dbg iuq_cpl_dbg(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .thold_2(pc_iu_func_sl_thold_2),
       .pc_iu_sg_2(pc_iu_sg_2),
       .clkoff_b(clkoff_b),

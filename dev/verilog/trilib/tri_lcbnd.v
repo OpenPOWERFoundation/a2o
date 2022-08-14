@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -35,14 +35,15 @@
 
 `include "tri_a2o.vh"
 
-module tri_lcbnd(
+module tri_lcbnd (
    vd,
    gd,
    act,
    delay_lclkr,
    mpw1_b,
    mpw2_b,
-   nclk,
+   clk,
+   rst,
    force_t,
    sg,
    thold_b,
@@ -58,7 +59,8 @@ module tri_lcbnd(
    input      delay_lclkr;
    input      mpw1_b;
    input      mpw2_b;
-   input[0:`NCLK_WIDTH-1]  nclk;
+   input      clk;
+   input      rst;
    input      force_t;
    input      sg;
    input      thold_b;
@@ -77,5 +79,5 @@ module tri_lcbnd(
 
    assign d1clk = gate_b;
    assign d2clk = thold_b;
-   assign lclk = nclk;
+   assign lclk = {clk,rst,{`NCLK_WIDTH-2{1'b0}}};
 endmodule

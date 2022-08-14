@@ -563,8 +563,8 @@ module rv_deps(
    //------------------------------------------------------------------------------------------------------------
    inout                              vdd,
    inout                              gnd,
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1] 	      nclk,
+   input                              clk,
+   input                              rst,
 
    input                              func_sl_thold_1,
    input                              sg_1,
@@ -1574,7 +1574,8 @@ module rv_deps(
 
 	     .vdd(vdd),
 	     .gnd(gnd),
-	     .nclk(nclk),
+	     .clk(clk),
+        .rst(rst),
 	     .sg_1(sg_1),
 	     .func_sl_thold_1(func_sl_thold_1),
 	     .clkoff_b(clkoff_b),
@@ -1687,7 +1688,8 @@ module rv_deps(
 
 	     .vdd(vdd),
 	     .gnd(gnd),
-	     .nclk(nclk),
+	     .clk(clk),
+        .rst(rst),
 	     .sg_1(sg_1),
 	     .func_sl_thold_1(func_sl_thold_1),
 	     .clkoff_b(clkoff_b),
@@ -2586,7 +2588,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_reg(
 							  .vd(vdd),
 							  .gd(gnd),
-							  .nclk(nclk),
+							  .clk(clk),
+	.rst(rst),
 							  .act(tiup),
 							  .thold_b(func_sl_thold_0_b),
 							  .sg(sg_0),
@@ -2604,7 +2607,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_vld_reg(
 							       .vd(vdd),
 							       .gd(gnd),
-							       .nclk(nclk),
+							       .clk(clk),
+	.rst(rst),
 							       .act(tiup),
 							       .thold_b(func_sl_thold_0_b),
 							       .sg(sg_0),
@@ -2623,7 +2627,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_rte_lq_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(tiup),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -2642,7 +2647,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_rte_sq_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(tiup),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -2661,7 +2667,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_rte_fx0_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(tiup),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -2680,7 +2687,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_rte_fx1_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(tiup),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -2699,7 +2707,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_rte_axu0_q_reg(
 						       .vd(vdd),
 						       .gd(gnd),
-						       .nclk(nclk),
+						       .clk(clk),
+	.rst(rst),
 						       .act(tiup),
 						       .thold_b(func_sl_thold_0_b),
 						       .sg(sg_0),
@@ -2718,7 +2727,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_rte_axu1_q_reg(
 						       .vd(vdd),
 						       .gd(gnd),
-						       .nclk(nclk),
+						       .clk(clk),
+	.rst(rst),
 						       .act(tiup),
 						       .thold_b(func_sl_thold_0_b),
 						       .sg(sg_0),
@@ -2737,7 +2747,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) rv0_t0_i0_instr_q_reg(
 							      .vd(vdd),
 							      .gd(gnd),
-							      .nclk(nclk),
+							      .clk(clk),
+	.rst(rst),
 							      .act(iu6_t0_i0_act),
 							      .thold_b(func_sl_thold_0_b),
 							      .sg(sg_0),
@@ -2756,7 +2767,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) rv0_t0_i0_ifar_q_reg(
 									 .vd(vdd),
 									 .gd(gnd),
-									 .nclk(nclk),
+									 .clk(clk),
+	.rst(rst),
 									 .act(iu6_t0_i0_act),
 									 .thold_b(func_sl_thold_0_b),
 									 .sg(sg_0),
@@ -2775,7 +2787,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i0_ucode_q_reg(
 							     .vd(vdd),
 							     .gd(gnd),
-							     .nclk(nclk),
+							     .clk(clk),
+	.rst(rst),
 							     .act(iu6_t0_i0_act),
 							     .thold_b(func_sl_thold_0_b),
 							     .sg(sg_0),
@@ -2794,7 +2807,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_2ucode_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(iu6_t0_i0_act),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -2813,7 +2827,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) rv0_t0_i0_ucode_cnt_q_reg(
 										 .vd(vdd),
 										 .gd(gnd),
-										 .nclk(nclk),
+										 .clk(clk),
+	.rst(rst),
 										 .act(iu6_t0_i0_act),
 										 .thold_b(func_sl_thold_0_b),
 										 .sg(sg_0),
@@ -2832,7 +2847,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t0_i0_itag_q_reg(
 									.vd(vdd),
 									.gd(gnd),
-									.nclk(nclk),
+									.clk(clk),
+	.rst(rst),
 									.act(iu6_t0_i0_act),
 									.thold_b(func_sl_thold_0_b),
 									.sg(sg_0),
@@ -2851,7 +2867,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_ord_q_reg(
 						  .vd(vdd),
 						  .gd(gnd),
-						  .nclk(nclk),
+						  .clk(clk),
+	.rst(rst),
 						  .act(iu6_t0_i0_act),
 						  .thold_b(func_sl_thold_0_b),
 						  .sg(sg_0),
@@ -2870,7 +2887,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_cord_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -2889,7 +2907,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_spec_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -2908,7 +2927,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_t1_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -2927,7 +2947,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i0_t1_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -2946,7 +2967,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i0_t1_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -2965,7 +2987,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_t2_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -2984,7 +3007,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i0_t2_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3003,7 +3027,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i0_t2_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3022,7 +3047,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_t3_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3041,7 +3067,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i0_t3_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3060,7 +3087,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i0_t3_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3079,7 +3107,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_s1_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3098,7 +3127,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i0_s1_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3117,7 +3147,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i0_s1_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3136,7 +3167,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_s2_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3155,7 +3187,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i0_s2_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3174,7 +3207,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i0_s2_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3193,7 +3227,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_s3_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3212,7 +3247,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i0_s3_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3231,7 +3267,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i0_s3_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3250,7 +3287,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t0_i0_s1_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t0_i0_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -3269,7 +3307,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t0_i0_s2_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t0_i0_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -3288,7 +3327,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t0_i0_s3_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t0_i0_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -3307,7 +3347,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) rv0_t0_i0_ilat_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3326,7 +3367,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`G_BRANCH_LEN), .INIT(0)) rv0_t0_i0_branch_q_reg(
 									 .vd(vdd),
 									 .gd(gnd),
-									 .nclk(nclk),
+									 .clk(clk),
+	.rst(rst),
 									 .act(iu6_t0_i0_act),
 									 .thold_b(func_sl_thold_0_b),
 									 .sg(sg_0),
@@ -3344,7 +3386,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_isLoad_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(iu6_t0_i0_act),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -3363,7 +3406,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i0_isStore_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(iu6_t0_i0_act),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -3384,7 +3428,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) rv0_t0_i0_spare_q_reg(
 							     .vd(vdd),
 							     .gd(gnd),
-							     .nclk(nclk),
+							     .clk(clk),
+	.rst(rst),
 							     .act(iu6_t0_i0_act),
 							     .thold_b(func_sl_thold_0_b),
 							     .sg(sg_0),
@@ -3403,7 +3448,8 @@ module rv_deps(
    tri_rlmlatch_p #( .INIT(0)) rv0_t0_i1_vld_reg(
 							       .vd(vdd),
 							       .gd(gnd),
-							       .nclk(nclk),
+							       .clk(clk),
+	.rst(rst),
 							       .act(tiup),
 							       .thold_b(func_sl_thold_0_b),
 							       .sg(sg_0),
@@ -3422,7 +3468,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_rte_lq_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(tiup),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -3441,7 +3488,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_rte_sq_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(tiup),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -3460,7 +3508,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_rte_fx0_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(tiup),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -3479,7 +3528,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_rte_fx1_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(tiup),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -3498,7 +3548,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_rte_axu0_q_reg(
 						       .vd(vdd),
 						       .gd(gnd),
-						       .nclk(nclk),
+						       .clk(clk),
+	.rst(rst),
 						       .act(tiup),
 						       .thold_b(func_sl_thold_0_b),
 						       .sg(sg_0),
@@ -3517,7 +3568,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_rte_axu1_q_reg(
 						       .vd(vdd),
 						       .gd(gnd),
-						       .nclk(nclk),
+						       .clk(clk),
+	.rst(rst),
 						       .act(tiup),
 						       .thold_b(func_sl_thold_0_b),
 						       .sg(sg_0),
@@ -3536,7 +3588,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) rv0_t0_i1_instr_q_reg(
 							      .vd(vdd),
 							      .gd(gnd),
-							      .nclk(nclk),
+							      .clk(clk),
+	.rst(rst),
 							      .act(iu6_t0_i1_act),
 							      .thold_b(func_sl_thold_0_b),
 							      .sg(sg_0),
@@ -3555,7 +3608,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) rv0_t0_i1_ifar_q_reg(
 									 .vd(vdd),
 									 .gd(gnd),
-									 .nclk(nclk),
+									 .clk(clk),
+	.rst(rst),
 									 .act(iu6_t0_i1_act),
 									 .thold_b(func_sl_thold_0_b),
 									 .sg(sg_0),
@@ -3574,7 +3628,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i1_ucode_q_reg(
 							     .vd(vdd),
 							     .gd(gnd),
-							     .nclk(nclk),
+							     .clk(clk),
+	.rst(rst),
 							     .act(iu6_t0_i1_act),
 							     .thold_b(func_sl_thold_0_b),
 							     .sg(sg_0),
@@ -3595,7 +3650,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) rv0_t0_i1_ucode_cnt_q_reg(
 										 .vd(vdd),
 										 .gd(gnd),
-										 .nclk(nclk),
+										 .clk(clk),
+	.rst(rst),
 										 .act(iu6_t0_i1_act),
 										 .thold_b(func_sl_thold_0_b),
 										 .sg(sg_0),
@@ -3614,7 +3670,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t0_i1_itag_q_reg(
 									.vd(vdd),
 									.gd(gnd),
-									.nclk(nclk),
+									.clk(clk),
+	.rst(rst),
 									.act(iu6_t0_i1_act),
 									.thold_b(func_sl_thold_0_b),
 									.sg(sg_0),
@@ -3633,7 +3690,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_ord_q_reg(
 						  .vd(vdd),
 						  .gd(gnd),
-						  .nclk(nclk),
+						  .clk(clk),
+	.rst(rst),
 						  .act(iu6_t0_i1_act),
 						  .thold_b(func_sl_thold_0_b),
 						  .sg(sg_0),
@@ -3652,7 +3710,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_cord_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3671,7 +3730,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_spec_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3690,7 +3750,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_t1_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3709,7 +3770,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i1_t1_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3728,7 +3790,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i1_t1_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3747,7 +3810,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_t2_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3766,7 +3830,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i1_t2_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3785,7 +3850,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i1_t2_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3804,7 +3870,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_t3_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3823,7 +3890,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i1_t3_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3842,7 +3910,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i1_t3_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3861,7 +3930,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_s1_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3880,7 +3950,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i1_s1_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3899,7 +3970,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i1_s1_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3918,7 +3990,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_s2_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3937,7 +4010,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i1_s2_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -3956,7 +4030,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i1_s2_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -3975,7 +4050,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_s3_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t0_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -3994,7 +4070,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t0_i1_s3_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t0_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -4013,7 +4090,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t0_i1_s3_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t0_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -4033,7 +4111,8 @@ module rv_deps(
    rv0_t0_i1_s1_itag_q_reg(
 			   .vd(vdd),
 			   .gd(gnd),
-			   .nclk(nclk),
+			   .clk(clk),
+	.rst(rst),
 			   .act(iu6_t0_i1_act),
 			   .thold_b(func_sl_thold_0_b),
 			   .sg(sg_0),
@@ -4053,7 +4132,8 @@ module rv_deps(
    rv0_t0_i1_s2_itag_q_reg(
 			   .vd(vdd),
 			   .gd(gnd),
-			   .nclk(nclk),
+			   .clk(clk),
+	.rst(rst),
 			   .act(iu6_t0_i1_act),
 			   .thold_b(func_sl_thold_0_b),
 			   .sg(sg_0),
@@ -4073,7 +4153,8 @@ module rv_deps(
    rv0_t0_i1_s3_itag_q_reg(
 			   .vd(vdd),
 			   .gd(gnd),
-			   .nclk(nclk),
+			   .clk(clk),
+	.rst(rst),
 			   .act(iu6_t0_i1_act),
 			   .thold_b(func_sl_thold_0_b),
 			   .sg(sg_0),
@@ -4091,7 +4172,8 @@ module rv_deps(
    rv0_t0_i1_s1_dep_hit_q_reg(
 			      .vd(vdd),
 			      .gd(gnd),
-			      .nclk(nclk),
+			      .clk(clk),
+	.rst(rst),
 			      .act(iu6_t0_i1_act),
 			      .thold_b(func_sl_thold_0_b),
 			      .sg(sg_0),
@@ -4110,7 +4192,8 @@ module rv_deps(
    rv0_t0_i1_s2_dep_hit_q_reg(
 			      .vd(vdd),
 			      .gd(gnd),
-			      .nclk(nclk),
+			      .clk(clk),
+	.rst(rst),
 			      .act(iu6_t0_i1_act),
 			      .thold_b(func_sl_thold_0_b),
 			      .sg(sg_0),
@@ -4129,7 +4212,8 @@ module rv_deps(
    rv0_t0_i1_s3_dep_hit_q_reg(
 			      .vd(vdd),
 			      .gd(gnd),
-			      .nclk(nclk),
+			      .clk(clk),
+	.rst(rst),
 			      .act(iu6_t0_i1_act),
 			      .thold_b(func_sl_thold_0_b),
 			      .sg(sg_0),
@@ -4149,7 +4233,8 @@ module rv_deps(
    rv0_t0_i1_ilat_q_reg(
 			.vd(vdd),
 			.gd(gnd),
-			.nclk(nclk),
+			.clk(clk),
+	.rst(rst),
 			.act(iu6_t0_i1_act),
 			.thold_b(func_sl_thold_0_b),
 			.sg(sg_0),
@@ -4169,7 +4254,8 @@ module rv_deps(
    rv0_t0_i1_branch_q_reg(
 			  .vd(vdd),
 			  .gd(gnd),
-			  .nclk(nclk),
+			  .clk(clk),
+	.rst(rst),
 			  .act(iu6_t0_i1_act),
 			  .thold_b(func_sl_thold_0_b),
 			  .sg(sg_0),
@@ -4187,7 +4273,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_isLoad_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(iu6_t0_i1_act),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -4206,7 +4293,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t0_i1_isStore_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(iu6_t0_i1_act),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -4227,7 +4315,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) rv0_t0_i1_spare_q_reg(
 							     .vd(vdd),
 							     .gd(gnd),
-							     .nclk(nclk),
+							     .clk(clk),
+	.rst(rst),
 							     .act(iu6_t0_i1_act),
 							     .thold_b(func_sl_thold_0_b),
 							     .sg(sg_0),
@@ -4254,7 +4343,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_vld_reg(
 							       .vd(vdd),
 							       .gd(gnd),
-							       .nclk(nclk),
+							       .clk(clk),
+	.rst(rst),
 							       .act(tiup),
 							       .thold_b(func_sl_thold_0_b),
 							       .sg(sg_0),
@@ -4273,7 +4363,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_rte_lq_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(tiup),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -4292,7 +4383,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_rte_sq_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(tiup),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -4311,7 +4403,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_rte_fx0_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(tiup),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -4330,7 +4423,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_rte_fx1_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(tiup),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -4349,7 +4443,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_rte_axu0_q_reg(
 						       .vd(vdd),
 						       .gd(gnd),
-						       .nclk(nclk),
+						       .clk(clk),
+	.rst(rst),
 						       .act(tiup),
 						       .thold_b(func_sl_thold_0_b),
 						       .sg(sg_0),
@@ -4368,7 +4463,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_rte_axu1_q_reg(
 						       .vd(vdd),
 						       .gd(gnd),
-						       .nclk(nclk),
+						       .clk(clk),
+	.rst(rst),
 						       .act(tiup),
 						       .thold_b(func_sl_thold_0_b),
 						       .sg(sg_0),
@@ -4387,7 +4483,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) rv0_t1_i0_instr_q_reg(
 							      .vd(vdd),
 							      .gd(gnd),
-							      .nclk(nclk),
+							      .clk(clk),
+	.rst(rst),
 							      .act(iu6_t1_i0_act),
 							      .thold_b(func_sl_thold_0_b),
 							      .sg(sg_0),
@@ -4406,7 +4503,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) rv0_t1_i0_ifar_q_reg(
 									 .vd(vdd),
 									 .gd(gnd),
-									 .nclk(nclk),
+									 .clk(clk),
+	.rst(rst),
 									 .act(iu6_t1_i0_act),
 									 .thold_b(func_sl_thold_0_b),
 									 .sg(sg_0),
@@ -4425,7 +4523,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i0_ucode_q_reg(
 							     .vd(vdd),
 							     .gd(gnd),
-							     .nclk(nclk),
+							     .clk(clk),
+	.rst(rst),
 							     .act(iu6_t1_i0_act),
 							     .thold_b(func_sl_thold_0_b),
 							     .sg(sg_0),
@@ -4444,7 +4543,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_2ucode_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(iu6_t1_i0_act),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -4463,7 +4563,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) rv0_t1_i0_ucode_cnt_q_reg(
 										 .vd(vdd),
 										 .gd(gnd),
-										 .nclk(nclk),
+										 .clk(clk),
+	.rst(rst),
 										 .act(iu6_t1_i0_act),
 										 .thold_b(func_sl_thold_0_b),
 										 .sg(sg_0),
@@ -4482,7 +4583,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t1_i0_itag_q_reg(
 									.vd(vdd),
 									.gd(gnd),
-									.nclk(nclk),
+									.clk(clk),
+	.rst(rst),
 									.act(iu6_t1_i0_act),
 									.thold_b(func_sl_thold_0_b),
 									.sg(sg_0),
@@ -4501,7 +4603,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_ord_q_reg(
 						  .vd(vdd),
 						  .gd(gnd),
-						  .nclk(nclk),
+						  .clk(clk),
+	.rst(rst),
 						  .act(iu6_t1_i0_act),
 						  .thold_b(func_sl_thold_0_b),
 						  .sg(sg_0),
@@ -4520,7 +4623,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_cord_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -4539,7 +4643,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_spec_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -4558,7 +4663,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_t1_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -4577,7 +4683,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i0_t1_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -4596,7 +4703,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i0_t1_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -4615,7 +4723,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_t2_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -4634,7 +4743,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i0_t2_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -4653,7 +4763,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i0_t2_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -4672,7 +4783,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_t3_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -4691,7 +4803,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i0_t3_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -4710,7 +4823,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i0_t3_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -4729,7 +4843,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_s1_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -4748,7 +4863,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i0_s1_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -4767,7 +4883,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i0_s1_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -4786,7 +4903,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_s2_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -4805,7 +4923,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i0_s2_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -4824,7 +4943,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i0_s2_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -4843,7 +4963,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_s3_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i0_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -4862,7 +4983,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i0_s3_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i0_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -4881,7 +5003,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i0_s3_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -4900,7 +5023,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t1_i0_s1_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t1_i0_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -4919,7 +5043,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t1_i0_s2_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t1_i0_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -4938,7 +5063,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t1_i0_s3_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t1_i0_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -4957,7 +5083,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) rv0_t1_i0_ilat_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i0_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -4976,7 +5103,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`G_BRANCH_LEN), .INIT(0)) rv0_t1_i0_branch_q_reg(
 									 .vd(vdd),
 									 .gd(gnd),
-									 .nclk(nclk),
+									 .clk(clk),
+	.rst(rst),
 									 .act(iu6_t1_i0_act),
 									 .thold_b(func_sl_thold_0_b),
 									 .sg(sg_0),
@@ -4994,7 +5122,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_isLoad_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(iu6_t1_i0_act),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -5013,7 +5142,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i0_isStore_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(iu6_t1_i0_act),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -5034,7 +5164,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) rv0_t1_i0_spare_q_reg(
 							     .vd(vdd),
 							     .gd(gnd),
-							     .nclk(nclk),
+							     .clk(clk),
+	.rst(rst),
 							     .act(iu6_t1_i0_act),
 							     .thold_b(func_sl_thold_0_b),
 							     .sg(sg_0),
@@ -5053,7 +5184,8 @@ module rv_deps(
    tri_rlmlatch_p #( .INIT(0)) rv0_t1_i1_vld_reg(
 							       .vd(vdd),
 							       .gd(gnd),
-							       .nclk(nclk),
+							       .clk(clk),
+	.rst(rst),
 							       .act(tiup),
 							       .thold_b(func_sl_thold_0_b),
 							       .sg(sg_0),
@@ -5072,7 +5204,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_rte_lq_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(tiup),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -5091,7 +5224,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_rte_sq_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(tiup),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -5110,7 +5244,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_rte_fx0_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(tiup),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -5129,7 +5264,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_rte_fx1_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(tiup),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -5148,7 +5284,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_rte_axu0_q_reg(
 						       .vd(vdd),
 						       .gd(gnd),
-						       .nclk(nclk),
+						       .clk(clk),
+	.rst(rst),
 						       .act(tiup),
 						       .thold_b(func_sl_thold_0_b),
 						       .sg(sg_0),
@@ -5167,7 +5304,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_rte_axu1_q_reg(
 						       .vd(vdd),
 						       .gd(gnd),
-						       .nclk(nclk),
+						       .clk(clk),
+	.rst(rst),
 						       .act(tiup),
 						       .thold_b(func_sl_thold_0_b),
 						       .sg(sg_0),
@@ -5186,7 +5324,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) rv0_t1_i1_instr_q_reg(
 							      .vd(vdd),
 							      .gd(gnd),
-							      .nclk(nclk),
+							      .clk(clk),
+	.rst(rst),
 							      .act(iu6_t1_i1_act),
 							      .thold_b(func_sl_thold_0_b),
 							      .sg(sg_0),
@@ -5205,7 +5344,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) rv0_t1_i1_ifar_q_reg(
 									 .vd(vdd),
 									 .gd(gnd),
-									 .nclk(nclk),
+									 .clk(clk),
+	.rst(rst),
 									 .act(iu6_t1_i1_act),
 									 .thold_b(func_sl_thold_0_b),
 									 .sg(sg_0),
@@ -5224,7 +5364,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i1_ucode_q_reg(
 							     .vd(vdd),
 							     .gd(gnd),
-							     .nclk(nclk),
+							     .clk(clk),
+	.rst(rst),
 							     .act(iu6_t1_i1_act),
 							     .thold_b(func_sl_thold_0_b),
 							     .sg(sg_0),
@@ -5245,7 +5386,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) rv0_t1_i1_ucode_cnt_q_reg(
 										 .vd(vdd),
 										 .gd(gnd),
-										 .nclk(nclk),
+										 .clk(clk),
+	.rst(rst),
 										 .act(iu6_t1_i1_act),
 										 .thold_b(func_sl_thold_0_b),
 										 .sg(sg_0),
@@ -5264,7 +5406,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t1_i1_itag_q_reg(
 									.vd(vdd),
 									.gd(gnd),
-									.nclk(nclk),
+									.clk(clk),
+	.rst(rst),
 									.act(iu6_t1_i1_act),
 									.thold_b(func_sl_thold_0_b),
 									.sg(sg_0),
@@ -5283,7 +5426,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_ord_q_reg(
 						  .vd(vdd),
 						  .gd(gnd),
-						  .nclk(nclk),
+						  .clk(clk),
+	.rst(rst),
 						  .act(iu6_t1_i1_act),
 						  .thold_b(func_sl_thold_0_b),
 						  .sg(sg_0),
@@ -5302,7 +5446,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_cord_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -5321,7 +5466,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_spec_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -5340,7 +5486,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_t1_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -5359,7 +5506,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i1_t1_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -5378,7 +5526,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i1_t1_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -5397,7 +5546,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_t2_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -5416,7 +5566,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i1_t2_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -5435,7 +5586,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i1_t2_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -5454,7 +5606,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_t3_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -5473,7 +5626,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i1_t3_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -5492,7 +5646,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i1_t3_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -5511,7 +5666,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_s1_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -5530,7 +5686,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i1_s1_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -5549,7 +5706,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i1_s1_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -5568,7 +5726,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_s2_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -5587,7 +5746,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i1_s2_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -5606,7 +5766,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i1_s2_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -5625,7 +5786,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_s3_v_q_reg(
 						   .vd(vdd),
 						   .gd(gnd),
-						   .nclk(nclk),
+						   .clk(clk),
+	.rst(rst),
 						   .act(iu6_t1_i1_act),
 						   .thold_b(func_sl_thold_0_b),
 						   .sg(sg_0),
@@ -5644,7 +5806,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) rv0_t1_i1_s3_p_q_reg(
 								       .vd(vdd),
 								       .gd(gnd),
-								       .nclk(nclk),
+								       .clk(clk),
+	.rst(rst),
 								       .act(iu6_t1_i1_act),
 								       .thold_b(func_sl_thold_0_b),
 								       .sg(sg_0),
@@ -5663,7 +5826,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) rv0_t1_i1_s3_t_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -5682,7 +5846,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t1_i1_s1_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t1_i1_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -5701,7 +5866,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t1_i1_s2_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t1_i1_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -5720,7 +5886,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) rv0_t1_i1_s3_itag_q_reg(
 									   .vd(vdd),
 									   .gd(gnd),
-									   .nclk(nclk),
+									   .clk(clk),
+	.rst(rst),
 									   .act(iu6_t1_i1_act),
 									   .thold_b(func_sl_thold_0_b),
 									   .sg(sg_0),
@@ -5739,7 +5906,8 @@ module rv_deps(
    rv0_t1_i1_s1_dep_hit_q_reg(
 			      .vd(vdd),
 			      .gd(gnd),
-			      .nclk(nclk),
+			      .clk(clk),
+	.rst(rst),
 			      .act(iu6_t1_i1_act),
 			      .thold_b(func_sl_thold_0_b),
 			      .sg(sg_0),
@@ -5758,7 +5926,8 @@ module rv_deps(
    rv0_t1_i1_s2_dep_hit_q_reg(
 			      .vd(vdd),
 			      .gd(gnd),
-			      .nclk(nclk),
+			      .clk(clk),
+	.rst(rst),
 			      .act(iu6_t1_i1_act),
 			      .thold_b(func_sl_thold_0_b),
 			      .sg(sg_0),
@@ -5777,7 +5946,8 @@ module rv_deps(
    rv0_t1_i1_s3_dep_hit_q_reg(
 			      .vd(vdd),
 			      .gd(gnd),
-			      .nclk(nclk),
+			      .clk(clk),
+	.rst(rst),
 			      .act(iu6_t1_i1_act),
 			      .thold_b(func_sl_thold_0_b),
 			      .sg(sg_0),
@@ -5796,7 +5966,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) rv0_t1_i1_ilat_q_reg(
 							    .vd(vdd),
 							    .gd(gnd),
-							    .nclk(nclk),
+							    .clk(clk),
+	.rst(rst),
 							    .act(iu6_t1_i1_act),
 							    .thold_b(func_sl_thold_0_b),
 							    .sg(sg_0),
@@ -5815,7 +5986,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(`G_BRANCH_LEN), .INIT(0)) rv0_t1_i1_branch_q_reg(
 									 .vd(vdd),
 									 .gd(gnd),
-									 .nclk(nclk),
+									 .clk(clk),
+	.rst(rst),
 									 .act(iu6_t1_i1_act),
 									 .thold_b(func_sl_thold_0_b),
 									 .sg(sg_0),
@@ -5833,7 +6005,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_isLoad_q_reg(
 						     .vd(vdd),
 						     .gd(gnd),
-						     .nclk(nclk),
+						     .clk(clk),
+	.rst(rst),
 						     .act(iu6_t1_i1_act),
 						     .thold_b(func_sl_thold_0_b),
 						     .sg(sg_0),
@@ -5852,7 +6025,8 @@ module rv_deps(
    tri_rlmlatch_p #(.INIT(0)) rv0_t1_i1_isStore_q_reg(
 						      .vd(vdd),
 						      .gd(gnd),
-						      .nclk(nclk),
+						      .clk(clk),
+	.rst(rst),
 						      .act(iu6_t1_i1_act),
 						      .thold_b(func_sl_thold_0_b),
 						      .sg(sg_0),
@@ -5873,7 +6047,8 @@ module rv_deps(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) rv0_t1_i1_spare_q_reg(
 							     .vd(vdd),
 							     .gd(gnd),
-							     .nclk(nclk),
+							     .clk(clk),
+	.rst(rst),
 							     .act(iu6_t1_i1_act),
 							     .thold_b(func_sl_thold_0_b),
 							     .sg(sg_0),
@@ -5910,7 +6085,8 @@ module rv_deps(
  rv0_instr_i0_flushed_reg(
 								      .vd(vdd),
 								      .gd(gnd),
-								      .nclk(nclk),
+								      .clk(clk),
+	.rst(rst),
 								      .act(tiup),
 								      .thold_b(func_sl_thold_0_b),
 								      .sg(sg_0),
@@ -5930,7 +6106,8 @@ module rv_deps(
  rv0_instr_i1_flushed_reg(
 								      .vd(vdd),
 								      .gd(gnd),
-								      .nclk(nclk),
+								      .clk(clk),
+	.rst(rst),
 								      .act(tiup),
 								      .thold_b(func_sl_thold_0_b),
 								      .sg(sg_0),
@@ -5950,7 +6127,8 @@ module rv_deps(
  rv1_lq_instr_i0_vld_reg(
 								     .vd(vdd),
 								     .gd(gnd),
-								     .nclk(nclk),
+								     .clk(clk),
+	.rst(rst),
 								     .act(tiup),
 								     .thold_b(func_sl_thold_0_b),
 								     .sg(sg_0),
@@ -5971,7 +6149,8 @@ module rv_deps(
 rv1_lq_instr_i0_rte_lq_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -5991,7 +6170,8 @@ rv1_lq_instr_i0_rte_lq_reg(
 rv1_lq_instr_i0_rte_sq_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6010,7 +6190,8 @@ rv1_lq_instr_i0_rte_sq_reg(
    rv1_lq_instr_i0_ucode_preissue_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6028,7 +6209,8 @@ rv1_lq_instr_i0_rte_sq_reg(
    rv1_lq_instr_i0_2ucode_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6047,7 +6229,8 @@ rv1_lq_instr_i0_rte_sq_reg(
    rv1_lq_instr_i0_ucode_cnt_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6066,7 +6249,8 @@ rv1_lq_instr_i0_rte_sq_reg(
    rv1_lq_instr_i0_s3_t_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6085,7 +6269,8 @@ rv1_lq_instr_i0_rte_sq_reg(
    rv1_lq_instr_i0_isLoad_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6103,7 +6288,8 @@ rv1_lq_instr_i0_rte_sq_reg(
    rv1_lq_instr_i0_isStore_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6122,7 +6308,8 @@ rv1_lq_instr_i0_rte_sq_reg(
    rv1_lq_instr_i0_itag_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6141,7 +6328,8 @@ rv1_lq_instr_i0_rte_sq_reg(
    rv1_lq_instr_i0_ifar_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6161,7 +6349,8 @@ rv1_lq_instr_i0_rte_sq_reg(
 rv1_lq_instr_i1_vld_reg(
 								     .vd(vdd),
 								     .gd(gnd),
-								     .nclk(nclk),
+								     .clk(clk),
+	.rst(rst),
 								     .act(tiup),
 								     .thold_b(func_sl_thold_0_b),
 								     .sg(sg_0),
@@ -6182,7 +6371,8 @@ rv1_lq_instr_i1_vld_reg(
  rv1_lq_instr_i1_rte_lq_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6202,7 +6392,8 @@ rv1_lq_instr_i1_vld_reg(
 rv1_lq_instr_i1_rte_sq_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6221,7 +6412,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    rv1_lq_instr_i1_ucode_preissue_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6239,7 +6431,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    rv1_lq_instr_i1_2ucode_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6258,7 +6451,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    rv1_lq_instr_i1_ucode_cnt_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6277,7 +6471,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    rv1_lq_instr_i1_s3_t_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6296,7 +6491,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    rv1_lq_instr_i1_isLoad_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6314,7 +6510,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    rv1_lq_instr_i1_isStore_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6333,7 +6530,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    rv1_lq_instr_i1_itag_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6352,7 +6550,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    rv1_lq_instr_i1_ifar_reg(
 							 .vd(vdd),
 							 .gd(gnd),
-							 .nclk(nclk),
+							 .clk(clk),
+	.rst(rst),
 							 .act(tiup),
 							 .thold_b(func_sl_thold_0_b),
 							 .sg(sg_0),
@@ -6382,7 +6581,8 @@ rv1_lq_instr_i1_rte_sq_reg(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
 				       .vd(vdd),
 				       .gd(gnd),
-				       .nclk(nclk),
+				       .clk(clk),
+	.rst(rst),
 				       .flush(ccflush_dc),
 				       .din({func_sl_thold_1,sg_1}),
 				       .q({func_sl_thold_0,sg_0})

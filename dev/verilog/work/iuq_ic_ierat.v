@@ -42,8 +42,8 @@ module iuq_ic_ierat(
    inout                             vcs,
 
    // CLOCK and CLOCKCONTROL ports
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]           nclk,
+   input                             clk,
+   input                             rst,
    input                             pc_iu_init_reset,
    input                             tc_ccflush_dc,
    input                             tc_scan_dis_dc_b,
@@ -4470,7 +4470,8 @@ assign ex6_data_maskpar =
       .gnd(gnd),
       .vdd(vdd),
       .vcs(vcs),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
 
       .tc_ccflush_dc(tc_ccflush_dc),
       .tc_scan_dis_dc_b(tc_scan_dis_dc_b),
@@ -4677,7 +4678,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4695,7 +4697,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex1_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4713,7 +4716,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex1_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4731,7 +4735,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ra_entry_width), .INIT(0), .NEEDS_SRESET(1)) ex1_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4749,7 +4754,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex1_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4767,7 +4773,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex1_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4785,7 +4792,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex1_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4803,7 +4811,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex1_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4822,7 +4831,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4840,7 +4850,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex2_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4858,7 +4869,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex2_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4876,7 +4888,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ra_entry_width), .INIT(0), .NEEDS_SRESET(1)) ex2_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4894,7 +4907,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex2_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4912,7 +4926,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex2_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4930,7 +4945,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex2_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4948,7 +4964,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex2_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4968,7 +4985,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4986,7 +5004,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex3_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5004,7 +5023,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex3_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5022,7 +5042,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ra_entry_width), .INIT(0), .NEEDS_SRESET(1)) ex3_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5040,7 +5061,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex3_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5058,7 +5080,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex3_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5076,7 +5099,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex3_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5094,7 +5118,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex3_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5112,7 +5137,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(2+num_entry_log2), .INIT(0), .NEEDS_SRESET(1)) ex3_eratsx_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(eratsx_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5131,7 +5157,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5149,7 +5176,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex4_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5167,7 +5195,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex4_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5185,7 +5214,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ra_entry_width), .INIT(0), .NEEDS_SRESET(1)) ex4_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5203,7 +5233,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex4_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5221,7 +5252,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex4_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5239,7 +5271,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex4_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5257,7 +5290,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex4_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5276,7 +5310,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(data_out_width), .INIT(0), .NEEDS_SRESET(1)) ex4_data_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_data_out_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5295,7 +5330,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5313,7 +5349,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex5_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5331,7 +5368,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex5_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5349,7 +5387,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ra_entry_width), .INIT(0), .NEEDS_SRESET(1)) ex5_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5367,7 +5406,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex5_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5385,7 +5425,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex5_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5403,7 +5444,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex5_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5421,7 +5463,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex5_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5440,7 +5483,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(rs_data_width), .INIT(0), .NEEDS_SRESET(1)) ex5_data_in_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5459,7 +5503,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex6_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5477,7 +5522,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex6_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5495,7 +5541,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex6_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5513,7 +5560,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ra_entry_width), .INIT(0), .NEEDS_SRESET(1)) ex6_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5531,7 +5579,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex6_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5549,7 +5598,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex6_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5567,7 +5617,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex6_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5585,7 +5636,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex6_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5605,7 +5657,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(rs_data_width), .INIT(0), .NEEDS_SRESET(1)) ex6_data_in_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5625,7 +5678,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex7_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5643,7 +5697,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex7_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5661,7 +5716,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex7_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5679,7 +5735,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu1_flush_enab_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5697,7 +5754,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu2_n_flush_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_or_iu2_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5715,7 +5773,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(1), .NEEDS_SRESET(1)) hold_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(not_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5733,7 +5792,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_miss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5751,7 +5811,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_flushed_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5769,7 +5830,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_req_inprogress_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5787,7 +5849,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu1_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5805,7 +5868,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) iu1_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5823,7 +5887,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) iu1_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5841,7 +5906,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu1_nonspec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5859,7 +5925,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu1_prefetch_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5877,7 +5944,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu2_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5895,7 +5963,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu2_perf_itlb_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5913,7 +5982,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) iu2_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5931,7 +6001,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) iu2_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5949,7 +6020,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu2_nonspec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5967,7 +6039,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu2_prefetch_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5985,7 +6058,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) iu2_miss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_or_iu2_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6003,7 +6077,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) iu2_multihit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_or_iu2_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6021,7 +6096,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) iu2_parerr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_or_iu2_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6039,7 +6115,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) iu2_isi_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(not_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6057,7 +6134,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu2_tlbreq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(notlb_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6075,7 +6153,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(num_entry), .INIT(0), .NEEDS_SRESET(1)) iu2_multihit_b_pt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6093,7 +6172,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(num_entry-1), .INIT(0), .NEEDS_SRESET(1)) iu2_first_hit_entry_pt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6111,7 +6191,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(cam_data_width), .INIT(0), .NEEDS_SRESET(1)) iu2_cam_cmp_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_cmp_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6129,7 +6210,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(array_data_width), .INIT(0), .NEEDS_SRESET(1)) iu2_array_cmp_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu1_cmp_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6147,7 +6229,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(cam_data_width), .INIT(0), .NEEDS_SRESET(1)) ex4_rd_cam_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_rd_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6165,7 +6248,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(array_data_width), .INIT(0), .NEEDS_SRESET(1)) ex4_rd_array_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_rd_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6183,7 +6267,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS+1), .INIT(0), .NEEDS_SRESET(1)) ex3_parerr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(not_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6201,7 +6286,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS+3), .INIT(0), .NEEDS_SRESET(1)) ex4_parerr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6219,7 +6305,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS+num_entry_log2), .INIT(0), .NEEDS_SRESET(1)) ex4_ieen_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6237,7 +6324,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS+num_entry_log2), .INIT(0), .NEEDS_SRESET(1)) ex5_ieen_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6255,7 +6343,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS+num_entry_log2), .INIT(0), .NEEDS_SRESET(1)) ex6_ieen_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6273,7 +6362,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(9), .INIT(0), .NEEDS_SRESET(1)) mmucr1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6296,7 +6386,8 @@ assign ex6_data_maskpar =
        tri_rlmreg_p #(.WIDTH(64), .INIT(0), .NEEDS_SRESET(1)) rpn_holdreg_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(ex6_stg_act_q),
           .thold_b(pc_func_slp_sl_thold_0_b),
           .sg(pc_sg_0),
@@ -6317,7 +6408,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) entry_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(entry_valid_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6335,7 +6427,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) entry_match_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(entry_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6353,7 +6446,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(watermark_width), .INIT(13), .NEEDS_SRESET(1)) watermark_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6371,7 +6465,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(eptr_width), .INIT(0), .NEEDS_SRESET(1)) eptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mmucr1_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6389,7 +6484,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(lru_width), .INIT(0), .NEEDS_SRESET(1)) lru_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(lru_update_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6407,7 +6503,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) lru_update_event_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(not_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6425,7 +6522,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(24), .INIT(0), .NEEDS_SRESET(1)) lru_debug_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(debug_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6443,7 +6541,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_ord_write_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6461,7 +6560,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_ord_read_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6479,7 +6579,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_ord_par_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6498,7 +6599,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp_ic_csinv_comp_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6516,7 +6618,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) snoop_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),     // keep this as tiup, bit(1) is I$ backinv
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6534,7 +6637,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(26), .INIT(0), .NEEDS_SRESET(1)) snoop_attr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(snoop_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6552,7 +6656,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(epn_width), .INIT(0), .NEEDS_SRESET(1)) snoop_addr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(snoop_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6570,7 +6675,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) por_seq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6589,7 +6695,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_rel_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6607,7 +6714,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(132), .INIT(0), .NEEDS_SRESET(1)) tlb_rel_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tlb_rel_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6625,7 +6733,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu_mm_ierat_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6643,7 +6752,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu_xu_ierat_ex2_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6661,7 +6771,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) ccr2_frat_paranoia_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6679,7 +6790,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(1), .NEEDS_SRESET(1)) ccr2_notlb_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6697,7 +6809,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mchk_flash_inv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu2_or_iu3_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6715,7 +6828,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(1), .NEEDS_SRESET(1)) xucr4_mmu_mchk_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6733,7 +6847,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) iu1_debug_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(trace_bus_enable_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6751,7 +6866,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(17), .INIT(0), .NEEDS_SRESET(1)) iu2_debug_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(debug_grffence_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6769,7 +6885,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu1_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6787,7 +6904,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu2_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6805,7 +6923,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu3_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6823,7 +6942,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6841,7 +6961,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6859,7 +6980,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6877,7 +6999,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6895,7 +7018,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6913,7 +7037,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6931,7 +7056,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6949,7 +7075,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_rel_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6967,7 +7094,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) snoop_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6985,7 +7113,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_pc_err_ierat_multihit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7003,7 +7132,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_pc_err_ierat_parity_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7022,7 +7152,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) trace_bus_enable_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7040,7 +7171,8 @@ assign ex6_data_maskpar =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) an_ac_grffence_en_dc_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7058,7 +7190,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) spare_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7076,7 +7209,8 @@ assign ex6_data_maskpar =
    tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) spare_b_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7229,7 +7363,8 @@ assign ex6_data_maskpar =
    tri_plat #(.WIDTH(4)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ccflush_dc),
       .din({pc_iu_func_sl_thold_2,
             pc_iu_func_slp_sl_thold_2,
@@ -7244,7 +7379,8 @@ assign ex6_data_maskpar =
    tri_plat #(.WIDTH(4)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ccflush_dc),
       .din({pc_func_sl_thold_1,
             pc_func_slp_sl_thold_1,
@@ -7282,7 +7418,8 @@ assign ex6_data_maskpar =
       .vd(vdd),
       .gd(gnd),
       .delay_lclkr(lcb_delay_lclkr_dc[0]),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .force_t(pc_cfg_slp_sl_force),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .dclk(lcb_dclk),

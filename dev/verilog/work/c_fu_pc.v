@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -36,30 +36,35 @@
 //*
 //*****************************************************************************
 
-(* recursive_synthesis=0 *)
+//wtf: move pcq to top-level? keep this as c_fu to do the float_type generate
 
+`include "tri_a2o.vh"
+
+`ifndef FLOAT_TYPE
+`define FLOAT_TYPE 1
+`endif
 
 module c_fu_pc(
- `include "tri_a2o.vh"
+
 // ----------------------------------------------------------------------
 // Common I/O Ports
 // ----------------------------------------------------------------------
    // inout                     		vdd,
    // inout                     		gnd,
-   (* PIN_DATA="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) 	// nclk
-   input  [0:`NCLK_WIDTH-1]   			nclk,
+   input                               clk,
+   input                               rst,
 
-   input  [0:31]                         	fu_debug_bus_in,
-   output [0:31]                        	fu_debug_bus_out,
-   input  [0:3]                          	fu_coretrace_ctrls_in,
-   output [0:3]                         	fu_coretrace_ctrls_out,
-   input  [0:4*`THREADS-1] 			fu_event_bus_in,
-   output [0:4*`THREADS-1] 			fu_event_bus_out,
+   input  [0:31]                       fu_debug_bus_in,
+   output [0:31]                       fu_debug_bus_out,
+   input  [0:3]                        fu_coretrace_ctrls_in,
+   output [0:3]                        fu_coretrace_ctrls_out,
+   input  [0:4*`THREADS-1] 			   fu_event_bus_in,
+   output [0:4*`THREADS-1] 			   fu_event_bus_out,
 
-   input  [0:31]             			pc_debug_bus_in,
-   output [0:31]             			pc_debug_bus_out,
-   input  [0:3]		    			pc_coretrace_ctrls_in,
-   output [0:3]		    			pc_coretrace_ctrls_out,
+   input  [0:31]             			   pc_debug_bus_in,
+   output [0:31]             			   pc_debug_bus_out,
+   input  [0:3]		    			      pc_coretrace_ctrls_in,
+   output [0:3]		    			      pc_coretrace_ctrls_out,
 
    (* pin_data="PIN_FUNCTION=/SCAN_IN/" *)  	// scan_in
    input                                	fu_gptr_scan_in,
@@ -466,8 +471,7 @@ module c_fu_pc(
 
 
    // ###################### CONSTANTS ###################### --
-   parameter                                    float_type = 1;
-
+   parameter                        float_type = `FLOAT_TYPE;
 
 
    // ####################### SIGNALS ####################### --
@@ -516,7 +520,8 @@ module c_fu_pc(
         pc0(
 		// .vdd(vdd),
 		// .gnd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+      .rst(rst),
 		//SCOM Satellite
 		.an_ac_scom_sat_id(an_ac_scom_sat_id),
 		.an_ac_scom_dch(an_ac_scom_dch),
@@ -795,7 +800,8 @@ module c_fu_pc(
 		 //.gnd(gnd),
 		 //.vcs(vcs),
 		 //.vdd(vdd),
-		 .nclk(nclk),
+		 .clk(clk),
+       .rst(rst),
 
 		 .debug_bus_in(fu_debug_bus_in),
  		 .debug_bus_out(fu_debug_bus_out),
@@ -1009,17 +1015,17 @@ module c_fu_pc(
            assign axu0_rv_itag_vld          = {`THREADS{1'b0}};
            assign axu1_rv_itag_vld          = {`THREADS{1'b0}};
 
-           assign fu_slowspr_val_out  	    = fu_slowspr_val_in;
-           assign fu_slowspr_rw_out   	    = fu_slowspr_rw_in;
-           assign fu_slowspr_etid_out 	    = fu_slowspr_etid_in;
-           assign fu_slowspr_addr_out 	    = fu_slowspr_addr_in;
-           assign fu_slowspr_data_out 	    = fu_slowspr_data_in;
-           assign fu_slowspr_done_out 	    = fu_slowspr_done_in;
+           assign fu_slowspr_val_out  	     = fu_slowspr_val_in;
+           assign fu_slowspr_rw_out   	     = fu_slowspr_rw_in;
+           assign fu_slowspr_etid_out 	     = fu_slowspr_etid_in;
+           assign fu_slowspr_addr_out 	     = fu_slowspr_addr_in;
+           assign fu_slowspr_data_out 	     = fu_slowspr_data_in;
+           assign fu_slowspr_done_out 	     = fu_slowspr_done_in;
 
-           assign fu_debug_bus_out 	    = fu_debug_bus_in;
+           assign fu_debug_bus_out 	        = fu_debug_bus_in;
            assign fu_coretrace_ctrls_out    = fu_coretrace_ctrls_in;
 
-	   assign fu_event_bus_out          = fu_event_bus_in;
+	        assign fu_event_bus_out          = fu_event_bus_in;
 
            assign fu_pc_err_regfile_parity  = {`THREADS{1'b0}};
            assign fu_pc_err_regfile_ue      = {`THREADS{1'b0}};

@@ -41,7 +41,8 @@ module pcq_clks_stg(
 
    inout      			vdd,
    inout      			gnd,
-   input   [0:`NCLK_WIDTH-1]    nclk,
+   input             clk,
+   input             rst,
    input      			ccflush_out_dc,
    input      			gptr_sl_thold_5,
    input      			time_sl_thold_5,
@@ -166,7 +167,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(18)) lvl5to4_plat(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
 
       .din({gptr_sl_thold_5,		    time_sl_thold_5,		     repr_sl_thold_5,
@@ -210,7 +212,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(18)) fu_clkstg_4to3(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
 
       .din({pc_pc_gptr_sl_thold_4_int,		pc_pc_time_sl_thold_4_int,	pc_pc_repr_sl_thold_4_int,
@@ -233,7 +236,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(6)) pc_lvl4to3(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
 
       .din({pc_pc_func_sl_thold_4_int,     pc_pc_func_slp_sl_thold_4_int,  pc_pc_cfg_sl_thold_4_int,
@@ -253,7 +257,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) func_3_2(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_func_sl_thold_3),
       .q(pc_pc_func_sl_thold_2)
@@ -262,7 +267,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) func_2_1(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_func_sl_thold_2),
       .q(pc_pc_func_sl_thold_1)
@@ -271,7 +277,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) func_1_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_func_sl_thold_1),
       .q(pc_pc_func_sl_thold_0)
@@ -283,7 +290,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) func_slp_3_2(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_func_slp_sl_thold_3),
       .q(pc_pc_func_slp_sl_thold_2)
@@ -292,7 +300,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) func_slp_2_1(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_func_slp_sl_thold_2),
       .q(pc_pc_func_slp_sl_thold_1)
@@ -301,7 +310,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) func_slp_1_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_func_slp_sl_thold_1),
       .q(pc_pc_func_slp_sl_thold_0)
@@ -313,7 +323,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) cfg_3_2(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_cfg_sl_thold_3),
       .q(pc_pc_cfg_sl_thold_2)
@@ -322,7 +333,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) cfg_2_1(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_cfg_sl_thold_2),
       .q(pc_pc_cfg_sl_thold_1)
@@ -331,7 +343,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) cfg_1_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_cfg_sl_thold_1),
       .q(pc_pc_cfg_sl_thold_0)
@@ -343,7 +356,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) cfg_slp_3_2(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_cfg_slp_sl_thold_3),
       .q(pc_pc_cfg_slp_sl_thold_2)
@@ -352,7 +366,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) cfg_slp_2_1(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_cfg_slp_sl_thold_2),
       .q(pc_pc_cfg_slp_sl_thold_1)
@@ -361,7 +376,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) cfg_slp_1_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_cfg_slp_sl_thold_1),
       .q(pc_pc_cfg_slp_sl_thold_0)
@@ -373,7 +389,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) gptr_3_2(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_gptr_sl_thold_3),
       .q(pc_pc_gptr_sl_thold_2)
@@ -382,7 +399,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) gptr_2_1(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_gptr_sl_thold_2),
       .q(pc_pc_gptr_sl_thold_1)
@@ -391,7 +409,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) gptr_1_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_gptr_sl_thold_1),
       .q(pc_pc_gptr_sl_thold_0)
@@ -403,7 +422,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) sg_3_2(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_sg_3),
       .q(pc_pc_sg_2)
@@ -412,7 +432,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) sg_2_1(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_sg_2),
       .q(pc_pc_sg_1)
@@ -421,7 +442,8 @@ module pcq_clks_stg(
    tri_plat #(.WIDTH(1)) sg_1_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc),
       .din(pc_pc_sg_1),
       .q(pc_pc_sg_0)

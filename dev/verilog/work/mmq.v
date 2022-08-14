@@ -39,8 +39,8 @@
 (* recursive_synthesis="0" *)
 module mmq(
 
-    (* pin_data = "PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-   input [0:`NCLK_WIDTH-1]                 nclk,
+   input                                 clk,
+   input                                 rst,
 
    input                                 tc_ac_ccflush_dc,
    input                                 tc_ac_scan_dis_dc_b,
@@ -1385,7 +1385,8 @@ endgenerate
 mmq_inval #(.MMQ_INVAL_CSWITCH_0TO3(MMQ_INVAL_CSWITCH_0TO3)) mmq_inval(
   .vdd(vdd),
   .gnd(gnd),
-  .nclk(nclk),
+  .clk(clk),
+  .rst(rst),
   .tc_ccflush_dc(tc_ac_ccflush_dc),
   .tc_scan_dis_dc_b(tc_ac_scan_dis_dc_b),
   .tc_scan_diag_dc(tc_ac_scan_diag_dc),
@@ -1589,7 +1590,8 @@ mmq_spr #(.BCFG_MMUCR1_VALUE(BCFG_MMUCR1_VALUE), .BCFG_MMUCR2_VALUE(BCFG_MMUCR2_
           .BCFG_MMUCFG_VALUE(BCFG_MMUCFG_VALUE), .BCFG_TLB0CFG_VALUE(BCFG_TLB0CFG_VALUE), .MMQ_SPR_CSWITCH_0TO3(MMQ_SPR_CSWITCH_0TO3)) mmq_spr(
   .vdd(vdd),
   .gnd(gnd),
-  .nclk(nclk),
+  .clk(clk),
+  .rst(rst),
   .cp_flush(xu_ex5_flush[0:`THREADS - 1]),
   .cp_flush_p1(cp_flush_p1),
   .tc_ccflush_dc(tc_ac_ccflush_dc),
@@ -1853,7 +1855,8 @@ mmq_spr #(.BCFG_MMUCR1_VALUE(BCFG_MMUCR1_VALUE), .BCFG_MMUCR2_VALUE(BCFG_MMUCR2_
 mmq_dbg  mmq_dbg(
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .pc_func_slp_sl_thold_2(pc_func_slp_sl_thold_2[0]),
    .pc_func_slp_nsl_thold_2(pc_func_slp_nsl_thold_2),
    .pc_sg_2(pc_sg_2[0]),
@@ -2226,7 +2229,8 @@ mmq_dbg  mmq_dbg(
 mmq_perf  mmq_perf(
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .pc_func_sl_thold_2(pc_func_sl_thold_2[0]),
    .pc_func_slp_nsl_thold_2(pc_func_slp_nsl_thold_2),
    .pc_sg_2(pc_sg_2[0]),
@@ -2341,7 +2345,8 @@ mmq_perf  mmq_perf(
 mmq_perv  mmq_perv(
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .pc_mm_sg_3(pc_mm_sg_3),
    .pc_mm_func_sl_thold_3(pc_mm_func_sl_thold_3),
    .pc_mm_func_slp_sl_thold_3(pc_mm_func_slp_sl_thold_3),
@@ -2693,7 +2698,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
          mmq_tlb_req  mmq_tlb_req(
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .tc_ccflush_dc(tc_ac_ccflush_dc),
             .tc_scan_dis_dc_b(tc_ac_scan_dis_dc_b),
             .tc_scan_diag_dc(tc_ac_scan_diag_dc),
@@ -2881,7 +2887,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
          mmq_tlb_ctl  mmq_tlb_ctl(
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .tc_ccflush_dc(tc_ac_ccflush_dc),
             .tc_scan_dis_dc_b(tc_ac_scan_dis_dc_b),
             .tc_scan_diag_dc(tc_ac_scan_diag_dc),
@@ -3168,7 +3175,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
          mmq_tlb_cmp #(.MMQ_TLB_CMP_CSWITCH_0TO7(MMQ_TLB_CMP_CSWITCH_0TO7)) mmq_tlb_cmp(
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .tc_ccflush_dc(tc_ac_ccflush_dc),
             .tc_scan_dis_dc_b(tc_ac_scan_dis_dc_b),
             .tc_scan_diag_dc(tc_ac_scan_diag_dc),
@@ -3540,7 +3548,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
          mmq_tlb_lrat  mmq_tlb_lrat(
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .tc_ccflush_dc(tc_ac_ccflush_dc),
             .tc_scan_dis_dc_b(tc_ac_scan_dis_dc_b),
             .tc_scan_diag_dc(tc_ac_scan_diag_dc),
@@ -3681,7 +3690,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
          mmq_htw  mmq_htw(
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .tc_ccflush_dc(tc_ac_ccflush_dc),
             .tc_scan_dis_dc_b(tc_ac_scan_dis_dc_b),
             .tc_scan_diag_dc(tc_ac_scan_diag_dc),
@@ -3812,7 +3822,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
             .gnd(gnd),
             .vdd(vdd),
             .vcs(vdd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(tlb_delayed_act[17]),
             .ccflush_dc(tc_ac_ccflush_dc),
             .scan_dis_dc_b(tc_ac_scan_dis_dc_b),
@@ -3872,7 +3883,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
             .gnd(gnd),
             .vdd(vdd),
             .vcs(vdd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(tlb_delayed_act[17]),
 
             .ccflush_dc(tc_ac_ccflush_dc),
@@ -3933,7 +3945,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
             .gnd(gnd),
             .vdd(vdd),
             .vcs(vdd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(tlb_delayed_act[18]),
             .ccflush_dc(tc_ac_ccflush_dc),
             .scan_dis_dc_b(tc_ac_scan_dis_dc_b),
@@ -3993,7 +4006,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
             .gnd(gnd),
             .vdd(vdd),
             .vcs(vdd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(tlb_delayed_act[18]),
 
             .ccflush_dc(tc_ac_ccflush_dc),
@@ -4058,7 +4072,8 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
             .gnd(gnd),
             .vdd(vdd),
             .vcs(vdd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .rd_act(tlb_delayed_act[19]),
             .wr_act(tlb_delayed_act[33]),
 

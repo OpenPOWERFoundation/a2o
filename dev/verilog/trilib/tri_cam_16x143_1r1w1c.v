@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -14,35 +14,35 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
-
-// VHDL 1076 Macro Expander C version 07/11/00
-// job was run on Fri Mar 19 10:58:26 2010
 
 //********************************************************************
 //* TITLE: I-ERAT CAM Tri-Library Model
 //* NAME: tri_cam_16x143_1r1w1c
 //********************************************************************
 
+// sim version, clk1x
+
 `include "tri_a2o.vh"
 
-module tri_cam_16x143_1r1w1c(
+module tri_cam_16x143_1r1w1c (
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    tc_ccflush_dc,
    tc_scan_dis_dc_b,
    tc_scan_diag_dc,
@@ -116,7 +116,8 @@ module tri_cam_16x143_1r1w1c(
    inout                         vcs;
 
    // Clocks and Scan Cntls
-   input [0:`NCLK_WIDTH-1]       nclk;
+   input                         clk;
+   input                         rst;
    input                         tc_ccflush_dc;
    input                         tc_scan_dis_dc_b;
    input                         tc_scan_diag_dc;
@@ -195,15 +196,8 @@ module tri_cam_16x143_1r1w1c(
 
    output [22:51]                rpn_np2;
 
-   // tri_cam_16x143_1r1w1c
-
-   // Configuration Statement for NCsim
-   //for all:RAMB16_S9_S9 use entity unisim.RAMB16_S9_S9;
-   //for all:RAMB16_S18_S18 use entity unisim.RAMB16_S18_S18;
-   //for all:RAMB16_S36_S36 use entity unisim.RAMB16_S36_S36;
-
    wire                          clk;
-   wire                          clk2x;
+   wire                          rst;
    wire [0:8]                    bram0_addra;
    wire [0:8]                    bram0_addrb;
    wire [0:10]                   bram1_addra;
@@ -217,9 +211,6 @@ module tri_cam_16x143_1r1w1c(
    wire [66:72]                  array_cmp_data_bramp;
 
    // Latches
-   reg                           sreset_q;
-   reg                           gate_fq;
-   wire                          gate_d;
    wire [52-RPN_WIDTH:51]        comp_addr_np1_d;
    reg [52-RPN_WIDTH:51]         comp_addr_np1_q;  // the internal latched np1 phase epn(22:51) from com_addr input
    wire [52-RPN_WIDTH:51]        rpn_np2_d;
@@ -708,51 +699,26 @@ module tri_cam_16x143_1r1w1c(
     (* analysis_not_referenced="true" *)
    wire                          unused;
 
+   // sim array
+   reg   [0:62]                  mem[0:15];
 
-
-   assign clk = (~nclk[0]);
-   assign clk2x = nclk[2];
-
-   always @(posedge clk)
-   begin: rlatch
-     sreset_q <= nclk[1];
+   integer i;
+   initial begin
+      for (i = 0; i < 16; i = i + 1)
+         mem[i] = 0;
    end
 
-   //
-   //  NEW clk2x gate logic start
-   //
+   //wtf:icarus $dumpvars cannot dump a vpiMemory
+   generate
+       genvar j;
+       for (j = 0; j < 16; j=j+1) begin: loc
+          wire [0:62] dat;
+          assign dat = mem[j][0:62];      //wtf split into fields someday
+       end
+   endgenerate
 
-   always @(posedge nclk[0])
-   begin: tlatch
-     if (sreset_q == 1'b1)
-       toggle_q <= 1'b1;
-     else
-       toggle_q <= toggle_d;
-   end
-
-   always @(posedge nclk[2])
-   begin: flatch
-     toggle2x_q <= toggle2x_d;
-     gate_fq <= gate_d;
-   end
-
-   assign toggle_d = (~toggle_q);
-   assign toggle2x_d = toggle_q;
-
-   // should force gate_fq to be on during odd 2x clock (second half of 1x clock).
-   assign gate_d = toggle_q ^ toggle2x_q;
-   // if you want the first half do the following
-   //assign gate_d <= ~(toggle_q ^ toggle2x_q);
-
-   //
-   //  NEW clk2x gate logic end
-   //
-
-   // Slow Latches (nclk)
-   always @(posedge nclk[0])
-   begin: slatch
-     if (sreset_q == 1'b1)
-     begin
+   always @(posedge clk) begin: slatch
+     if (rst) begin
        cam_cmp_data_q <= {CAM_DATA_WIDTH{1'b0}};
        cam_cmp_parity_q <= 10'b0;
        rd_cam_data_q <= {CAM_DATA_WIDTH{1'b0}};
@@ -2539,9 +2505,9 @@ module tri_cam_16x143_1r1w1c(
    //---------------------------------------------------------------------
    // BRAM signal assignments
    //---------------------------------------------------------------------
-   assign bram0_wea = wr_array_val[0] & gate_fq;
-   assign bram1_wea = wr_array_val[1] & gate_fq;
-   assign bram2_wea = wr_array_val[1] & gate_fq;
+   assign bram0_wea = wr_array_val[0];
+   assign bram1_wea = wr_array_val[1];
+   assign bram2_wea = wr_array_val[1];;
 
    assign bram0_addra[9 - NUM_ENTRY_LOG2:8]   = rw_entry[0:NUM_ENTRY_LOG2 - 1];
    assign bram1_addra[11 - NUM_ENTRY_LOG2:10] = rw_entry[0:NUM_ENTRY_LOG2 - 1];
@@ -2559,8 +2525,24 @@ module tri_cam_16x143_1r1w1c(
    assign bram2_addra[0:9 - NUM_ENTRY_LOG2] = {10-NUM_ENTRY_LOG2{1'b0}};
    assign bram2_addrb[0:9 - NUM_ENTRY_LOG2] = {10-NUM_ENTRY_LOG2{1'b0}};
 
-   // This ram houses the RPN(20:51) bits, wr_array_data_bram(0:31)
-   //   uses wr_array_val(0), parity is wr_array_data_bram(66:69)
+   // was 3 brams using clk2x w/wea on 2of2; matchline is combinational
+   always @(posedge clk) begin
+
+      if (bram0_wea) begin
+         mem[bram0_addra][0:55] <= wr_array_data_bram[0:55];
+      end
+      if (bram1_wea) begin
+         mem[bram0_addra][56:62] <= wr_array_data_bram[66:72];
+      end
+
+   end
+
+   assign rd_array_data_d_std[0:55] = mem[bram0_addra][0:55];
+   assign rd_array_data_d_std[66:72] = mem[bram0_addra][56:62];
+   assign array_cmp_data_bram_std[0:55] = mem[bram0_addrb][0:55];
+   assign array_cmp_data_bramp_std[66:72] = mem[bram0_addrb][56:62];
+
+/*
    RAMB16_S36_S36
        #(.SIM_COLLISION_CHECK("NONE"))   // all, none, warning_only, generate_x_only
    bram0(
@@ -2633,6 +2615,7 @@ module tri_cam_16x143_1r1w1c(
       .WEA(bram2_wea),
       .WEB(1'b0)
    );
+*/
 
    // array write data swizzle -> convert 68-bit data to 73-bit bram data
    // 32x143 version, 42b RA
@@ -2695,7 +2678,7 @@ module tri_cam_16x143_1r1w1c(
    assign regfile_scan_out = regfile_scan_in;
    assign time_scan_out = time_scan_in;
 
-   assign unused = |{gnd, vdd, vcs, nclk, tc_ccflush_dc, tc_scan_dis_dc_b, tc_scan_diag_dc,
+   assign unused = |{gnd, vdd, vcs, tc_ccflush_dc, tc_scan_dis_dc_b, tc_scan_diag_dc,
                      tc_lbist_en_dc, an_ac_atpg_en_dc, lcb_d_mode_dc, lcb_clkoff_dc_b,
                      lcb_act_dis_dc, lcb_mpw1_dc_b, lcb_mpw2_dc_b, lcb_delay_lclkr_dc,
                      pc_sg_2, pc_func_slp_sl_thold_2, pc_func_slp_nsl_thold_2, pc_regf_slp_sl_thold_2,

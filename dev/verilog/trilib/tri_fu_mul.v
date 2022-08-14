@@ -33,6 +33,8 @@
 module tri_fu_mul(
    vdd,
    gnd,
+   clk,
+   rst,
    clkoff_b,
    act_dis,
    flush,
@@ -42,7 +44,6 @@ module tri_fu_mul(
    sg_1,
    thold_1,
    fpu_enable,
-   nclk,
    f_mul_si,
    f_mul_so,
    ex2_act,
@@ -56,6 +57,8 @@ module tri_fu_mul(
 
    inout          vdd;
    inout          gnd;
+   input          clk;
+   input          rst;
    input          clkoff_b;		// tiup
    input          act_dis;		// ??tidn??
    input          flush;		// ??tidn??
@@ -65,7 +68,6 @@ module tri_fu_mul(
    input          sg_1;
    input          thold_1;
    input          fpu_enable;		//dc_act
-   input  [0:`NCLK_WIDTH-1]         nclk;
 
    input          f_mul_si;		//perv
    output         f_mul_so;		//perv
@@ -120,7 +122,8 @@ module tri_fu_mul(
    tri_plat  thold_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(flush),
       .din(thold_1),
       .q(thold_0)
@@ -130,7 +133,8 @@ module tri_fu_mul(
    tri_plat  sg_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(flush),
       .din(sg_1),
       .q(sg_0)
@@ -159,7 +163,8 @@ module tri_fu_mul(
       .mpw2_b(mpw2_b),		//i-- tidn,
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(fpu_enable),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -224,7 +229,8 @@ module tri_fu_mul(
    tri_fu_mul_92 #(.inst(2)) m92_2(
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .force_t(force_t),		//i--
       .lcb_delay_lclkr(delay_lclkr),		//i-- tidn
       .lcb_mpw1_b(mpw1_b),		//i-- mpw1_b   others=0
@@ -247,7 +253,8 @@ module tri_fu_mul(
    tri_fu_mul_92 #(.inst(1)) m92_1(
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .force_t(force_t),		//i--
       .lcb_delay_lclkr(delay_lclkr),		//i-- tidn
       .lcb_mpw1_b(mpw1_b),		//i-- mpw1_b   others=0
@@ -270,7 +277,8 @@ module tri_fu_mul(
    tri_fu_mul_92 #(.inst(0)) m92_0(
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .force_t(force_t),		//i--
       .lcb_delay_lclkr(delay_lclkr),		//i-- tidn
       .lcb_mpw1_b(mpw1_b),		//i-- mpw1_b   others=0

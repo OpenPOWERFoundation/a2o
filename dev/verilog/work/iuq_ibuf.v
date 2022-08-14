@@ -41,7 +41,8 @@
 module iuq_ibuf(
    inout                              vdd,
    inout                              gnd,
-   input [0:`NCLK_WIDTH-1]            nclk,
+   input                              clk,
+   input                              rst,
    input                              pc_iu_sg_2,
    input                              pc_iu_func_sl_thold_2,
    input                              clkoff_b,
@@ -805,7 +806,8 @@ assign ib_id_iu4_1_fuse_data = iu4_1_fuse_data_q;
 tri_rlmlatch_p #(.INIT(0)) uc_select_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -824,7 +826,8 @@ tri_rlmlatch_p #(.INIT(0)) uc_select_latch(
 tri_rlmreg_p #(.WIDTH(`IBUFF_DEPTH), .INIT(0)) buffer_valid_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(buffer_valid_act),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -843,7 +846,8 @@ tri_rlmreg_p #(.WIDTH(`IBUFF_DEPTH), .INIT(0)) buffer_valid_latch(
 tri_rlmreg_p #(.WIDTH(`IBUFF_DEPTH), .INIT(1)) buffer_head_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(buffer_head_act),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -862,7 +866,8 @@ tri_rlmreg_p #(.WIDTH(`IBUFF_DEPTH), .INIT(1)) buffer_head_latch(
 tri_rlmreg_p #(.WIDTH(`IBUFF_DEPTH), .INIT(1)) buffer_tail_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(buffer_tail_act),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -881,7 +886,8 @@ tri_rlmreg_p #(.WIDTH(`IBUFF_DEPTH), .INIT(1)) buffer_tail_latch(
 tri_rlmreg_p #(.WIDTH((`IBUFF_DEPTH*IBUFF_WIDTH-1+1)), .INIT(0)) buffer_array_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu3_val[0]),		//tiup,
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -900,7 +906,8 @@ tri_rlmreg_p #(.WIDTH((`IBUFF_DEPTH*IBUFF_WIDTH-1+1)), .INIT(0)) buffer_array_la
 tri_rlmreg_p #(.WIDTH(IDATA_WIDTH), .INIT(0)) stall_buffer_data0_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(stall_buffer_act[0]),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -919,7 +926,8 @@ tri_rlmreg_p #(.WIDTH(IDATA_WIDTH), .INIT(0)) stall_buffer_data0_latch(
 tri_rlmreg_p #(.WIDTH(IDATA_WIDTH), .INIT(0)) stall_buffer_data1_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(stall_buffer_act[1]),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -938,7 +946,8 @@ tri_rlmreg_p #(.WIDTH(IDATA_WIDTH), .INIT(0)) stall_buffer_data1_latch(
 tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -957,7 +966,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_latch(
 tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu4_uc_mode_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -976,7 +986,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu4_uc_mode_latch(
 tri_rlmlatch_p #(.INIT(0)) iu4_0_valid_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -995,7 +1006,8 @@ tri_rlmlatch_p #(.INIT(0)) iu4_0_valid_latch(
 tri_rlmreg_p #(.WIDTH(`IBUFF_INSTR_WIDTH), .INIT(0)) iu4_0_instr_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_0_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1014,7 +1026,8 @@ tri_rlmreg_p #(.WIDTH(`IBUFF_INSTR_WIDTH), .INIT(0)) iu4_0_instr_latch(
 tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu4_0_ifar_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_0_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1033,7 +1046,8 @@ tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu4_0_ifar_latch(
 tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu4_0_bta_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_0_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1052,7 +1066,8 @@ tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu4_0_bta_latch(
 tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu4_0_ucode_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_0_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1071,7 +1086,8 @@ tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu4_0_ucode_latch(
 tri_rlmreg_p #(.WIDTH(4), .INIT(0)) iu4_0_ucode_ext_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_0_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1090,7 +1106,8 @@ tri_rlmreg_p #(.WIDTH(4), .INIT(0)) iu4_0_ucode_ext_latch(
 tri_rlmlatch_p #(.INIT(0)) iu4_0_isram_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_0_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1109,7 +1126,8 @@ tri_rlmlatch_p #(.INIT(0)) iu4_0_isram_latch(
 tri_rlmlatch_p #(.INIT(0)) iu4_0_fuse_val_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1128,7 +1146,8 @@ tri_rlmlatch_p #(.INIT(0)) iu4_0_fuse_val_latch(
 tri_rlmreg_p #(.WIDTH(32), .INIT(0)) iu4_0_fuse_data_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_0_fuse_val_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1147,7 +1166,8 @@ tri_rlmreg_p #(.WIDTH(32), .INIT(0)) iu4_0_fuse_data_latch(
 tri_rlmlatch_p #(.INIT(0)) iu4_1_valid_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1166,7 +1186,8 @@ tri_rlmlatch_p #(.INIT(0)) iu4_1_valid_latch(
 tri_rlmreg_p #(.WIDTH(`IBUFF_INSTR_WIDTH), .INIT(0)) iu4_1_instr_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_1_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1185,7 +1206,8 @@ tri_rlmreg_p #(.WIDTH(`IBUFF_INSTR_WIDTH), .INIT(0)) iu4_1_instr_latch(
 tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu4_1_ifar_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_1_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1204,7 +1226,8 @@ tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu4_1_ifar_latch(
 tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu4_1_bta_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_1_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1223,7 +1246,8 @@ tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu4_1_bta_latch(
 tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu4_1_ucode_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_1_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1242,7 +1266,8 @@ tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu4_1_ucode_latch(
 tri_rlmreg_p #(.WIDTH(4), .INIT(0)) iu4_1_ucode_ext_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_1_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1261,7 +1286,8 @@ tri_rlmreg_p #(.WIDTH(4), .INIT(0)) iu4_1_ucode_ext_latch(
 tri_rlmlatch_p #(.INIT(0)) iu4_1_isram_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_1_valid_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1280,7 +1306,8 @@ tri_rlmlatch_p #(.INIT(0)) iu4_1_isram_latch(
 tri_rlmlatch_p #(.INIT(0)) iu4_1_fuse_val_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1299,7 +1326,8 @@ tri_rlmlatch_p #(.INIT(0)) iu4_1_fuse_val_latch(
 tri_rlmreg_p #(.WIDTH(32), .INIT(0)) iu4_1_fuse_data_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(iu4_1_fuse_val_din),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1318,7 +1346,8 @@ tri_rlmreg_p #(.WIDTH(32), .INIT(0)) iu4_1_fuse_data_latch(
 tri_rlmlatch_p #(.INIT(0)) cp_flush_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1337,7 +1366,8 @@ tri_rlmlatch_p #(.INIT(0)) cp_flush_latch(
 tri_rlmlatch_p #(.INIT(0)) br_iu_redirect_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1356,7 +1386,8 @@ tri_rlmlatch_p #(.INIT(0)) br_iu_redirect_latch(
 tri_rlmreg_p #(.WIDTH(2), .INIT(0)) cp_flush_into_uc_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .thold_b(pc_iu_func_sl_thold_0_b),
    .sg(pc_iu_sg_0),
@@ -1380,7 +1411,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0)) cp_flush_into_uc_latch(
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2,pc_iu_sg_2}),
       .q({pc_iu_func_sl_thold_1,pc_iu_sg_1})
@@ -1390,7 +1422,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0)) cp_flush_into_uc_latch(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1,pc_iu_sg_1}),
       .q({pc_iu_func_sl_thold_0,pc_iu_sg_0})

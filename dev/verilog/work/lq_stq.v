@@ -255,7 +255,8 @@ module lq_stq(
    stq_arb_release_tid,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -545,13 +546,10 @@ module lq_stq(
 
 
    inout                                                       vdd;
-
-
    inout                                                       gnd;
 
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-   input [0:`NCLK_WIDTH-1]                                     nclk;
+   input                                                       clk;
+   input                                                       rst;
    input                                                       sg_0;
    input                                                       func_sl_thold_0_b;
    input                                                       func_sl_force;
@@ -3527,7 +3525,8 @@ module lq_stq(
 //------------------------------------------------------------------------------
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv_lq_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3545,7 +3544,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv_lq_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv_lq_ld_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3563,7 +3563,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv_lq_ld_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_dir_rd_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3581,7 +3582,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_dir_rd_val_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv0_cp_flush_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3599,7 +3601,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv0_cp_flush_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv1_cp_flush_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3617,7 +3620,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv1_cp_flush_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_i0_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3635,7 +3639,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_i0_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_i0_flushed_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3653,7 +3658,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_i0_flushed_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex0_i0_itag_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(rv1_i0_act),
@@ -3671,7 +3677,8 @@ tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex0_i0_itag_l
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_i1_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3689,7 +3696,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_i1_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_i1_flushed_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3707,7 +3715,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_i1_flushed_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex0_i1_itag_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(rv1_i1_act),
@@ -3725,7 +3734,8 @@ tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex0_i1_itag_l
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_i0_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3743,7 +3753,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_i0_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_i0_flushed_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3761,7 +3772,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_i0_flushed_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_i0_itag_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_i0_act),
@@ -3779,7 +3791,8 @@ tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_i0_itag_l
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_i1_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3797,7 +3810,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_i1_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_i1_flushed_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3815,7 +3829,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_i1_flushed_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_i1_itag_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_i1_act),
@@ -3833,7 +3848,8 @@ tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_i1_itag_l
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(2 ** (`STQ_ENTRIES - 1)), .NEEDS_SRESET(1)) stqe_alloc_ptr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3851,7 +3867,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(2 ** (`STQ_ENTRIES - 1)), .NEEDS_SRES
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_alloc_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3869,7 +3886,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_alloc_latc
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_addr_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3887,7 +3905,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_addr_val_l
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_fwd_addr_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3905,7 +3924,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_fwd_addr_v
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_data_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3923,7 +3943,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_data_val_l
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_data_nxt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3941,7 +3962,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_data_nxt_l
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_illeg_lswx_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3959,7 +3981,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_illeg_lswx
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_strg_noop_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3977,7 +4000,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_strg_noop_
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_ready_sent_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -3995,7 +4019,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_ready_sent
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_odq_resolved_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -4013,7 +4038,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_odq_resolv
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_compl_rcvd_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -4031,7 +4057,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_compl_rcvd
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_have_cp_next_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -4049,7 +4076,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_have_cp_ne
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(2 ** (`STQ_ENTRIES - 1)), .NEEDS_SRESET(1)) stqe_need_ready_ptr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stqe_need_ready_act),
@@ -4067,7 +4095,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(2 ** (`STQ_ENTRIES - 1)), .NEEDS_SRES
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_flushed_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -4085,7 +4114,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_flushed_la
 );
 
 tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_ack_rcvd_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(stq_act),
@@ -4108,7 +4138,8 @@ generate
       begin : stqe_lmqhit_latch_gen
 
          tri_rlmreg_p #(.WIDTH(`LMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_lmqhit_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(stq_act),
@@ -4134,7 +4165,8 @@ generate
       begin : stqe_need_ext_ack_latch_gen
 
          tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_need_ext_ack_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(ex4_addr_act[i]),
@@ -4160,7 +4192,8 @@ generate
       for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1) begin : stqe_blk_loads_latch_gen
 
          tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_blk_loads_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(ex4_addr_act[i]),
@@ -4187,7 +4220,8 @@ generate
       begin : stqe_all_thrd_chk_latch_gen
 
          tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_all_thrd_chk_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(ex4_addr_act[i]),
@@ -4215,7 +4249,8 @@ generate
 
        tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1))
        stqe_itag_latch(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(stqe_itag_act[i]),
@@ -4241,7 +4276,8 @@ generate
      begin : stqe_addr_latch_gen
 
        tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) stqe_addr_latch(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(ex4_addr_act[i]),
@@ -4267,7 +4303,8 @@ generate
      begin : stqe_rotcmp_latch_gen
 
        tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) stqe_rotcmp_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(ex3_addr_act[i]),
@@ -4293,7 +4330,8 @@ generate
      begin : stqe_cline_chk_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_cline_chk_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(ex4_addr_act[i]),
@@ -4319,7 +4357,8 @@ generate
      begin : stqe_ttype_latch_gen
 
        tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) stqe_ttype_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(ex5_addr_act[i]),
@@ -4345,7 +4384,8 @@ generate
      begin : stqe_byte_en_latch_gen
 
        tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) stqe_byte_en_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(ex3_addr_act[i]),
@@ -4371,7 +4411,8 @@ generate
      begin : stqe_wimge_latch_gen
 
        tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) stqe_wimge_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(ex4_addr_act[i]),
@@ -4397,7 +4438,8 @@ generate
      begin : stqe_byte_swap_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_byte_swap_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(ex4_addr_act[i]),
@@ -4423,7 +4465,8 @@ generate
      begin : stqe_opsize_latch_gen
 
        tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) stqe_opsize_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(ex4_addr_act[i]),
@@ -4449,7 +4492,8 @@ generate
      begin : stqe_axu_val_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_axu_val_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(ex5_addr_act[i]),
@@ -4475,7 +4519,8 @@ generate
      begin : stqe_epid_val_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_epid_val_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(ex5_addr_act[i]),
@@ -4501,7 +4546,8 @@ generate
      begin : stqe_usr_def_latch_gen
 
        tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) stqe_usr_def_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(ex5_addr_act[i]),
@@ -4527,7 +4573,8 @@ generate
      begin : stqe_is_store_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_is_store_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(ex4_addr_act[i]),
@@ -4553,7 +4600,8 @@ generate
      begin : stqe_is_sync_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_is_sync_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(ex4_addr_act[i]),
@@ -4579,7 +4627,8 @@ generate
      begin : stqe_is_resv_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_is_resv_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(ex4_addr_act[i]),
@@ -4605,7 +4654,8 @@ generate
      begin : stqe_is_icswxr_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_is_icswxr_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(ex4_addr_act[i]),
@@ -4631,7 +4681,8 @@ generate
      begin : stqe_is_icbi_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_is_icbi_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(ex4_addr_act[i]),
@@ -4657,7 +4708,8 @@ generate
      begin : stqe_is_inval_op_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_is_inval_op_latch(
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .vd(vdd),
                               .gd(gnd),
                               .act(ex4_addr_act[i]),
@@ -4683,7 +4735,8 @@ generate
      begin : stqe_dreq_val_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_dreq_val_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(ex4_addr_act[i]),
@@ -4709,7 +4762,8 @@ generate
      begin : stqe_has_data_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_has_data_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(ex4_addr_act[i]),
@@ -4735,7 +4789,8 @@ generate
      begin : stqe_send_l2_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_send_l2_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(ex4_addr_act[i]),
@@ -4761,7 +4816,8 @@ generate
      begin : stqe_lock_clr_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_lock_clr_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(ex5_addr_act[i]),
@@ -4787,7 +4843,8 @@ generate
      begin : stqe_watch_clr_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_watch_clr_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(ex4_addr_act[i]),
@@ -4813,7 +4870,8 @@ generate
      begin : stqe_l_fld_latch_gen
 
        tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) stqe_l_fld_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(ex5_addr_act[i]),
@@ -4839,7 +4897,8 @@ generate
      begin : stqe_thrd_id_latch_gen
 
        tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stqe_thrd_id_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(stqe_itag_act[i]),
@@ -4865,7 +4924,8 @@ generate
      begin : stqe_tgpr_latch_gen
 
        tri_rlmreg_p #(.WIDTH(AXU_TARGET_ENC), .INIT(0), .NEEDS_SRESET(1)) stqe_tgpr_latch(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(ex5_addr_act[i]),
@@ -4891,7 +4951,8 @@ generate
      begin : stqe_dvc_en_latch_gen
 
        tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) stqe_dvc_en_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(ex5_addr_act[i]),
@@ -4917,7 +4978,8 @@ generate
      begin : stqe_dacrw_latch_gen
 
        tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) stqe_dacrw_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(ex5_addr_act[i]),
@@ -4943,7 +5005,8 @@ generate
      begin : stqe_dvcr_cmpr_latch_gen
 
        tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) stqe_dvcr_cmpr_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(stq_act),
@@ -4969,7 +5032,8 @@ generate
      begin : stqe_qHit_held_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_qHit_held_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(stq_act),
@@ -4995,7 +5059,8 @@ generate
      begin : stqe_held_early_clr_latch_gen
 
        tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stqe_held_early_clr_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(stq_act),
@@ -5021,7 +5086,8 @@ generate
      begin : stqe_data1_latch_gen
 
        tri_rlmreg_p #(.WIDTH(`STQ_DATA_SIZE), .INIT(0), .NEEDS_SRESET(1)) stqe_data1_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(stqe_data_act[i]),
@@ -5042,7 +5108,8 @@ generate
    endgenerate
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex4_fxu1_data_ptr_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(ex3_fxu1_val),
@@ -5060,7 +5127,8 @@ generate
                                  );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex4_axu_data_ptr_latch(
-                                .nclk(nclk),
+                                .clk(clk),
+	.rst(rst),
                                 .vd(vdd),
                                 .gd(gnd),
                                 .act(ex3_axu_val),
@@ -5078,7 +5146,8 @@ generate
                                 );
 
      tri_rlmreg_p #(.WIDTH((`STQ_DATA_SIZE)), .INIT(0), .NEEDS_SRESET(1))   ex4_fu_data_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(ex3_axu_val),
@@ -5096,7 +5165,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   cp_flush_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -5114,7 +5184,8 @@ generate
                         );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   cp_next_val_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -5137,7 +5208,8 @@ generate
      for (i = 0; i <= `THREADS-1; i = i + 1)
      begin : cp_next_itag_latch_gen
              tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp_next_itag_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(iu_lq_cp_next_val[i]),
@@ -5158,7 +5230,8 @@ generate
    endgenerate
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))     cp_i0_completed_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -5180,7 +5253,8 @@ generate
      for (i = 0; i <= `THREADS-1; i = i + 1)
      begin : cp_i0_completed_itag_latch_gen
              tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp_i0_completed_itag_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(iu_lq_i0_completed[i]),
@@ -5201,7 +5275,8 @@ generate
    endgenerate
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))     cp_i1_completed_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -5224,7 +5299,8 @@ generate
      begin : cp_i1_completed_itag_latch_gen
 
              tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp_I1_completed_itag_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(iu_lq_i1_completed[i]),
@@ -5247,7 +5323,8 @@ generate
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))     stq_cpl_need_hold_reg(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(tiup),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -5263,7 +5340,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   iu_lq_icbi_complete_latch(
-                                   .nclk(nclk),
+                                   .clk(clk),
+	.rst(rst),
                                    .vd(vdd),
                                    .gd(gnd),
                                    .act(tiup),
@@ -5281,7 +5359,8 @@ generate
                                    );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   iu_icbi_ack_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -5299,7 +5378,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   l2_icbi_ack_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -5317,7 +5397,8 @@ generate
                            );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   rv1_binv_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5335,7 +5416,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex0_binv_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5353,7 +5435,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex1_binv_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5371,7 +5454,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex2_binv_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5389,7 +5473,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex3_binv_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5407,7 +5492,8 @@ generate
                             );
 
      tri_rlmreg_p #(.WIDTH(((63-`CL_SIZE)-(64-(`DC_SIZE-3))+1)), .INIT(0), .NEEDS_SRESET(1))   rv1_binv_addr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(l2_back_inv_val),
@@ -5425,7 +5511,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(((63-`CL_SIZE)-(64-(`DC_SIZE-3))+1)), .INIT(0), .NEEDS_SRESET(1))   ex0_binv_addr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(rv1_binv_val_q),
@@ -5443,7 +5530,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(((63-`CL_SIZE)-(64-(`DC_SIZE-3))+1)), .INIT(0), .NEEDS_SRESET(1))   ex1_binv_addr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(ex0_binv_val_q),
@@ -5461,7 +5549,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(((63-`CL_SIZE)-(64-(`DC_SIZE-3))+1)), .INIT(0), .NEEDS_SRESET(1))   ex2_binv_addr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(ex1_binv_val_q),
@@ -5479,7 +5568,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(((63-`CL_SIZE)-(64-(`DC_SIZE-3))+1)), .INIT(0), .NEEDS_SRESET(1))   ex3_binv_addr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(ex2_binv_val_q),
@@ -5497,7 +5587,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq2_binv_blk_cclass_latch(
-                                    .nclk(nclk),
+                                    .clk(clk),
+	.rst(rst),
                                     .vd(vdd),
                                     .gd(gnd),
                                     .act(stq_act),
@@ -5515,7 +5606,8 @@ generate
                                     );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq2_ici_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(stq1_cmmt_act),
@@ -5533,7 +5625,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq4_xucr0_cul_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5551,7 +5644,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq2_reject_dci_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5569,7 +5663,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq3_cmmt_reject_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5587,7 +5682,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq2_dci_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(stq1_cmmt_act),
@@ -5605,7 +5701,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq3_cmmt_dci_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5623,7 +5720,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq4_cmmt_dci_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5641,7 +5739,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq5_cmmt_dci_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -5659,7 +5758,8 @@ generate
                             );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq2_cmmt_flushed_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(tiup),
@@ -5677,7 +5777,8 @@ generate
                                  );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq3_cmmt_flushed_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(tiup),
@@ -5695,7 +5796,8 @@ generate
                                  );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq4_cmmt_flushed_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(tiup),
@@ -5713,7 +5815,8 @@ generate
                                  );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq5_cmmt_flushed_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(tiup),
@@ -5731,7 +5834,8 @@ generate
                                  );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq6_cmmt_flushed_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(tiup),
@@ -5749,7 +5853,8 @@ generate
                                  );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq7_cmmt_flushed_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(tiup),
@@ -5767,7 +5872,8 @@ generate
                                  );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(2 ** (`STQ_ENTRIES - 1)), .NEEDS_SRESET(1))   stq1_cmmt_ptr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq1_cmmt_act),
@@ -5785,7 +5891,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   stq2_cmmt_ptr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq1_cmmt_act),
@@ -5803,7 +5910,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   stq3_cmmt_ptr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq2_cmmt_val_q),
@@ -5821,7 +5929,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   stq4_cmmt_ptr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq3_cmmt_val_q),
@@ -5839,7 +5948,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   stq5_cmmt_ptr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq4_cmmt_val_q),
@@ -5857,7 +5967,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   stq6_cmmt_ptr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq5_cmmt_val_q),
@@ -5875,7 +5986,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   stq7_cmmt_ptr_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq6_cmmt_val_q),
@@ -5893,7 +6005,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq2_cmmt_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq_act),
@@ -5911,7 +6024,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq3_cmmt_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq_act),
@@ -5929,7 +6043,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq4_cmmt_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq_act),
@@ -5947,7 +6062,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq5_cmmt_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq_act),
@@ -5965,7 +6081,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq6_cmmt_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq_act),
@@ -5983,7 +6100,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq7_cmmt_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq_act),
@@ -6001,7 +6119,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ext_ack_queue_v_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6019,7 +6138,8 @@ generate
                                );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ext_ack_queue_sync_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6036,7 +6156,8 @@ generate
                                .dout(ext_ack_queue_sync_q)
                                );
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ext_ack_queue_stcx_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6053,7 +6174,8 @@ generate
                                .dout(ext_ack_queue_stcx_q)
                                );
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ext_ack_queue_icswxr_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6078,7 +6200,8 @@ generate
      begin : ext_ack_queue_itag_latch_gen
 
        tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ext_ack_queue_itag_latch(
-                                .nclk(nclk),
+                                .clk(clk),
+	.rst(rst),
                                 .vd(vdd),
                                 .gd(gnd),
                                 .act(tiup),
@@ -6104,7 +6227,8 @@ generate
      begin : ext_ack_queue_cr_wa_latch_gen
 
        tri_rlmreg_p #(.WIDTH(`CR_POOL_ENC+`THREADS_POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) ext_ack_queue_cr_wa_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(tiup),
@@ -6130,7 +6254,8 @@ generate
      begin : ext_ack_queue_dacrw_det_latch_gen
 
        tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ext_ack_queue_dacrw_det_latch(
-                                     .nclk(nclk),
+                                     .clk(clk),
+	.rst(rst),
                                      .vd(vdd),
                                      .gd(gnd),
                                      .act(tiup),
@@ -6151,7 +6276,8 @@ generate
    endgenerate
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))     ext_ack_queue_dacrw_rpt_latch(
-                                   .nclk(nclk),
+                                   .clk(clk),
+	.rst(rst),
                                    .vd(vdd),
                                    .gd(gnd),
                                    .act(tiup),
@@ -6169,7 +6295,8 @@ generate
                                    );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq2_mftgpr_val_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(stq_act),
@@ -6187,7 +6314,8 @@ generate
                                );
 
      tri_rlmreg_p #(.WIDTH(3), .INIT(6), .NEEDS_SRESET(1))   stq2_rtry_cnt_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(stq2_rtry_cnt_act),
@@ -6205,7 +6333,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex5_stq_restart_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6223,7 +6352,8 @@ generate
                                );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex5_stq_restart_miss_latch(
-                                    .nclk(nclk),
+                                    .clk(clk),
+	.rst(rst),
                                     .vd(vdd),
                                     .gd(gnd),
                                     .act(tiup),
@@ -6241,7 +6371,8 @@ generate
                                     );
 
      tri_rlmreg_p #(.WIDTH((`STQ_FWD_ENTRIES-1)), .INIT(0), .NEEDS_SRESET(1))   stq_fwd_pri_mask_latch(
-                                .nclk(nclk),
+                                .clk(clk),
+	.rst(rst),
                                 .vd(vdd),
                                 .gd(gnd),
                                 .act(stq_act),
@@ -6259,7 +6390,8 @@ generate
                                 );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex5_fwd_val_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -6277,7 +6409,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH((`STQ_DATA_SIZE)), .INIT(0), .NEEDS_SRESET(1))   ex5_fwd_data_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(ex4_ldreq_valid),
@@ -6295,7 +6428,8 @@ generate
                             );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex4_set_stq_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -6313,7 +6447,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex5_set_stq_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -6331,7 +6466,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex4_ldreq_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(tiup),
@@ -6349,7 +6485,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex4_pfetch_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(tiup),
@@ -6367,7 +6504,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex3_streq_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(tiup),
@@ -6385,7 +6523,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex5_streq_val_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(tiup),
@@ -6403,7 +6542,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex4_wchkall_val_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6421,7 +6561,8 @@ generate
                                );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   hwsync_ack_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(tiup),
@@ -6439,7 +6580,8 @@ generate
                           );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   lwsync_ack_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(tiup),
@@ -6457,7 +6599,8 @@ generate
                           );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   icswxr_ack_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(tiup),
@@ -6475,7 +6618,8 @@ generate
                           );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   icswxr_ack_dly1_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(tiup),
@@ -6493,7 +6637,8 @@ generate
                           );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   local_instr_ack_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6511,7 +6656,8 @@ generate
                                );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   resv_ack_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -6529,7 +6675,8 @@ generate
                         );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   stcx_pass_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(tiup),
@@ -6547,7 +6694,8 @@ generate
                          );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   icbi_ack_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -6565,7 +6713,8 @@ generate
                         );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   icbi_val_latch(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -6583,7 +6732,8 @@ generate
                         );
 
      tri_rlmreg_p #(.WIDTH((57-RI+1)), .INIT(0), .NEEDS_SRESET(1))   icbi_addr_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(stq2_cmmt_val_q),
@@ -6601,7 +6751,8 @@ generate
                          );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ici_val_latch(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(tiup),
@@ -6619,7 +6770,8 @@ generate
                        );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   credit_free_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -6637,7 +6789,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex4_fwd_agecmp_latch(
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .vd(vdd),
                               .gd(gnd),
                               .act(tiup),
@@ -6655,7 +6808,8 @@ generate
                               );
 
      tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1))   ex3_req_itag_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -6673,7 +6827,8 @@ generate
                             );
 
      tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1))   ex4_req_itag_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -6691,7 +6846,8 @@ generate
                             );
 
      tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1))   ex4_req_byte_en_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(ex3_req_act),
@@ -6709,7 +6865,8 @@ generate
                                );
 
      tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1))   ex4_req_p_addr_l_latch(
-                                .nclk(nclk),
+                                .clk(clk),
+	.rst(rst),
                                 .vd(vdd),
                                 .gd(gnd),
                                 .act(ex3_req_act),
@@ -6727,7 +6884,8 @@ generate
                                 );
 
      tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1))   ex4_req_opsize_latch(
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .vd(vdd),
                               .gd(gnd),
                               .act(ex3_req_act),
@@ -6745,7 +6903,8 @@ generate
                               );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex4_req_algebraic_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(ex3_req_act),
@@ -6763,7 +6922,8 @@ generate
                                  );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex3_req_thrd_id_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6781,7 +6941,8 @@ generate
                                );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex4_req_thrd_id_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(ex3_req_act),
@@ -6799,7 +6960,8 @@ generate
                                );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex5_req_thrd_id_latch(
-                               .nclk(nclk),
+                               .clk(clk),
+	.rst(rst),
                                .vd(vdd),
                                .gd(gnd),
                                .act(tiup),
@@ -6817,7 +6979,8 @@ generate
                                );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   thrd_held_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(tiup),
@@ -6835,7 +6998,8 @@ generate
                          );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   rv0_cr_hole_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -6853,7 +7017,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   rv1_cr_hole_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -6871,7 +7036,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex0_cr_hole_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -6889,7 +7055,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   cr_ack_latch(
-                      .nclk(nclk),
+                      .clk(clk),
+	.rst(rst),
                       .vd(vdd),
                       .gd(gnd),
                       .act(tiup),
@@ -6907,7 +7074,8 @@ generate
                       );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   sync_ack_save_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(tiup),
@@ -6925,7 +7093,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   cr_we_latch(
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .vd(vdd),
                      .gd(gnd),
                      .act(tiup),
@@ -6943,7 +7112,8 @@ generate
                      );
 
      tri_rlmreg_p #(.WIDTH((`CR_POOL_ENC+`THREADS_POOL_ENC-1+1)), .INIT(0), .NEEDS_SRESET(1))   cr_wa_latch(
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .vd(vdd),
                      .gd(gnd),
                      .act(cr_we_d),
@@ -6961,7 +7131,8 @@ generate
                      );
 
      tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1))   cr_wd_latch(
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .vd(vdd),
                      .gd(gnd),
                      .act(cr_we_d),
@@ -6979,7 +7150,8 @@ generate
                      );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   stcx_thrd_fail_latch(
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .vd(vdd),
                      .gd(gnd),
                      .act(tiup),
@@ -6997,7 +7169,8 @@ generate
                      );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   icswxr_thrd_busy_latch(
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .vd(vdd),
                      .gd(gnd),
                      .act(tiup),
@@ -7015,7 +7188,8 @@ generate
                      );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   icswxr_thrd_nbusy_latch(
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .vd(vdd),
                      .gd(gnd),
                      .act(tiup),
@@ -7033,7 +7207,8 @@ generate
                      );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq3_cmmt_attmpt_latch(
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .vd(vdd),
                      .gd(gnd),
                      .act(tiup),
@@ -7051,7 +7226,8 @@ generate
                      );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   stq_need_hole_latch(
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .vd(vdd),
                      .gd(gnd),
                      .act(tiup),
@@ -7069,7 +7245,8 @@ generate
                      );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   any_ack_hold_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -7087,7 +7264,8 @@ generate
                             );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   any_ack_val_ok_latch(
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .vd(vdd),
                               .gd(gnd),
                               .act(tiup),
@@ -7105,7 +7283,8 @@ generate
                               );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   arb_release_itag_vld_latch(
-                                    .nclk(nclk),
+                                    .clk(clk),
+	.rst(rst),
                                     .vd(vdd),
                                     .gd(gnd),
                                     .act(tiup),
@@ -7123,7 +7302,8 @@ generate
                                     );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   spr_xucr0_cls_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(tiup),
@@ -7141,7 +7321,8 @@ generate
                              );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   spr_iucr0_icbi_ack_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(tiup),
@@ -7158,7 +7339,8 @@ generate
                                   .dout(spr_iucr0_icbi_ack_q)
                                   );
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   spr_lsucr0_dfwd_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(tiup),
@@ -7176,7 +7358,8 @@ generate
                                   );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex5_thrd_match_restart_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(tiup),
@@ -7194,7 +7377,8 @@ generate
                                   );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex6_thrd_match_restart_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(tiup),
@@ -7212,7 +7396,8 @@ generate
                                   );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex5_thrd_nomatch_restart_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(tiup),
@@ -7230,7 +7415,8 @@ generate
                                   );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex6_thrd_nomatch_restart_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(tiup),
@@ -7248,7 +7434,8 @@ generate
                                   );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex5_older_ldmiss_latch(
-                                .nclk(nclk),
+                                .clk(clk),
+	.rst(rst),
                                 .vd(vdd),
                                 .gd(gnd),
                                 .act(tiup),
@@ -7266,7 +7453,8 @@ generate
                                 );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex4_fxu1_illeg_lswx_latch(
-                                   .nclk(nclk),
+                                   .clk(clk),
+	.rst(rst),
                                    .vd(vdd),
                                    .gd(gnd),
                                    .act(ex3_fxu1_val),
@@ -7284,7 +7472,8 @@ generate
                                    );
 
      tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1))   ex4_fxu1_strg_noop_latch(
-                                  .nclk(nclk),
+                                  .clk(clk),
+	.rst(rst),
                                   .vd(vdd),
                                   .gd(gnd),
                                   .act(ex3_fxu1_val),
@@ -7302,7 +7491,8 @@ generate
                                   );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex3_fxu1_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -7320,7 +7510,8 @@ generate
                             );
 
      tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1))   ex3_fxu1_itag_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(ex2_fxu1_val),
@@ -7338,7 +7529,8 @@ generate
                              );
 
      tri_rlmreg_p #(.WIDTH((((2**`GPR_WIDTH_ENC)/8)-1-0+1)), .INIT(0), .NEEDS_SRESET(1))   ex3_fxu1_dvc1_cmp_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(ex2_fxu1_val),
@@ -7356,7 +7548,8 @@ generate
                                  );
 
      tri_rlmreg_p #(.WIDTH((((2**`GPR_WIDTH_ENC)/8)-1-0+1)), .INIT(0), .NEEDS_SRESET(1))   ex3_fxu1_dvc2_cmp_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(ex2_fxu1_val),
@@ -7374,7 +7567,8 @@ generate
                                  );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex4_fxu1_val_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -7392,7 +7586,8 @@ generate
                             );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex3_axu_val_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -7410,7 +7605,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1))   ex3_axu_itag_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(ex2_axu_val),
@@ -7428,7 +7624,8 @@ generate
                             );
 
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))   ex4_axu_val_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -7446,7 +7643,8 @@ generate
                            );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex5_qHit_set_oth_latch(
-                                .nclk(nclk),
+                                .clk(clk),
+	.rst(rst),
                                 .vd(vdd),
                                 .gd(gnd),
                                 .act(tiup),
@@ -7464,7 +7662,8 @@ generate
                                 );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex5_qHit_set_miss_latch(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .vd(vdd),
                                  .gd(gnd),
                                  .act(tiup),
@@ -7482,7 +7681,8 @@ generate
                                  );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   ex3_nxt_oldest_latch(
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .vd(vdd),
                               .gd(gnd),
                               .act(tiup),
@@ -7500,7 +7700,8 @@ generate
                               );
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1))   stq_tag_val_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -7523,7 +7724,8 @@ generate
      begin : stq_tag_ptr_latch_gen
 
        tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stq_tag_ptr_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(stq_tag_act[i]),
@@ -7544,7 +7746,8 @@ generate
    endgenerate
 
      tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES_ENC), .INIT(0), .NEEDS_SRESET(1))     stq4_cmmt_tag_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(stq3_cmmt_val_q),
@@ -7562,7 +7765,8 @@ generate
                          );
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))     dbg_int_en_latch(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(tiup),

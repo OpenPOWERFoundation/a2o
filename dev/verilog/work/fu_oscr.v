@@ -92,6 +92,8 @@
 module fu_oscr(
    vdd,
    gnd,
+   clk,
+   rst,
    clkoff_b,
    act_dis,
    flush,
@@ -101,7 +103,6 @@ module fu_oscr(
    sg_1,
    thold_1,
    fpu_enable,
-   nclk,
    f_scr_si,
    f_scr_so,
    ex3_act_b,
@@ -189,6 +190,8 @@ module fu_oscr(
 
    inout               vdd;
    inout               gnd;
+   input               clk;
+   input               rst;
    input               clkoff_b;		// tiup
    input               act_dis;		// ??tidn??
    input               flush;		// ??tidn??
@@ -198,7 +201,6 @@ module fu_oscr(
    input               sg_1;
    input               thold_1;
    input               fpu_enable;		//dc_act
-   input  [0:`NCLK_WIDTH-1]              nclk;
 
    input               f_scr_si;		// perv
    output              f_scr_so;		// perv
@@ -640,7 +642,8 @@ module fu_oscr(
    tri_plat  thold_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(thold_1),
       .q(thold_0)
@@ -650,7 +653,8 @@ module fu_oscr(
    tri_plat  sg_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(sg_1),
       .q(sg_0)
@@ -690,7 +694,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -766,7 +771,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[0]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -805,7 +811,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -849,7 +856,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -884,7 +892,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -943,7 +952,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),		// ex6_act, -- todo: act pin
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -1008,7 +1018,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_act),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -1269,7 +1280,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       .act(ex7_act),
@@ -1291,7 +1303,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       .act(ex7_act),		//ex7_th1_act, todo: act pin
@@ -1312,7 +1325,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex7_act),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -1587,7 +1601,8 @@ module fu_oscr(
             .mpw2_b(mpw2_b[1]),
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(thold_0_b),
             .sg(sg_0),
@@ -1838,7 +1853,8 @@ module fu_oscr(
             .mpw2_b(mpw2_b[1]),
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(thold_0_b),
             .sg(sg_0),
@@ -2014,7 +2030,8 @@ module fu_oscr(
             .mpw2_b(mpw2_b[1]),
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(thold_0_b),
             .sg(sg_0),
@@ -2572,7 +2589,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -2592,7 +2610,8 @@ module fu_oscr(
       .mpw2_b(mpw2_b[1]),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -2626,7 +2645,8 @@ module fu_oscr(
             .mpw2_b(mpw2_b[1]),
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(thold_0_b),
             .sg(sg_0),
@@ -2646,7 +2666,8 @@ module fu_oscr(
             .mpw2_b(mpw2_b[1]),
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(thold_0_b),
             .sg(sg_0),

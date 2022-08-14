@@ -38,6 +38,8 @@
 module fu_divsqrt(
    vdd,
    gnd,
+   clk,
+   rst,
    clkoff_b,
    act_dis,
    flush,
@@ -47,7 +49,6 @@ module fu_divsqrt(
    sg_1,
    thold_1,
    fpu_enable,
-   nclk,
    f_dsq_si,
    f_dsq_so,
    ex0_act_b,
@@ -103,6 +104,8 @@ module fu_divsqrt(
 
    inout          vdd;
    inout          gnd;
+   input          clk;
+   input          rst;
 
    input          clkoff_b;		// tiup
    input          act_dis;		// ??tidn??
@@ -113,8 +116,6 @@ module fu_divsqrt(
    input          sg_1;
    input          thold_1;
    input          fpu_enable;		//dc_act
-
-   input [0:`NCLK_WIDTH-1]         nclk;
 
    //--------------------------------------------------------------------------
    input          f_dsq_si;		//perv  scan
@@ -968,7 +969,8 @@ module fu_divsqrt(
    tri_plat  #(.WIDTH(1)) thold_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(thold_1),
       .q(thold_0)
@@ -978,7 +980,8 @@ module fu_divsqrt(
    tri_plat   #(.WIDTH(1)) sg_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(sg_1),
       .q(sg_0)
@@ -1012,7 +1015,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(sg_0),
@@ -1089,7 +1093,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1136,7 +1141,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1178,7 +1184,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1228,7 +1235,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1295,7 +1303,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1361,7 +1370,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1407,7 +1417,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1487,7 +1498,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1508,7 +1520,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1590,7 +1603,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1611,7 +1625,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1632,7 +1647,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1653,7 +1669,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1674,7 +1691,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -1699,7 +1717,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -2351,7 +2370,8 @@ module fu_divsqrt(
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -2725,7 +2745,8 @@ exz_exp_addres_x0[4] & exz_exp_addres_x0[5] &
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -2956,7 +2977,8 @@ exz_exp_addres_x0[4] & exz_exp_addres_x0[5] &
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -3001,7 +3023,8 @@ exz_exp_addres_x0[4] & exz_exp_addres_x0[5] &
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -3062,7 +3085,8 @@ exz_exp_addres_x0[4] & exz_exp_addres_x0[5] &
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------
@@ -3136,7 +3160,8 @@ exz_exp_addres_x0[4] & exz_exp_addres_x0[5] &
       .mpw2_b(mpw2_b),
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       //-----------------

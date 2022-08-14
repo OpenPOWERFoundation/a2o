@@ -90,7 +90,8 @@ module fu(
    lq_rv_itag0_spec,
    lq_rv_itag0_vld,
    lq_rv_itag1_restart,
-   nclk,
+   clk,
+   rst,
    pc_fu_abist_di_0,
    pc_fu_abist_di_1,
    pc_fu_abist_ena_dc,
@@ -238,6 +239,8 @@ module fu(
 //   parameter                                UCODE_ENTRIES_ENC = 3;
 //   parameter                                REGMODE = 6;		//32 or 64 bit mode
    //INPUTS
+   input                                    clk;
+   input                                    rst;
    input                                    abst_scan_in;
    input                                    an_ac_lbist_en_dc;
    input                                    bcfg_scan_in;
@@ -300,8 +303,6 @@ module fu(
    input                                    lq_rv_itag0_spec;
    input                                    lq_rv_itag0_vld;
    input                                    lq_rv_itag1_restart;
-   (* PIN_DATA="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1]                                   nclk;
    input [0:3]                              pc_fu_abist_di_0;
    input [0:3]                              pc_fu_abist_di_1;
    input                                    pc_fu_abist_ena_dc;
@@ -766,7 +767,8 @@ module fu(
    fu_perv  prv(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_fu_sg_3(pc_fu_sg_3),
       .pc_fu_abst_sl_thold_3(pc_fu_abst_sl_thold_3),
       .pc_fu_func_sl_thold_3(pc_fu_func_sl_thold_3),
@@ -803,7 +805,8 @@ module fu(
    // Floating Point Register, ex0
 
    fu_fpr #( .fpr_pool(`FPR_POOL * `THREADS), .fpr_pool_enc(`FPR_POOL_ENC + `THREAD_POOL_ENC), .axu_spare_enc(`AXU_SPARE_ENC)) fpr(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .clkoff_b(clkoff_dc_b),
       .act_dis(act_dis),
       .flush(pc_fu_ccflush_dc),
@@ -924,6 +927,8 @@ module fu(
    fu_sto sto(
       .vdd(vdd),
       .gnd(gnd),
+      .clk(clk),
+      .rst(rst),
       .clkoff_b(clkoff_dc_b),
       .act_dis(act_dis),
       .flush(pc_fu_ccflush_dc),
@@ -933,7 +938,6 @@ module fu(
       .sg_1(sg_1[1]),
       .thold_1(func_sl_thold_1[1]),
       .fpu_enable(fpu_enable),
-      .nclk(nclk),
       .f_sto_si(f_sto_si),
       .f_sto_so(f_sto_so),
       .f_dcd_ex1_sto_act(f_dcd_ex1_sto_act),
@@ -955,10 +959,9 @@ module fu(
 
    assign fpu_enable = f_dcd_msr_fp_act;
 
-
-
-
    fu_mad #( .THREADS(`THREADS)) mad(
+      .clk(clk),
+      .rst(rst),
       .f_dcd_ex7_cancel(f_dcd_ex7_cancel),
       .f_dcd_ex1_bypsel_a_res0(f_dcd_ex1_bypsel_a_res0),
       .f_dcd_ex1_bypsel_a_res1(f_dcd_ex1_bypsel_a_res1),
@@ -1203,8 +1206,7 @@ module fu(
       .sg_1(sg_1[0]),
       .thold_1(func_sl_thold_1[0]),
       .fpu_enable(fpu_enable),
-      .f_dcd_ex1_act(f_dcd_ex1_mad_act),
-      .nclk(nclk)
+      .f_dcd_ex1_act(f_dcd_ex1_mad_act)
    );
 
    //Needed for RTX
@@ -1221,6 +1223,8 @@ module fu(
 
    fu_dcd #(.ITAG_SIZE_ENC(`ITAG_SIZE_ENC), .EFF_IFAR(`EFF_IFAR), .REGMODE(`REGMODE), .THREAD_POOL_ENC(`THREAD_POOL_ENC), .CR_POOL_ENC(`CR_POOL_ENC)) dcd(
       // INPUTS
+      .clk(clk),
+      .rst(rst),
       .act_dis(act_dis),
       .bcfg_scan_in(bcfg_scan_in),
       .ccfg_scan_in(ccfg_scan_in),
@@ -1301,7 +1305,6 @@ module fu(
       .iu_fu_rf0_instr_match(iu_fu_rf0_instr_match),
       .mpw1_b(mpw1_dc_b[0:9]),
       .mpw2_b(mpw2_dc_b[0:1]),
-      .nclk(nclk),
       .pc_fu_debug_mux_ctrls(pc_fu_debug_mux_ctrls),
       .pc_fu_event_count_mode(pc_fu_event_count_mode),
       .pc_fu_ram_active(pc_fu_ram_active),

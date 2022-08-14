@@ -42,8 +42,8 @@ module iuq_ic(
    inout                           vcs,
    inout                           vdd,
    inout                           gnd,
-    (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]         nclk,
+   input                           clk,
+   input                           rst,
 
    input                           tc_ac_ccflush_dc,
    input                           tc_ac_scan_dis_dc_b,
@@ -527,9 +527,8 @@ module iuq_ic(
       .gnd(gnd),
       .vdd(vdd),
       .vcs(vdd),
-
-      // CLOCK and CLOCKCONTROL ports
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_init_reset(pc_iu_init_reset),
       .tc_ccflush_dc(tc_ac_ccflush_dc),
       .tc_scan_dis_dc_b(tc_ac_scan_dis_dc_b),
@@ -697,7 +696,8 @@ module iuq_ic(
    iuq_ic_select  iuq_ic_select0(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_func_slp_sl_thold_0_b(pc_iu_func_slp_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
@@ -828,7 +828,8 @@ module iuq_ic(
       .vcs(vdd),
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_func_slp_sl_thold_0_b(pc_iu_func_slp_sl_thold_0_b),
       .pc_iu_time_sl_thold_0(pc_iu_time_sl_thold_0),
@@ -1013,11 +1014,11 @@ module iuq_ic(
       .event_bus_enable(pc_iu_event_bus_enable)
    );
 
-
    iuq_ic_miss  iuq_ic_miss0(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -1153,7 +1154,8 @@ module iuq_ic(
    tri_rlmreg_p #(.WIDTH(4*`THREADS), .INIT(0)) perf_bus_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1177,7 +1179,8 @@ module iuq_ic(
    tri_plat #(.WIDTH(1)) perv_3to2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din(pc_iu_bo_enable_3),
       .q(pc_iu_bo_enable_2)
@@ -1186,7 +1189,8 @@ module iuq_ic(
    tri_plat #(.WIDTH(11)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2,
             pc_iu_func_slp_sl_thold_2,
@@ -1215,7 +1219,8 @@ module iuq_ic(
    tri_plat #(.WIDTH(11)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1,
             pc_iu_func_slp_sl_thold_1,

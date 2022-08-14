@@ -36,8 +36,8 @@ module lq_spr
    parameter                  a2mode = 1
 )(
 
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-   input [0:`NCLK_WIDTH-1]    nclk,
+   input                      clk,
+   input                      rst,
 
    input                      d_mode_dc,
    input                      delay_lclkr_dc,
@@ -273,7 +273,8 @@ assign spr_dbcr2_dvc1m = tspr_cspr_dbcr2_dvc1m;
 assign spr_dbcr2_dvc2m = tspr_cspr_dbcr2_dvc2m;
 
 lq_spr_cspr #(.hvmode(hvmode), .a2mode(a2mode)) lq_spr_cspr(
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .d_mode_dc(d_mode_dc),
    .delay_lclkr_dc(delay_lclkr_dc),
    .mpw1_dc_b(mpw1_dc_b),
@@ -377,7 +378,8 @@ generate begin : thread
       genvar                     t;
       for (t=0; t<`THREADS; t=t+1) begin : thread
          lq_spr_tspr #(.hvmode(hvmode), .a2mode(a2mode)) lq_spr_tspr(
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .d_mode_dc(d_mode_dc),
             .delay_lclkr_dc(delay_lclkr_dc),
             .mpw1_dc_b(mpw1_dc_b),
@@ -439,7 +441,8 @@ generate begin : thread
 endgenerate
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_val_in_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -457,7 +460,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_val_in_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_rw_in_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(slowspr_act_in),
@@ -475,7 +479,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_rw_in_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) slowspr_etid_in_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(slowspr_act_in),
@@ -493,7 +498,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) slowspr_etid_in_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) slowspr_addr_in_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(slowspr_act_in),
@@ -511,7 +517,8 @@ tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) slowspr_addr_in_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) slowspr_data_in_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(slowspr_act_in),
@@ -529,7 +536,8 @@ tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) slowspr_data_in_l
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_done_in_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -547,7 +555,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_done_in_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_val_out_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -565,7 +574,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_val_out_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_rw_out_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(slowspr_val_in_q),
@@ -583,7 +593,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_rw_out_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) slowspr_etid_out_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(slowspr_val_in_q),
@@ -601,7 +612,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) slowspr_etid_out_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) slowspr_addr_out_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(slowspr_val_in_q),
@@ -619,7 +631,8 @@ tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) slowspr_addr_out_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) slowspr_data_out_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(slowspr_val_in_q),
@@ -637,7 +650,8 @@ tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) slowspr_data_out_
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_done_out_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -655,7 +669,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_done_out_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) flush_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),

@@ -103,7 +103,8 @@ module lq_dir_tag(
    stq3_tag_way_perr,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -213,13 +214,10 @@ output [0:7]                                                   stq3_tag_way_perr
 
 
 inout                                                          vdd;
-
-
 inout                                                          gnd;
 
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-input [0:`NCLK_WIDTH-1]                                        nclk;
+input                                                          clk;
+input                                                          rst;
 input                                                          sg_0;
 input                                                          func_sl_thold_0_b;
 input                                                          func_sl_force;
@@ -576,7 +574,8 @@ assign stq3_tag_way_perr = {stq3_perr_det_a, stq3_perr_det_b, stq3_perr_det_c, s
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_binv_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -595,7 +594,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_binv_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_ddir_ldp_parity_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -614,7 +614,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_ddir_ldp_parity_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_ddir_stp_parity_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -632,7 +633,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_ddir_stp_parity_reg(
 tri_rlmreg_p #(.WIDTH((lwrCClassBit - uprTagBit) + 1), .INIT(0), .NEEDS_SRESET(1)) stq2_addr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -651,7 +653,8 @@ tri_rlmreg_p #(.WIDTH((lwrCClassBit - uprTagBit) + 1), .INIT(0), .NEEDS_SRESET(1
 tri_rlmreg_p #(.WIDTH((lwrCClassBit - uprTagBit) + 1), .INIT(0), .NEEDS_SRESET(1)) stq3_addr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -670,7 +673,8 @@ tri_rlmreg_p #(.WIDTH((lwrCClassBit - uprTagBit) + 1), .INIT(0), .NEEDS_SRESET(1
 tri_rlmreg_p #(.WIDTH((lwrCClassBit - uprTagBit) + 1), .INIT(0), .NEEDS_SRESET(1)) stq4_addr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -688,7 +692,8 @@ tri_rlmreg_p #(.WIDTH((lwrCClassBit - uprTagBit) + 1), .INIT(0), .NEEDS_SRESET(1
 tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex4_en_par_chk_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -707,7 +712,8 @@ tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex4_en_par_chk_reg(
 tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) stq3_en_par_chk_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

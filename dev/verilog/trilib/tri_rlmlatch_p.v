@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -35,7 +35,7 @@
 
 `include "tri_a2o.vh"
 
-module tri_rlmlatch_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lclkr, mpw1_b, mpw2_b, scin, din, scout, dout);
+module tri_rlmlatch_p (vd, gd, clk, rst, act, force_t, thold_b, d_mode, sg, delay_lclkr, mpw1_b, mpw2_b, scin, din, scout, dout);
    parameter             INIT = 0;		// will be converted to the least signficant
                                                 // 31 bits of init_v
    parameter             IBUF = 1'b0;		//inverted latch IOs, if set to true.
@@ -45,7 +45,8 @@ module tri_rlmlatch_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lcl
 
    inout                        vd;
    inout                        gd;
-   input [0:`NCLK_WIDTH-1]      nclk;
+   input                        clk;
+   input                        rst;
    input                        act;		// 1: functional, 0: no clock
    input                        force_t;	// 1: force LCB active
    input                        thold_b;	// 1: functional, 0: no clock
@@ -62,8 +63,6 @@ module tri_rlmlatch_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lcl
    parameter             WIDTH = 1;
    parameter [0:WIDTH-1] init_v = INIT;
 
-   // tri_rlmlatch_p
-
    generate
      wire                  sreset;
      wire                  int_din;
@@ -71,11 +70,11 @@ module tri_rlmlatch_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lcl
        (* analysis_not_referenced="true" *)
      wire                  unused;
 
-     assign sreset = (NEEDS_SRESET == 1) ? nclk[1] : 0;
+     assign sreset = (NEEDS_SRESET == 1) ? rst : 0;
 
      assign int_din = IBUF ? ~din : din;
 
-     always @(posedge nclk[0]) begin: l
+     always @(posedge clk) begin: l
        if (sreset)                              // reset value
          int_dout <= init_v[0];
        else if ((act | force_t) & thold_b)      // activate or force, and not clk off
@@ -84,9 +83,9 @@ module tri_rlmlatch_p(vd, gd, nclk, act, force_t, thold_b, d_mode, sg, delay_lcl
 
      assign dout = IBUF ? ~int_dout : int_dout;
 
-     assign scout = 1'b0;
+     assign scout = 0;
 
-     assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | scin | vd | gd | (|nclk[2:`NCLK_WIDTH-1]) | ((NEEDS_SRESET == 1) ? 0 : nclk[1]);
+     assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | scin | vd | gd;
 
    endgenerate
 endmodule

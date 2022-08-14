@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -154,7 +154,8 @@ module lq_arb(
    lq_pc_err_l2credit_overrun,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -303,13 +304,10 @@ module lq_arb(
 
 
    inout                                  vdd;
-
-
    inout                                  gnd;
 
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-   input [0:`NCLK_WIDTH-1]                nclk;
+   input                                  clk;
+   input                                  rst;
    input                                  sg_0;
    input                                  func_sl_thold_0_b;
    input                                  func_sl_force;
@@ -871,7 +869,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) req_l2_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -890,7 +889,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) req_l2_ld_sent_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -909,7 +909,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) req_sel_usrDef_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -928,7 +929,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) req_sel_byteEn_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -947,7 +949,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) req_sel_wimge_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -966,7 +969,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) req_sel_p_addr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -985,7 +989,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) req_sel_ttype_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1004,7 +1009,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) req_sel_tid_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1023,7 +1029,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) req_sel_opSize_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1042,7 +1049,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) req_sel_cTag_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1061,7 +1069,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(4), .INIT(1), .NEEDS_SRESET(1)) unit_last_sel_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1080,7 +1089,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(5), .INIT(`LOAD_CREDITS), .NEEDS_SRESET(1)) load_cred_cnt_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1099,7 +1109,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ld_cred_err_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1117,7 +1128,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ld_st_noCred_flp_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1135,7 +1147,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) st_rej_hold_cred_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1153,7 +1166,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ld_noCred_hold_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1171,7 +1185,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ld_pop_rcvd_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1189,7 +1204,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ld_cred_blk_cnt_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1207,7 +1223,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(6), .INIT(`STORE_CREDITS), .NEEDS_SRESET(1)) store_cred_cnt_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1226,7 +1243,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) st_cred_err_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1245,7 +1263,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_lsucr0_b2b_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1263,7 +1282,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_cred_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1281,7 +1301,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_cls_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1299,7 +1320,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_req_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1318,7 +1340,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mmq2_req_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1337,7 +1360,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mmq3_req_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1356,7 +1380,8 @@ module lq_arb(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_data_override_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1375,7 +1400,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(27), .INIT(0), .NEEDS_SRESET(1)) stq4_req_st_data_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(req_l2_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1394,7 +1420,8 @@ module lq_arb(
    tri_rlmreg_p #(.WIDTH(128), .INIT(0), .NEEDS_SRESET(1)) stq2_store_data_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stq1_stg_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),

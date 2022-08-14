@@ -36,7 +36,8 @@
 
 module xu0_bcd(
    // Clocks
-   input [0:`NCLK_WIDTH-1] nclk,
+   input                    clk,
+   input                    rst,
 
    // Power
    inout                    vdd,
@@ -201,7 +202,8 @@ module xu0_bcd(
 
    // Latches
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -219,7 +221,8 @@ module xu0_bcd(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_addg6s_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_bcd_ex1_val),
@@ -237,7 +240,8 @@ module xu0_bcd(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_cdtbcd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_bcd_ex1_val),
@@ -255,7 +259,8 @@ module xu0_bcd(
    );
 
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) ex3_bcd_rt_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_val_q),
@@ -273,7 +278,8 @@ module xu0_bcd(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),

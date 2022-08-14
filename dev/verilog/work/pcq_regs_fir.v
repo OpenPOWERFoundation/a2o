@@ -41,7 +41,8 @@ module pcq_regs_fir(
 
    inout                           vdd,
    inout                           gnd,
-   input  [0:`NCLK_WIDTH-1]        nclk,
+   input                           clk,
+   input                           rst,
    input                           lcb_clkoff_dc_b,
    input                           lcb_mpw1_dc_b,
    input                           lcb_mpw2_dc_b,
@@ -384,7 +385,8 @@ module pcq_regs_fir(
 		    .FIR_ACTION1_PAR_INIT(FIR0ACT1_PAR_INIT)
 		    ) FIR0(
       //  Global lines for clocking and scan control
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .lcb_clkoff_dc_b(lcb_clkoff_dc_b),
@@ -461,7 +463,8 @@ module pcq_regs_fir(
 		    .FIR_ACTION1_PAR_INIT(FIR1ACT1_PAR_INIT)
 		    ) FIR1(
       //  Global lines for clocking and scan control
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .lcb_clkoff_dc_b(lcb_clkoff_dc_b),
@@ -532,7 +535,8 @@ module pcq_regs_fir(
 		    .FIR_ACTION1_PAR_INIT(FIR2ACT1_PAR_INIT)
 		    ) FIR2(
       //  Global lines for clocking and scan control
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .lcb_clkoff_dc_b(lcb_clkoff_dc_b),
@@ -968,7 +972,8 @@ module pcq_regs_fir(
       .delay_lclkr(lcb_delay_lclkr_dc),
       .mpw1_b(lcb_mpw1_dc_b),
       .mpw2_b(lcb_mpw2_dc_b),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .force_t(func_force),
       .sg(lcb_sg_0),
       .thold_b(func_thold_b),

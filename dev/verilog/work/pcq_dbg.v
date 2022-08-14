@@ -41,7 +41,8 @@ module pcq_dbg(
 
    inout                    vdd,
    inout                    gnd,
-   input  [0:`NCLK_WIDTH-1] nclk,
+   input                    clk,
+   input                    rst,
    input                    scan_dis_dc_b,
    input                    lcb_clkoff_dc_b,
    input                    lcb_mpw1_dc_b,
@@ -336,7 +337,8 @@ module pcq_dbg(
    tri_rlmreg_p #(.WIDTH(RAMCTRL_SIZE), .INIT(0)) ramctrl(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(rg_db_trace_bus_enable),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -353,7 +355,8 @@ module pcq_dbg(
    tri_rlmreg_p #(.WIDTH(SCMISC_SIZE), .INIT(0)) scmisc(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(rg_db_trace_bus_enable),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -370,7 +373,8 @@ module pcq_dbg(
    tri_rlmreg_p #(.WIDTH(FIRMISC_SIZE), .INIT(0)) firmisc(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(rg_db_trace_bus_enable),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -387,7 +391,8 @@ module pcq_dbg(
    tri_rlmreg_p #(.WIDTH(TRACEOUT_SIZE), .INIT(0)) traceout(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(rg_db_trace_bus_enable),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -404,7 +409,8 @@ module pcq_dbg(
    tri_rlmreg_p #(.WIDTH(CORETRACE_SIZE), .INIT(0)) coretrace(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(rg_db_trace_bus_enable),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),

@@ -34,9 +34,10 @@ module xu0_byp(
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   input [0:`NCLK_WIDTH-1]                nclk,
    inout                                  vdd,
    inout                                  gnd,
+   input                                  clk,
+   input                                  rst,
 
    //-------------------------------------------------------------------
    // Pervasive
@@ -1171,7 +1172,8 @@ module xu0_byp(
    // Latches
    //------------------------------------------------------------------------------------------
    tri_rlmreg_p #(.WIDTH(7), .OFFSET(1),.INIT(0), .NEEDS_SRESET(1)) exx_xu0_act_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -1184,7 +1186,8 @@ module xu0_byp(
       .dout(exx_xu0_act_q)
    );
    tri_rlmreg_p #(.WIDTH(3), .OFFSET(6),.INIT(0), .NEEDS_SRESET(1)) exx_lq_act_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -1197,7 +1200,8 @@ module xu0_byp(
       .dout(exx_lq_act_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_s1_v_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1210,7 +1214,8 @@ module xu0_byp(
       .dout(ex1_s1_v_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_s2_v_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1223,7 +1228,8 @@ module xu0_byp(
       .dout(ex1_s2_v_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_s3_v_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1239,7 +1245,8 @@ generate begin : ex1_gpr_s1_xu0_sel_gen
    genvar i;
    for (i=2;i<=8;i=i+1) begin : ex1_gpr_s1_xu0_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_xu0_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1258,7 +1265,8 @@ generate begin : ex1_gpr_s2_xu0_sel_gen
    genvar i;
    for (i=2;i<=8;i=i+1) begin : ex1_gpr_s2_xu0_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_xu0_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1277,7 +1285,8 @@ generate begin : ex1_gpr_s1_xu1_sel_gen
    genvar i;
    for (i=2;i<=5;i=i+1) begin : ex1_gpr_s1_xu1_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_xu1_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1296,7 +1305,8 @@ generate begin : ex1_gpr_s2_xu1_sel_gen
    genvar i;
    for (i=2;i<=5;i=i+1) begin : ex1_gpr_s2_xu1_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_xu1_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1315,7 +1325,8 @@ generate begin : ex1_gpr_s1_lq_sel_gen
    genvar i;
    for (i=5;i<=8;i=i+1) begin : ex1_gpr_s1_lq_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_lq_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1334,7 +1345,8 @@ generate begin : ex1_gpr_s2_lq_sel_gen
    genvar i;
    for (i=5;i<=8;i=i+1) begin : ex1_gpr_s2_lq_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_lq_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1350,7 +1362,8 @@ generate begin : ex1_gpr_s2_lq_sel_gen
 end
 endgenerate
    tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_imm_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1366,7 +1379,8 @@ generate begin : ex1_spr_s1_xu0_sel_gen
    genvar i;
    for (i=3;i<=6;i=i+1) begin : ex1_spr_s1_xu0_sel_entry
 	   tri_rlmreg_p #(.WIDTH(3), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s1_xu0_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1385,7 +1399,8 @@ generate begin : ex1_spr_s1_xu1_sel_gen
    genvar i;
    for (i=3;i<=3;i=i+1) begin : ex1_spr_s1_xu1_sel_entry
 	   tri_rlmreg_p #(.WIDTH(1), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s1_xu1_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1404,7 +1419,8 @@ generate begin : ex1_spr_s1_lq_sel_gen
    genvar i;
    for (i=5;i<=6;i=i+1) begin : ex1_spr_s1_lq_sel_entry
 	   tri_rlmreg_p #(.WIDTH(1), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s1_lq_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1423,7 +1439,8 @@ generate begin : ex1_spr_s2_xu0_sel_gen
    genvar i;
    for (i=3;i<=6;i=i+1) begin : ex1_spr_s2_xu0_sel_entry
 	   tri_rlmreg_p #(.WIDTH(6), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s2_xu0_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1442,7 +1459,8 @@ generate begin : ex1_spr_s2_xu1_sel_gen
    genvar i;
    for (i=3;i<=3;i=i+1) begin : ex1_spr_s2_xu1_sel_entry
 	   tri_rlmreg_p #(.WIDTH(2), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s2_xu1_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1461,7 +1479,8 @@ generate begin : ex1_spr_s2_lq_sel_gen
    genvar i;
    for (i=5;i<=6;i=i+1) begin : ex1_spr_s2_lq_sel_entry
 	   tri_rlmreg_p #(.WIDTH(1), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s2_lq_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1480,7 +1499,8 @@ generate begin : ex1_spr_s3_xu0_sel_gen
    genvar i;
    for (i=3;i<=8;i=i+1) begin : ex1_spr_s3_xu0_sel_entry
 	   tri_rlmreg_p #(.WIDTH(2), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s3_xu0_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1499,7 +1519,8 @@ generate begin : ex1_spr_s3_xu1_sel_gen
    genvar i;
    for (i=3;i<=5;i=i+1) begin : ex1_spr_s3_xu1_sel_entry
 	   tri_rlmreg_p #(.WIDTH(2), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s3_xu1_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1518,7 +1539,8 @@ generate begin : ex1_spr_s3_lq_sel_gen
    genvar i;
    for (i=5;i<=6;i=i+1) begin : ex1_spr_s3_lq_sel_entry
 	   tri_rlmreg_p #(.WIDTH(1), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s3_lq_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1537,7 +1559,8 @@ generate begin : ex1_gpr_s1_rel_sel_gen
    genvar i;
    for (i=3;i<=4;i=i+1) begin : ex1_gpr_s1_rel_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_rel_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1556,7 +1579,8 @@ generate begin : ex1_gpr_s2_rel_sel_gen
    genvar i;
    for (i=3;i<=4;i=i+1) begin : ex1_gpr_s2_rel_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_rel_sel_latch(
-	      .nclk(nclk), .vd(vdd), .gd(gnd),
+	      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
 	      .act(exx_xu0_act[0]),
 	      .force_t(func_sl_force),
 	      .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1572,7 +1596,8 @@ generate begin : ex1_gpr_s2_rel_sel_gen
 end
 endgenerate
    tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_reg_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ex0_xu0_ivax_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1585,7 +1610,8 @@ endgenerate
       .dout(ex1_gpr_s1_reg_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_reg_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1598,7 +1624,8 @@ endgenerate
       .dout(ex1_gpr_s2_reg_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(3), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s1_reg_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1611,7 +1638,8 @@ endgenerate
       .dout(ex1_spr_s1_reg_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(6), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s2_reg_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1624,7 +1652,8 @@ endgenerate
       .dout(ex1_spr_s2_reg_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(2), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s3_reg_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1637,7 +1666,8 @@ endgenerate
       .dout(ex1_spr_s3_reg_sel_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s1_lq_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1650,7 +1680,8 @@ endgenerate
       .dout(ex1_abt_s1_lq_sel_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s2_lq_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1663,7 +1694,8 @@ endgenerate
       .dout(ex1_abt_s2_lq_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(3), .OFFSET(7),.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s3_lq_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1676,7 +1708,8 @@ endgenerate
       .dout(ex1_abt_s3_lq_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(2), .OFFSET(6),.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s1_xu1_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1689,7 +1722,8 @@ endgenerate
       .dout(ex1_abt_s1_xu1_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(2), .OFFSET(6),.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s2_xu1_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1702,7 +1736,8 @@ endgenerate
       .dout(ex1_abt_s2_xu1_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(2), .OFFSET(6),.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s3_xu1_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1715,7 +1750,8 @@ endgenerate
       .dout(ex1_abt_s3_xu1_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(9),.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s1_xu0_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1728,7 +1764,8 @@ endgenerate
       .dout(ex1_abt_s1_xu0_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(9),.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s2_xu0_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1741,7 +1778,8 @@ endgenerate
       .dout(ex1_abt_s2_xu0_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(9),.INIT(0), .NEEDS_SRESET(1)) ex1_abt_s3_xu0_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[0]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX1]),
@@ -1754,7 +1792,8 @@ endgenerate
       .dout(ex1_abt_s3_xu0_sel_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_mflr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -1767,7 +1806,8 @@ endgenerate
       .dout(ex2_is_mflr_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_mfxer_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -1780,7 +1820,8 @@ endgenerate
       .dout(ex2_is_mfxer_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_mtxer_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -1793,7 +1834,8 @@ endgenerate
       .dout(ex2_is_mtxer_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_mfcr_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -1806,7 +1848,8 @@ endgenerate
       .dout(ex2_is_mfcr_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex2_is_mfcr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -1819,7 +1862,8 @@ endgenerate
       .dout(ex2_is_mfcr_q)
    );
    tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex2_is_mtcr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -1832,7 +1876,8 @@ endgenerate
       .dout(ex2_is_mtcr_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_mfctr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -1845,7 +1890,8 @@ endgenerate
       .dout(ex2_is_mfctr_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_is_mtxer_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -1858,7 +1904,8 @@ endgenerate
       .dout(ex3_is_mtxer_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[3]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX4]),
@@ -1871,7 +1918,8 @@ endgenerate
       .dout(ex4_xu0_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex5_xu0_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[4]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX5]),
@@ -1884,7 +1932,8 @@ endgenerate
       .dout(ex5_xu0_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex6_xu0_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[5]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX6]),
@@ -1897,7 +1946,8 @@ endgenerate
       .dout(ex6_xu0_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex7_xu0_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[6]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX7]),
@@ -1910,7 +1960,8 @@ endgenerate
       .dout(ex7_xu0_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex8_xu0_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[7]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX8]),
@@ -1923,7 +1974,8 @@ endgenerate
       .dout(ex8_xu0_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex6_lq_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_lq_act[5]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX6]),
@@ -1936,7 +1988,8 @@ endgenerate
       .dout(ex6_lq_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex7_lq_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_lq_act[6]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX7]),
@@ -1949,7 +2002,8 @@ endgenerate
       .dout(ex7_lq_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex8_lq_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_lq_act[7]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX8]),
@@ -1962,7 +2016,8 @@ endgenerate
       .dout(ex8_lq_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_cr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[3]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX4]),
@@ -1975,7 +2030,8 @@ endgenerate
       .dout(ex4_xu0_cr_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex5_xu0_cr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[4]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX5]),
@@ -1988,7 +2044,8 @@ endgenerate
       .dout(ex5_xu0_cr_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex6_xu0_cr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[5]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX6]),
@@ -2001,7 +2058,8 @@ endgenerate
       .dout(ex6_xu0_cr_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex6_lq_cr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_lq_act[5]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX6]),
@@ -2014,7 +2072,8 @@ endgenerate
       .dout(ex6_lq_cr_q)
    );
    tri_rlmreg_p #(.WIDTH(10), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_xer_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[3]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX4]),
@@ -2027,7 +2086,8 @@ endgenerate
       .dout(ex4_xu0_xer_q)
    );
    tri_rlmreg_p #(.WIDTH(10), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex5_xu0_xer_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[4]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX5]),
@@ -2040,7 +2100,8 @@ endgenerate
       .dout(ex5_xu0_xer_q)
    );
    tri_rlmreg_p #(.WIDTH(10), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex6_xu0_xer_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[5]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX6]),
@@ -2053,7 +2114,8 @@ endgenerate
       .dout(ex6_xu0_xer_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_ctr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ex3_xu0_ctr_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX4]),
@@ -2066,7 +2128,8 @@ endgenerate
       .dout(ex4_xu0_ctr_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_lr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ex3_xu0_lr_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX4]),
@@ -2079,7 +2142,8 @@ endgenerate
       .dout(ex4_xu0_lr_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex2_rs1_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ex1_xu0_ivax_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2092,7 +2156,8 @@ endgenerate
       .dout(ex2_rs1_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex2_rs2_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2105,7 +2170,8 @@ endgenerate
       .dout(ex2_rs2_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex2_cr1_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2118,7 +2184,8 @@ endgenerate
       .dout(ex2_cr1_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex2_cr2_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2131,7 +2198,8 @@ endgenerate
       .dout(ex2_cr2_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex2_cr3_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2144,7 +2212,8 @@ endgenerate
       .dout(ex2_cr3_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_cr_bit_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2157,7 +2226,8 @@ endgenerate
       .dout(ex2_cr_bit_q)
    );
    tri_rlmreg_p #(.WIDTH(10), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex2_xer2_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2170,7 +2240,8 @@ endgenerate
       .dout(ex2_xer2_q)
    );
    tri_rlmreg_p #(.WIDTH(10), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex2_xer3_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2183,7 +2254,8 @@ endgenerate
       .dout(ex2_xer3_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_xer3_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2196,7 +2268,8 @@ endgenerate
       .dout(ex3_xer3_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex2_lr1_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2209,7 +2282,8 @@ endgenerate
       .dout(ex2_lr1_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex2_lr2_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2222,7 +2296,8 @@ endgenerate
       .dout(ex2_lr2_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex2_ctr2_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2235,7 +2310,8 @@ endgenerate
       .dout(ex2_ctr2_q)
    );
    tri_rlmreg_p #(.WIDTH(2), .OFFSET(2),.INIT(0), .NEEDS_SRESET(1)) ex2_cr_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2248,7 +2324,8 @@ endgenerate
       .dout(ex2_cr_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(2), .OFFSET(2),.INIT(0), .NEEDS_SRESET(1)) ex2_xer_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2261,7 +2338,8 @@ endgenerate
       .dout(ex2_xer_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex3_rs1_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2274,7 +2352,8 @@ endgenerate
       .dout(ex3_rs1_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_mfspr_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2287,7 +2366,8 @@ endgenerate
       .dout(ex3_mfspr_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ex3_mfspr_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ex2_mfspr_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2300,7 +2380,8 @@ endgenerate
       .dout(ex3_mfspr_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) ord_rt_data_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ord_data_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2313,7 +2394,8 @@ endgenerate
       .dout(ord_rt_data_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ord_cr_data_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ord_data_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2326,7 +2408,8 @@ endgenerate
       .dout(ord_cr_data_q)
    );
    tri_rlmreg_p #(.WIDTH(10), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ord_xer_data_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ord_data_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2339,7 +2422,8 @@ endgenerate
       .dout(ord_xer_data_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_rs_capt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2352,7 +2436,8 @@ endgenerate
       .dout(ex2_rs_capt_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_ra_capt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2365,7 +2450,8 @@ endgenerate
       .dout(ex2_ra_capt_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_ra_capt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2378,7 +2464,8 @@ endgenerate
       .dout(ex3_ra_capt_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_ra_capt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX4]),
@@ -2391,7 +2478,8 @@ endgenerate
       .dout(ex4_ra_capt_q)
    );
    tri_rlmreg_p #(.WIDTH(12), .OFFSET(52),.INIT(0), .NEEDS_SRESET(1)) ex2_rs2_noimm_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[1]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2404,7 +2492,8 @@ endgenerate
       .dout(ex2_rs2_noimm_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex3_mtcr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2417,7 +2506,8 @@ endgenerate
       .dout(ex3_mtcr_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_mtcr_sel_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2430,7 +2520,8 @@ endgenerate
       .dout(ex3_mtcr_sel_q)
    );
    tri_rlmreg_p #(.WIDTH(9), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) mm_rs_is_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ex2_rs_capt_q),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2443,7 +2534,8 @@ endgenerate
       .dout(mm_rs_is_q)
    );
    tri_rlmreg_p #(.WIDTH(12), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) mm_ra_entry_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ex2_ra_capt_q),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2456,7 +2548,8 @@ endgenerate
       .dout(mm_ra_entry_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) mm_data_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(ex4_ra_capt_q),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2469,7 +2562,8 @@ endgenerate
       .dout(mm_data_q)
    );
    tri_rlmreg_p #(.WIDTH(7), .OFFSET(57),.INIT(0), .NEEDS_SRESET(1)) ex3_cnt_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2482,7 +2576,8 @@ endgenerate
       .dout(ex3_cnt_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(8), .OFFSET(56),.INIT(0), .NEEDS_SRESET(1)) ex3_prm_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2495,7 +2590,8 @@ endgenerate
       .dout(ex3_prm_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(60),.INIT(0), .NEEDS_SRESET(1)) ex3_dlm_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2508,7 +2604,8 @@ endgenerate
       .dout(ex3_dlm_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(10), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex3_dlm_xer_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2521,7 +2618,8 @@ endgenerate
       .dout(ex3_dlm_xer_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex3_dlm_cr_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_xu0_act[2]),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX3]),
@@ -2534,7 +2632,8 @@ endgenerate
       .dout(ex3_dlm_cr_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_mul_ord_done_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX6]),
@@ -2547,7 +2646,8 @@ endgenerate
       .dout(ex6_mul_ord_done_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_mul_abort_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX6]),
@@ -2560,7 +2660,8 @@ endgenerate
       .dout(ex6_mul_abort_q)
    );
    tri_rlmreg_p #(.WIDTH(9), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex6_mul_done_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX6]),
@@ -2573,7 +2674,8 @@ endgenerate
       .dout(ex6_mul_done_q)
    );
    tri_rlmreg_p #(.WIDTH(11), .OFFSET(2),.INIT(0), .NEEDS_SRESET(1)) exx_xu0_abort_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2586,7 +2688,8 @@ endgenerate
       .dout(exx_xu0_abort_q)
    );
    tri_rlmreg_p #(.WIDTH(5), .OFFSET(3),.INIT(0), .NEEDS_SRESET(1)) exx_xu1_abort_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2599,7 +2702,8 @@ endgenerate
       .dout(exx_xu1_abort_q)
    );
    tri_rlmreg_p #(.WIDTH(4), .OFFSET(6),.INIT(0), .NEEDS_SRESET(1)) exx_lq_abort_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2612,7 +2716,8 @@ endgenerate
       .dout(exx_lq_abort_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_rs1_abort_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2625,7 +2730,8 @@ endgenerate
       .dout(ex2_rs1_abort_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_rs2_abort_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2638,7 +2744,8 @@ endgenerate
       .dout(ex2_rs2_abort_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_rs3_abort_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DEX2]),
@@ -2651,7 +2758,8 @@ endgenerate
       .dout(ex2_rs3_abort_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) exx_rel3_act_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2664,7 +2772,8 @@ endgenerate
       .dout(exx_rel3_act_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) exx_rel3_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(lq_xu_rel_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),
@@ -2677,7 +2786,8 @@ endgenerate
       .dout(exx_rel3_rt_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) exx_rel4_rt_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(exx_rel3_act_q),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc[DX]),

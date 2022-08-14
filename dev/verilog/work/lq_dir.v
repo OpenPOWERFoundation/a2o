@@ -185,7 +185,8 @@ module lq_dir(
    dir_dcc_ex5_stp_flush,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -397,7 +398,8 @@ inout                                                        gnd;
 
 (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
 
-input [0:`NCLK_WIDTH-1]                                      nclk;
+input                                                        clk;
+input                                                        rst;
 input                                                        sg_0;
 input                                                        func_sl_thold_0_b;
 input                                                        func_sl_force;
@@ -822,7 +824,8 @@ lq_dir_val l1dcdv(
    //pervasive
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .sg_0(sg_0),
    .func_sl_thold_0_b(func_sl_thold_0_b),
    .func_sl_force(func_sl_force),
@@ -975,7 +978,8 @@ lq_dir_lru l1dcdl(
    //pervasive
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .sg_0(sg_0),
    .func_sl_thold_0_b(func_sl_thold_0_b),
    .func_sl_force(func_sl_force),
@@ -1083,7 +1087,8 @@ lq_dir_tag #(.WAYDATASIZE(WAYDATASIZE), .PARBITS(PARBITS)) l1dcdt(
 
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .sg_0(sg_0),
    .func_sl_thold_0_b(func_sl_thold_0_b),
    .func_sl_force(func_sl_force),
@@ -1123,7 +1128,8 @@ assign dir_dec_rel3_dir_wr_addr = rel3_dir_wr_addr;
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel4_dir_wr_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1141,7 +1147,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel4_dir_wr_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_dcdis_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1159,7 +1166,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_dcdis_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_cls_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

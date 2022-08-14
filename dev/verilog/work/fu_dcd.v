@@ -41,6 +41,8 @@
 `include "tri_a2o.vh"
 
 module fu_dcd(
+   clk,
+   rst,
    act_dis,
    bcfg_scan_in,
    ccfg_scan_in,
@@ -117,7 +119,6 @@ module fu_dcd(
    iu_fu_rf0_instr_match,
    mpw1_b,
    mpw2_b,
-   nclk,
    pc_fu_debug_mux_ctrls,
    pc_fu_event_count_mode,
    pc_fu_instr_trace_mode,
@@ -447,7 +448,8 @@ module fu_dcd(
    input                                    iu_fu_rf0_instr_match;
    input [0:9]                              mpw1_b;
    input [0:1]                              mpw2_b;
-   input  [0:`NCLK_WIDTH-1]                 nclk;
+   input                                    clk;
+   input                                    rst;
    input [0:10]                             pc_fu_debug_mux_ctrls;
    input [0:2]                              pc_fu_event_count_mode;
    input                                    pc_fu_instr_trace_mode;
@@ -1558,7 +1560,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmlatch_p #(.INIT(0) ) cp_flush_reg0(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .delay_lclkr(delay_lclkr[9]),
@@ -1581,7 +1584,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmlatch_p #(.INIT(0) ) cp_flush_reg1(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .delay_lclkr(delay_lclkr[9]),
@@ -1664,7 +1668,8 @@ module fu_dcd(
    tri_plat #( .WIDTH(3)) thold_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din({thold_1,
             cfg_sl_thold_1,
@@ -1678,7 +1683,8 @@ module fu_dcd(
    tri_plat  sg_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(sg_1),
       .q(sg_0)
@@ -1717,7 +1723,8 @@ module fu_dcd(
       .vd(vdd),
       .gd(gnd),
       .delay_lclkr(delay_lclkr[9]),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .force_t(cfg_sl_force),
       .thold_b(cfg_sl_thold_0_b),
       .dclk(cfg_slat_d2clk),
@@ -1759,7 +1766,8 @@ module fu_dcd(
    endgenerate
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(8)) act_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -1849,7 +1857,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(8), .NEEDS_SRESET(1)) ex0_iu(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .delay_lclkr(delay_lclkr[0]),
@@ -1880,7 +1889,8 @@ module fu_dcd(
    //-------------------------------------------
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(24)) ex0_frt(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(msr_fp_act),
       .force_t(force_t),
       .d_mode(tiup),
@@ -1920,7 +1930,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(15), .NEEDS_SRESET(1)) ex1_iu(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -1970,7 +1981,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(30)) ex1_frt(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_instr_act),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2001,7 +2013,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(32)) ex1_instl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_instr_act),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2020,7 +2033,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(14)) ex1_itagl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2051,7 +2065,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(5)) ex1_crbf(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2528,7 +2543,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(21)) ex2_ctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2582,7 +2598,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(6)) ex2_frt(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_v),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2609,7 +2626,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(16)) ex2_itagl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2638,7 +2656,8 @@ module fu_dcd(
    //-------------------------------------------
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(5)) ex2_crbf(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2712,7 +2731,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(7)) ex3_ctlng_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2737,7 +2757,8 @@ module fu_dcd(
 
    //-------------------------------------------
     tri_rlmreg_p #(.INIT(0), .WIDTH(24)) ex3_ctl_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_axu_v),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2792,7 +2813,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(1)) ex3_stdv_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
        .d_mode(tiup),
@@ -2814,7 +2836,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(16)) ex3_itagl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2844,7 +2867,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(5)) ex3_crbf(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2890,7 +2914,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(30)) ex4_ctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2942,7 +2967,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(16)) ex4_itagl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -2972,7 +2998,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(5)) ex4_crbf(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3006,7 +3033,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(22)) ex5_ctl_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3052,7 +3080,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(17)) ex5_itagl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3084,7 +3113,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(5)) ex5_crbf(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3139,7 +3169,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(21)) ex6_ctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3183,7 +3214,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(17)) ex6_itagl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3215,7 +3247,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(9)) ex6_crbf(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3297,7 +3330,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(23)) ex7_ctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3347,7 +3381,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(18)) ex7_itagl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3381,7 +3416,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(18)) ex7_la(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3409,7 +3445,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(9)) ex7_crbf(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3471,7 +3508,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(32)) ex8_ctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3526,7 +3564,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(8)) ex8_itagl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3549,7 +3588,8 @@ module fu_dcd(
    //-------------------------------------------
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(18)) ex8_la(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3586,7 +3626,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(14)) ex9_ctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3620,7 +3661,8 @@ module fu_dcd(
    //-------------------------------------------
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(9)) ex9_la(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3839,7 +3881,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(4)) axu_ex(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -3892,10 +3935,12 @@ module fu_dcd(
     .perr_so(perr_so),
     .mpw1_b(mpw1_b),
     .mpw2_b(mpw2_b),
-    .nclk(nclk),
+    .clk(clk),
+	.rst(rst),
     .force_t(force_t),
     .thold_0_b(thold_0_b),
     .sg_0(sg_0),
+    .delay_lclkr(10'b0),
     .gnd(gnd),
     .vdd(vdd),
 
@@ -4010,7 +4055,8 @@ module fu_dcd(
    // Latches
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(15)) spr_ctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -4039,7 +4085,8 @@ module fu_dcd(
    //-------------------------------------------
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(2 ** REGMODE)) spr_data(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -4061,7 +4108,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(4)) axucr0_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(cfg_sl_force),
       .d_mode(tiup),
@@ -4083,7 +4131,8 @@ module fu_dcd(
 
 
    tri_ser_rlmreg_p #(.WIDTH(32), .INIT(0)) a0esr_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(a0esr_wr),
       .force_t(cfg_sl_force),
       .delay_lclkr(delay_lclkr[9]),
@@ -4190,7 +4239,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(65)) ex8_ram_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex7_instr_valid),
       .force_t(force_t),
       .d_mode(tiup),
@@ -4216,7 +4266,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(1)) ex8_ramv_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -4323,7 +4374,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(8)) event_bus_out_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(event_act),
       .force_t(force_t),
       .d_mode(tiup),
@@ -4346,7 +4398,8 @@ module fu_dcd(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(35)) perf_data(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(event_act),
       .force_t(force_t),
       .d_mode(tiup),
@@ -4390,7 +4443,8 @@ module fu_dcd(
    // Debug Bus
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(32)) dbg_group3_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .d_mode(tiup),
@@ -4531,7 +4585,8 @@ module fu_dcd(
    // Trace Bus latches, using pc_fu_trace_bus_enable for act
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(68)) dbg0_data(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(dbg0_act),
       .force_t(func_slp_sl_force),
       .d_mode(tiup),
@@ -4563,7 +4618,8 @@ module fu_dcd(
    //Another set, closer to the I/O on the bottom
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(5)) dbg1_data(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),

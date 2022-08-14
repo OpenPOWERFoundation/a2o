@@ -35,10 +35,11 @@
 
 `include "tri_a2o.vh"
 
-module tri_regk(
+module tri_regk (
    vd,
    gd,
-   nclk,
+   clk,
+   rst,
    act,
    force_t,
    thold_b,
@@ -62,7 +63,8 @@ module tri_regk(
 
    inout                          vd;
    inout                          gd;
-   input [0:`NCLK_WIDTH-1]        nclk;
+   input                          clk;
+   input                          rst;
    input                          act;                  // 1: functional, 0: no clock
    input                          force_t;		// 1: force LCB active
    input                          thold_b;		// 1: functional, 0: no clock
@@ -85,9 +87,9 @@ module tri_regk(
        (* analysis_not_referenced="true" *)
      wire                         unused;
 
-     assign sreset = (NEEDS_SRESET == 1) ? nclk[1] : 0;
+     assign sreset = (NEEDS_SRESET == 1) ? rst : 0;
 
-     always @(posedge nclk[0]) begin: l
+     always @(posedge clk) begin: l
        if (sreset)
          int_dout <= init_v;
        else if (act & thold_b)
@@ -98,7 +100,8 @@ module tri_regk(
 
      assign scout = {WIDTH{1'b0}};
 
-     assign unused = | {vd, gd, nclk, d_mode, sg, delay_lclkr, mpw1_b, mpw2_b, scin} | (|nclk[2:`NCLK_WIDTH-1]) | ((NEEDS_SRESET == 1) ? 0 : nclk[1]);
+     assign unused = | {vd, gd, d_mode, sg, delay_lclkr, mpw1_b, mpw2_b, scin};
+
    endgenerate
 
 endmodule

@@ -37,9 +37,10 @@ module xu_alu_add
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   input [0:`NCLK_WIDTH-1]  nclk,
    inout                    vdd,
    inout                    gnd,
+   input                    clk,
+   input                    rst,
 
    //-------------------------------------------------------------------
    // Pervasive
@@ -175,7 +176,8 @@ module xu_alu_add
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .force_t(func_sl_force),
       .thold_b(func_sl_thold_0_b),
       .delay_lclkr(delay_lclkr_dc),

@@ -34,7 +34,8 @@
 
 module a2owb (
 
-	 input  [0:`NCLK_WIDTH-1]                               nclk,
+	 input                                                  clk,
+    input                                                  rst,
 	 input                                                  scan_in,
 	 output                                                 scan_out,
 
@@ -251,7 +252,8 @@ assign an_ac_lbist_ary_wrt_thru_dc = 0;
 
 
 c c0(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in(scan_in),
       .scan_out(scan_out),
 
@@ -376,7 +378,7 @@ c c0(
    );
 
 a2l2wb n0(
-      .clk(clk_1x),
+      .clk(clk),
       .rst(rst),
 
       // request
@@ -504,12 +506,5 @@ a2l2wb n0(
       .wb_datw(wb_datw)
 
    );
-
-wire clk_1x, clk_2x, clk_4x, rst;
-
-assign clk_1x = nclk[0];
-assign clk_2x = nclk[2];
-assign clk_4x = nclk[3];
-assign rst = nclk[1];
 
 endmodule

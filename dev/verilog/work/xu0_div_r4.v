@@ -36,7 +36,8 @@
 
 module xu0_div_r4(
    // Clocks
-   input [0:`NCLK_WIDTH-1] nclk,
+   input                  clk,
+   input                  rst,
 
    // Power
    inout                  vdd,
@@ -1098,7 +1099,8 @@ module xu0_div_r4(
    //-------------------------------------------------------------------
    //mark_unused(xersrc_q[1])mark_unused(ex4_div_recform_q)
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex2_div_ctr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_div_ex1_div_act),
@@ -1116,7 +1118,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_div_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1134,7 +1137,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_div_sign_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_div_ex1_div_act),
@@ -1152,7 +1156,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_div_size_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_div_ex1_div_act),
@@ -1170,7 +1175,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_div_extd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_div_ex1_div_act),
@@ -1188,7 +1194,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_div_recform_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_div_ex1_div_act),
@@ -1206,7 +1213,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_xer_ov_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_div_ex1_div_act),
@@ -1224,7 +1232,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_div_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1242,7 +1251,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_cycle_act_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1260,7 +1270,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_cycles_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_cycle_act_d),
@@ -1278,7 +1289,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH((65-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_denom_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1296,7 +1308,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH((66-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_numer_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1317,7 +1330,8 @@ module xu0_div_r4(
 
 
    tri_rlmreg_p #(.WIDTH((66-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_PR_sum_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1336,7 +1350,8 @@ module xu0_div_r4(
 
 
    tri_rlmreg_p #(.WIDTH((66-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_PR_carry_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1354,7 +1369,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH((63-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_Q_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1372,7 +1388,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH((63-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_QM_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1390,7 +1407,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_oddshift_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1408,7 +1426,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_divrunning_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1426,7 +1445,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_divrunning_act_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1444,7 +1464,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_divflush_1d_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1462,7 +1483,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_divflush_2d_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1481,7 +1503,8 @@ module xu0_div_r4(
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_add_rslt_sign_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1500,7 +1523,8 @@ module xu0_div_r4(
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_quotient_correction_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1518,7 +1542,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH((65-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_dmask_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1538,7 +1563,8 @@ module xu0_div_r4(
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_div_ovf_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_div_val_q),
@@ -1556,7 +1582,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_xer_ov_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1574,7 +1601,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_div_recform_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1592,7 +1620,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_div_size_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_div_val_q),
@@ -1610,7 +1639,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_div_sign_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_div_val_q),
@@ -1628,7 +1658,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_div_extd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_div_val_q),
@@ -1646,7 +1677,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_2s_rslt_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_div_val_q),
@@ -1664,7 +1696,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_div_done_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1682,7 +1715,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_div_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1700,7 +1734,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_cycle_watch_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1718,7 +1753,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_quot_watch_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1736,7 +1772,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_div_ovf_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1754,7 +1791,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xer_ov_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1772,7 +1810,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_div_done_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1790,7 +1829,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_div_done_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1808,7 +1848,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH((63-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex4_quotient_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1826,7 +1867,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_div_recform_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1844,7 +1886,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_div_size_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1862,7 +1905,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_2s_rslt_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1880,7 +1924,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH((63-msb+1)), .INIT(0), .NEEDS_SRESET(1)) ex4_div_rt_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(divrunning_act),
@@ -1898,7 +1943,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_div_ovf_cond3_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_div_val_q),
@@ -1916,7 +1962,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_spr_msr_cm_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_div_ex1_div_act),
@@ -1934,7 +1981,8 @@ module xu0_div_r4(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_numer_eq_zero_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_div_val_q),
@@ -1952,7 +2000,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) xersrc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_div_val_q),
@@ -1970,7 +2019,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1988,7 +2038,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_div_tid_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_div_ex1_div_act),
@@ -2006,7 +2057,8 @@ module xu0_div_r4(
    );
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_div_tid_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_div_val_q),
@@ -2023,7 +2075,8 @@ module xu0_div_r4(
       .dout(ex3_div_tid_q)
    );
    tri_rlmreg_p #(.WIDTH(`THREADS), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) perf_divrunning_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),

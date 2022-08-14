@@ -36,7 +36,8 @@ module xu_alu(
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   input [0:`NCLK_WIDTH-1]  nclk,
+   input                    clk,
+   input                    rst,
    inout                    vdd,
    inout                    gnd,
 
@@ -180,7 +181,8 @@ module xu_alu(
    //---------------------------------------------------------------
 
    xu_alu_add add(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .delay_lclkr_dc(delay_lclkr_dc),
@@ -210,7 +212,8 @@ module xu_alu(
                                                            1'b0;
 
    tri_st_rot rot(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -247,7 +250,8 @@ module xu_alu(
    //---------------------------------------------------------------
 
    xu_alu_cmp cmp(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -280,7 +284,8 @@ module xu_alu(
    //---------------------------------------------------------------
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_act_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -298,7 +303,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sel_isel_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_alu_ex1_act),
@@ -316,7 +322,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_msb_64b_sel_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_alu_ex1_act),
@@ -334,7 +341,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sel_trap_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_alu_ex1_act),
@@ -352,7 +360,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sel_cmpl_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_alu_ex1_act),
@@ -370,7 +379,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sel_cmp_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_alu_ex1_act),
@@ -388,7 +398,8 @@ module xu_alu(
    );
 
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex2_instr_6to10_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_alu_ex1_act),
@@ -406,7 +417,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_xer_ov_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_alu_ex1_act),
@@ -424,7 +436,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_xer_ca_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(dec_alu_ex1_act),
@@ -442,7 +455,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_add_ca_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_q),
@@ -460,7 +474,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_add_ovf_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_q),
@@ -478,7 +493,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_sel_rot_log_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_q),
@@ -496,7 +512,8 @@ module xu_alu(
    );
 
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) ex3_xer_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_q),
@@ -514,7 +531,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_xer_ov_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_q),
@@ -532,7 +550,8 @@ module xu_alu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_xer_ca_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act_q),

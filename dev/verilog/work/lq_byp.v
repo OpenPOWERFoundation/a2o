@@ -37,7 +37,8 @@
 
 
 module lq_byp(
-   nclk,
+   clk,
+   rst,
    vdd,
    gnd,
    d_mode_dc,
@@ -142,14 +143,10 @@ module lq_byp(
 
 
 inout                                                       vdd;
-
-
 inout                                                       gnd;
 
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-input [0:`NCLK_WIDTH-1]                                     nclk;
-
+input                                                       clk;
+input                                                       rst;
 //-------------------------------------------------------------------
 // Pervasive
 //-------------------------------------------------------------------
@@ -942,7 +939,8 @@ assign byp_dec_ex1_s2_abort = ex1_s2_abort;
 //----------------------------------------------------------------------------------------------------------------------------------------
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex2_rs1_latch(
-  .nclk(nclk),
+  .clk(clk),
+	.rst(rst),
   .vd(vdd),
   .gd(gnd),
   .act(dec_byp_ex1_stg_act),
@@ -959,7 +957,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex2_rs1_la
   .dout(ex2_rs1_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex2_rs2_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex1_stg_act),
@@ -976,7 +975,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex2_rs2_la
    .dout(ex2_rs2_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_s1_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -993,7 +993,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_s1_abort_latch(
    .dout(ex2_s1_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_s2_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1010,7 +1011,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_s2_abort_latch(
    .dout(ex2_s2_abort_q));
 
 tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) ex1_s1_xu0_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex0_stg_act),
@@ -1027,7 +1029,8 @@ tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) ex1_s1_xu0_sel_latch(
    .dout(ex1_s1_xu0_sel_q));
 
 tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) ex1_s2_xu0_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex0_stg_act),
@@ -1044,7 +1047,8 @@ tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) ex1_s2_xu0_sel_latch(
    .dout(ex1_s2_xu0_sel_q));
 
 tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex1_s1_xu1_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex0_stg_act),
@@ -1061,7 +1065,8 @@ tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex1_s1_xu1_sel_latch(
    .dout(ex1_s1_xu1_sel_q));
 
 tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex1_s2_xu1_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex0_stg_act),
@@ -1078,7 +1083,8 @@ tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex1_s2_xu1_sel_latch(
    .dout(ex1_s2_xu1_sel_q));
 
 tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex1_s1_lq_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex0_stg_act),
@@ -1095,7 +1101,8 @@ tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex1_s1_lq_sel_latch(
    .dout(ex1_s1_lq_sel_q));
 
 tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex1_s2_lq_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex0_stg_act),
@@ -1112,7 +1119,8 @@ tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex1_s2_lq_sel_latch(
    .dout(ex1_s2_lq_sel_q));
 
 tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex1_s1_rel_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex0_stg_act),
@@ -1129,7 +1137,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex1_s1_rel_sel_latch(
    .dout(ex1_s1_rel_sel_q));
 
 tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex1_s2_rel_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex0_stg_act),
@@ -1146,7 +1155,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex1_s2_rel_sel_latch(
    .dout(ex1_s2_rel_sel_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex5_xu0_rt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex4_xu0_stg_act_q),
@@ -1163,7 +1173,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex5_xu0_rt
    .dout(ex5_xu0_rt_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex6_xu0_rt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex5_xu0_stg_act_q),
@@ -1180,7 +1191,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex6_xu0_rt
    .dout(ex6_xu0_rt_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex7_xu0_rt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex6_xu0_stg_act),
@@ -1197,7 +1209,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex7_xu0_rt
    .dout(ex7_xu0_rt_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex8_xu0_rt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex7_xu0_stg_act_q),
@@ -1214,7 +1227,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex8_xu0_rt
    .dout(ex8_xu0_rt_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1231,7 +1245,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_req_abort_latch(
    .dout(ex4_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1248,7 +1263,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_xu0_req_abort_latch(
    .dout(ex5_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1265,7 +1281,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_xu0_req_abort_latch(
    .dout(ex6_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1282,7 +1299,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_xu0_req_abort_latch(
    .dout(ex7_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex8_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1299,7 +1317,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex8_xu0_req_abort_latch(
    .dout(ex8_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex9_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1316,7 +1335,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex9_xu0_req_abort_latch(
    .dout(ex9_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex10_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1333,7 +1353,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex10_xu0_req_abort_latch(
    .dout(ex10_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex11_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1350,7 +1371,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex11_xu0_req_abort_latch(
    .dout(ex11_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex12_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1367,7 +1389,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex12_xu0_req_abort_latch(
    .dout(ex12_xu0_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex13_xu0_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1384,7 +1407,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex13_xu0_req_abort_latch(
    .dout(ex13_xu0_req_abort_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex4_xu1_rt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex3_xu1_stg_act),
@@ -1401,7 +1425,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex4_xu1_rt
    .dout(ex4_xu1_rt_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex5_xu1_rt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex4_xu1_stg_act_q),
@@ -1418,7 +1443,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex5_xu1_rt
    .dout(ex5_xu1_rt_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xu1_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1435,7 +1461,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xu1_req_abort_latch(
    .dout(ex4_xu1_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_xu1_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1452,7 +1479,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_xu1_req_abort_latch(
    .dout(ex5_xu1_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_xu1_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1469,7 +1497,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_xu1_req_abort_latch(
    .dout(ex6_xu1_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_xu1_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1486,7 +1515,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_xu1_req_abort_latch(
    .dout(ex7_xu1_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex8_xu1_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1503,7 +1533,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex8_xu1_req_abort_latch(
    .dout(ex8_xu1_req_abort_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) rel3_rel_rt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dcc_byp_rel2_stg_act),
@@ -1520,7 +1551,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) rel3_rel_r
    .dout(rel3_rel_rt_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) rel4_rel_rt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dcc_byp_rel3_stg_act),
@@ -1537,7 +1569,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) rel4_rel_r
    .dout(rel4_rel_rt_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex6_fx_ld_data_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex5_stg_act),
@@ -1554,7 +1587,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex6_fx_ld_
    .dout(ex6_fx_ld_data_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex7_fx_ld_data_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex6_stg_act),
@@ -1571,7 +1605,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex7_fx_ld_
    .dout(ex7_fx_ld_data_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex8_fx_ld_data_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex7_stg_act),
@@ -1588,7 +1623,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) ex8_fx_ld_
    .dout(ex8_fx_ld_data_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_req_aborted_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1605,7 +1641,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_req_aborted_latch(
    .dout(ex3_req_aborted_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_req_aborted_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1622,7 +1659,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_req_aborted_latch(
    .dout(ex4_req_aborted_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_req_aborted_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1639,7 +1677,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_req_aborted_latch(
    .dout(ex5_req_aborted_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_lq_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1656,7 +1695,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_lq_req_abort_latch(
    .dout(ex6_lq_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_lq_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1673,7 +1713,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_lq_req_abort_latch(
    .dout(ex7_lq_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex8_lq_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1690,7 +1731,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex8_lq_req_abort_latch(
    .dout(ex8_lq_req_abort_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex9_lq_req_abort_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1707,7 +1749,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex9_lq_req_abort_latch(
    .dout(ex9_lq_req_abort_q));
 
 tri_rlmreg_p #(.WIDTH((2**`GPR_WIDTH_ENC)+(2**`GPR_WIDTH_ENC)/8), .INIT(0), .NEEDS_SRESET(1)) ex6_gpr_wd0_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex5_stg_act),
@@ -1724,7 +1767,8 @@ tri_rlmreg_p #(.WIDTH((2**`GPR_WIDTH_ENC)+(2**`GPR_WIDTH_ENC)/8), .INIT(0), .NEE
    .dout(ex6_gpr_wd0_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_move_data_sel_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1741,7 +1785,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_move_data_sel_latch(
    .dout(ex5_move_data_sel_q));
 
 tri_rlmreg_p #(.WIDTH(`STQ_DATA_SIZE), .INIT(0), .NEEDS_SRESET(1)) ex5_mv_rel_data_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex4_move_data_sel),
@@ -1758,7 +1803,8 @@ tri_rlmreg_p #(.WIDTH(`STQ_DATA_SIZE), .INIT(0), .NEEDS_SRESET(1)) ex5_mv_rel_da
    .dout(ex5_mv_rel_data_q));
 
 tri_rlmreg_p #(.WIDTH((2**`GPR_WIDTH_ENC)/8), .INIT(0), .NEEDS_SRESET(1)) ex6_dvc1_cmp_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex5_stg_act),
@@ -1775,7 +1821,8 @@ tri_rlmreg_p #(.WIDTH((2**`GPR_WIDTH_ENC)/8), .INIT(0), .NEEDS_SRESET(1)) ex6_dv
    .dout(ex6_dvc1_cmp_q));
 
 tri_rlmreg_p #(.WIDTH((2**`GPR_WIDTH_ENC)/8), .INIT(0), .NEEDS_SRESET(1)) ex6_dvc2_cmp_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dec_byp_ex5_stg_act),
@@ -1792,7 +1839,8 @@ tri_rlmreg_p #(.WIDTH((2**`GPR_WIDTH_ENC)/8), .INIT(0), .NEEDS_SRESET(1)) ex6_dv
    .dout(ex6_dvc2_cmp_q));
 
 tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) lq_pc_ram_data_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(dcc_byp_ram_act),
@@ -1813,7 +1861,8 @@ tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) lq_pc_ram_
 //------------------------------------
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1830,7 +1879,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xu0_stg_act_latch(
    .dout(ex4_xu0_stg_act_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_xu0_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1847,7 +1897,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_xu0_stg_act_latch(
    .dout(ex5_xu0_stg_act_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_xu0_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1864,7 +1915,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_xu0_stg_act_latch(
    .dout(ex6_xu0_stg_act_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_xu0_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1881,7 +1933,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_xu0_stg_act_latch(
    .dout(ex7_xu0_stg_act_q));
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xu1_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),

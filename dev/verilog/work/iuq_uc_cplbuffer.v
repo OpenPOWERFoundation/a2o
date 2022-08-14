@@ -42,7 +42,8 @@
 module iuq_uc_cplbuffer(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_func_sl_thold_0_b,
    pc_iu_sg_0,
    force_t,
@@ -70,11 +71,10 @@ module iuq_uc_cplbuffer(
 
 
    inout                       vdd;
-
    inout                       gnd;
 
-    (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]     nclk;
+   input                       clk;
+   input                       rst;
    input                       pc_iu_func_sl_thold_0_b;
    input                       pc_iu_sg_0;
    input                       force_t;
@@ -222,7 +222,8 @@ module iuq_uc_cplbuffer(
    tri_rlmreg_p #(.WIDTH(buffer_depth_log+1), .INIT(0)) buffer_count_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ptr_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -245,7 +246,8 @@ module iuq_uc_cplbuffer(
        tri_rlmreg_p #(.WIDTH(buffer_width), .INIT(0)) buffer_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(buffer_act[i/(buffer_depth/2)]),		// only clock half of buffers at a time
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -263,7 +265,8 @@ module iuq_uc_cplbuffer(
        tri_rlmreg_p #(.WIDTH(xer_width), .INIT(0)) xer_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(cplbuffer_xer_act),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -284,7 +287,8 @@ module iuq_uc_cplbuffer(
    tri_rlmreg_p #(.WIDTH(buffer_depth_log), .INIT(0)) read_ptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ptr_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -302,7 +306,8 @@ module iuq_uc_cplbuffer(
    tri_rlmreg_p #(.WIDTH(buffer_depth_log), .INIT(0)) write_ptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ptr_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -320,7 +325,8 @@ module iuq_uc_cplbuffer(
    tri_rlmlatch_p #(.INIT(0)) new_command_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),

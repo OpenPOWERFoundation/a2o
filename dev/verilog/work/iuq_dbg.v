@@ -42,8 +42,8 @@ module iuq_dbg(
    inout                            vdd,
    inout                            gnd,
 
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]          nclk,
+   input                            clk,
+   input                            rst,
    input                            thold_2,   // Connect to slp if unit uses slp
    input                            pc_iu_sg_2,
    input                            clkoff_b,
@@ -156,7 +156,8 @@ module iuq_dbg(
    tri_rlmlatch_p #(.INIT(0)) trace_bus_enable_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(thold_0_b),
       .sg(pc_iu_sg_0),
@@ -174,7 +175,8 @@ module iuq_dbg(
    tri_rlmreg_p #(.WIDTH(11), .INIT(0)) debug_mux_ctrls_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(trace_bus_enable_q),
       .thold_b(thold_0_b),
       .sg(pc_iu_sg_0),
@@ -192,7 +194,8 @@ module iuq_dbg(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) trace_data_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(trace_bus_enable_q),
       .thold_b(thold_0_b),
       .sg(pc_iu_sg_0),
@@ -210,7 +213,8 @@ module iuq_dbg(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) coretrace_ctrls_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(trace_bus_enable_q),
       .thold_b(thold_0_b),
       .sg(pc_iu_sg_0),
@@ -231,7 +235,8 @@ module iuq_dbg(
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({thold_2, pc_iu_sg_2}),
       .q(  {thold_1, pc_iu_sg_1})
@@ -240,7 +245,8 @@ module iuq_dbg(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({thold_1, pc_iu_sg_1}),
       .q(  {thold_0, pc_iu_sg_0})

@@ -42,7 +42,8 @@
 module iuq_dec_top(
    inout                         vdd,
    inout                         gnd,
-   input [0:`NCLK_WIDTH-1]       nclk,
+   input                         clk,
+   input                         rst,
    input                         pc_iu_sg_2,
    input                         pc_iu_func_sl_thold_2,
    input                         clkoff_b,
@@ -301,7 +302,8 @@ module iuq_dec_top(
    iuq_idec  fx_dec0(
   		.vdd(vdd),
   		.gnd(gnd),
-  		.nclk(nclk),
+      .clk(clk),
+      .rst(rst),
   		.pc_iu_sg_2(pc_iu_sg_2),
   		.pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
   		.clkoff_b(clkoff_b),
@@ -444,7 +446,8 @@ module iuq_dec_top(
    iuq_idec  fx_dec1(
    	.vdd(vdd),
    	.gnd(gnd),
-   	.nclk(nclk),
+      .clk(clk),
+      .rst(rst),
    	.pc_iu_sg_2(pc_iu_sg_2),
    	.pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
    	.clkoff_b(clkoff_b),
@@ -587,7 +590,8 @@ module iuq_dec_top(
    iuq_axu_fu_dec  axu_dec0(
 	   .vdd(vdd),
 	   .gnd(gnd),
-	   .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
 	   .i_dec_si(scan_in[2]),
 	   .i_dec_so(scan_out[2]),
 	   .pc_iu_sg_2(pc_iu_sg_2),
@@ -649,7 +653,8 @@ module iuq_dec_top(
    iuq_axu_fu_dec  axu_dec1(
    	.vdd(vdd),
    	.gnd(gnd),
-   	.nclk(nclk),
+      .clk(clk),
+      .rst(rst),
    	.i_dec_si(scan_in[3]),
    	.i_dec_so(scan_out[3]),
    	.pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),

@@ -34,6 +34,9 @@
 // Use this line for 1 thread.  Comment out for 2 thread design.
 `define THREADS1
 
+// 0: none   1: DP
+`define FLOAT_TYPE 1
+
 `define  gpr_t  3'b000
 `define  cr_t  3'b001
 `define  lr_t  3'b010

@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -42,7 +42,8 @@
 module iuq_rn_top(
    inout                          vdd,
    inout                          gnd,
-   input [0:`NCLK_WIDTH-1]        nclk,
+   input                          clk,
+   input                          rst,
    input                          pc_iu_func_sl_thold_2,		// acts as reset for non-ibm types
    input                          pc_iu_sg_2,
    input                          clkoff_b,
@@ -435,7 +436,8 @@ module iuq_rn_top(
       iuq_rn  fx_rn0(
          .vdd(vdd),
          .gnd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
          .pc_iu_sg_2(pc_iu_sg_2),
          .clkoff_b(clkoff_b),
@@ -831,7 +833,8 @@ module iuq_rn_top(
       iuq_axu_fu_rn #(.FPR_POOL(`GPR_POOL), .FPR_UCODE_POOL(4), .FPSCR_POOL_ENC(5)) axu_rn0(
          .vdd(vdd),		// inout power_logic;
          .gnd(gnd),		// inout power_logic;
-         .nclk(nclk),		// in clk_logic;
+         .clk(clk),
+         .rst(rst),
          .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),		// in std_ulogic;                     acts as reset for non-ibm types
          .pc_iu_sg_2(pc_iu_sg_2),		// in std_ulogic;
          .clkoff_b(clkoff_b),		// in  std_ulogic; todo

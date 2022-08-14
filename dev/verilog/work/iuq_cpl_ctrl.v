@@ -36,7 +36,8 @@
 
 module iuq_cpl_ctrl(
    // Clocks
-   input [0:`NCLK_WIDTH-1]                   nclk,
+   input                                     clk,
+   input                                     rst,
 
    // Pervasive
    input                                     d_mode_dc,
@@ -3255,7 +3256,8 @@ assign select_lq =
    // Latch Instances
    //-----------------------------------------------
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-1), .INIT(0), .NEEDS_SRESET(1)) iu6_i0_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3273,7 +3275,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-1), .INIT(1), .NEEDS_SRESET(1)) iu6_i1_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3291,7 +3294,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp1_i0_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_complete),
@@ -3309,7 +3313,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(1), .INIT(1), .NEEDS_SRESET(1)) cp1_i0_ptr0_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_complete),
@@ -3327,7 +3332,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH((`CPL_Q_DEPTH - 1)), .INIT(0), .NEEDS_SRESET(1)) cp1_i0_ptr1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_complete),
@@ -3345,7 +3351,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp2_i0_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_i0_complete_q),
@@ -3363,7 +3370,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(1), .NEEDS_SRESET(1)) cp1_i1_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_complete),
@@ -3381,7 +3389,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(1), .NEEDS_SRESET(1)) cp1_i1_ptr0_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_complete),
@@ -3399,7 +3408,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH((`CPL_Q_DEPTH - 2)), .INIT(0), .NEEDS_SRESET(1)) cp1_i1_ptr1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_complete),
@@ -3417,7 +3427,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(1), .NEEDS_SRESET(1)) cp2_i1_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_i0_complete_q),
@@ -3435,7 +3446,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_async_int_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3453,7 +3465,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(32), .INIT(1), .NEEDS_SRESET(1)) cp2_async_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_async_int_val),
@@ -3471,7 +3484,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_completed_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3489,7 +3503,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_completed_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3507,7 +3522,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3525,7 +3541,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3543,7 +3560,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_n_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3561,7 +3579,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_n_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3579,7 +3598,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_bp_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3597,7 +3617,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_bp_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3615,7 +3636,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_br_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3633,7 +3655,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_br_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3651,7 +3674,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_br_miss_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3669,7 +3693,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_br_miss_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3687,7 +3712,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_db_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3705,7 +3731,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(19), .INIT(0), .NEEDS_SRESET(1)) cp2_i0_db_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_db_val),
@@ -3723,7 +3750,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_db_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3741,7 +3769,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(19), .INIT(0), .NEEDS_SRESET(1)) cp2_i1_db_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i1_db_val),
@@ -3759,7 +3788,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp2_i0_perf_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3777,7 +3807,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp2_i1_perf_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3795,7 +3826,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_flush2ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3813,7 +3845,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_flush2ucode_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3831,7 +3864,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_flush2ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3849,7 +3883,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_flush2ucode_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3867,7 +3902,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) cp2_i_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3885,7 +3921,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_iu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3903,7 +3940,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp2_i0_iu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_iu_excvec_val),
@@ -3921,7 +3959,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_iu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3939,7 +3978,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp2_i1_iu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i1_iu_excvec_val),
@@ -3957,7 +3997,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_lq_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -3975,7 +4016,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) cp2_i0_lq_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_lq_excvec_val),
@@ -3993,7 +4035,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_lq_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4011,7 +4054,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) cp2_i1_lq_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i1_lq_excvec_val),
@@ -4029,7 +4073,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_xu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4047,7 +4092,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) cp2_i0_xu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i0_xu_excvec_val),
@@ -4065,7 +4111,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_xu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4083,7 +4130,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) cp2_i1_xu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp1_i1_xu_excvec_val),
@@ -4101,7 +4149,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i0_axu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4119,7 +4168,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp2_i0_axu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),		// Has to be tiup because axu doesn't need a valid to have a exception
@@ -4137,7 +4187,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_i1_axu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4155,7 +4206,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp2_i1_axu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),		// Has to be tiup because axu doesn't need a valid to have a exception
@@ -4173,7 +4225,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_executed_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4191,7 +4244,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_dispatched_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4209,7 +4263,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_n_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(excvec_act),
@@ -4227,7 +4282,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(excvec_act),
@@ -4245,7 +4301,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_n_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(excvec_act),
@@ -4263,7 +4320,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_flush2ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(excvec_act),
@@ -4281,7 +4339,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_flush2ucode_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(excvec_act),
@@ -4304,7 +4363,8 @@ assign select_lq =
          for (i = 0; i <= `CPL_Q_DEPTH - 1; i = i + 1)
          begin : q_depth_gen
             tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp1_perf_events_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act),
@@ -4322,7 +4382,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_iu_excvec_val_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4340,7 +4401,8 @@ assign select_lq =
             );
 
             tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp1_iu_excvec_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4358,7 +4420,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_lq_excvec_val_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4376,7 +4439,8 @@ assign select_lq =
             );
 
             tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) cp1_lq_excvec_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4394,7 +4458,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_xu_excvec_val_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4412,7 +4477,8 @@ assign select_lq =
             );
 
             tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) cp1_xu_excvec_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4430,7 +4496,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_axu_excvec_val_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4448,7 +4515,8 @@ assign select_lq =
             );
 
             tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp1_axu_excvec_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4466,7 +4534,8 @@ assign select_lq =
             );
 
             tri_rlmreg_p #(.WIDTH(19), .INIT(0), .NEEDS_SRESET(1)) cp1_db_events_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4484,7 +4553,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_recirc_vld_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4502,7 +4572,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_async_block_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4520,7 +4591,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_is_br_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4538,7 +4610,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_br_add_chk_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4556,7 +4629,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_bp_pred_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4574,7 +4648,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_br_pred_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4592,7 +4667,8 @@ assign select_lq =
             );
 
             tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_br_miss_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(excvec_act_v[i]),
@@ -4613,7 +4689,8 @@ assign select_lq =
    endgenerate
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) cp1_br_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp0_br_bta_act),
@@ -4631,7 +4708,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp1_br_bta_v_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4649,7 +4727,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp1_br_bta_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp0_br_bta_act),
@@ -4667,7 +4746,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_dispatched_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4685,7 +4765,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_dispatched_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -4703,7 +4784,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) iu6_i0_ifar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4721,7 +4803,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) iu6_i0_ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4739,7 +4822,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_fuse_nop_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4757,7 +4841,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) iu6_i0_error_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4775,7 +4860,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_valop_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4793,7 +4879,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4811,7 +4898,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_rfgi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4829,7 +4917,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_rfci_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4847,7 +4936,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_rfmci_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4865,7 +4955,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_isync_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4883,7 +4974,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_sc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4901,7 +4993,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4919,7 +5012,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_sc_hyp_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4937,7 +5031,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_sc_ill_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4955,7 +5050,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_dcr_ill_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4973,7 +5069,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_attn_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -4991,7 +5088,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_ehpriv_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5009,7 +5107,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_folded_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5027,7 +5126,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_async_block_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5045,7 +5145,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_is_br_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5063,7 +5164,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_br_add_chk_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5081,7 +5183,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_bp_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5099,7 +5202,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_rollover_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5117,7 +5221,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_isram_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5135,7 +5240,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i0_match_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i0_act),
@@ -5153,7 +5259,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) iu6_i1_ifar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5171,7 +5278,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) iu6_i1_ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5189,7 +5297,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_fuse_nop_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5207,7 +5316,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) iu6_i1_error_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5225,7 +5335,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_valop_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5243,7 +5354,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5261,7 +5373,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_rfgi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5279,7 +5392,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_rfci_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5297,7 +5411,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_rfmci_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5315,7 +5430,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_isync_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5333,7 +5449,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_sc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5351,7 +5468,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5369,7 +5487,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_sc_hyp_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5387,7 +5506,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_sc_ill_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5405,7 +5525,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_dcr_ill_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5423,7 +5544,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_attn_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5441,7 +5563,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_ehpriv_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5459,7 +5582,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_folded_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5477,7 +5601,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_async_block_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5495,7 +5620,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_is_br_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5513,7 +5639,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_br_add_chk_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5531,7 +5658,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_bp_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5549,7 +5677,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_rollover_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5567,7 +5696,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_isram_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5585,7 +5715,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_i1_match_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(rn_cp_iu6_i1_act),
@@ -5603,7 +5734,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu6_uc_hold_rollover_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5621,7 +5753,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq0_execute_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5639,7 +5772,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) lq0_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),		// can gate if I use lq0_iu_execute_vld or lq0_iu_recirc_val
@@ -5657,7 +5791,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq0_n_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_execute_vld),
@@ -5675,7 +5810,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq0_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_execute_vld),
@@ -5693,7 +5829,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq0_dacr_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_execute_vld),
@@ -5711,7 +5848,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lq0_dacrw_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_execute_vld),
@@ -5729,7 +5867,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) lq0_instr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_execute_vld),
@@ -5747,7 +5886,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) lq0_eff_addr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_dear_val),
@@ -5767,7 +5907,8 @@ assign select_lq =
    assign lq0_exception_val_d = lq0_iu_execute_vld & lq0_iu_exception_val;
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq0_exception_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5785,7 +5926,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) lq0_exception_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_execute_vld),
@@ -5803,7 +5945,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq0_flush2ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_execute_vld),
@@ -5821,7 +5964,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq0_flush2ucode_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq0_iu_execute_vld),
@@ -5839,7 +5983,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq0_recirc_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5857,7 +6002,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq1_execute_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5875,7 +6021,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) lq1_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq1_iu_execute_vld),
@@ -5893,7 +6040,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq1_n_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq1_iu_execute_vld),
@@ -5911,7 +6059,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq1_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq1_iu_execute_vld),
@@ -5929,7 +6078,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq1_exception_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq1_iu_execute_vld),
@@ -5947,7 +6097,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) lq1_exception_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq1_iu_execute_vld),
@@ -5965,7 +6116,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq1_dacr_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq1_iu_execute_vld),
@@ -5983,7 +6135,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lq1_dacrw_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq1_iu_execute_vld),
@@ -6001,7 +6154,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lq1_perf_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(lq1_iu_execute_vld),
@@ -6019,7 +6173,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) br_perf_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(br_iu_execute_vld),
@@ -6037,7 +6192,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) axu0_perf_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6055,7 +6211,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) axu1_perf_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6073,7 +6230,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) br_execute_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6091,7 +6249,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) br_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(br_iu_execute_vld),
@@ -6109,7 +6268,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) br_taken_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(br_iu_execute_vld),
@@ -6128,7 +6288,8 @@ assign select_lq =
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) br_redirect_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),		// removed br_iu_execute_vld
@@ -6148,7 +6309,8 @@ assign select_lq =
    assign br_bta_d = {({`EFF_IFAR_ARCH-30{msr_cm_q}} & br_iu_bta[62 - `EFF_IFAR_ARCH:31]), br_iu_bta[32:61]};
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) br_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(br_iu_execute_vld),
@@ -6166,7 +6328,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_execute_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6184,7 +6347,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) xu_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(xu_iu_execute_vld),
@@ -6202,7 +6366,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_n_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(xu_iu_execute_vld),
@@ -6220,7 +6385,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(xu_iu_execute_vld),
@@ -6238,7 +6404,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_flush2ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(xu_iu_execute_vld),
@@ -6258,7 +6425,8 @@ assign select_lq =
    assign xu_exception_val_d = xu_iu_execute_vld & xu_iu_exception_val;
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_exception_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6276,7 +6444,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) xu_exception_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(xu_iu_execute_vld),
@@ -6294,7 +6463,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_mtiar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),		// removed xu_iu_execute_vld because used in branches
@@ -6312,7 +6482,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) xu_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(xu_iu_execute_vld),
@@ -6330,7 +6501,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) xu_perf_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(xu_iu_execute_vld),
@@ -6348,7 +6520,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu1_execute_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6366,7 +6539,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) xu1_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(xu1_iu_execute_vld),
@@ -6384,7 +6558,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu0_execute_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6402,7 +6577,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) axu0_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6420,7 +6596,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu0_n_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6438,7 +6615,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu0_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6456,7 +6634,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu0_n_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6474,7 +6653,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu0_flush2ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6492,7 +6672,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu0_flush2ucode_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6510,7 +6691,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu0_exception_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6528,7 +6710,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) axu0_exception_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu0_iu_execute_vld),
@@ -6546,7 +6729,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu1_execute_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6564,7 +6748,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) axu1_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6582,7 +6767,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu1_n_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6600,7 +6786,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu1_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6618,7 +6805,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu1_n_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6636,7 +6824,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu1_flush2ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6654,7 +6843,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu1_flush2ucode_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6672,7 +6862,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) axu1_exception_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6690,7 +6881,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) axu1_exception_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(axu1_iu_execute_vld),
@@ -6708,7 +6900,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_cp3_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6726,7 +6919,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_cp3_rfgi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6744,7 +6938,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_cp3_rfci_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6762,7 +6957,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_cp3_rfmci_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6780,7 +6976,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_cp4_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6798,7 +6995,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_cp4_rfgi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6816,7 +7014,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_cp4_rfci_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6834,7 +7033,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_xu_cp4_rfmci_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6852,7 +7052,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_ld_save_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6870,7 +7071,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_st_save_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6888,7 +7090,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_fp_save_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6906,7 +7109,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_ap_save_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6924,7 +7128,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_spv_save_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6942,7 +7147,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_epid_save_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6960,7 +7166,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_async_hold_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6978,7 +7185,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp2_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -6996,7 +7204,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7014,7 +7223,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7032,7 +7242,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7050,7 +7261,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_attn_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7068,7 +7280,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_sc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7086,7 +7299,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_icmp_block_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7104,7 +7318,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_flush2ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7122,7 +7337,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_flush2ucode_type_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7140,7 +7356,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_flush_nonspec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7158,7 +7375,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_mispredict_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7176,7 +7394,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_async_int_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7194,7 +7413,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) cp3_async_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7212,7 +7432,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_iu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7230,7 +7451,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp3_iu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7248,7 +7470,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_lq_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7266,7 +7489,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) cp3_lq_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7284,7 +7508,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_xu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7302,7 +7527,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) cp3_xu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7320,7 +7546,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_axu_excvec_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7338,7 +7565,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) cp3_axu_excvec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7356,7 +7584,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_db_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7374,7 +7603,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(19), .INIT(0), .NEEDS_SRESET(1)) cp3_db_events_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7392,7 +7622,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_ld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7410,7 +7641,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_st_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7428,7 +7660,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_fp_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7446,7 +7679,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_ap_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7464,7 +7698,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_spv_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7482,7 +7717,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_epid_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7500,7 +7736,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(19), .INIT(0), .NEEDS_SRESET(1)) cp3_ifar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7518,7 +7755,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_np1_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7536,7 +7774,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_ucode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7555,7 +7794,8 @@ assign select_lq =
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_preissue_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7584,7 +7824,8 @@ assign select_lq =
          begin : q_depth_gen
             if ((62-`EFF_IFAR_ARCH+i) > 31)
                tri_rlmlatch_p #(.INIT(`RESET_VECTOR>>(63-(62-`EFF_IFAR_ARCH+i))), .NEEDS_SRESET(1)) cp3_nia_a_latch(
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .vd(vdd),
                   .gd(gnd),
                   .act(cp3_nia_act),
@@ -7602,7 +7843,8 @@ assign select_lq =
                );
             else
                tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp3_nia_a_latch(
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .vd(vdd),
                   .gd(gnd),
                   .act(cp3_nia_act),
@@ -7623,7 +7865,8 @@ assign select_lq =
    endgenerate
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7641,7 +7884,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp5_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7659,7 +7903,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp6_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7677,7 +7922,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp7_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7695,7 +7941,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp8_rfi_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7713,7 +7960,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_exc_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7731,7 +7979,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) flush_hold_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7749,7 +7998,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_dp_cp_async_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7767,7 +8017,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_dp_cp_async_bus_snoop_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7785,7 +8036,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_async_np1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7803,7 +8055,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_async_n_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7821,7 +8074,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_pc_stop_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7839,7 +8093,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_stop_hold_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7857,7 +8112,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_mchk_disabled_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7875,7 +8131,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_mc_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7893,7 +8150,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_g_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7911,7 +8169,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_c_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7929,7 +8188,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_dbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7947,7 +8207,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_cdbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7965,7 +8226,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_gdbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -7983,7 +8245,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_gcdbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8001,7 +8264,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_gmcdbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8019,7 +8283,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_dbsr_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8037,7 +8302,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(19), .INIT(0), .NEEDS_SRESET(1)) cp4_dbsr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8055,7 +8321,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_eheir_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8073,7 +8340,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_esr_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8091,7 +8359,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(17), .INIT(0), .NEEDS_SRESET(1)) cp4_exc_esr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8109,7 +8378,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(15), .INIT(0), .NEEDS_SRESET(1)) cp4_exc_mcsr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8127,7 +8397,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_asyn_irpt_needed_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8145,7 +8416,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_asyn_icmp_needed_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8163,7 +8435,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) cp4_exc_nia_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp3_excvec_val),
@@ -8181,7 +8454,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp4_dear_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8199,7 +8473,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp_next_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8217,7 +8492,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_iu_init_reset_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8235,7 +8511,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_iu_np1_async_flush_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8253,7 +8530,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dp_cp_hold_req_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8271,7 +8549,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dp_cp_bus_snoop_hold_req_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8289,7 +8568,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) msr_de_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_msr_act),
@@ -8307,7 +8587,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) msr_pr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_msr_act),
@@ -8325,7 +8606,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) msr_cm_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_msr_act),
@@ -8343,7 +8625,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) msr_cm_noact_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8361,7 +8644,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) msr_gs_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_msr_act),
@@ -8379,7 +8663,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) msr_me_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_msr_act),
@@ -8397,7 +8682,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr0_edm_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8415,7 +8701,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr0_idm_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8433,7 +8720,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr0_icmp_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8451,7 +8739,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr0_brt_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8469,7 +8758,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr0_irpt_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8487,7 +8777,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr0_trap_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8505,7 +8796,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iac1_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8523,7 +8815,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iac2_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8541,7 +8834,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iac3_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8559,7 +8853,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iac4_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8577,7 +8872,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) dbcr0_dac1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8595,7 +8891,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) dbcr0_dac2_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8613,7 +8910,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) dbcr0_dac3_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8631,7 +8929,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) dbcr0_dac4_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8649,7 +8948,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr0_ret_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8667,7 +8967,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr1_iac12m_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8685,7 +8986,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr1_iac34m_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8703,7 +9005,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbcr3_ivc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8721,7 +9024,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epcr_extgs_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8739,7 +9043,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epcr_dtlbgs_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8757,7 +9062,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epcr_itlbgs_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8775,7 +9081,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epcr_dsigs_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8793,7 +9100,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epcr_isigs_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8811,7 +9119,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epcr_duvd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8829,7 +9138,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epcr_icm_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8847,7 +9157,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epcr_gicm_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8865,7 +9176,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ccr2_ucode_dis_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8883,7 +9195,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mmu_mode_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8901,7 +9214,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_iu_xucr4_mmu_mchk_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -8919,7 +9233,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_iu_ram_active_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8937,7 +9252,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_iu_ram_flush_thread_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8955,7 +9271,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_iu_msrovride_enab_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8973,7 +9290,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(1), .NEEDS_SRESET(1)) pc_iu_stop_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -8991,7 +9309,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_iu_step_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9009,7 +9328,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) spr_perf_mux_ctrls_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9027,7 +9347,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) pc_iu_dbg_action_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9045,7 +9366,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_iu_single_instr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -9063,7 +9385,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_single_issue_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -9081,7 +9404,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH-12), .INIT(0), .NEEDS_SRESET(1)) spr_ivpr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -9099,7 +9423,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH-12), .INIT(0), .NEEDS_SRESET(1)) spr_givpr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -9117,7 +9442,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) spr_iac1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -9135,7 +9461,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) spr_iac2_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -9153,7 +9480,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) spr_iac3_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -9171,7 +9499,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) spr_iac4_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(cp2_complete_act),
@@ -9189,7 +9518,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_pc_step_done_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9207,7 +9537,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) uncond_dbg_event_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9225,7 +9556,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) external_mchk_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9243,7 +9575,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ext_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9261,7 +9594,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dec_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9279,7 +9613,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) udec_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9297,7 +9632,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) perf_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9315,7 +9651,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) fit_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9333,7 +9670,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) crit_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9351,7 +9689,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) wdog_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9369,7 +9708,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) gwdog_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9387,7 +9727,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) gfit_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9405,7 +9746,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) gdec_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9423,7 +9765,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9441,7 +9784,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cdbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9459,7 +9803,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) gdbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9477,7 +9822,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) gcdbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9495,7 +9841,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) gmcdbell_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9513,7 +9860,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbsr_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9531,7 +9879,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) fex_int_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9549,7 +9898,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) async_delay_cnt_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9567,7 +9917,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_lq_recirc_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9585,7 +9936,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ext_dbg_stop_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9603,7 +9955,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ext_dbg_stop_other_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9621,7 +9974,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ext_dbg_act_err_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9639,7 +9993,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ext_dbg_act_ext_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9657,7 +10012,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbg_int_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9675,7 +10031,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dbg_event_en_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9693,7 +10050,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_i0_dispatched_delay_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9711,7 +10069,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`CPL_Q_DEPTH), .INIT(0), .NEEDS_SRESET(1)) cp1_i1_dispatched_delay_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9729,7 +10088,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu7_i0_is_folded_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9747,7 +10107,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu7_i1_is_folded_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9765,7 +10126,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) select_reset_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9783,7 +10145,8 @@ assign select_lq =
    );
 
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) xu_iu_rest_ifar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(select_reset),
@@ -9801,7 +10164,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) attn_hold_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9820,7 +10184,8 @@ assign select_lq =
    assign flush_delay_d = {flush_cond, flush_delay_q[0]};
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) flush_delay_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9838,7 +10203,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu_nonspec_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9856,7 +10222,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ierat_pt_fault_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9874,7 +10241,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ierat_lrat_miss_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9892,7 +10260,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ierat_tlb_inelig_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9910,7 +10279,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_multihit_err_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9928,7 +10298,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_par_err_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9946,7 +10317,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lru_par_err_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9964,7 +10336,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_miss_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -9982,7 +10355,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) reload_hit_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -10000,7 +10374,8 @@ assign select_lq =
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) nonspec_hit_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -10019,7 +10394,8 @@ assign select_lq =
 
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) cp_mm_except_taken_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -10038,7 +10414,8 @@ assign select_lq =
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) eheir_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -10059,7 +10436,8 @@ assign select_lq =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) perf_bus_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(func_sl_thold_0_b),
       .sg(sg_0),

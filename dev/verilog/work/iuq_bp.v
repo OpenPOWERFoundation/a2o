@@ -129,7 +129,8 @@ module iuq_bp(
    spr_single_issue,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_sg_2,
    pc_iu_func_sl_thold_2,
    clkoff_b,
@@ -277,8 +278,8 @@ module iuq_bp(
    //pervasive
    inout                         vdd;
    inout                         gnd;
-   (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]       nclk;
+   input                         clk;
+   input                         rst;
    input                         pc_iu_sg_2;
    input                         pc_iu_func_sl_thold_2;
    input                         clkoff_b;
@@ -1807,7 +1808,8 @@ generate
    tri_rlmreg_p #(.WIDTH(128), .INIT(0)) iu0_btb_hist_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu0_btb_hist_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1826,7 +1828,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu1_btb_hist_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1845,7 +1848,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu2_btb_hist_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1864,7 +1868,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) gshare_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(gshare_act[0]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1882,7 +1887,8 @@ generate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0)) gshare_shift0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1900,7 +1906,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) cp_gshare_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1918,7 +1925,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) cp_gs_count_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1936,7 +1944,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) cp_gs_taken_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1954,7 +1963,8 @@ generate
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu1_gs_pos_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1972,7 +1982,8 @@ generate
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu2_gs_pos_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1990,7 +2001,8 @@ generate
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu3_gs_pos_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2008,7 +2020,8 @@ generate
    tri_rlmreg_p #(.WIDTH(10), .INIT(0)) iu1_gshare_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2027,7 +2040,8 @@ generate
    tri_rlmreg_p #(.WIDTH(10), .INIT(0)) iu2_gshare_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2046,7 +2060,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu3_bh_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2065,7 +2080,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_lk_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2084,7 +2100,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_aa_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2103,7 +2120,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_b_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2122,7 +2140,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_bclr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2141,7 +2160,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_bcctr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2160,7 +2180,8 @@ generate
    tri_rlmreg_p #(.WIDTH(6), .INIT(0)) iu3_opcode_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2179,7 +2200,8 @@ generate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0)) iu3_bo_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2198,7 +2220,8 @@ generate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0)) iu3_bi_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2217,7 +2240,8 @@ generate
    tri_rlmreg_p #(.WIDTH(24), .INIT(0)) iu3_tar_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2236,7 +2260,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu3_ifar_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2255,7 +2280,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) iu3_ifar_pri_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2274,7 +2300,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_pr_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2292,7 +2319,8 @@ generate
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu3_lnk_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2311,7 +2339,8 @@ generate
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) iu3_btb_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2330,7 +2359,8 @@ generate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) iu3_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2349,7 +2379,8 @@ generate
    tri_rlmreg_p #(.WIDTH(61), .INIT(0)) iu3_0_instr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_instr_act[0]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2368,7 +2399,8 @@ generate
    tri_rlmreg_p #(.WIDTH(61), .INIT(0)) iu3_1_instr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_instr_act[1]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2387,7 +2419,8 @@ generate
    tri_rlmreg_p #(.WIDTH(61), .INIT(0)) iu3_2_instr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_instr_act[2]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2406,7 +2439,8 @@ generate
    tri_rlmreg_p #(.WIDTH(61), .INIT(0)) iu3_3_instr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_instr_act[3]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2425,7 +2459,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_btb_redirect_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2444,7 +2479,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_btb_misdirect_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2463,7 +2499,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu3_btb_link_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2482,7 +2519,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu3_nfg_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu3_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2501,7 +2539,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu4_redirect_ifar_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu4_redirect_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2520,7 +2559,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu4_redirect_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2539,7 +2579,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu4_ls_push_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2558,7 +2599,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu4_ls_pop_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2577,7 +2619,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu4_ifar_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu4_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2597,7 +2640,8 @@ generate
    tri_rlmreg_p #(.WIDTH(8), .INIT(128)) iu5_ls_t0_ptr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_ptr_act[0]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2615,7 +2659,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu5_ls_t00_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_t0_act[0]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2634,7 +2679,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu5_ls_t01_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_t0_act[1]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2653,7 +2699,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu5_ls_t02_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_t0_act[2]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2672,7 +2719,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu5_ls_t03_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_t0_act[3]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2691,7 +2739,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu5_ls_t04_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_t0_act[4]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2710,7 +2759,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu5_ls_t05_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_t0_act[5]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2729,7 +2779,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu5_ls_t06_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_t0_act[6]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2748,7 +2799,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) iu5_ls_t07_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(iu5_ls_t0_act[7]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2767,7 +2819,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex6_ls_t00_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_t0_act[0]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2786,7 +2839,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex6_ls_t01_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_t0_act[1]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2805,7 +2859,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex6_ls_t02_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_t0_act[2]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2824,7 +2879,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex6_ls_t03_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_t0_act[3]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2843,7 +2899,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex6_ls_t04_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_t0_act[4]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2862,7 +2919,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex6_ls_t05_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_t0_act[5]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2881,7 +2939,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex6_ls_t06_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_t0_act[6]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2900,7 +2959,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex6_ls_t07_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_t0_act[7]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2918,7 +2978,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2937,7 +2998,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex5_ifar_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2956,7 +3018,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_bh_update_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2975,7 +3038,8 @@ generate
    tri_rlmreg_p #(.WIDTH(10), .INIT(0)) ex5_gshare_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2994,7 +3058,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) ex5_bh0_hist_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3013,7 +3078,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) ex5_bh1_hist_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3032,7 +3098,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) ex5_bh2_hist_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3051,7 +3118,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_br_pred_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3070,7 +3138,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_br_taken_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3089,7 +3158,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_bcctr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3108,7 +3178,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_bclr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3127,7 +3198,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_getNIA_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3146,7 +3218,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_lk_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3165,7 +3238,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) ex5_bh_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3184,7 +3258,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) ex5_bta_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3203,7 +3278,8 @@ generate
    tri_rlmreg_p #(.WIDTH(8), .INIT(0)) ex5_ls_ptr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3222,7 +3298,8 @@ generate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) ex5_btb_hist_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3241,7 +3318,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_btb_entry_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3260,7 +3338,8 @@ generate
    tri_rlmreg_p #(.WIDTH(128), .INIT(0)) ex5_btb_repl_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex5_val_q),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3279,7 +3358,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_ls_push_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3298,7 +3378,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_ls_pop_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3317,7 +3398,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_group_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3335,7 +3417,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) ex5_flush_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3354,7 +3437,8 @@ generate
    tri_rlmreg_p #(.WIDTH(8), .INIT(128)) ex6_ls_t0_ptr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(ex6_ls_ptr_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3373,7 +3457,8 @@ generate
    tri_rlmreg_p #(.WIDTH(7), .INIT(0)) bp_config_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3392,7 +3477,8 @@ generate
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) br_iu_gshare_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3411,7 +3497,8 @@ generate
    tri_rlmreg_p #(.WIDTH(8), .INIT(0)) br_iu_ls_ptr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3430,7 +3517,8 @@ generate
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0)) br_iu_ls_data_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3449,7 +3537,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) br_iu_ls_update_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3468,7 +3557,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) br_iu_redirect_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3487,7 +3577,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) cp_flush_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3506,7 +3597,8 @@ generate
    tri_rlmlatch_p #(.INIT(0)) iu_flush_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3524,7 +3616,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) bcache_data0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(bcache_shift[0]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3542,7 +3635,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) bcache_data1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(bcache_shift[1]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3560,7 +3654,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) bcache_data2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(bcache_shift[2]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3578,7 +3673,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) bcache_data3_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(bcache_shift[3]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3596,7 +3692,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) bcache_data4_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(bcache_shift[4]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3614,7 +3711,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) bcache_data5_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(bcache_shift[5]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3633,7 +3731,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) bcache_data6_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(bcache_shift[6]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3651,7 +3750,8 @@ generate
    tri_rlmreg_p #(.WIDTH(16), .INIT(0)) bcache_data7_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(bcache_shift[7]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3675,22 +3775,22 @@ generate
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2,pc_iu_sg_2}),
       .q({pc_iu_func_sl_thold_1,pc_iu_sg_1})
    );
 
-
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1,pc_iu_sg_1}),
       .q({pc_iu_func_sl_thold_0,pc_iu_sg_0})
    );
-
 
    tri_lcbor  perv_lcbor(
       .clkoff_b(clkoff_b),

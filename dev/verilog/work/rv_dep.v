@@ -115,8 +115,8 @@ module rv_dep(
 	      //------------------------------------------------------------------------------------------------------------
 	      inout                         vdd,
 	      inout                         gnd,
-	      (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-	      input [0:`NCLK_WIDTH-1] 	 nclk,
+         input                         clk,
+         input                         rst,
 
 	      input                         func_sl_thold_1,
 	      input                         sg_1,
@@ -247,7 +247,8 @@ module rv_dep(
 
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .chip_b_sl_sg_0_t(sg_0),
       .chip_b_sl_2_thold_0_b(func_sl_thold_0_b),
       .force_t(force_t),
@@ -309,7 +310,8 @@ module rv_dep(
    tri_rlmreg_p #(.WIDTH(7), .INIT(0) ) xx_rv_itag_v_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(func_sl_thold_0_b),
       .sg(sg_0),
@@ -326,7 +328,8 @@ module rv_dep(
    tri_rlmreg_p #(.WIDTH(7), .INIT(0) ) xx_rv_itag_abort_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(func_sl_thold_0_b),
       .sg(sg_0),
@@ -344,7 +347,8 @@ module rv_dep(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-2), .INIT(0)) xx_rv_itag_ary0_q_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(func_sl_thold_0_b),
                .sg(sg_0),
@@ -361,7 +365,8 @@ module rv_dep(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-2), .INIT(0)) xx_rv_itag_ary1_q_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(func_sl_thold_0_b),
                .sg(sg_0),
@@ -378,7 +383,8 @@ module rv_dep(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-2), .INIT(0)) xx_rv_itag_ary2_q_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(func_sl_thold_0_b),
                .sg(sg_0),
@@ -395,7 +401,8 @@ module rv_dep(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-2), .INIT(0)) xx_rv_itag_ary3_q_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(func_sl_thold_0_b),
                .sg(sg_0),
@@ -412,7 +419,8 @@ module rv_dep(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-2), .INIT(0)) xx_rv_itag_ary4_q_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(func_sl_thold_0_b),
                .sg(sg_0),
@@ -429,7 +437,8 @@ module rv_dep(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-2), .INIT(0)) xx_rv_itag_ary5_q_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(func_sl_thold_0_b),
                .sg(sg_0),
@@ -446,7 +455,8 @@ module rv_dep(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC-2), .INIT(0)) xx_rv_itag_ary6_q_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(func_sl_thold_0_b),
                .sg(sg_0),
@@ -477,7 +487,8 @@ module rv_dep(
       tri_plat #(.WIDTH(2)) perv_1to0_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .flush(ccflush_dc),
          .din({func_sl_thold_1,sg_1}),
          .q({func_sl_thold_0,sg_0})

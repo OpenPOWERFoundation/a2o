@@ -60,8 +60,7 @@
 
 module a2owb (
 
-    input                            clk_1x,
-    input                            clk_2x,
+    input                            clk,
     input                            rst,
 
     input  [0:31]                    cfg_dat,
@@ -83,7 +82,6 @@ module a2owb (
     input  [31:0]                    wb_datr
 );
 
-wire   [0:`NCLK_WIDTH-1]         nclk;
 wire   [0:`THREADS-1]            an_ac_stcx_complete /*verilator public */;
 wire   [0:`THREADS-1]            an_ac_stcx_pass;
 wire                             an_ac_icbi_ack;
@@ -206,8 +204,6 @@ wire                             an_ac_hang_pulse;
 //wire                             ac_an_reset_3_request;
 //wire                             ac_an_reset_wd_request;
 
-assign nclk = {clk_1x, rst, clk_2x, 3'b00};
-
 assign mem_dat = 0;
 
 assign an_ac_chipid_dc = 4'h0;
@@ -251,7 +247,8 @@ assign an_ac_uncond_dbg_event = 0;
 
 
 c c0(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in(scan_in),
       .scan_out(),
 
@@ -379,7 +376,7 @@ c c0(
    );
 
 a2l2wb n0(
-      .clk(clk_1x),
+      .clk(clk),
       .rst(rst),
 
       .cfg_wr(cfg_wr),

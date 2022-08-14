@@ -36,7 +36,8 @@
 
 module iuq_cpl(
    // Clocks
-   input [0:`NCLK_WIDTH-1]       nclk,
+   input                         clk,
+   input                         rst,
 
    // Pervasive
    input                         tc_ac_ccflush_dc,
@@ -977,7 +978,8 @@ module iuq_cpl(
 
 
    iuq_cpl_ctrl iuq_cpl_ctrl(
-   	.nclk(nclk),
+   	.clk(clk),
+      .rst(rst),
    	.d_mode_dc(d_mode_dc),
    	.delay_lclkr_dc(delay_lclkr_dc),
    	.mpw1_dc_b(mpw1_dc_b),
@@ -1527,7 +1529,8 @@ module iuq_cpl(
    iuq_cpl_arr(		// bitwidth of ports
         .gnd(gnd),
         .vdd(vdd),
-        .nclk(nclk),
+        .clk(clk),
+        .rst(rst),
         .delay_lclkr_dc(delay_lclkr_dc),
         .mpw1_dc_b(mpw1_dc_b),
         .mpw2_dc_b(mpw2_dc_b),
@@ -1554,7 +1557,8 @@ module iuq_cpl(
    // Latch Instances
 
    tri_rlmreg_p #(.WIDTH(`XER_POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) xer_cp_p_latch(
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1578,7 +1582,8 @@ module iuq_cpl(
    tri_plat #(.WIDTH(3)) perv_2to1_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .flush(tc_ac_ccflush_dc),
    .din({func_sl_thold_2, func_slp_sl_thold_2, sg_2}),
    .q({func_sl_thold_1, func_slp_sl_thold_1, sg_1})
@@ -1587,7 +1592,8 @@ module iuq_cpl(
    tri_plat #(.WIDTH(3)) perv_1to0_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .flush(tc_ac_ccflush_dc),
    .din({func_sl_thold_1, func_slp_sl_thold_1, sg_1}),
    .q({func_sl_thold_0, func_slp_sl_thold_0, sg_0})

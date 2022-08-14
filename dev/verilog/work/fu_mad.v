@@ -14,23 +14,25 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
    `include "tri_a2o.vh"
 
 module fu_mad(
+   clk,
+   rst,
    f_dcd_ex7_cancel,
    f_dcd_ex1_bypsel_a_res0,
    f_dcd_ex1_bypsel_a_res1,
@@ -267,8 +269,7 @@ module fu_mad(
    mpw2_b,
    thold_1,
    sg_1,
-   fpu_enable,
-   nclk
+   fpu_enable
 );
    parameter           THREADS = 2;
    input               f_dcd_ex7_cancel;
@@ -537,6 +538,9 @@ module fu_mad(
    //--------------------------------------------------------------------------
    inout               vdd;
    inout               gnd;
+   input               clk;
+   input               rst;
+
    input [0:18]        scan_in;
    output [0:18]       scan_out;
    input               clkoff_b;		// tiup
@@ -548,9 +552,6 @@ module fu_mad(
    input               thold_1;
    input               sg_1;
    input               fpu_enable;
-   input  [0:`NCLK_WIDTH-1]              nclk;
-   // This entity contains macros
-
    parameter           tiup = 1'b1;
    parameter           tidn = 1'b0;
 
@@ -944,7 +945,8 @@ module fu_mad(
       //--------------------------------------------------------- -- fuq_byp.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1102,7 +1104,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_fmt.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1217,7 +1220,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_eie.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1261,7 +1265,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_eov.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1317,7 +1322,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_mul.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1345,7 +1351,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_alg.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1406,7 +1413,8 @@ module fu_mad(
       //----------------------------------------------------------- fuq_sa3.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1435,7 +1443,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_add.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1479,7 +1488,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_lze.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1520,7 +1530,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_lza.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1559,7 +1570,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_nrm.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1604,7 +1616,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_rnd.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1712,7 +1725,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_gst.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1743,7 +1757,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_divsqrt.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -1836,7 +1851,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_pic.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -2090,7 +2106,8 @@ module fu_mad(
       //----------------------------------------------------------- fu_cr2.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -2136,7 +2153,8 @@ module fu_mad(
       //----------------------------------------------------------- fuq_scr.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -2249,7 +2267,8 @@ module fu_mad(
       //----------------------------------------------------------- fuq_tblexp.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--
@@ -2286,7 +2305,8 @@ module fu_mad(
       //----------------------------------------------------------- fuq_tbllut.vhdl
       .vdd(vdd),		//i--
       .gnd(gnd),		//i--
-      .nclk(nclk),		//i--
+      .clk(clk),
+	.rst(rst),		//i--
       .clkoff_b(clkoff_b),		//i--
       .act_dis(act_dis),		//i--
       .flush(flush),		//i--

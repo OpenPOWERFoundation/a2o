@@ -34,7 +34,8 @@
 `include "tri_a2o.vh"
 module xu_alu_cmp(
    // Clocks
-   input [0:`NCLK_WIDTH-1] nclk,
+   input                   clk,
+   input                   rst,
 
    // Power
    inout                   vdd,
@@ -167,7 +168,8 @@ module xu_alu_cmp(
 
    // Latch Instances
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_msb_64b_sel_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -185,7 +187,8 @@ module xu_alu_cmp(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_msb_64b_sel_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -203,7 +206,8 @@ module xu_alu_cmp(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_diff_sign_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -221,7 +225,8 @@ module xu_alu_cmp(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_rs1_trm1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -239,7 +244,8 @@ module xu_alu_cmp(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_rs2_trm1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -257,7 +263,8 @@ module xu_alu_cmp(
    );
 
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex3_instr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -275,7 +282,8 @@ module xu_alu_cmp(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_sel_trap_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -293,7 +301,8 @@ module xu_alu_cmp(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_sel_cmpl_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -311,7 +320,8 @@ module xu_alu_cmp(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_sel_cmp_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),

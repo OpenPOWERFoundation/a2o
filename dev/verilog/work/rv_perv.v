@@ -39,9 +39,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
 
    inout        vdd,
    inout        gnd,
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1] nclk,
-
+   input        clk,
+   input        rst,
    input 		 rp_rv_ccflush_dc,
    input 		 rp_rv_func_sl_thold_3,
    input 		 rp_rv_gptr_sl_thold_3,
@@ -187,7 +186,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    perv_3to2_reg(
 		 .vd(vdd),
 		 .gd(gnd),
-		 .nclk(nclk),
+		 .clk(clk),
+       .rst(rst),
 		 .flush(rp_rv_ccflush_dc),
 		 .din({rp_rv_func_sl_thold_3, rp_rv_gptr_sl_thold_3, rp_rv_sg_3, rp_rv_fce_3}),
 		 .q({func_sl_thold_2, gptr_sl_thold_2, sg_2, fce_2})
@@ -198,7 +198,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    perv_2to1_reg(
 		 .vd(vdd),
 		 .gd(gnd),
-		 .nclk(nclk),
+		 .clk(clk),
+       .rst(rst),
 		 .flush(rp_rv_ccflush_dc),
 		 .din({func_sl_thold_2, gptr_sl_thold_2, sg_2, fce_2}),
 		 .q({func_sl_thold_1_int, gptr_sl_thold_1, sg_1_int, fce_1})
@@ -212,7 +213,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    perv_1to0_reg(
 		 .vd(vdd),
 		 .gd(gnd),
-		 .nclk(nclk),
+		 .clk(clk),
+       .rst(rst),
 		 .flush(rp_rv_ccflush_dc),
 		 .din({gptr_sl_thold_1 , func_sl_thold_1_int, sg_1_int}),
 		 .q({gptr_sl_thold_0,  func_sl_thold_0, sg_0})
@@ -245,7 +247,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
 		 .vdd(vdd),
 		 .gnd(gnd),
 		 .sg(sg_0),
-		 .nclk(nclk),
+		 .clk(clk),
+	.rst(rst),
 		 .scan_in(gptr_scan_in),
 		 .scan_diag_dc(an_ac_scan_diag_dc),
 		 .thold(gptr_sl_thold_0),
@@ -264,7 +267,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
 		 .vdd(vdd),
 		 .gnd(gnd),
 		 .sg(sg_0),
-		 .nclk(nclk),
+		 .clk(clk),
+	.rst(rst),
 		 .scan_in(gptr_sio),
 		 .scan_diag_dc(an_ac_scan_diag_dc),
 		 .thold(gptr_sl_thold_0),
@@ -369,7 +373,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    debug_bus_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(trc_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -387,7 +392,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    debug_mux_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(trc_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -405,7 +411,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    event_bus_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(evt_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -423,7 +430,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    event_count_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(evt_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -441,7 +449,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    spr_msr_gs_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(evt_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -459,7 +468,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    spr_msr_pr_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(evt_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -477,7 +487,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    event_mux_ctrls_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(evt_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -495,7 +506,8 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    core_trace_ctrls_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(trc_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),

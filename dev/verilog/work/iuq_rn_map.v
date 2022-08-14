@@ -46,7 +46,8 @@ module iuq_rn_map #(
    (
    inout                                                       vdd,
    inout                                                       gnd,
-   input [0:`NCLK_WIDTH-1]                                     nclk,
+   input                                                       clk,
+   input                                                       rst,
    input                                                       pc_iu_func_sl_thold_0_b,		// acts as reset for non-ibm types
    input                                                       pc_iu_sg_0,
    input                                                       force_t,
@@ -451,7 +452,8 @@ module iuq_rn_map #(
 	   		tri_rlmreg_p #(.WIDTH(STORAGE_WIDTH), .INIT(i)) comp_map_latch(
             	.vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(comp_map_act),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -478,7 +480,8 @@ module iuq_rn_map #(
             tri_rlmreg_p #(.WIDTH(STORAGE_WIDTH), .INIT(i)) spec_map_arc_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(spec_map_arc_act),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -497,7 +500,8 @@ module iuq_rn_map #(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(i)) spec_map_itag_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(spec_map_itag_act),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -524,7 +528,8 @@ module iuq_rn_map #(
             tri_rlmreg_p #(.WIDTH(STORAGE_WIDTH), .INIT((i + ARCHITECTED_REGISTER_DEPTH))) buffer_pool_latch0(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(buffer_pool_act[i]),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -546,7 +551,8 @@ module iuq_rn_map #(
    tri_rlmreg_p #(.WIDTH(STORAGE_WIDTH), .INIT(0)) read_ptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(read_ptr_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -565,7 +571,8 @@ module iuq_rn_map #(
    tri_rlmreg_p #(.WIDTH(STORAGE_WIDTH), .INIT(0)) write_ptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(write_ptr_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -584,7 +591,8 @@ module iuq_rn_map #(
    tri_rlmreg_p #(.WIDTH(STORAGE_WIDTH), .INIT(REGISTER_RENAME_DEPTH - ARCHITECTED_REGISTER_DEPTH)) free_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(free_cnt_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -603,7 +611,8 @@ module iuq_rn_map #(
    tri_rlmlatch_p #(.INIT(0)) pool_free_0_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -622,7 +631,8 @@ module iuq_rn_map #(
    tri_rlmreg_p #(.WIDTH(STORAGE_WIDTH), .INIT(0)) pool_free_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -641,7 +651,8 @@ module iuq_rn_map #(
    tri_rlmlatch_p #(.INIT(0)) pool_free_1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -660,7 +671,8 @@ module iuq_rn_map #(
    tri_rlmreg_p #(.WIDTH(STORAGE_WIDTH), .INIT(0)) pool_free_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),

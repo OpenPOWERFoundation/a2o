@@ -42,7 +42,8 @@
 module iuq_uc_rom_odd(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_func_sl_thold_0_b,
    pc_iu_sg_0,
    force_t,
@@ -60,11 +61,9 @@ module iuq_uc_rom_odd(
 
 
    inout                    vdd;
-
    inout                    gnd;
-
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]  nclk;
+   input                    clk;
+   input                    rst;
    input                    pc_iu_func_sl_thold_0_b;
    input                    pc_iu_sg_0;
    input                    force_t;
@@ -2015,7 +2014,8 @@ assign ep =
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(0)) rom_addr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(rom_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),

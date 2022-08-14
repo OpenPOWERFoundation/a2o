@@ -35,15 +35,12 @@
 
 `include "tri_a2o.vh"
 
-
-
-
-
 module lq_derat(
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    pc_xu_init_reset,
    pc_xu_ccflush_dc,
    tc_scan_dis_dc_b,
@@ -225,17 +222,11 @@ module lq_derat(
 
 
    inout                             gnd;
-
-
    inout                             vdd;
-
-
    inout                             vcs;
 
-
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-   input [0:`NCLK_WIDTH-1]           nclk;
+   input                             clk;
+   input                             rst;
    input                             pc_xu_init_reset;
    input                             pc_xu_ccflush_dc;
    input                             tc_scan_dis_dc_b;
@@ -4345,7 +4336,8 @@ module lq_derat(
       .gnd(gnd),
       .vdd(vdd),
       .vcs(vcs),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
 
       .tc_ccflush_dc(pc_xu_ccflush_dc),
       .tc_scan_dis_dc_b(tc_scan_dis_dc_b),
@@ -4867,7 +4859,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_hv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4885,7 +4878,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_pr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4903,7 +4897,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_ds_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4921,7 +4916,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_cm_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4939,7 +4935,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_ccr2_notlb_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4957,7 +4954,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mchk_flash_inv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mchk_flash_inv_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4975,7 +4973,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(1), .NEEDS_SRESET(1)) xucr4_mmu_mchk_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4993,7 +4992,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_next_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5017,7 +5017,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) cp_next_itag_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -5039,7 +5040,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH(64), .INIT(0), .NEEDS_SRESET(1)) rpn_holdreg_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -5060,7 +5062,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_byte_rev_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5078,7 +5081,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_byte_rev_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5096,7 +5100,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5114,7 +5119,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex1_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5132,7 +5138,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5150,7 +5157,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_pfetch_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5168,7 +5176,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex2_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5186,7 +5195,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex2_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5204,7 +5214,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex2_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5223,7 +5234,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(rs_is_width), .INIT(0), .NEEDS_SRESET(1)) ex2_rs_is_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5241,7 +5253,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex2_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5259,7 +5272,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex2_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5277,7 +5291,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex2_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5295,7 +5310,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex2_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5313,7 +5329,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex2_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5332,7 +5349,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) ex2_data_in_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex1_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5351,7 +5369,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5369,7 +5388,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_pfetch_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5387,7 +5407,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex3_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5405,7 +5426,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex3_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5423,7 +5445,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex3_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5441,7 +5464,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(rs_is_width), .INIT(0), .NEEDS_SRESET(1)) ex3_rs_is_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5459,7 +5483,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex3_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5477,7 +5502,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex3_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5495,7 +5521,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex3_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5513,7 +5540,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex3_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5531,7 +5559,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex3_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5550,7 +5579,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5568,7 +5598,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_pfetch_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5586,7 +5617,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex4_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5604,7 +5636,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex4_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5622,7 +5655,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex4_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5640,7 +5674,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(rs_is_width), .INIT(0), .NEEDS_SRESET(1)) ex4_rs_is_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5658,7 +5693,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex4_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5676,7 +5712,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex4_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5694,7 +5731,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex4_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5712,7 +5750,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(lpid_width), .INIT(0), .NEEDS_SRESET(1)) ex4_lpid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5730,7 +5769,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex4_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5748,7 +5788,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex4_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5767,7 +5808,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5785,7 +5827,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_pfetch_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5803,7 +5846,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex5_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5821,7 +5865,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex5_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5839,7 +5884,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex5_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5857,7 +5903,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(rs_is_width), .INIT(0), .NEEDS_SRESET(1)) ex5_rs_is_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5875,7 +5922,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex5_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5893,7 +5941,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex5_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5911,7 +5960,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex5_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5929,7 +5979,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(lpid_width), .INIT(0), .NEEDS_SRESET(1)) ex5_lpid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5947,7 +5998,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex5_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5965,7 +6017,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex5_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5984,7 +6037,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex6_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6002,7 +6056,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex6_pfetch_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6020,7 +6075,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex6_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6038,7 +6094,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex6_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6056,7 +6113,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex6_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6074,7 +6132,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(rs_is_width), .INIT(0), .NEEDS_SRESET(1)) ex6_rs_is_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6092,7 +6151,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex6_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6110,7 +6170,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex6_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6128,7 +6189,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex6_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6146,7 +6208,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex6_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6164,7 +6227,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex6_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex5_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6183,7 +6247,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex7_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6201,7 +6266,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex7_pfetch_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6219,7 +6285,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex7_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6237,7 +6304,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ex7_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6255,7 +6323,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(rs_is_width), .INIT(0), .NEEDS_SRESET(1)) ex7_rs_is_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6273,7 +6342,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex7_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6291,7 +6361,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(state_width), .INIT(0), .NEEDS_SRESET(1)) ex7_state_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6309,7 +6380,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(pid_width), .INIT(0), .NEEDS_SRESET(1)) ex7_pid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6327,7 +6399,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(extclass_width), .INIT(0), .NEEDS_SRESET(1)) ex7_extclass_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6345,7 +6418,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex7_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex6_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6364,7 +6438,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex8_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6382,7 +6457,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex8_pfetch_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6400,7 +6476,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ttype_width), .INIT(0), .NEEDS_SRESET(1)) ex8_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6418,7 +6495,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(tlbsel_width), .INIT(0), .NEEDS_SRESET(1)) ex8_tlbsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6437,7 +6515,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) ex5_data_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6455,7 +6534,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_req_inprogress_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6473,7 +6553,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((7+(2*`THREADS)+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_dsi_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6491,7 +6572,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((7+(2*`THREADS)+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_noop_touch_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6509,7 +6591,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_miss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6527,7 +6610,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((7+(2*`THREADS)+1)), .INIT(0), .NEEDS_SRESET(1)) ex4_dsi_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6545,7 +6629,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((7+(2*`THREADS)+1)), .INIT(0), .NEEDS_SRESET(1)) ex4_noop_touch_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6563,7 +6648,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_multihit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6581,7 +6667,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(num_entry), .INIT(0), .NEEDS_SRESET(1)) ex4_multihit_b_pt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6599,7 +6686,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((num_entry-1)), .INIT(0), .NEEDS_SRESET(1)) ex4_first_hit_entry_pt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6617,7 +6705,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((`THREADS+2)), .INIT(0), .NEEDS_SRESET(1)) ex4_parerr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6635,7 +6724,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex4_attr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6653,7 +6743,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_cam_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6671,7 +6762,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6689,7 +6781,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) ex3_debug_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6707,7 +6800,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(17), .INIT(0), .NEEDS_SRESET(1)) ex4_debug_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6725,7 +6819,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) rw_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6743,7 +6838,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rw_entry_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6761,7 +6857,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rw_entry_le_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6779,7 +6876,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) cam_entry_le_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(rw_entry_val_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6797,7 +6895,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(30), .INIT(0), .NEEDS_SRESET(1)) ex3_comp_addr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6815,7 +6914,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(30), .INIT(0), .NEEDS_SRESET(1)) ex4_rpn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6833,7 +6933,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ex4_wimge_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6851,7 +6952,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(cam_data_width), .INIT(0), .NEEDS_SRESET(1)) ex4_cam_cmp_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_cmp_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6869,7 +6971,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(array_data_width), .INIT(0), .NEEDS_SRESET(1)) ex4_array_cmp_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_cmp_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6887,7 +6990,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(array_data_width), .INIT(0), .NEEDS_SRESET(1)) ex4_rd_array_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_rd_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6905,7 +7009,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(cam_data_width), .INIT(0), .NEEDS_SRESET(1)) ex4_rd_cam_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_rd_data_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6923,7 +7028,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((`THREADS+5)), .INIT(0), .NEEDS_SRESET(1)) ex5_parerr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6941,7 +7047,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((`THREADS+3)), .INIT(0), .NEEDS_SRESET(1)) ex5_fir_parerr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6959,7 +7066,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_fir_multihit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6977,7 +7085,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((`THREADS+num_entry_log2-1+1)), .INIT(0), .NEEDS_SRESET(1)) ex5_deen_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -6995,7 +7104,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7013,7 +7123,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((`THREADS+num_entry_log2)), .INIT(0), .NEEDS_SRESET(1)) ex6_deen_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7031,7 +7142,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7049,7 +7161,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((`THREADS+num_entry_log2)), .INIT(0), .NEEDS_SRESET(1)) ex7_deen_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7067,7 +7180,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7085,7 +7199,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) barrier_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7103,7 +7218,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) mmucr1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7127,7 +7243,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH(64), .INIT(0), .NEEDS_SRESET(1)) rpn_holdreg_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -7149,7 +7266,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) entry_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(entry_valid_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7167,7 +7285,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) entry_match_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(entry_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7185,7 +7304,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(watermark_width), .INIT(29), .NEEDS_SRESET(1)) watermark_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7203,7 +7323,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mmucr1_b0_cpy_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7221,7 +7342,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((lru_width+1)), .INIT(0), .NEEDS_SRESET(1)) lru_rmt_vec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7239,7 +7361,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(eptr_width), .INIT(0), .NEEDS_SRESET(1)) eptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7257,7 +7380,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(lru_width), .INIT(0), .NEEDS_SRESET(1)) lru_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7275,7 +7399,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) lru_update_event_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7294,7 +7419,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(41), .INIT(0), .NEEDS_SRESET(1)) lru_debug_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7312,7 +7438,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) snoop_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7330,7 +7457,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(26), .INIT(0), .NEEDS_SRESET(1)) snoop_attr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(snoop_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7348,7 +7476,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((epn_width)), .INIT(0), .NEEDS_SRESET(1)) snoop_addr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(snoop_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7366,7 +7495,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((51-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_epn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex2_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7384,7 +7514,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((51-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) ex4_epn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7402,7 +7533,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((51-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) ex5_epn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7420,7 +7552,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) por_seq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7438,7 +7571,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_xu_init_reset_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7457,7 +7591,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) tlb_rel_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7475,7 +7610,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(132), .INIT(0), .NEEDS_SRESET(1)) tlb_rel_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tlb_rel_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7493,7 +7629,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) tlb_rel_emq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tlb_rel_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7511,7 +7648,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((2*`THREADS+1)), .INIT(0), .NEEDS_SRESET(1)) eplc_wr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7529,7 +7667,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((2*`THREADS+1)), .INIT(0), .NEEDS_SRESET(1)) epsc_wr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7547,7 +7686,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(12), .INIT(0), .NEEDS_SRESET(1)) ccr2_frat_paranoia_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7565,7 +7705,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) clkg_ctl_override_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7583,7 +7724,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7601,7 +7743,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7619,7 +7762,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7637,7 +7781,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7655,7 +7800,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7673,7 +7819,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_stg_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7691,7 +7838,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_rel_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7709,7 +7857,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) snoopp_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7727,7 +7876,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) an_ac_grffence_en_dc_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7745,7 +7895,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) spare_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7763,7 +7914,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) spare_b_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7781,7 +7933,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) csync_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7799,7 +7952,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) isync_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7817,7 +7971,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) rel_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7835,7 +7990,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7853,7 +8009,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(132), .INIT(0), .NEEDS_SRESET(1)) rel_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tlb_rel_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7871,7 +8028,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) rel_emq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tlb_rel_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7889,7 +8047,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) rel_int_upd_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tlb_rel_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7907,7 +8066,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) epsc_wr_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7925,7 +8085,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) eplc_wr_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7943,7 +8104,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv1_binv_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7961,7 +8123,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) snoopp_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7979,7 +8142,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(26), .INIT(0), .NEEDS_SRESET(1)) snoopp_attr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(snoopp_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -7997,7 +8161,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH((epn_width)), .INIT(0), .NEEDS_SRESET(1)) snoopp_vpn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(snoopp_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8015,7 +8180,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ttype_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8033,7 +8199,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8051,7 +8218,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(ws_width), .INIT(0), .NEEDS_SRESET(1)) ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8069,7 +8237,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8087,7 +8256,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) rs_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8105,7 +8275,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) eratre_hole_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8123,7 +8294,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) eratwe_hole_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8141,7 +8313,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv1_csync_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8159,7 +8332,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_csync_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8177,7 +8351,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv1_isync_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8195,7 +8370,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_isync_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8213,7 +8389,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) rv1_rel_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8231,7 +8408,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ex0_rel_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8249,7 +8427,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ex1_rel_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8267,7 +8446,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv1_epsc_wr_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8285,7 +8465,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_epsc_wr_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8303,7 +8484,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv1_eplc_wr_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8321,7 +8503,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_eplc_wr_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8339,7 +8522,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_binv_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8357,7 +8541,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_binv_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8375,7 +8560,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv1_snoop_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8393,7 +8579,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_snoop_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8411,7 +8598,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_snoop_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8429,7 +8617,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv1_ttype_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8447,7 +8636,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_ttype_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8465,7 +8655,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) rv1_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8483,7 +8674,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ex0_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8501,7 +8693,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ex1_ttype03_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8519,7 +8712,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex1_ttype67_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8537,7 +8731,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_valid_op_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8555,7 +8750,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_valid_op_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8573,7 +8769,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_valid_op_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8591,7 +8788,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_valid_op_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8609,7 +8807,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_valid_op_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8627,7 +8826,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex6_valid_op_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8645,7 +8845,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex7_valid_op_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8663,7 +8864,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex8_valid_op_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8681,7 +8883,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq_xu_ord_write_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8699,7 +8902,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq_xu_ord_read_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8717,7 +8921,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_lq_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8735,7 +8940,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) xu_lq_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8753,7 +8959,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_lq_is_eratre_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_lq_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8771,7 +8978,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_lq_is_eratwe_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_lq_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8789,7 +8997,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_lq_is_eratsx_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_lq_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8807,7 +9016,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_lq_is_eratilx_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_lq_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8825,7 +9035,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) xu_lq_ws_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_lq_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8843,7 +9054,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) xu_lq_ra_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_lq_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8861,7 +9073,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(2**`GPR_WIDTH_ENC), .INIT(0), .NEEDS_SRESET(1)) xu_lq_rs_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_lq_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8879,7 +9092,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8897,7 +9111,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_oldest_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex3_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8915,7 +9130,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_nonspec_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8933,7 +9149,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_tlbmiss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8951,7 +9168,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_tlbinelig_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8969,7 +9187,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_ptfault_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -8987,7 +9206,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_lratmiss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9005,7 +9225,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_tlb_multihit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9023,7 +9244,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_tlb_par_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9041,7 +9263,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_lru_par_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9059,7 +9282,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_tlb_excp_det_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9077,7 +9301,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ex3_eratm_itag_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9095,7 +9320,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ex4_emq_excp_rpt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9113,7 +9339,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ex5_emq_excp_rpt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9131,7 +9358,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ex6_emq_excp_rpt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9149,7 +9377,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_tlb_excp_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9167,7 +9396,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex6_tlb_excp_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9185,7 +9415,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_gate_miss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9203,7 +9434,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_full_restart_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9221,7 +9453,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_itag_hit_restart_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9239,7 +9472,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_epn_hit_restart_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9257,7 +9491,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_setHold_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9275,7 +9510,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_tlbreq_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9293,7 +9529,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_tlbreq_nonspec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9311,7 +9548,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_thdid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9329,7 +9567,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ex5_emq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9347,7 +9586,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex5_tlbreq_ttype_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9365,7 +9605,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_perf_dtlb_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ex4_stg_act_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9383,7 +9624,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) derat_dcc_clr_hold_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9408,7 +9650,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_state_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -9430,7 +9673,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_itag_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(ex4_entry_wrt_val[emq]),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -9452,7 +9696,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_tid_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(ex4_entry_wrt_val[emq]),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -9474,7 +9719,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH((51-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_epn_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(ex4_entry_wrt_val[emq]),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -9501,7 +9747,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_itag_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(ex4_entry_wrt_val[emq]),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -9529,7 +9776,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_tid_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(ex4_entry_wrt_val[emq]),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -9557,7 +9805,8 @@ module lq_derat(
             tri_rlmreg_p #(.WIDTH((51-(64-(2**GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_epn_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(ex4_entry_wrt_val[emq]),
                .thold_b(pc_func_slp_sl_thold_0_b),
                .sg(pc_sg_0),
@@ -9579,7 +9828,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_nonspec_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9597,7 +9847,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_mkill_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9615,7 +9866,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) eratm_hold_tid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9633,7 +9885,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) mm_int_rpt_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9651,7 +9904,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_int_rpt_tlbmiss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9669,7 +9923,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_int_rpt_tlbinelig_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9687,7 +9942,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_int_rpt_ptfault_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9705,7 +9961,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_int_rpt_lratmiss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9723,7 +9980,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_int_rpt_tlb_multihit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9741,7 +9999,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_int_rpt_tlb_par_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9759,7 +10018,8 @@ module lq_derat(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_int_rpt_lru_par_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9777,7 +10037,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_tlbmiss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9795,7 +10056,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_tlbinelig_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9813,7 +10075,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_ptfault_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9831,7 +10094,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_lratmiss_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9849,7 +10113,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_tlb_multihit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9867,7 +10132,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_tlb_par_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -9885,7 +10151,8 @@ module lq_derat(
    tri_rlmreg_p #(.WIDTH(`EMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) eratm_entry_lru_par_err_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -10033,7 +10300,8 @@ module lq_derat(
    tri_plat #(.WIDTH(4)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_xu_ccflush_dc),
       .din({pc_func_sl_thold_2, pc_func_slp_sl_thold_2, pc_cfg_slp_sl_thold_2, pc_sg_2}),
       .q({pc_func_sl_thold_1, pc_func_slp_sl_thold_1, pc_cfg_slp_sl_thold_1, pc_sg_1})
@@ -10042,7 +10310,8 @@ module lq_derat(
    tri_plat #(.WIDTH(4)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_xu_ccflush_dc),
       .din({pc_func_sl_thold_1, pc_func_slp_sl_thold_1, pc_cfg_slp_sl_thold_1, pc_sg_1}),
       .q({pc_func_sl_thold_0, pc_func_slp_sl_thold_0, pc_cfg_slp_sl_thold_0, pc_sg_0})
@@ -10074,7 +10343,8 @@ module lq_derat(
             .vd(vdd),
             .gd(gnd),
             .delay_lclkr(lcb_delay_lclkr_dc[0]),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .force_t(pc_cfg_slp_sl_force),
             .thold_b(pc_cfg_slp_sl_thold_0_b),
             .dclk(lcb_dclk),

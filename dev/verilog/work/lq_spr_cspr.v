@@ -37,7 +37,8 @@ module lq_spr_cspr
 )(
 
    (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-   input [0:`NCLK_WIDTH-1]    nclk,
+   input                      clk,
+   input                      rst,
 
    input                      d_mode_dc,
    input                      delay_lclkr_dc,
@@ -864,7 +865,8 @@ assign cspr_tspr_msr_gs = msr_gs_q;
 generate
 	if (a2mode == 1) begin : dac1_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) dac1_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dac1_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -884,7 +886,8 @@ endgenerate
 generate
 	if (a2mode == 1) begin : dac2_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) dac2_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dac2_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -902,7 +905,8 @@ generate
 	end
 endgenerate
      tri_ser_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) dac3_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dac3_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -915,7 +919,8 @@ endgenerate
         .dout(dac3_q)
      );
      tri_ser_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) dac4_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dac4_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -930,7 +935,8 @@ endgenerate
 generate
 	if (a2mode == 1) begin : dvc1_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) dvc1_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dvc1_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -950,7 +956,8 @@ endgenerate
 generate
 	if (a2mode == 1) begin : dvc2_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) dvc2_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dvc2_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -968,7 +975,8 @@ generate
 	end
 endgenerate
      tri_ser_rlmreg_p #(.WIDTH(24), .INIT(0), .NEEDS_SRESET(1)) lesr1_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(lesr1_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -981,7 +989,8 @@ endgenerate
         .dout(lesr1_q)
      );
      tri_ser_rlmreg_p #(.WIDTH(24), .INIT(0), .NEEDS_SRESET(1)) lesr2_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(lesr2_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -995,7 +1004,8 @@ endgenerate
      );
      //wtf set dfwd=1 tri_ser_rlmreg_p #(.WIDTH(11), .INIT(1848), .NEEDS_SRESET(1)) lsucr0_latch(
      tri_ser_rlmreg_p #(.WIDTH(11), .INIT(1852), .NEEDS_SRESET(1)) lsucr0_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(lsucr0_act),
         .force_t(ccfg_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -1008,7 +1018,8 @@ endgenerate
         .dout(lsucr0_q)
      );
      tri_ser_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) pesr_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(pesr_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -1021,7 +1032,8 @@ endgenerate
         .dout(pesr_q)
      );
      tri_ser_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) xucr2_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(xucr2_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -1034,7 +1046,8 @@ endgenerate
         .dout(xucr2_q)
      );
      tri_ser_rlmreg_p #(.WIDTH(9), .INIT(0), .NEEDS_SRESET(1)) xudbg0_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(xudbg0_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -1051,7 +1064,8 @@ endgenerate
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xudbg0_done_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1069,7 +1083,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xudbg0_done_reg(
 // Latch Instances
 
 tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) exx_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1087,7 +1102,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) exx_act_latch(
 );
 
 tri_regk #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_dac12m_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(exx_act[2]),
@@ -1105,7 +1121,8 @@ tri_regk #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_dac12m_latch(
 );
 
 tri_regk #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_dac34m_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(exx_act[2]),
@@ -1123,7 +1140,8 @@ tri_regk #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_dac34m_latch(
 );
 
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex3_is_any_load_dac_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(exx_act[2]),
@@ -1141,7 +1159,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex3_is_any_load_dac_latch(
 );
 
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex3_is_any_store_dac_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(exx_act[2]),
@@ -1159,7 +1178,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex3_is_any_store_dac_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ex4_dacrw_cmpr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(exx_act[3]),
@@ -1177,7 +1197,8 @@ tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ex4_dacrw_cmpr_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1195,7 +1216,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_val_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1213,7 +1235,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_val_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1234,7 +1257,8 @@ generate begin : dbcr0_dac1
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : dbcr0_dac1
 
          tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) dbcr0_dac1_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(tiup),
@@ -1258,7 +1282,8 @@ generate begin : dbcr0_dac2
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : dbcr0_dac2
 
          tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) dbcr0_dac2_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(tiup),
@@ -1282,7 +1307,8 @@ generate begin : dbcr0_dac3
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : dbcr0_dac3
 
          tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) dbcr0_dac3_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(tiup),
@@ -1306,7 +1332,8 @@ generate begin : dbcr0_dac4
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : dbcr0_dac4
 
          tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) dbcr0_dac4_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(tiup),
@@ -1327,7 +1354,8 @@ end
 endgenerate
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) dbcr2_dvc1m_on_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1345,7 +1373,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) dbcr2_dvc1m_on_latc
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) dbcr2_dvc2m_on_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1363,7 +1392,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) dbcr2_dvc2m_on_latc
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) msr_ds_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1381,7 +1411,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) msr_ds_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) msr_pr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1399,7 +1430,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) msr_pr_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) msr_gs_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1419,7 +1451,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) msr_gs_latch(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_data_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1437,7 +1470,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_data_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dvc1_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1455,7 +1489,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dvc1_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dvc2_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1473,7 +1508,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) dvc2_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xudbg0_inprog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

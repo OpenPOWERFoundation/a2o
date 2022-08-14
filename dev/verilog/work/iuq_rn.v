@@ -42,7 +42,8 @@
 module iuq_rn(
    inout                          vdd,
    inout                          gnd,
-   input [0:`NCLK_WIDTH-1]        nclk,
+   input                          clk,
+   input                          rst,
    input                          pc_iu_func_sl_thold_2,		// acts as reset for non-ibm types
    input                          pc_iu_sg_2,
    input                          clkoff_b,
@@ -2659,7 +2660,8 @@ module iuq_rn(
    iuq_rn_map #(.ARCHITECTED_REGISTER_DEPTH((32 + `GPR_UCODE_POOL)), .REGISTER_RENAME_DEPTH(`GPR_POOL), .STORAGE_WIDTH(`GPR_POOL_ENC)) gpr_rn_map(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -2763,7 +2765,8 @@ module iuq_rn(
    iuq_rn_map #(.ARCHITECTED_REGISTER_DEPTH((8 + `CR_UCODE_POOL)), .REGISTER_RENAME_DEPTH(`CR_POOL), .STORAGE_WIDTH(`CR_POOL_ENC)) cr_rn_map(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -2860,7 +2863,8 @@ module iuq_rn(
    iuq_rn_map #(.ARCHITECTED_REGISTER_DEPTH((2 + `LR_UCODE_POOL)), .REGISTER_RENAME_DEPTH(`LR_POOL), .STORAGE_WIDTH(`LR_POOL_ENC)) lr_rn_map(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -2957,7 +2961,8 @@ module iuq_rn(
    iuq_rn_map #(.ARCHITECTED_REGISTER_DEPTH((1 + `CTR_UCODE_POOL)), .REGISTER_RENAME_DEPTH(`CTR_POOL), .STORAGE_WIDTH(`CTR_POOL_ENC)) ctr_rn_map(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -3054,7 +3059,8 @@ module iuq_rn(
    iuq_rn_map #(.ARCHITECTED_REGISTER_DEPTH((1 + `XER_UCODE_POOL)), .REGISTER_RENAME_DEPTH(`XER_POOL), .STORAGE_WIDTH(`XER_POOL_ENC)) xer_rn_map(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -3150,7 +3156,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(`CPL_Q_DEPTH)) next_itag_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3169,7 +3176,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(`CPL_Q_DEPTH)) next_itag_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3188,7 +3196,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`CPL_Q_DEPTH_ENC+1)), .INIT(`CPL_Q_DEPTH)) cp_high_credit_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3207,7 +3216,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`CPL_Q_DEPTH_ENC+1)), .INIT(`CPL_Q_DEPTH/2)) cp_med_credit_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3226,7 +3236,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) ucode_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3245,7 +3256,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) ucode_cnt_save_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cp_rn_uc_credit_free),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3264,7 +3276,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) cp_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3283,7 +3296,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) cp_flush_into_uc_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3302,7 +3316,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) br_iu_hold_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3320,7 +3335,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) hold_instructions_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3338,7 +3354,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) cp_rn_empty_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3356,7 +3373,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) high_pri_mask_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3374,7 +3392,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(19), .INIT(0)) fdis_frn_iu6_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3393,7 +3412,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_vld_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3412,7 +3432,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) frn_fdis_iu6_i0_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3431,7 +3452,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3450,7 +3472,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) frn_fdis_iu6_i0_ucode_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3469,7 +3492,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_2ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3488,7 +3512,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_fuse_nop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3507,7 +3532,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_rte_lq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3526,7 +3552,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_rte_sq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3545,7 +3572,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_rte_fx0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3564,7 +3592,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_rte_fx1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3583,7 +3612,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_rte_axu0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3602,7 +3632,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_rte_axu1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3621,7 +3652,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_valop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3640,7 +3672,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_ord_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3659,7 +3692,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_cord_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3678,7 +3712,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3697,7 +3732,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_btb_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3716,7 +3752,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) frn_fdis_iu6_i0_btb_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3735,7 +3772,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_bta_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3754,7 +3792,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(20), .INIT(0)) frn_fdis_iu6_i0_fusion_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3773,7 +3812,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_spec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3792,7 +3832,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_type_fp_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3811,7 +3852,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_type_ap_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3830,7 +3872,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_type_spv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3849,7 +3892,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_type_st_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3868,7 +3912,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_async_block_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3887,7 +3932,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_np1_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3906,7 +3952,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_core_block_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3925,7 +3972,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_isram_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3944,7 +3992,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_isload_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3963,7 +4012,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_isstore_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3982,7 +4032,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) frn_fdis_iu6_i0_instr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4001,7 +4052,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) frn_fdis_iu6_i0_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4020,7 +4072,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) frn_fdis_iu6_i0_bta_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4039,7 +4092,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_br_pred_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4058,7 +4112,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_bh_update_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4077,7 +4132,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) frn_fdis_iu6_i0_bh0_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4096,7 +4152,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) frn_fdis_iu6_i0_bh1_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4115,7 +4172,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) frn_fdis_iu6_i0_bh2_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4134,7 +4192,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) frn_fdis_iu6_i0_gshare_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4153,7 +4212,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_ls_ptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4172,7 +4232,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_match_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4191,7 +4252,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) frn_fdis_iu6_i0_ilat_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4209,7 +4271,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_t1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4228,7 +4291,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_t1_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4247,7 +4311,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_t1_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4266,7 +4331,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_t1_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4285,7 +4351,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_t2_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4304,7 +4371,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_t2_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4323,7 +4391,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_t2_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4342,7 +4411,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_t2_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4361,7 +4431,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_t3_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4380,7 +4451,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_t3_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4399,7 +4471,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_t3_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4418,7 +4491,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_t3_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4437,7 +4511,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_s1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4456,7 +4531,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_s1_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4475,7 +4551,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_s1_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4494,7 +4571,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) frn_fdis_iu6_i0_s1_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4513,7 +4591,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_s1_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4532,7 +4611,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_s2_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4551,7 +4631,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_s2_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4570,7 +4651,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_s2_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4589,7 +4671,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) frn_fdis_iu6_i0_s2_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4608,7 +4691,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_s2_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4627,7 +4711,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i0_s3_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4646,7 +4731,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_s3_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4665,7 +4751,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i0_s3_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4684,7 +4771,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) frn_fdis_iu6_i0_s3_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4703,7 +4791,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i0_s3_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4722,7 +4811,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_vld_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4741,7 +4831,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) frn_fdis_iu6_i1_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4760,7 +4851,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4779,7 +4871,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) frn_fdis_iu6_i1_ucode_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4798,7 +4891,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_fuse_nop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4817,7 +4911,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_rte_lq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4836,7 +4931,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_rte_sq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4855,7 +4951,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_rte_fx0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4874,7 +4971,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_rte_fx1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4893,7 +4991,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_rte_axu0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4912,7 +5011,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_rte_axu1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4931,7 +5031,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_valop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4950,7 +5051,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_ord_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4969,7 +5071,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_cord_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -4988,7 +5091,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5007,7 +5111,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_btb_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5026,7 +5131,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) frn_fdis_iu6_i1_btb_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5045,7 +5151,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_bta_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5064,7 +5171,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(20), .INIT(0)) frn_fdis_iu6_i1_fusion_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5083,7 +5191,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_spec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5102,7 +5211,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_type_fp_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5121,7 +5231,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_type_ap_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5140,7 +5251,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_type_spv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5159,7 +5271,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_type_st_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5178,7 +5291,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_async_block_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5197,7 +5311,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_np1_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5216,7 +5331,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_core_block_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5235,7 +5351,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_isram_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5254,7 +5371,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_isload_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5273,7 +5391,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_isstore_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5292,7 +5411,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) frn_fdis_iu6_i1_instr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5311,7 +5431,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) frn_fdis_iu6_i1_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5330,7 +5451,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) frn_fdis_iu6_i1_bta_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5349,7 +5471,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_br_pred_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5368,7 +5491,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_bh_update_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5387,7 +5511,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) frn_fdis_iu6_i1_bh0_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5406,7 +5531,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) frn_fdis_iu6_i1_bh1_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5425,7 +5551,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) frn_fdis_iu6_i1_bh2_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5444,7 +5571,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) frn_fdis_iu6_i1_gshare_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5463,7 +5591,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_ls_ptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5482,7 +5611,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_match_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5501,7 +5631,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) frn_fdis_iu6_i1_ilat_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5519,7 +5650,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_t1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5538,7 +5670,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_t1_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5557,7 +5690,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_t1_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5576,7 +5710,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_t1_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5595,7 +5730,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_t2_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5614,7 +5750,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_t2_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5633,7 +5770,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_t2_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5652,7 +5790,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_t2_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5671,7 +5810,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_t3_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5690,7 +5830,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_t3_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5709,7 +5850,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_t3_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5728,7 +5870,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_t3_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5747,7 +5890,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_s1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5766,7 +5910,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_s1_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5785,7 +5930,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_s1_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5804,7 +5950,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) frn_fdis_iu6_i1_s1_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5823,7 +5970,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_s1_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5841,7 +5989,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_s1_dep_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5859,7 +6008,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_s2_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5878,7 +6028,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_s2_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5897,7 +6048,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_s2_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5916,7 +6068,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) frn_fdis_iu6_i1_s2_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5935,7 +6088,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_s2_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -5953,7 +6107,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_s2_dep_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5971,7 +6126,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_s3_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -5990,7 +6146,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_s3_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6009,7 +6166,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) frn_fdis_iu6_i1_s3_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6028,7 +6186,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) frn_fdis_iu6_i1_s3_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6047,7 +6206,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) frn_fdis_iu6_i1_s3_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6065,7 +6225,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) frn_fdis_iu6_i1_s3_dep_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6083,7 +6244,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_vld_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6102,7 +6264,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6121,7 +6284,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6140,7 +6304,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_ucode_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6159,7 +6324,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_2ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6178,7 +6344,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_fuse_nop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6197,7 +6364,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_rte_lq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6216,7 +6384,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_rte_sq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6235,7 +6404,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_rte_fx0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6254,7 +6424,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_rte_fx1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6273,7 +6444,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_rte_axu0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6292,7 +6464,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_rte_axu1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6311,7 +6484,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_valop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6330,7 +6504,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_ord_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6349,7 +6524,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_cord_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6368,7 +6544,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6387,7 +6564,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_btb_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6406,7 +6584,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_frn_fdis_iu6_i0_btb_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6425,7 +6604,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_bta_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6444,7 +6624,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(20), .INIT(0)) stall_frn_fdis_iu6_i0_fusion_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6463,7 +6644,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_spec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6482,7 +6664,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_type_fp_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6501,7 +6684,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_type_ap_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6520,7 +6704,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_type_spv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6539,7 +6724,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_type_st_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6558,7 +6744,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_async_block_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6577,7 +6764,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_np1_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6596,7 +6784,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_core_block_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6615,7 +6804,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_isram_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6634,7 +6824,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_isload_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6653,7 +6844,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_isstore_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6672,7 +6864,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) stall_frn_fdis_iu6_i0_instr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6691,7 +6884,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) stall_frn_fdis_iu6_i0_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6710,7 +6904,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) stall_frn_fdis_iu6_i0_bta_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6729,7 +6924,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_br_pred_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6748,7 +6944,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_bh_update_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6767,7 +6964,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_frn_fdis_iu6_i0_bh0_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6786,7 +6984,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_frn_fdis_iu6_i0_bh1_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6805,7 +7004,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_frn_fdis_iu6_i0_bh2_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6824,7 +7024,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) stall_frn_fdis_iu6_i0_gshare_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6843,7 +7044,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_ls_ptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6862,7 +7064,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_match_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6881,7 +7084,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) stall_frn_fdis_iu6_i0_ilat_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6899,7 +7103,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_t1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6918,7 +7123,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_t1_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6937,7 +7143,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_t1_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6956,7 +7163,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_t1_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -6975,7 +7183,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_t2_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -6994,7 +7203,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_t2_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7013,7 +7223,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_t2_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7032,7 +7243,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_t2_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7051,7 +7263,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_t3_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7070,7 +7283,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_t3_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7089,7 +7303,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_t3_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7108,7 +7323,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_t3_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7127,7 +7343,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_s1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7146,7 +7363,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s1_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7165,7 +7383,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s1_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7184,7 +7403,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s1_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7203,7 +7423,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_s1_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7222,7 +7443,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_s2_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7241,7 +7463,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s2_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7260,7 +7483,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s2_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7279,7 +7503,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s2_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7298,7 +7523,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_s2_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7317,7 +7543,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i0_s3_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7336,7 +7563,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s3_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7355,7 +7583,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s3_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7374,7 +7603,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) stall_frn_fdis_iu6_i0_s3_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7393,7 +7623,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i0_s3_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i0_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7412,7 +7643,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_vld_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7431,7 +7663,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7450,7 +7683,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7469,7 +7703,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_ucode_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7488,7 +7723,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_fuse_nop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7507,7 +7743,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_rte_lq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7526,7 +7763,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_rte_sq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7545,7 +7783,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_rte_fx0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7564,7 +7803,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_rte_fx1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7583,7 +7823,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_rte_axu0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7602,7 +7843,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_rte_axu1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7621,7 +7863,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_valop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7640,7 +7883,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_ord_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7659,7 +7903,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_cord_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7678,7 +7923,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7697,7 +7943,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_btb_entry_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7716,7 +7963,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_frn_fdis_iu6_i1_btb_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7735,7 +7983,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_bta_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7754,7 +8003,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(20), .INIT(0)) stall_frn_fdis_iu6_i1_fusion_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -7773,7 +8023,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_spec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7792,7 +8043,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_type_fp_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7811,7 +8063,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_type_ap_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7830,7 +8083,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_type_spv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7849,7 +8103,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_type_st_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7868,7 +8123,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_async_block_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7887,7 +8143,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_np1_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7906,7 +8163,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_core_block_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7925,7 +8183,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_isram_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7944,7 +8203,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_isload_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7963,7 +8223,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_isstore_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -7982,7 +8243,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) stall_frn_fdis_iu6_i1_instr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8001,7 +8263,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) stall_frn_fdis_iu6_i1_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8020,7 +8283,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH((`EFF_IFAR_WIDTH)), .INIT(0)) stall_frn_fdis_iu6_i1_bta_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8039,7 +8303,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_br_pred_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8058,7 +8323,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_bh_update_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8077,7 +8343,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_frn_fdis_iu6_i1_bh0_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8096,7 +8363,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_frn_fdis_iu6_i1_bh1_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8115,7 +8383,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) stall_frn_fdis_iu6_i1_bh2_hist_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8134,7 +8403,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) stall_frn_fdis_iu6_i1_gshare_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8153,7 +8423,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_ls_ptr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8172,7 +8443,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_match_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8191,7 +8463,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) stall_frn_fdis_iu6_i1_ilat_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8209,7 +8482,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_t1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8228,7 +8502,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_t1_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8247,7 +8522,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_t1_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8266,7 +8542,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_t1_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8285,7 +8562,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_t2_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8304,7 +8582,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_t2_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8323,7 +8602,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_t2_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8342,7 +8622,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_t2_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8361,7 +8642,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_t3_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8380,7 +8662,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_t3_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8399,7 +8682,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_t3_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8418,7 +8702,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_t3_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8437,7 +8722,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_s1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8456,7 +8742,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s1_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8475,7 +8762,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s1_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8494,7 +8782,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s1_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8513,7 +8802,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_s1_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8531,7 +8821,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_s1_dep_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8549,7 +8840,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_s2_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8568,7 +8860,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s2_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8587,7 +8880,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s2_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8606,7 +8900,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s2_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8625,7 +8920,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_s2_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8643,7 +8939,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_s2_dep_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8661,7 +8958,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_s3_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8680,7 +8978,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s3_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8699,7 +8998,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s3_p_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8718,7 +9018,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) stall_frn_fdis_iu6_i1_s3_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8737,7 +9038,8 @@ module iuq_rn(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) stall_frn_fdis_iu6_i1_s3_t_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -8755,7 +9057,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) stall_frn_fdis_iu6_i1_s3_dep_hit_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(stall_frn_fdis_iu6_i1_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8776,7 +9079,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8794,7 +9098,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_cpl_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8812,7 +9117,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_gpr_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8830,7 +9136,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_cr_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8848,7 +9155,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_lr_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8866,7 +9174,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_ctr_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8884,7 +9193,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_xer_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8902,7 +9212,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_br_hold_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8920,7 +9231,8 @@ module iuq_rn(
    tri_rlmlatch_p #(.INIT(0)) perf_iu5_axu_hold_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -8943,7 +9255,8 @@ module iuq_rn(
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2,pc_iu_sg_2}),
       .q({pc_iu_func_sl_thold_1,pc_iu_sg_1})
@@ -8953,7 +9266,8 @@ module iuq_rn(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1,pc_iu_sg_1}),
       .q({pc_iu_func_sl_thold_0,pc_iu_sg_0})

@@ -41,7 +41,8 @@ module xu_fctr
    parameter               WIDTH = 2
 )
 (
-   input [0:`NCLK_WIDTH-1] nclk,
+   input                   clk,
+   input                   rst,
 
    input                   force_t,
    input                   thold_b,
@@ -108,9 +109,9 @@ module xu_fctr
             assign dout[t] = zero_b[t];
          end
 
-
          tri_rlmreg_p #(.WIDTH(DELAY_WIDTH), .INIT(0), .NEEDS_SRESET(1)) delay_latch(
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(act[t]),

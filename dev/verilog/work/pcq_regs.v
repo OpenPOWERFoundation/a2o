@@ -41,7 +41,8 @@ module pcq_regs(
 
    inout                       	vdd,
    inout                       	gnd,
-   input  [0:`NCLK_WIDTH-1]    	nclk,
+   input                         clk,
+   input                         rst,
    input                       	scan_dis_dc_b,
    input                       	lcb_clkoff_dc_b,
    input                       	lcb_d_mode_dc,
@@ -676,7 +677,8 @@ module pcq_regs(
 //=====================================================================
    tri_serial_scom2 #(.WIDTH(SCOM_WIDTH), .INTERNAL_ADDR_DECODE(1'b0), .PIPELINE_PARITYCHK(1'b0)) scomsat(
       //  Global lines for clocking and cop control
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .scom_func_thold(lcb_func_slp_sl_thold_0),
@@ -1499,7 +1501,8 @@ module pcq_regs(
    pcq_regs_fir  fir_regs(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .lcb_clkoff_dc_b(lcb_clkoff_dc_b),
       .lcb_mpw1_dc_b(lcb_mpw1_dc_b),
       .lcb_mpw2_dc_b(lcb_mpw2_dc_b),
@@ -1683,7 +1686,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(ARDSR_SIZE), .INIT(0)) axrv_dbgsel_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1700,7 +1704,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(IDSR_SIZE), .INIT(0)) iu_dbgsel_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1717,7 +1722,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(MPDSR_SIZE), .INIT(0)) mmpc_dbgsel_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1734,7 +1740,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(XDSR_SIZE), .INIT(0)) xu_dbgsel_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1751,7 +1758,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(LDSR_SIZE), .INIT(0)) lq_dbgsel_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1768,7 +1776,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(PCCR0_SIZE), .INIT(0)) pccr0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1785,7 +1794,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(RECERRCNTR_SIZE), .INIT(0)) rec_err_cntr(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1802,7 +1812,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0)) pccr0_par(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1819,7 +1830,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(DCFG_STAGE1_SIZE), .INIT(0)) dcfg_stage1(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1838,7 +1850,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(THRCTL1_SIZE), .INIT(0)) thrctl1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1855,7 +1868,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(THRCTL2_SIZE), .INIT(0)) thrctl2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1872,7 +1886,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(SPATTN_USED), .INIT(0)) spattn_data_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1889,7 +1904,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(SPATTN_USED), .INIT({SPATTN_USED {1'b1}})) spattn_mask_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1906,7 +1922,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(1), .INIT(SPATTN_PARITY_INIT)) spattn_par(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1923,7 +1940,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(BCFG_STAGE1_T0_SIZE), .INIT(1)) bcfg_stage1_t0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1946,7 +1964,8 @@ module pcq_regs(
    tri_ser_rlmreg_p #(.WIDTH(BCFG_STAGE2_T0_SIZE), .INIT(0)) bcfg_stage2_t0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(debug_mode_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1967,7 +1986,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(ERRDBG_T0_SIZE), .INIT(0)) errdbg_t0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_act),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -1988,7 +2008,8 @@ module pcq_regs(
 	 tri_rlmreg_p #(.WIDTH(BCFG_STAGE1_T1_SIZE), .INIT(1)) bcfg_stage1_t1(
 	    .vd(vdd),
 	    .gd(gnd),
-	    .nclk(nclk),
+	    .clk(clk),
+	.rst(rst),
 	    .act(tiup),
 	    .thold_b(lcb_cfg_slp_sl_thold_0_b),
 	    .sg(lcb_sg_0),
@@ -2011,7 +2032,8 @@ module pcq_regs(
 	 tri_ser_rlmreg_p #(.WIDTH(BCFG_STAGE2_T1_SIZE), .INIT(0)) bcfg_stage2_t1(
 	    .vd(vdd),
 	    .gd(gnd),
-	    .nclk(nclk),
+	    .clk(clk),
+	.rst(rst),
 	    .act(debug_mode_act),
 	    .thold_b(lcb_cfg_slp_sl_thold_0_b),
 	    .sg(lcb_sg_0),
@@ -2030,7 +2052,8 @@ module pcq_regs(
    	tri_rlmreg_p #(.WIDTH(ERRDBG_T1_SIZE), .INIT(0)) errdbg_t1(
       	.vd(vdd),
       	.gd(gnd),
-      	.nclk(nclk),
+      	.clk(clk),
+	.rst(rst),
       	.act(scom_act),
       	.thold_b(lcb_cfg_slp_sl_thold_0_b),
       	.sg(lcb_sg_0),
@@ -2063,7 +2086,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(RAMI_SIZE), .INIT(0)) rami_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_wr_act),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2081,7 +2105,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(RAMC_SIZE), .INIT(0)) ramc_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ram_ctrl_act),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2099,7 +2124,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(RAMD_SIZE), .INIT(0)) ramd_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ram_data_act),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2117,7 +2143,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(FU_RAM_DIN_SIZE), .INIT(0)) fu_ram_din(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(fu_pc_ram_data_val),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2135,7 +2162,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(XU_RAM_DIN_SIZE), .INIT(0)) xu_ram_din(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_pc_ram_data_val),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2153,7 +2181,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(LQ_RAM_DIN_SIZE), .INIT(0)) lq_ram_din(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(lq_pc_ram_data_val),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2171,7 +2200,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(ERRINJ_SIZE), .INIT(0)) errinj_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(errinj_enab_scom_act),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2189,7 +2219,8 @@ module pcq_regs(
    tri_ser_rlmreg_p #(.WIDTH(SCOM_MISC_SIZE), .INIT(0)) sc_misc(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_act),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2210,7 +2241,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(64), .INIT(0)) scaddr_dec(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(scom_act),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2227,7 +2259,8 @@ module pcq_regs(
    tri_rlmreg_p #(.WIDTH(FUNC_STAGE1_SIZE), .INIT(0)) func_stage1(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2244,7 +2277,8 @@ module pcq_regs(
    tri_ser_rlmreg_p #(.WIDTH(INJ_STAGE1_T0_SIZE), .INIT(0)) inj_stage1_t0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(errinj_enab_act),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2286,7 +2320,8 @@ module pcq_regs(
 	 tri_ser_rlmreg_p #(.WIDTH(INJ_STAGE1_T1_SIZE), .INIT(0)) inj_stage1_t1(
 	    .vd(vdd),
 	    .gd(gnd),
-	    .nclk(nclk),
+	    .clk(clk),
+	.rst(rst),
 	    .act(errinj_enab_act),
 	    .thold_b(lcb_func_slp_sl_thold_0_b),
 	    .sg(lcb_sg_0),
@@ -2311,7 +2346,8 @@ module pcq_regs(
    tri_ser_rlmreg_p #(.WIDTH(FUNC_STAGE3_SIZE), .INIT(0)) func_stage3(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ram_enab_act),
       .thold_b(lcb_func_slp_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -2345,7 +2381,8 @@ module pcq_regs(
       .vd(vdd),
       .gd(gnd),
       .delay_lclkr(lcb_delay_lclkr_dc),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .force_t(cfg_slat_force),
       .thold_b(cfg_slat_thold_b),
       .dclk(cfg_slat_d2clk),
@@ -2369,7 +2406,8 @@ module pcq_regs(
       .delay_lclkr(lcb_delay_lclkr_dc),
       .mpw1_b(lcb_mpw1_dc_b),
       .mpw2_b(lcb_mpw2_dc_b),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .force_t(force_cfgslp),
       .sg(lcb_sg_0),
       .thold_b(lcb_cfg_slp_sl_thold_0_b),

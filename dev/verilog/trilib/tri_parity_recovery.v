@@ -38,13 +38,14 @@
 
    `include "tri_a2o.vh"
 
-module tri_parity_recovery(
+module tri_parity_recovery (
     perr_si,
     perr_so,
     delay_lclkr,
     mpw1_b,
     mpw2_b,
-    nclk,
+    clk,
+    rst,
     force_t,
     thold_0_b,
     sg_0,
@@ -132,7 +133,8 @@ module tri_parity_recovery(
 
    input [0:9]                              mpw1_b;
    input [0:1]                              mpw2_b;
-   input  [0:`NCLK_WIDTH-1]                 nclk;
+   input                                    clk;
+   input                                    rst;
    input                                    force_t;
    input                                    thold_0_b;
    input                                    sg_0;
@@ -380,7 +382,8 @@ module tri_parity_recovery(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(9)) exx_regfile_err_det_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -412,7 +415,8 @@ module tri_parity_recovery(
    //-------------------------------------------
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(4)) ex4_ctl_perr(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -440,7 +444,8 @@ module tri_parity_recovery(
 
 
    tri_rlmreg_p #(.INIT(0), .WIDTH(24)) ex2_perr(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
        .d_mode(tiup),
@@ -468,7 +473,8 @@ module tri_parity_recovery(
 
    //-------------------------------------------
    tri_rlmreg_p #(.INIT(0), .WIDTH(24)) ex3_perr(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .d_mode(tiup),
@@ -537,7 +543,8 @@ module tri_parity_recovery(
 
 
    tri_rlmreg_p #(.INIT(4),  .WIDTH(3)) perr_sm(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),
@@ -557,7 +564,8 @@ module tri_parity_recovery(
    //-------------------------------------------
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(31)) perr_ctl(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .d_mode(tiup),
@@ -770,7 +778,8 @@ module tri_parity_recovery(
 
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(1)) holdall_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(force_t),
       .d_mode(tiup),

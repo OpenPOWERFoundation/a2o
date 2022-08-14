@@ -205,7 +205,8 @@ module lq_dir_val(
    rel_way_lock_h,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -426,13 +427,10 @@ output                              rel_way_lock_h;		                    // Way 
 
 
 inout                               vdd;
-
-
 inout                               gnd;
 
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-input [0:`NCLK_WIDTH-1]             nclk;
+input                               clk;
+input                               rst;
 input                               sg_0;
 input                               func_sl_thold_0_b;
 input                               func_sl_force;
@@ -2579,7 +2577,8 @@ generate begin : congr_cl_wA
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wA_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(congr_cl_act[cclassA]),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2604,7 +2603,8 @@ generate begin : congr_cl_wB
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wB_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(congr_cl_act[cclassB]),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2629,7 +2629,8 @@ generate begin : congr_cl_wC
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wC_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(congr_cl_act[cclassC]),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2654,7 +2655,8 @@ generate begin : congr_cl_wD
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wD_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(congr_cl_act[cclassD]),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2679,7 +2681,8 @@ generate begin : congr_cl_wE
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wE_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(congr_cl_act[cclassE]),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2704,7 +2707,8 @@ generate begin : congr_cl_wF
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wF_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(congr_cl_act[cclassF]),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2729,7 +2733,8 @@ generate begin : congr_cl_wG
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wG_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(congr_cl_act[cclassG]),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2754,7 +2759,8 @@ generate begin : congr_cl_wH
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wH_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(congr_cl_act[cclassH]),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2775,7 +2781,8 @@ endgenerate
 tri_rlmreg_p #(.WIDTH(numCClass), .INIT(0), .NEEDS_SRESET(1)) p0_congr_cl_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv5_ex5_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -2793,7 +2800,8 @@ tri_rlmreg_p #(.WIDTH(numCClass), .INIT(0), .NEEDS_SRESET(1)) p0_congr_cl_act_re
 tri_rlmreg_p #(.WIDTH(numCClass), .INIT(0), .NEEDS_SRESET(1)) p1_congr_cl_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq4_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -2814,7 +2822,8 @@ generate begin : ex4_way_val
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) ex4_way_val_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_binv3_ex3_stg_act),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2838,7 +2847,8 @@ generate begin : ex5_way_val
          tri_regk #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) ex5_way_val_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_binv4_ex4_stg_act),
             .force_t(func_slp_nsl_force),
             .d_mode(d_mode_dc),
@@ -2859,7 +2869,8 @@ endgenerate
 tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex5_clr_lck_way_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -2877,7 +2888,8 @@ tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex5_clr_lck_way_reg(
 tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex5_way_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -2895,7 +2907,8 @@ tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex5_way_upd_reg(
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex6_way_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -2913,7 +2926,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex6_way_upd_reg(
 tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex7_way_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -2934,7 +2948,8 @@ generate begin : ex5_dir_way
          tri_regk #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) ex5_dir_way_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_binv4_ex4_stg_act),
             .force_t(func_slp_nsl_force),
             .d_mode(d_mode_dc),
@@ -2958,7 +2973,8 @@ generate begin : ex6_dir_way
          tri_rlmreg_p #(.WIDTH(2 + `THREADS), .INIT(0), .NEEDS_SRESET(1)) ex6_dir_way_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_binv5_ex5_stg_act),
             .force_t(func_slp_sl_force),
             .d_mode(d_mode_dc),
@@ -2982,7 +2998,8 @@ generate begin : ex7_dir_way
          tri_regk #(.WIDTH(dirState-2), .INIT(0), .NEEDS_SRESET(1)) ex7_dir_way_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_binv6_ex6_stg_act),
             .force_t(func_slp_nsl_force),
             .d_mode(d_mode_dc),
@@ -3006,7 +3023,8 @@ generate begin : stq3_way_val
          tri_regk #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) stq3_way_val_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_stq2_stg_act),
             .force_t(func_nsl_force),
             .d_mode(d_mode_dc),
@@ -3030,7 +3048,8 @@ generate begin : stq4_way_val
          tri_rlmreg_p #(.WIDTH(dirState-2), .INIT(0), .NEEDS_SRESET(1)) stq4_way_val_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_stq3_stg_act),
             .force_t(func_sl_force),
             .d_mode(d_mode_dc),
@@ -3054,7 +3073,8 @@ generate begin : stq4_dir_way
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) stq4_dir_way_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_stq3_stg_act),
             .force_t(func_sl_force),
             .d_mode(d_mode_dc),
@@ -3078,7 +3098,8 @@ generate begin : stq5_dir_way
          tri_regk #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) stq5_dir_way_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(dcc_dir_stq4_stg_act),
             .force_t(func_nsl_force),
             .d_mode(d_mode_dc),
@@ -3099,7 +3120,8 @@ endgenerate
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq3_ex6_ldp_err_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3117,7 +3139,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq3_ex6_ldp_err_reg
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_ex7_ldp_err_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3135,7 +3158,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_ex7_ldp_err_reg
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_ex6_ldp_err_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3153,7 +3177,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_ex6_ldp_err_reg
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq3_stq5_stp_err_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3171,7 +3196,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq3_stq5_stp_err_re
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_stq6_stp_err_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3189,7 +3215,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_stq6_stp_err_re
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_stq5_stp_err_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3207,7 +3234,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_stq5_stp_err_re
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_clr_lck_way_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3226,7 +3254,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_clr_lck_way_reg
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_way_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3245,7 +3274,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_way_upd_reg(
 tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq5_way_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -3264,7 +3294,8 @@ tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq5_way_upd_reg(
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq6_way_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3283,7 +3314,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq6_way_upd_reg(
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq7_way_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3302,7 +3334,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq7_way_upd_reg(
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_rel_way_clr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3321,7 +3354,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_rel_way_clr_reg
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_cache_acc_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3340,7 +3374,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_cache_acc_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_cache_acc_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3358,7 +3393,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_cache_acc_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_mhit_cacc_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3376,7 +3412,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_mhit_cacc_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_pfetch_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3394,7 +3431,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_pfetch_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_binv_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3413,7 +3451,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_binv_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_binv_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3431,7 +3470,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_binv_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_binv_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3449,7 +3489,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_binv_val_reg(
 tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_thrd_id_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_ex2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -3467,7 +3508,8 @@ tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_thrd_id_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_thrd_id_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_ex3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3485,7 +3527,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_thrd_id_reg(
 tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_thrd_id_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_ex4_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -3503,7 +3546,8 @@ tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_thrd_id_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_lock_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3521,7 +3565,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_lock_set_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_lock_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3539,7 +3584,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_lock_set_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_watch_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3557,7 +3603,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_watch_set_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_watch_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3575,7 +3622,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_watch_set_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_watch_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3593,7 +3641,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_watch_set_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_larx_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3611,7 +3660,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_larx_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_watch_set_inval_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3629,7 +3679,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_watch_set_inval_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex5_lose_watch_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -3647,7 +3698,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex5_lose_watch_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xuop_upd_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3665,7 +3717,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_xuop_upd_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_xuop_upd_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3683,7 +3736,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_xuop_upd_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) binv5_ex5_dir_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -3701,7 +3755,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) binv5_ex5_dir_val_reg(
 tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex5_way_hit_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -3719,7 +3774,8 @@ tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex5_way_hit_reg(
 tri_regk #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) ex3_congr_cl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv2_ex2_stg_act),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -3737,7 +3793,8 @@ tri_regk #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) ex
 tri_rlmreg_p #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) ex4_congr_cl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv3_ex3_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3755,7 +3812,8 @@ tri_rlmreg_p #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)
 tri_regk #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) ex5_congr_cl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -3773,7 +3831,8 @@ tri_regk #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) ex
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex5_cr_watch_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -3791,7 +3850,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex5_cr_watch_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_ex4_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv2_ex2_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3809,7 +3869,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_ex4_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_ex5_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv2_ex2_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3827,7 +3888,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_ex5_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_ex6_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv2_ex2_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3845,7 +3907,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_ex6_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_stq4_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv2_ex2_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3863,7 +3926,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_stq4_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_stq5_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv2_ex2_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3881,7 +3945,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex3_stq5_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex4_ex5_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv3_ex3_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3899,7 +3964,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex4_ex5_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex4_ex6_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv3_ex3_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3917,7 +3983,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex4_ex6_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_ex6_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3935,7 +4002,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_ex6_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_ex7_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3953,7 +4021,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_ex7_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_stq5_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3971,7 +4040,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_stq5_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_stq6_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -3989,7 +4059,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_stq6_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_stq7_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4007,7 +4078,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex5_stq7_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex4_ex6_rest_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv3_ex3_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4025,7 +4097,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_ex4_ex6_rest_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex5_cClass_lock_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -4043,7 +4116,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex5_cClass_lock_set_reg(
 tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_cClass_thrd_watch_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv4_ex4_stg_act),
    .force_t(func_slp_nsl_force),
    .d_mode(d_mode_dc),
@@ -4061,7 +4135,8 @@ tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_cClass_thrd_watch_r
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dir_multihit_val_b_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4079,7 +4154,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dir_multihit_val_b_reg(
 tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex5_err_det_way_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4097,7 +4173,8 @@ tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex5_err_det_way_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_perr_lock_lost_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4115,7 +4192,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_perr_lock_lost_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_perr_watchlost_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4134,7 +4212,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_perr_watchlost_
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dir_perr_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4153,7 +4232,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dir_perr_det_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dc_perr_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4172,7 +4252,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dc_perr_det_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dir_perr_flush_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4191,7 +4272,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dir_perr_flush_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dc_perr_flush_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4210,7 +4292,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dc_perr_flush_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_way_perr_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4229,7 +4312,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_way_perr_det_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stq2_congr_cl_m_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4248,7 +4332,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stq2_congr_cl_m_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stq3_set_rel_coll_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4267,7 +4352,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stq3_set_rel_coll_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stq4_set_rel_coll_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4286,7 +4372,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stq4_set_rel_coll_reg(
 tri_rlmreg_p #(.WIDTH((dirState-1)), .INIT(0), .NEEDS_SRESET(1)) binv6_ex6_dir_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv5_ex5_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4305,7 +4392,8 @@ tri_rlmreg_p #(.WIDTH((dirState-1)), .INIT(0), .NEEDS_SRESET(1)) binv6_ex6_dir_d
 tri_rlmreg_p #(.WIDTH((dirState-1)), .INIT(0), .NEEDS_SRESET(1)) binv7_ex7_dir_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_binv6_ex6_stg_act),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -4324,7 +4412,8 @@ tri_rlmreg_p #(.WIDTH((dirState-1)), .INIT(0), .NEEDS_SRESET(1)) binv7_ex7_dir_d
 tri_rlmreg_p #(.WIDTH((dirState-1)), .INIT(0), .NEEDS_SRESET(1)) stq6_dir_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4343,7 +4432,8 @@ tri_rlmreg_p #(.WIDTH((dirState-1)), .INIT(0), .NEEDS_SRESET(1)) stq6_dir_data_r
 tri_rlmreg_p #(.WIDTH((dirState-1)), .INIT(0), .NEEDS_SRESET(1)) stq7_dir_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4362,7 +4452,8 @@ tri_rlmreg_p #(.WIDTH((dirState-1)), .INIT(0), .NEEDS_SRESET(1)) stq7_dir_data_r
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_ci_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4381,7 +4472,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_ci_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_cen_acc_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4400,7 +4492,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_cen_acc_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4418,7 +4511,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4436,7 +4530,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4455,7 +4550,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_dci_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4474,7 +4570,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_dci_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_dci_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4493,7 +4590,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_dci_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_dci_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4512,7 +4610,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_dci_val_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq2_thrd_id_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4531,7 +4630,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq2_thrd_id_reg(
 tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq3_thrd_id_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4550,7 +4650,8 @@ tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq3_thrd_id_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq4_thrd_id_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4569,7 +4670,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq4_thrd_id_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rel2_thrd_id_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4588,7 +4690,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rel2_thrd_id_reg(
 tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rel3_thrd_id_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4607,7 +4710,8 @@ tri_regk #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rel3_thrd_id_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_lock_clr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4626,7 +4730,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_lock_clr_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_lock_clr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4645,7 +4750,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_lock_clr_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_watch_clr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4664,7 +4770,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_watch_clr_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_watch_clr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4683,7 +4790,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_watch_clr_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_store_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4702,7 +4810,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_store_val_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_store_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4721,7 +4830,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_store_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_l_fld_b1_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4740,7 +4850,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_l_fld_b1_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_l_fld_b1_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4759,7 +4870,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_l_fld_b1_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_l_fld_b1_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4778,7 +4890,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_l_fld_b1_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_inval_op_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4797,7 +4910,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_inval_op_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_inval_op_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4816,7 +4930,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_inval_op_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_watch_clr_all_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4835,7 +4950,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_watch_clr_all_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_watch_clr_all_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4854,7 +4970,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) stq3_watch_clr_all_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_watch_clr_all_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4873,7 +4990,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_watch_clr_all_reg(
 tri_rlmreg_p #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) stq2_congr_cl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4892,7 +5010,8 @@ tri_rlmreg_p #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)
 tri_regk #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) stq3_congr_cl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4911,7 +5030,8 @@ tri_regk #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) st
 tri_rlmreg_p #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) stq4_congr_cl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4930,7 +5050,8 @@ tri_rlmreg_p #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)
 tri_regk #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) stq5_congr_cl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq4_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -4949,7 +5070,8 @@ tri_regk #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) st
 tri_rlmreg_p #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)) stq6_congr_cl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq5_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4968,7 +5090,8 @@ tri_rlmreg_p #(.WIDTH((lwrCClassBit-uprCClassBit+1)), .INIT(0), .NEEDS_SRESET(1)
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_clr_stg_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -4986,7 +5109,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_clr_stg_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel3_clr_stg_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5004,7 +5128,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel3_clr_stg_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel4_clr_stg_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5022,7 +5147,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel4_clr_stg_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel5_clr_stg_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5040,7 +5166,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel5_clr_stg_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel3_set_dir_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5058,7 +5185,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel3_set_dir_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel4_set_dir_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5076,7 +5204,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel4_set_dir_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_set_stg_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5094,7 +5223,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_set_stg_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel3_set_stg_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5113,7 +5243,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel3_set_stg_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_back_inv_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5131,7 +5262,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_back_inv_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_back_inv_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -5149,7 +5281,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_back_inv_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_upd_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -5167,7 +5300,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_upd_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_lock_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5186,7 +5320,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_lock_set_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_lock_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -5204,7 +5339,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_lock_set_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_lock_pipe_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -5222,7 +5358,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_lock_pipe_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_watch_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5241,7 +5378,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rel2_watch_set_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_watch_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -5260,7 +5398,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_watch_set_reg(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_watch_pipe_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),
@@ -5278,7 +5417,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rel3_watch_pipe_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_dir_upd_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5296,7 +5436,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_dir_upd_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_dir_upd_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5314,7 +5455,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_dir_upd_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_rel3_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5332,7 +5474,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_rel3_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_rel4_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5350,7 +5493,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_rel4_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_lose_watch_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5368,7 +5512,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_lose_watch_reg(
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_way_hit_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5387,7 +5532,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_way_hit_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_stq3_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5406,7 +5552,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_stq3_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_stq4_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5425,7 +5572,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_stq4_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_stq5_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5443,7 +5591,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_stq5_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq3_stq4_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5461,7 +5610,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq3_stq4_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_ex5_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5480,7 +5630,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_ex5_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_ex6_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5499,7 +5650,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq2_ex6_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq3_ex6_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5517,7 +5669,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq3_ex6_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq3_ex5_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq2_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5535,7 +5688,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq3_ex5_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq4_ex5_cmp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5553,7 +5707,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_stq4_ex5_cmp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_cClass_lock_set_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5572,7 +5727,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_cClass_lock_set_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq4_cClass_thrd_watch_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(dcc_dir_stq3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5590,7 +5746,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq4_cClass_thrd_wa
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rel4_all_watch_lost_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5608,7 +5765,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rel4_all_watch_lost
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) lost_watch_evict_ovl_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5627,7 +5785,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) lost_watch_evict_ov
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_dir_multihit_val_b_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5646,7 +5805,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_dir_multihit_val_b_reg(
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_err_det_way_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5665,7 +5825,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq4_err_det_way_reg
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_perr_lock_lost_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5684,7 +5845,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_perr_lock_lost_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq4_perr_watchlost_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5703,7 +5865,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq4_perr_watchlost
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_dir_perr_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5721,7 +5884,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_dir_perr_det_reg(
 tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq5_way_perr_inval_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5739,7 +5903,8 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) stq5_way_perr_inval_
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq5_dir_err_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5757,7 +5922,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq5_dir_err_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_stp_perr_flush_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5775,7 +5941,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_stp_perr_flush_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stm_watchlost_state_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -5794,7 +5961,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stm_watchlost_state
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p0_wren_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -5813,7 +5981,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p0_wren_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p0_wren_cpy_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -5832,7 +6001,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p0_wren_cpy_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p0_wren_stg_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -5851,7 +6021,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p0_wren_stg_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p1_wren_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5870,7 +6041,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p1_wren_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p1_wren_cpy_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5889,7 +6061,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) p1_wren_cpy_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq6_wren_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5908,7 +6081,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq6_wren_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq7_wren_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5926,7 +6100,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq7_wren_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_all_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5944,7 +6119,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) congr_cl_all_act_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_clfc_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5963,7 +6139,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_xucr0_clfc_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lock_finval_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -5982,7 +6159,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lock_finval_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) val_finval_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -6001,7 +6179,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) val_finval_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) watch_finval_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -6020,7 +6199,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) watch_finval_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_dirmultihit_ldp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -6039,7 +6219,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_dirmultihit_ldp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_dirmultihit_stp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -6058,7 +6239,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_dirmultihit_stp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xucr0_cslc_xuop_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -6077,7 +6259,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xucr0_cslc_xuop_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xucr0_cslc_binv_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -6096,7 +6279,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xucr0_cslc_binv_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) lost_watch_inter_thrd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -6115,7 +6299,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) lost_watch_inter_th
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) lost_watch_evict_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),
@@ -6134,7 +6319,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) lost_watch_evict_va
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) lost_watch_binv_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc),

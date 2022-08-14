@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -34,6 +34,8 @@
 module fu_rnd(
    vdd,
    gnd,
+   clk,
+   rst,
    clkoff_b,
    act_dis,
    flush,
@@ -43,7 +45,6 @@ module fu_rnd(
    sg_1,
    thold_1,
    fpu_enable,
-   nclk,
    f_rnd_si,
    f_rnd_so,
    ex4_act_b,
@@ -131,6 +132,9 @@ module fu_rnd(
    parameter     expand_type = 2;		// 0 - ibm tech, 1 - other );
    inout         vdd;
    inout         gnd;
+   input         clk;
+   input         rst;
+
    input         clkoff_b;		// tiup
    input         act_dis;		// ??tidn??
    input         flush;		// ??tidn??
@@ -140,7 +144,6 @@ module fu_rnd(
    input         sg_1;
    input         thold_1;
    input         fpu_enable;		//dc_act
-   input [0:`NCLK_WIDTH-1]         nclk;
 
    input         f_rnd_si;		// perv
    output        f_rnd_so;		// perv
@@ -428,7 +431,8 @@ module fu_rnd(
    tri_plat  thold_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(thold_1),
       .q(thold_0)
@@ -438,7 +442,8 @@ module fu_rnd(
    tri_plat  sg_reg_0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(flush),
       .din(sg_1),
       .q(sg_0)
@@ -469,7 +474,8 @@ module fu_rnd(
       .mpw2_b(mpw2_b[1]),		//i-- tidn,
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       .act(fpu_enable),
@@ -521,7 +527,8 @@ module fu_rnd(
       .mpw2_b(mpw2_b[1]),		//i-- tidn,
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       .act(ex5_act),
@@ -1145,7 +1152,8 @@ module fu_rnd(
       .mpw2_b(mpw2_b[1]),		//i-- tidn,
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       .act(ex6_act),
@@ -1166,7 +1174,8 @@ module fu_rnd(
       .mpw2_b(mpw2_b[1]),		//i-- tidn,
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       .act(ex6_act),
@@ -1189,7 +1198,8 @@ module fu_rnd(
       .mpw2_b(mpw2_b[1]),		//i-- tidn,
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .thold_b(thold_0_b),
       .sg(sg_0),
       .act(ex6_act),

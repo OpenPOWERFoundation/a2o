@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -86,7 +86,8 @@ module lq_imq(
    imq_arb_mmq_st_data,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -150,13 +151,10 @@ module lq_imq(
 
 
    inout                              vdd;
-
-
    inout                              gnd;
 
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-   input [0:`NCLK_WIDTH-1]            nclk;
+   input                              clk;
+   input                              rst;
    input                              sg_0;
    input                              func_sl_thold_0_b;
    input                              func_sl_force;
@@ -631,7 +629,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu_lq_request_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -650,7 +649,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) iu_lq_cTag_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu_lq_int_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -669,7 +669,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH((`REAL_IFAR_WIDTH-4)), .INIT(0), .NEEDS_SRESET(1)) iu_lq_ra_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu_lq_int_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -688,7 +689,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) iu_lq_wimge_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu_lq_int_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -707,7 +709,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) iu_lq_userdef_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu_lq_int_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -726,7 +729,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_req_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -745,7 +749,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_ttype_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mm_lq_int_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -764,7 +769,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_addr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mm_lq_int_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -783,7 +789,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_wimge_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mm_lq_int_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -802,7 +809,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_u_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mm_lq_int_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -821,7 +829,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_lpid_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mm_lq_int_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -840,7 +849,8 @@ module lq_imq(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_gs_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mm_lq_int_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -859,7 +869,8 @@ module lq_imq(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_ind_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mm_lq_int_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -878,7 +889,8 @@ module lq_imq(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_lq_lsu_lbit_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mm_lq_int_act),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -897,7 +909,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(`IUQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) iuq_entry_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -919,7 +932,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH - 4), .INIT(0), .NEEDS_SRESET(1)) iuq_entry_p_addr_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_iuq_set_val[iuq]),
            .force_t(func_sl_force),
            .d_mode(d_mode_dc),
@@ -944,7 +958,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) iuq_entry_cTag_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_iuq_set_val[iuq]),
            .force_t(func_sl_force),
            .d_mode(d_mode_dc),
@@ -969,7 +984,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) iuq_entry_wimge_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_iuq_set_val[iuq]),
            .force_t(func_sl_force),
            .d_mode(d_mode_dc),
@@ -994,7 +1010,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) iuq_entry_usr_def_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_iuq_set_val[iuq]),
            .force_t(func_sl_force),
            .d_mode(d_mode_dc),
@@ -1019,7 +1036,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) iuq_entry_tid_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_iuq_set_val[iuq]),
            .force_t(func_sl_force),
            .d_mode(d_mode_dc),
@@ -1044,7 +1062,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) iuq_entry_seq_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_iuq_set_val[iuq]),
            .force_t(func_sl_force),
            .d_mode(d_mode_dc),
@@ -1066,7 +1085,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) iuq_seq_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1085,7 +1105,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) iuq_seq_rd_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1104,7 +1125,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(`MMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1126,7 +1148,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_p_addr_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_mmq_set_val[mmq]),
            .force_t(func_slp_sl_force),
            .d_mode(d_mode_dc),
@@ -1151,7 +1174,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_ttype_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_mmq_set_val[mmq]),
            .force_t(func_slp_sl_force),
            .d_mode(d_mode_dc),
@@ -1176,7 +1200,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_wimge_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_mmq_set_val[mmq]),
            .force_t(func_slp_sl_force),
            .d_mode(d_mode_dc),
@@ -1201,7 +1226,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_usr_def_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_mmq_set_val[mmq]),
            .force_t(func_slp_sl_force),
            .d_mode(d_mode_dc),
@@ -1226,7 +1252,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_tid_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_mmq_set_val[mmq]),
            .force_t(func_slp_sl_force),
            .d_mode(d_mode_dc),
@@ -1251,7 +1278,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_seq_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_mmq_set_val[mmq]),
            .force_t(func_slp_sl_force),
            .d_mode(d_mode_dc),
@@ -1276,7 +1304,8 @@ module lq_imq(
         tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_lpid_reg(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(entry_mmq_set_val[mmq]),
            .force_t(func_slp_sl_force),
            .d_mode(d_mode_dc),
@@ -1298,7 +1327,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(`MMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_ind_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1317,7 +1347,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(`MMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_gs_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1336,7 +1367,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(`MMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) mmq_entry_lbit_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1355,7 +1387,8 @@ module lq_imq(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mmq_ret_token_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1374,7 +1407,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) mmq_seq_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),
@@ -1393,7 +1427,8 @@ module lq_imq(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) mmq_seq_rd_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_slp_sl_force),
       .d_mode(d_mode_dc),

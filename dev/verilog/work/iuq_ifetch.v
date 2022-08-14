@@ -39,8 +39,8 @@
 `include "tri_a2o.vh"
 
 module iuq_ifetch(
-    (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]           nclk,
+   input                             clk,
+   input                             rst,
 
    input                             tc_ac_ccflush_dc,
    input                             tc_ac_scan_dis_dc_b,
@@ -790,7 +790,8 @@ module iuq_ifetch(
       .spr_ic_prefetch_dis(spr_ic_prefetch_dis),
       .spr_perf_event_mux_ctrls(spr_perf_event_mux_ctrls),
       .spr_cp_perf_event_mux_ctrls(spr_cp_perf_event_mux_ctrls),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_sg_2(pc_iu_sg_2),
       .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
       .clkoff_b(clkoff_b),
@@ -809,7 +810,8 @@ module iuq_ifetch(
       .vcs(vdd),
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .tc_ac_ccflush_dc(tc_ac_ccflush_dc),
       .tc_ac_scan_dis_dc_b(tc_ac_scan_dis_dc_b),
       .tc_ac_scan_diag_dc(tc_ac_scan_diag_dc),
@@ -1158,7 +1160,8 @@ module iuq_ifetch(
                .spr_single_issue(spr_single_issue_int[i]),
                .vdd(vdd),
                .gnd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+               .rst(rst),
                .pc_iu_sg_2(pc_iu_sg_2),
                .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
                .clkoff_b(clkoff_b),
@@ -1340,7 +1343,8 @@ module iuq_ifetch(
       .rm_ib_iu3_instr(rm_ib_iu3_instr),
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_sg_2(pc_iu_sg_2),
       .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
       .clkoff_b(clkoff_b),
@@ -1362,7 +1366,8 @@ module iuq_ifetch(
          iuq_uc  iuq_uc0(
                .vdd(vdd),
                .gnd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+               .rst(rst),
                .pc_iu_func_sl_thold_2(pc_iu_func_sl_thold_2),
                .pc_iu_sg_2(pc_iu_sg_2),
                .tc_ac_ccflush_dc(tc_ac_ccflush_dc),
@@ -1437,7 +1442,8 @@ module iuq_ifetch(
    iuq_dbg  iuq_dbg0(
        .vdd(vdd),
        .gnd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+       .rst(rst),
        .thold_2(pc_iu_func_slp_sl_thold_2),
        .pc_iu_sg_2(pc_iu_sg_2),
        .clkoff_b(clkoff_b),

@@ -38,11 +38,11 @@
 
 `include "tri_a2o.vh"
 
-
 module iuq_uc_control(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_func_sl_thold_0_b,
    pc_iu_sg_0,
    force_t,
@@ -94,11 +94,10 @@ module iuq_uc_control(
 
 
    inout                    vdd;
-
    inout                    gnd;
 
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]  nclk;
+   input                    clk;
+   input                    rst;
    input                    pc_iu_func_sl_thold_0_b;
    input                    pc_iu_sg_0;
    input                    force_t;
@@ -776,7 +775,8 @@ module iuq_uc_control(
    iuq_uc_cplbuffer  iuq_uc_cplbuffer0(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -811,7 +811,8 @@ module iuq_uc_control(
    tri_rlmreg_p #(.WIDTH(7), .INIT(0), .NEEDS_SRESET(0)) xu_iu_ucode_xer_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(xer_act),		// ??? If change, make sure xer bugspray is still accurate
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -829,7 +830,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) xu_iu_ucode_xer_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -847,7 +849,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) wait_for_xer_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -865,7 +868,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) xer_val_occurred_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -883,7 +887,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -901,7 +906,8 @@ module iuq_uc_control(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) instr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -919,7 +925,8 @@ module iuq_uc_control(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) instr_even_late_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(data_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -937,7 +944,8 @@ module iuq_uc_control(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) instr_odd_late_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(data_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -955,7 +963,8 @@ module iuq_uc_control(
    tri_rlmreg_p #(.WIDTH(12), .INIT(0), .NEEDS_SRESET(0)) sel_even_late_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(data_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -973,7 +982,8 @@ module iuq_uc_control(
    tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(0)) sel_odd_late_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(data_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -991,7 +1001,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) early_end_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1009,7 +1020,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cond_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1027,7 +1039,8 @@ module iuq_uc_control(
    tri_rlmreg_p #(.WIDTH(9), .INIT(0), .NEEDS_SRESET(0)) rom_addr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1045,7 +1058,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) flush_to_odd_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1063,7 +1077,8 @@ module iuq_uc_control(
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(0)) count_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1081,7 +1096,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inloop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1099,7 +1115,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) skip_zero_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1117,7 +1134,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) skip_to_np1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1135,7 +1153,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) force_ep_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1153,7 +1172,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) fxm_type_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_control_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1171,7 +1191,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ep_force_even_late_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(data_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1189,7 +1210,8 @@ module iuq_uc_control(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ep_force_odd_late_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(data_valid),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),

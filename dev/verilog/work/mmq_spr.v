@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 //********************************************************************
 //* TITLE: Memory Management Unit Special Purpose Registers
@@ -39,8 +39,8 @@ module mmq_spr(
 
    inout                                vdd,
    inout                                gnd,
-   (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]              nclk,
+   input                                clk,
+   input                                rst,
 
    input [0:`THREADS-1]                 cp_flush,
    output [0:`MM_THREADS-1]             cp_flush_p1,
@@ -2374,7 +2374,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2392,7 +2393,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush_p1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2412,7 +2414,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_CTL_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_ctl_in_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2430,7 +2433,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_ETID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_etid_in_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2448,7 +2452,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_ADDR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_addr_in_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2466,7 +2471,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_ADDR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_addr_in_clone_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2484,7 +2490,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_DATA_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_data_in_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2503,7 +2510,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_CTL_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_ctl_int_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_val_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2521,7 +2529,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_ETID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_etid_int_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_val_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2539,7 +2548,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_ADDR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_addr_int_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_val_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2557,7 +2567,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_DATA_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_data_int_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_val_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2576,7 +2587,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_CTL_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_ctl_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_val_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2594,7 +2606,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_ETID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_etid_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_val_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2612,7 +2625,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_ADDR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_addr_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_val_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2630,7 +2644,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_DATA_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_data_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_val_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2649,7 +2664,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_any_mmu_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2667,7 +2683,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_pid0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2686,7 +2703,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_pid1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2705,7 +2723,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mmucr0_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2724,7 +2743,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mmucr0_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2743,7 +2763,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mmucr1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2761,7 +2782,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mmucr2_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2779,7 +2801,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mmucr3_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2798,7 +2821,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mmucr3_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2817,7 +2841,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_lpidr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2835,7 +2860,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mesr1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2853,7 +2879,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mesr2_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2871,7 +2898,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mmucsr0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2889,7 +2917,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mmucfg_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2907,7 +2936,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_tlb0cfg_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2925,7 +2955,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_tlb0ps_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2943,7 +2974,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_lratcfg_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2961,7 +2993,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_lratps_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2979,7 +3012,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_eptcfg_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -2997,7 +3031,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_lper_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3015,7 +3050,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_lperu_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3034,7 +3070,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_lper_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3052,7 +3089,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_lperu_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3071,7 +3109,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas0_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3089,7 +3128,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas1_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3107,7 +3147,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas2_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3125,7 +3166,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas3_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3143,7 +3185,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas4_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3161,7 +3204,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas5_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3179,7 +3223,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas6_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3197,7 +3242,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas7_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3215,7 +3261,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas8_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3233,7 +3280,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas2u_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3251,7 +3299,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas01_64b_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3269,7 +3318,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas56_64b_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3287,7 +3337,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas73_64b_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3305,7 +3356,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas81_64b_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3324,7 +3376,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas0_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3342,7 +3395,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas1_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3360,7 +3414,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas2_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3378,7 +3433,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas3_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3396,7 +3452,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas4_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3414,7 +3471,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas5_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3432,7 +3490,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas6_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3450,7 +3509,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas7_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3468,7 +3528,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas8_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3486,7 +3547,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas2u_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3504,7 +3566,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas01_64b_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3522,7 +3585,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas56_64b_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3540,7 +3604,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas73_64b_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3558,7 +3623,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_mas81_64b_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3577,7 +3643,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_64b_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3596,7 +3663,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`SPR_DATA_WIDTH), .INIT(0), .NEEDS_SRESET(1)) spr_mas_data_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_mas_data_out_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3614,7 +3682,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_match_any_mas_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_match_mas_act),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3633,7 +3702,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`PID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) pid0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_mmu_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3652,7 +3722,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`PID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) pid1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_mmu_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3671,7 +3742,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MMUCR0_WIDTH), .INIT(0), .NEEDS_SRESET(1)) mmucr0_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3690,7 +3762,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MMUCR0_WIDTH), .INIT(0), .NEEDS_SRESET(1)) mmucr0_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3709,7 +3782,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MMUCR1_WIDTH), .INIT(BCFG_MMUCR1_VALUE), .NEEDS_SRESET(1)) mmucr1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3727,7 +3801,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MMUCR2_WIDTH), .INIT(BCFG_MMUCR2_VALUE), .NEEDS_SRESET(1)) mmucr2_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3745,7 +3820,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MMUCR3_WIDTH), .INIT(BCFG_MMUCR3_VALUE), .NEEDS_SRESET(1)) mmucr3_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3763,7 +3839,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) tstmode4k_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3782,7 +3859,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MMUCR3_WIDTH), .INIT(BCFG_MMUCR3_VALUE), .NEEDS_SRESET(1)) mmucr3_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3800,7 +3878,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) tstmode4k_1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3820,7 +3899,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`LPID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) lpidr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_mmu_act_q[`MM_THREADS]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3838,7 +3918,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MESR1_WIDTH), .INIT(0), .NEEDS_SRESET(1)) mesr1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_mmu_act_q[`MM_THREADS]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3856,7 +3937,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MESR2_WIDTH), .INIT(0), .NEEDS_SRESET(1)) mesr2_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(spr_mmu_act_q[`MM_THREADS]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3874,7 +3956,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas0_0_atsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3892,7 +3975,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) mas0_0_esel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3910,7 +3994,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas0_0_hes_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3928,7 +4013,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) mas0_0_wq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3946,7 +4032,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas1_0_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3964,7 +4051,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas1_0_iprot_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -3982,7 +4070,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`PID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) mas1_0_tid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4000,7 +4089,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas1_0_ind_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4018,7 +4108,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas1_0_ts_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4036,7 +4127,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mas1_0_tsize_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4054,7 +4146,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(52-(64-`SPR_DATA_WIDTH)), .INIT(0), .NEEDS_SRESET(1)) mas2_0_epn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4072,7 +4165,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) mas2_0_wimge_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4090,7 +4184,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(21), .INIT(0), .NEEDS_SRESET(1)) mas3_0_rpnl_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4108,7 +4203,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mas3_0_ubits_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4126,7 +4222,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) mas3_0_usxwr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4144,7 +4241,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas4_0_indd_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4162,7 +4260,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(1), .NEEDS_SRESET(1)) mas4_0_tsized_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4180,7 +4279,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) mas4_0_wimged_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4198,7 +4298,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas5_0_sgs_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4216,7 +4317,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) mas5_0_slpid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4234,7 +4336,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(14), .INIT(0), .NEEDS_SRESET(1)) mas6_0_spid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4252,7 +4355,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mas6_0_isize_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4270,7 +4374,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas6_0_sind_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4288,7 +4393,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas6_0_sas_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4306,7 +4412,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) mas7_0_rpnu_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4324,7 +4431,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas8_0_tgs_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4342,7 +4450,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas8_0_vf_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4360,7 +4469,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) mas8_0_tlpid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4379,7 +4489,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas0_1_atsel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4397,7 +4508,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) mas0_1_esel_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4415,7 +4527,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas0_1_hes_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4433,7 +4546,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) mas0_1_wq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4451,7 +4565,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas1_1_v_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4469,7 +4584,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas1_1_iprot_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4487,7 +4603,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`PID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) mas1_1_tid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4505,7 +4622,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas1_1_ind_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4523,7 +4641,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas1_1_ts_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4541,7 +4660,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mas1_1_tsize_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4559,7 +4679,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(52-(64-`SPR_DATA_WIDTH)), .INIT(0), .NEEDS_SRESET(1)) mas2_1_epn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4578,7 +4699,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) mas2_1_wimge_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4596,7 +4718,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(21), .INIT(0), .NEEDS_SRESET(1)) mas3_1_rpnl_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4614,7 +4737,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mas3_1_ubits_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4632,7 +4756,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) mas3_1_usxwr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4650,7 +4775,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas4_1_indd_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4668,7 +4794,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(1), .NEEDS_SRESET(1)) mas4_1_tsized_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4686,7 +4813,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) mas4_1_wimged_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_cfg_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4704,7 +4832,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas5_1_sgs_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4722,7 +4851,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) mas5_1_slpid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4740,7 +4870,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(14), .INIT(0), .NEEDS_SRESET(1)) mas6_1_spid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4758,7 +4889,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) mas6_1_isize_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4776,7 +4908,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas6_1_sind_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4794,7 +4927,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas6_1_sas_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4812,7 +4946,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) mas7_1_rpnu_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4830,7 +4965,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas8_1_tgs_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4848,7 +4984,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mas8_1_vf_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4866,7 +5003,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) mas8_1_tlpid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4885,7 +5023,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mmucsr0_tlb0fi_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4903,7 +5042,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(52-(64-`REAL_ADDR_WIDTH)), .INIT(0), .NEEDS_SRESET(1)) lper_0_alpn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4921,7 +5061,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lper_0_lps_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4940,7 +5081,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(52 -(64-`REAL_ADDR_WIDTH)), .INIT(0), .NEEDS_SRESET(1)) lper_1_alpn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4958,7 +5100,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lper_1_lps_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(mas_update_pending_act[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4977,7 +5120,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS+1), .INIT(0), .NEEDS_SRESET(1)) spr_mmu_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -4995,7 +5139,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) spr_val_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5014,7 +5159,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) cp_mm_except_taken_t0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5039,7 +5185,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_mas_dtlb_error_pending_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
        .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5057,7 +5204,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_mas_itlb_error_pending_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5075,7 +5223,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_lper_we_pending_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5093,7 +5242,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) tlb_mmucr1_we_pending_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5111,7 +5261,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) ierat_mmucr1_we_pending_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5129,7 +5280,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) derat_mmucr1_we_pending_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5147,7 +5299,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_mas1_0_ts_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5165,7 +5318,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`PID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_mas1_0_tid_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5183,7 +5337,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`EPN_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_mas2_0_epn_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5201,7 +5356,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`REAL_ADDR_WIDTH-12), .INIT(0), .NEEDS_SRESET(1)) tlb_lper_0_lpn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5219,7 +5375,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) tlb_lper_0_lps_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5237,7 +5394,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(9), .INIT(0), .NEEDS_SRESET(1)) tlb_mmucr1_0_een_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5255,7 +5413,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ierat_mmucr1_0_een_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu_mm_ierat_mmucr1_we_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5273,7 +5432,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) derat_mmucr1_0_een_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_mm_derat_mmucr1_we_q[0]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5293,7 +5453,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) cp_mm_except_taken_t1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5318,7 +5479,8 @@ endgenerate
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) tlb_mas1_1_ts_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5336,7 +5498,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`PID_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_mas1_1_tid_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5354,7 +5517,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`EPN_WIDTH), .INIT(0), .NEEDS_SRESET(1)) tlb_mas2_1_epn_error_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5372,7 +5536,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`REAL_ADDR_WIDTH-12), .INIT(0), .NEEDS_SRESET(1)) tlb_lper_1_lpn_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5390,7 +5555,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) tlb_lper_1_lps_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5408,7 +5574,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(9), .INIT(0), .NEEDS_SRESET(1)) tlb_mmucr1_1_een_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cat_emf_act_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5426,7 +5593,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ierat_mmucr1_1_een_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu_mm_ierat_mmucr1_we_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5444,7 +5612,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(1)) derat_mmucr1_1_een_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(xu_mm_derat_mmucr1_we_q[1]),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5465,7 +5634,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(4), .INIT(MMQ_SPR_CSWITCH_0TO3), .NEEDS_SRESET(1)) cswitch_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5487,7 +5657,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(1)) cat_emf_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5505,7 +5676,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) spare_a_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5523,7 +5695,8 @@ endgenerate
    tri_rlmreg_p #(.WIDTH(64), .INIT(0), .NEEDS_SRESET(1)) spare_b_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -5540,7 +5713,8 @@ endgenerate
 
    // non-scannable timing latches
    tri_regk #(.WIDTH(18), .INIT(0), .NEEDS_SRESET(0)) iu_mm_ierat_mmucr0_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5558,7 +5732,8 @@ endgenerate
    );
 
    tri_regk #(.WIDTH(18), .INIT(0), .NEEDS_SRESET(0)) xu_mm_derat_mmucr0_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5576,7 +5751,8 @@ endgenerate
    );
 
    tri_regk #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(0)) iu_mm_ierat_mmucr1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5594,7 +5770,8 @@ endgenerate
    );
 
    tri_regk #(.WIDTH(5), .INIT(0), .NEEDS_SRESET(0)) xu_mm_derat_mmucr1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5612,7 +5789,8 @@ endgenerate
    );
 
    tri_regk #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(0)) iu_mm_ierat_mmucr1_we_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5630,7 +5808,8 @@ endgenerate
    );
 
    tri_regk #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(0)) xu_mm_derat_mmucr1_we_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5648,7 +5827,8 @@ endgenerate
    );
 
    tri_regk #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(0)) iu_mm_ierat_mmucr0_we_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5666,7 +5846,8 @@ endgenerate
    );
 
    tri_regk #(.WIDTH(`MM_THREADS), .INIT(0), .NEEDS_SRESET(0)) xu_mm_derat_mmucr0_we_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -5737,7 +5918,8 @@ endgenerate
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(lcb_delay_lclkr_dc[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .force_t(pc_cfg_sl_force),
          .thold_b(pc_cfg_sl_thold_0_b),
          .dclk(lcb_dclk),
@@ -5754,7 +5936,8 @@ endgenerate
          tri_rlmreg_p #(.WIDTH(2), .INIT(BCFG_MMUCFG_VALUE), .NEEDS_SRESET(1)) mmucfg_47to48_latch(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(pc_cfg_slp_sl_thold_0_b),
             .sg(pc_sg_0),
@@ -5772,7 +5955,8 @@ endgenerate
          tri_rlmreg_p #(.WIDTH(3), .INIT(BCFG_TLB0CFG_VALUE), .NEEDS_SRESET(1)) tlb0cfg_45to47_latch(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(pc_cfg_slp_sl_thold_0_b),
             .sg(pc_sg_0),
@@ -5790,7 +5974,8 @@ endgenerate
          tri_rlmreg_p #(.WIDTH(16), .INIT(0), .NEEDS_SRESET(1)) bcfg_spare_latch(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(pc_cfg_slp_sl_thold_0_b),
             .sg(pc_sg_0),
@@ -5869,7 +6054,8 @@ endgenerate
    tri_plat #(.WIDTH(7)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ccflush_dc),
       .din( {pc_func_sl_thold_2, pc_func_slp_sl_thold_2, pc_cfg_sl_thold_2, pc_cfg_slp_sl_thold_2, pc_func_slp_nsl_thold_2, pc_sg_2, pc_fce_2} ),
       .q( {pc_func_sl_thold_1, pc_func_slp_sl_thold_1, pc_cfg_sl_thold_1, pc_cfg_slp_sl_thold_1, pc_func_slp_nsl_thold_1, pc_sg_1, pc_fce_1} )
@@ -5878,7 +6064,8 @@ endgenerate
    tri_plat #(.WIDTH(7)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ccflush_dc),
       .din( {pc_func_sl_thold_1, pc_func_slp_sl_thold_1, pc_cfg_sl_thold_1, pc_cfg_slp_sl_thold_1, pc_func_slp_nsl_thold_1, pc_sg_1, pc_fce_1} ),
       .q( {pc_func_sl_thold_0, pc_func_slp_sl_thold_0, pc_cfg_sl_thold_0, pc_cfg_slp_sl_thold_0, pc_func_slp_nsl_thold_0, pc_sg_0, pc_fce_0} )

@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -184,10 +184,10 @@ module rv_rf_byp(
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1] 			    nclk,
    inout 					    vdd,
    inout 					    gnd,
+   input                    clk,
+   input                    rst,
 
    //-------------------------------------------------------------------
    // Pervasive
@@ -1580,7 +1580,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
 	      fxu0_t1_latch(
-			    .nclk(nclk),
+			    .clk(clk),
+	.rst(rst),
 			    .vd(vdd),
 			    .gd(gnd),
 			    .act(tiup),
@@ -1608,7 +1609,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
 	      fxu0_t2_latch(
-			    .nclk(nclk),
+			    .clk(clk),
+	.rst(rst),
 			    .vd(vdd),
 			    .gd(gnd),
 			    .act(tiup),
@@ -1636,7 +1638,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
 	      fxu0_t3_latch(
-			    .nclk(nclk),
+			    .clk(clk),
+	.rst(rst),
 			    .vd(vdd),
 			    .gd(gnd),
 			    .act(tiup),
@@ -1658,7 +1661,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
    fxu0_s1_latch(
-		 .nclk(nclk),
+		 .clk(clk),
+	.rst(rst),
 		 .vd(vdd),
 		 .gd(gnd),
 		 .act(fx0_act[0]),
@@ -1677,7 +1681,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
    fxu0_s2_latch(
-		 .nclk(nclk),
+		 .clk(clk),
+	.rst(rst),
 		 .vd(vdd),
 		 .gd(gnd),
 		 .act(fx0_act[0]),
@@ -1696,7 +1701,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
    fxu0_s3_latch(
-		 .nclk(nclk),
+		 .clk(clk),
+	.rst(rst),
 		 .vd(vdd),
 		 .gd(gnd),
 		 .act(fx0_act[0]),
@@ -1721,7 +1727,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
 	      lq_t1_latch(
-			  .nclk(nclk),
+			  .clk(clk),
+	.rst(rst),
 			  .vd(vdd),
 			  .gd(gnd),
 			  .act(tiup),
@@ -1750,7 +1757,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
 	      lq_t3_latch(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(tiup),
@@ -1772,7 +1780,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
    lq_s1_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(tiup),
@@ -1791,7 +1800,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
    lq_s2_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(tiup),
@@ -1816,7 +1826,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
 	      fxu1_t1_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -1844,7 +1855,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
 	      fxu1_t2_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -1872,7 +1884,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
 	      fxu1_t3_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -1894,7 +1907,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
    fxu1_s1_latch(
-                 .nclk(nclk),
+                 .clk(clk),
+	.rst(rst),
                  .vd(vdd),
                  .gd(gnd),
                  .act(fx1_act[0]),
@@ -1913,7 +1927,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
    fxu1_s2_latch(
-                 .nclk(nclk),
+                 .clk(clk),
+	.rst(rst),
                  .vd(vdd),
                  .gd(gnd),
                  .act(fx1_act[0]),
@@ -1932,7 +1947,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(elmnt_width), .INIT(0), .NEEDS_SRESET(1))
    fxu1_s3_latch(
-                 .nclk(nclk),
+                 .clk(clk),
+	.rst(rst),
                  .vd(vdd),
                  .gd(gnd),
                  .act(fx1_act[0]),
@@ -1957,7 +1973,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))
 	      rel_vld_latch(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -1977,7 +1994,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1))
 	      rel_itag_latch(
-                             .nclk(nclk),
+                             .clk(clk),
+	.rst(rst),
                              .vd(vdd),
                              .gd(gnd),
                              .act(tiup),
@@ -2000,7 +2018,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    cp_flush_reg(
-                .nclk(nclk),
+                .clk(clk),
+	.rst(rst),
                 .vd(vdd),
                 .gd(gnd),
                 .act(tiup),
@@ -2025,7 +2044,8 @@ module rv_rf_byp(
 
               tri_rlmlatch_p #(.INIT(0))
 	      fx0_is_brick_reg(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(fx0_act[i]),
@@ -2053,7 +2073,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))
 	      fx0_vld_reg(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(tiup),
@@ -2082,7 +2103,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
 	      fx0_itag_reg(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(fx0_act[i]),
@@ -2105,7 +2127,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex0_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[0]),
@@ -2125,7 +2148,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex1_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[1]),
@@ -2145,7 +2169,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex2_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[2]),
@@ -2165,7 +2190,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex3_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[3]),
@@ -2185,7 +2211,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex4_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[4]),
@@ -2205,7 +2232,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex5_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[5]),
@@ -2225,7 +2253,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex6_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[6]),
@@ -2245,7 +2274,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex7_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[7]),
@@ -2265,7 +2295,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0))
    fx0_ex8_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx0_act[8]),
@@ -2284,7 +2315,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_rel_itag_vld_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -2304,7 +2336,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx0_rel_itag_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(tiup),
@@ -2324,7 +2357,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_ext_rel_itag_vld_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -2344,7 +2378,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx0_ext_rel_itag_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -2364,7 +2399,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx0_ext_itag0_sel_reg(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(tiup),
@@ -2384,7 +2420,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(5), .INIT(0))
    fx0_need_rel_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(tiup),
@@ -2404,7 +2441,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_ex3_ord_rel_reg(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(tiup),
@@ -2424,7 +2462,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_ex4_ord_rel_reg(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(tiup),
@@ -2444,7 +2483,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_ex5_ord_rel_reg(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(tiup),
@@ -2464,7 +2504,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_ex6_ord_rel_reg(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(tiup),
@@ -2484,7 +2525,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_ex7_ord_rel_reg(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(tiup),
@@ -2504,7 +2546,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_ex8_ord_rel_reg(
-                       .nclk(nclk),
+                       .clk(clk),
+	.rst(rst),
                        .vd(vdd),
                        .gd(gnd),
                        .act(tiup),
@@ -2525,7 +2568,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx0_release_ord_hold_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -2545,7 +2589,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx0_ex0_ord_reg(
-                   .nclk(nclk),
+                   .clk(clk),
+	.rst(rst),
                    .vd(vdd),
                    .gd(gnd),
                    .act(fx0_act[0]),
@@ -2565,7 +2610,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx0_ex1_ord_reg(
-                   .nclk(nclk),
+                   .clk(clk),
+	.rst(rst),
                    .vd(vdd),
                    .gd(gnd),
                    .act(fx0_act[1]),
@@ -2584,7 +2630,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx0_ex2_ord_reg(
-                   .nclk(nclk),
+                   .clk(clk),
+	.rst(rst),
                    .vd(vdd),
                    .gd(gnd),
                    .act(fx0_act[2]),
@@ -2602,7 +2649,8 @@ module rv_rf_byp(
                    );
    tri_rlmlatch_p #(.INIT(0))
    fx0_ex3_ord_flush_reg(
-                   .nclk(nclk),
+                   .clk(clk),
+	.rst(rst),
                    .vd(vdd),
                    .gd(gnd),
                    .act(fx0_act[3]),
@@ -2621,7 +2669,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx0_sched_rel_pri_or_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -2639,7 +2688,8 @@ module rv_rf_byp(
                             );
    tri_rlmlatch_p #(.INIT(0))
    fx0_rel_itag_abort_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -2658,7 +2708,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx0_ext_rel_itag_abort_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -2676,7 +2727,8 @@ module rv_rf_byp(
                             );
    tri_rlmlatch_p #(.INIT(0))
    fx0_ex5_recircd_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -2694,7 +2746,8 @@ module rv_rf_byp(
                             );
    tri_rlmlatch_p #(.INIT(0))
    fx0_ex6_recircd_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -2712,7 +2765,8 @@ module rv_rf_byp(
                             );
    tri_rlmlatch_p #(.INIT(0))
    fx0_ex7_recircd_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -2737,7 +2791,8 @@ module rv_rf_byp(
 
 	      tri_rlmlatch_p #(.INIT(0))
 	      fx0_abort_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(fx0_act[i]),
@@ -2767,7 +2822,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1))
 	      fx1_vld_reg(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(tiup),
@@ -2796,7 +2852,8 @@ module rv_rf_byp(
            begin : fxu1_itag_gen
               tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
 	      fx1_itag_reg(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(fx1_act[i]),
@@ -2819,7 +2876,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0))
    fx1_ex0_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx1_act[0]),
@@ -2839,7 +2897,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0))
    fx1_ex1_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx1_act[1]),
@@ -2859,7 +2918,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0))
    fx1_ex2_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx1_act[2]),
@@ -2879,7 +2939,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0))
    fx1_ex3_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx1_act[3]),
@@ -2899,7 +2960,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0))
    fx1_ex4_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx1_act[4]),
@@ -2918,7 +2980,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0))
    fx1_ex5_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx1_act[5]),
@@ -2937,7 +3000,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0))
    fx1_ex6_ilat_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(fx1_act[6]),
@@ -2957,7 +3021,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx1_rel_itag_vld_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -2977,7 +3042,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx1_rel_itag_reg(
-                    .nclk(nclk),
+                    .clk(clk),
+	.rst(rst),
                     .vd(vdd),
                     .gd(gnd),
                     .act(tiup),
@@ -2997,7 +3063,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
    fx1_ext_rel_itag_vld_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -3017,7 +3084,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx1_ext_rel_itag_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -3037,7 +3105,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_ext_itag0_sel_reg(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(tiup),
@@ -3057,7 +3126,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_ex0_need_rel_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -3077,7 +3147,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_ex1_need_rel_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -3097,7 +3168,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_ex2_need_rel_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -3117,7 +3189,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_ex3_need_rel_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -3136,7 +3209,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_ex1_stq_pipe_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -3154,7 +3228,8 @@ module rv_rf_byp(
                         );
    tri_rlmlatch_p #(.INIT(0))
    fx1_ex2_stq_pipe_reg(
-                        .nclk(nclk),
+                        .clk(clk),
+	.rst(rst),
                         .vd(vdd),
                         .gd(gnd),
                         .act(tiup),
@@ -3173,7 +3248,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_sched_rel_pri_or_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -3192,7 +3268,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_rel_itag_abort_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -3211,7 +3288,8 @@ module rv_rf_byp(
 
    tri_rlmlatch_p #(.INIT(0))
    fx1_ext_rel_itag_abort_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(tiup),
@@ -3236,7 +3314,8 @@ module rv_rf_byp(
 
 	      tri_rlmlatch_p #(.INIT(0))
 	      fx0_abort_reg(
-                            .nclk(nclk),
+                            .clk(clk),
+	.rst(rst),
                             .vd(vdd),
                             .gd(gnd),
                             .act(fx1_act[i]),
@@ -3259,7 +3338,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx0_ex0_s1_itag_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(fx0_act[0]),
@@ -3278,7 +3358,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx0_ex0_s2_itag_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(fx0_act[0]),
@@ -3297,7 +3378,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx0_ex0_s3_itag_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(fx0_act[0]),
@@ -3316,7 +3398,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx1_ex0_s1_itag_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(fx1_act[0]),
@@ -3337,7 +3420,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx1_ex0_s2_itag_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(fx1_act[0]),
@@ -3357,7 +3441,8 @@ module rv_rf_byp(
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
    fx1_ex0_s3_itag_latch(
-                         .nclk(nclk),
+                         .clk(clk),
+	.rst(rst),
                          .vd(vdd),
                          .gd(gnd),
                          .act(fx1_act[0]),
@@ -3382,7 +3467,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0))
 	      lq_vld_latch(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .vd(vdd),
                            .gd(gnd),
                            .act(tiup),
@@ -3410,7 +3496,8 @@ module rv_rf_byp(
 
               tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0))
 	      lq_itag_reg(
-                          .nclk(nclk),
+                          .clk(clk),
+	.rst(rst),
                           .vd(vdd),
                           .gd(gnd),
                           .act(lq_act[i]),
@@ -3443,7 +3530,8 @@ module rv_rf_byp(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
                                        .vd(vdd),
                                        .gd(gnd),
-                                       .nclk(nclk),
+                                       .clk(clk),
+	.rst(rst),
                                        .flush(ccflush_dc),
                                        .din({func_sl_thold_1, sg_1}),
                                        .q({func_sl_thold_0, sg_0})

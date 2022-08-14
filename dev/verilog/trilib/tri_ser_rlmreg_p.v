@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -35,10 +35,11 @@
 
 `include "tri_a2o.vh"
 
-module tri_ser_rlmreg_p(
+module tri_ser_rlmreg_p (
    vd,
    gd,
-   nclk,
+   clk,
+   rst,
    act,
    force_t,
    thold_b,
@@ -62,7 +63,8 @@ module tri_ser_rlmreg_p(
 
    inout                          vd;
    inout                          gd;
-   input [0:`NCLK_WIDTH-1]        nclk;
+   input                          clk;
+   input                          rst;
    input                          act;
    input                          force_t;
    input                          thold_b;
@@ -89,7 +91,8 @@ module tri_ser_rlmreg_p(
    assign dout = dout_buf;
 
    tri_aoi22_nlats_wlcb #(.WIDTH(WIDTH), .OFFSET(OFFSET), .INIT(INIT), .IBUF(IBUF), .DUALSCAN(DUALSCAN), .NEEDS_SRESET(NEEDS_SRESET)) tri_ser_rlmreg_p(
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .vd(vd),
          .gd(gd),
          .act(act),

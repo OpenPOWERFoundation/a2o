@@ -1,4 +1,4 @@
-// © IBM Corp. 2022
+// © IBM Corp. 2020
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -33,6 +33,10 @@
 
 // Use this line for 1 thread.  Comment out for 2 thread design.
 //`define THREADS1
+`define RESET_VECTOR 32'h00000000
+
+// 0: none   1: DP
+`define FLOAT_TYPE 1
 
 `define  gpr_t  3'b000
 `define  cr_t  3'b001
@@ -111,7 +115,7 @@
 `define  IBUFF_INSTR_WIDTH  70
 `define  IBUFF_IFAR_WIDTH  20
 `define  IBUFF_DEPTH  16
-`define  PF_IAR_BITS  12		   // number of IAR bits used by prefetch
+`define  PF_IAR_BITS  12		// number of IAR bits used by prefetch
 `define  FXU0_PIPE_START 1
 `define  FXU0_PIPE_END 8
 `define  FXU1_PIPE_START 1
@@ -121,7 +125,7 @@
 `define  LQ_REL_PIPE_START 2
 `define  LQ_REL_PIPE_END 4
 `define  LOAD_CREDITS   8
-`define  STORE_CREDITS 4
+`define  STORE_CREDITS 4         //wtf 32 is normal; fpga bug needed 4
 `define  IUQ_ENTRIES   4 		   // Instruction Fetch Queue Size
 `define  MMQ_ENTRIES   2 		   // MMU Queue Size
 `define  CR_WIDTH 4
@@ -133,16 +137,32 @@
 `define  INCLUDE_IERAT_BYPASS  1	// 0 => Removes IERAT Bypass logic, 1=> includes (power savings)
 `define  XER_WIDTH  10
 
-`define  INIT_BHT  0			      // 0=> array init time set to 16 clocks, 1=> increased to 512 to init BHT
-`define  INIT_IUCR0  16'h00FA	   // BP enabled
+//wtf: change for verilatorsim - didnt help
+//`define  INIT_BHT  1			      // 0=> array init time set to 16 clocks, 1=> increased to 512 to init BHT
+`define  INIT_BHT  0			         // 0=> array init time set to 16 clocks, 1=> increased to 512 to init BHT
+
+//`define  INIT_IUCR0  16'h0000	   // BP disabled
+`define  INIT_IUCR0 16'h00FA	      // BP enabled
+`define  INIT_XUCR0 32'h00000460    // normal
+
 `define  INIT_MASK  2'b10
 `define  RELQ_INCLUDE  0		   // Reload Queue Included
 
 `define  G_BRANCH_LEN  `EFF_IFAR_WIDTH + 1 + 1 + `EFF_IFAR_WIDTH + 3 + 18 + 1
 
+//wtf: add completion stuff
+/*
+   assign spr_cpcr0_fx0_cnt = cpcr0_l2[35:39];
+   assign spr_cpcr0_fx1_cnt = cpcr0_l2[43:47];
+   assign spr_cpcr0_lq_cnt = cpcr0_l2[51:55];
+   assign spr_cpcr0_sq_cnt = cpcr0_l2[59:63];
+*/
 `define INIT_CPCR0                  32'h0C0C100C   // 000a aaaa 000b bbbb 000c cccc 000d dddd   watermarks: a=fx0 b=fx1 c=ls d=sq ---- um p.543 wrong!; was this in vlog: hex 0C0C100C = 202117132
 //`define INIT_CPCR0                  32'h01010201     // 1/1/2/1
-
+/*
+   assign spr_cpcr1_fu0_cnt = cpcr1_l2[43:47];
+   assign spr_cpcr1_fu1_cnt = cpcr1_l2[51:55];
+*/
 `define INIT_CPCR1                  32'h000C0C00     // 0000 0000 000a aaaa 000b bbbb 0000 0000   credits: a=fx0 b=fx1 c=ls d=sq ---- um p.544 wrong!; was this in vlog: hex 000C0C00 = 789504
 //`define INIT_CPCR1                  32'h00010100      // 1/1
 

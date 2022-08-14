@@ -37,8 +37,8 @@ module xu_spr
    parameter                           hvmode = 1,
    parameter                           a2mode = 1
 )(
-   input  [0:`NCLK_WIDTH-1] nclk,
-
+   input                               clk,
+   input                               rst,
    // CHIP IO
    input  [54:61]                      an_ac_coreid,
    input  [32:35]                      an_ac_chipid_dc,
@@ -669,7 +669,8 @@ module xu_spr
 
 
    xu_spr_cspr #(.hvmode(hvmode), .a2mode(a2mode)) xu_spr_cspr(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       // CHIP IO
       .an_ac_sleep_en(an_ac_sleep_en),
       .an_ac_reservation_vld(an_ac_reservation_vld),
@@ -910,7 +911,8 @@ module xu_spr
          begin : thread
 
             xu_spr_tspr #(.hvmode(hvmode), .a2mode(a2mode)) xu_spr_tspr(
-               .nclk(nclk),
+               .clk(clk),
+               .rst(rst),
                // CHIP IO
                .an_ac_ext_interrupt(an_ac_ext_interrupt[t]),
                .an_ac_crit_interrupt(an_ac_crit_interrupt[t]),
@@ -1107,7 +1109,8 @@ module xu_spr
       .vdd(vdd),
       .vcs(vcs),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .sg_0(sg_0[0]),
       .abst_sl_thold_0(abst_sl_thold_0),
       .ary_nsl_thold_0(ary_nsl_thold_0),
@@ -1188,7 +1191,8 @@ module xu_spr
    // FUNC Latch Instances
 
    tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) reset_1_request_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -1206,7 +1210,8 @@ module xu_spr
    );
 
    tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) reset_2_request_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -1224,7 +1229,8 @@ module xu_spr
    );
 
    tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) reset_3_request_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -1242,7 +1248,8 @@ module xu_spr
    );
 
    tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) reset_wd_request_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -1265,7 +1272,8 @@ module xu_spr
          begin : thread
 
             tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0), .NEEDS_SRESET(1)) int_rest_ifar_latch(
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .vd(vdd),
                .gd(gnd),
                .act(int_rest_act[r]),
@@ -1286,7 +1294,8 @@ module xu_spr
       endgenerate
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) trace_bus_enable_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_slp_sl_force[0]),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),
@@ -1299,7 +1308,8 @@ module xu_spr
       .dout(trace_bus_enable_q)
    );
    tri_rlmreg_p #(.WIDTH(11), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) debug_mux_ctrls_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(trace_bus_enable_q),
       .force_t(func_slp_sl_force[0]),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),
@@ -1312,7 +1322,8 @@ module xu_spr
       .dout(debug_mux_ctrls_q)
    );
    tri_rlmreg_p #(.WIDTH(32), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) debug_data_out_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(trace_bus_enable_q),
       .force_t(func_slp_sl_force[0]),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),
@@ -1328,7 +1339,8 @@ module xu_spr
       // ABST Latch Instances
 
       tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) abist_g8t_wenb_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1346,7 +1358,8 @@ module xu_spr
       );
 
       tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) abist_waddr_0_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1364,7 +1377,8 @@ module xu_spr
       );
 
       tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) abist_di_0_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1382,7 +1396,8 @@ module xu_spr
       );
 
       tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) abist_g8t1p_renb_0_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1400,7 +1415,8 @@ module xu_spr
       );
 
       tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) abist_raddr_0_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1418,7 +1434,8 @@ module xu_spr
       );
 
       tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) abist_wl32_comp_ena_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1436,7 +1453,8 @@ module xu_spr
       );
 
       tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) abist_g8t_dcomp_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1454,7 +1472,8 @@ module xu_spr
       );
 
       tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) abist_g8t_bw_1_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1472,7 +1491,8 @@ module xu_spr
       );
 
       tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) abist_g8t_bw_0_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(pc_xu_abist_ena_dc),
@@ -1490,7 +1510,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) abst_scan_in_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1501,7 +1522,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) abst_scan_out_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1512,7 +1534,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) bcfg_scan_in_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1523,7 +1546,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) bcfg_scan_out_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1534,7 +1558,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ccfg_scan_in_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1545,7 +1570,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ccfg_scan_out_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1556,7 +1582,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) dcfg_scan_in_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1567,7 +1594,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) dcfg_scan_out_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1578,7 +1606,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) time_scan_in_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1589,7 +1618,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) time_scan_out_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1600,7 +1630,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) repr_scan_in_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1611,7 +1642,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) repr_scan_out_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1622,7 +1654,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) gptr_scan_in_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1633,7 +1666,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) gptr_scan_out_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1644,7 +1678,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH((`THREADS+2)), .INIT(0), .NEEDS_SRESET(1)) func_scan_in_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1655,7 +1690,8 @@ module xu_spr
       );
 
       tri_regs #(.WIDTH((`THREADS+2)), .INIT(0), .NEEDS_SRESET(1)) func_scan_out_latch(
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .vd(vdd),
          .gd(gnd),
          .force_t(so_force),
@@ -1673,7 +1709,8 @@ module xu_spr
          .vdd(vdd),
          .gnd(gnd),
          .sg(sg_0[0]),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .scan_diag_dc(an_ac_scan_diag_dc),
          .thold(gptr_sl_thold_0),
          .clkoff_dc_b(g8t_clkoff_dc_b),
@@ -1687,20 +1724,34 @@ module xu_spr
       );
 
 
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_00 (.din(func_slp_sl_thold_2   ),.q(func_slp_sl_thold_1   ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_01 (.din(func_sl_thold_2       ),.q(func_sl_thold_1       ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_02 (.din(func_slp_nsl_thold_2  ),.q(func_slp_nsl_thold_1  ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_03 (.din(func_nsl_thold_2      ),.q(func_nsl_thold_1      ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_04 (.din(time_sl_thold_2       ),.q(time_sl_thold_1       ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_05 (.din(repr_sl_thold_2       ),.q(repr_sl_thold_1       ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_06 (.din(gptr_sl_thold_2       ),.q(gptr_sl_thold_1       ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_07 (.din(bolt_sl_thold_2       ),.q(bolt_sl_thold_1       ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_08 (.din(abst_sl_thold_2       ),.q(abst_sl_thold_1       ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_09 (.din(ary_nsl_thold_2       ),.q(ary_nsl_thold_1       ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_10 (.din(cfg_sl_thold_2        ),.q(cfg_sl_thold_1        ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_11 (.din(cfg_slp_sl_thold_2    ),.q(cfg_slp_sl_thold_1    ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_12 (.din(sg_2                  ),.q(sg_1                  ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-      tri_plat #(.WIDTH(1)) perv_2to1_reg_13 (.din(fce_2                 ),.q(fce_1                 ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_00 (.din(func_slp_sl_thold_2   ),.q(func_slp_sl_thold_1   ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_01 (.din(func_sl_thold_2       ),.q(func_sl_thold_1       ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_02 (.din(func_slp_nsl_thold_2  ),.q(func_slp_nsl_thold_1  ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_03 (.din(func_nsl_thold_2      ),.q(func_nsl_thold_1      ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_04 (.din(time_sl_thold_2       ),.q(time_sl_thold_1       ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_05 (.din(repr_sl_thold_2       ),.q(repr_sl_thold_1       ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_06 (.din(gptr_sl_thold_2       ),.q(gptr_sl_thold_1       ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_07 (.din(bolt_sl_thold_2       ),.q(bolt_sl_thold_1       ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_08 (.din(abst_sl_thold_2       ),.q(abst_sl_thold_1       ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_09 (.din(ary_nsl_thold_2       ),.q(ary_nsl_thold_1       ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_10 (.din(cfg_sl_thold_2        ),.q(cfg_sl_thold_1        ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_11 (.din(cfg_slp_sl_thold_2    ),.q(cfg_slp_sl_thold_1    ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_12 (.din(sg_2                  ),.q(sg_1                  ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+      tri_plat  #(.WIDTH(1)) perv_2to1_reg_13 (.din(fce_2                 ),.q(fce_1                 ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
 
       generate
          begin : perv_1to0_reg_gen
@@ -1708,12 +1759,18 @@ module xu_spr
             for (t = 0; t <= `THREADS; t = t + 1)
             begin : thread
 
-               tri_plat #(.WIDTH(1)) perv_1to0_reg_0 (.din(func_slp_sl_thold_1),.q(func_slp_sl_thold_0[t] ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-               tri_plat #(.WIDTH(1)) perv_1to0_reg_1 (.din(func_sl_thold_1    ),.q(func_sl_thold_0[t]     ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-               tri_plat #(.WIDTH(1)) perv_1to0_reg_2 (.din(func_nsl_thold_1   ),.q(func_nsl_thold_0[t]    ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-               tri_plat #(.WIDTH(1)) perv_1to0_reg_3 (.din(cfg_sl_thold_1     ),.q(cfg_sl_thold_0[t]      ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-               tri_plat #(.WIDTH(1)) perv_1to0_reg_4 (.din(sg_1               ),.q(sg_0[t]                ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-               tri_plat #(.WIDTH(1)) perv_1to0_reg_5 (.din(fce_1              ),.q(fce_0[t]               ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
+               tri_plat #(.WIDTH(1)) perv_1to0_reg_0 (.din(func_slp_sl_thold_1),.q(func_slp_sl_thold_0[t] ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+               tri_plat #(.WIDTH(1)) perv_1to0_reg_1 (.din(func_sl_thold_1    ),.q(func_sl_thold_0[t]     ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+               tri_plat #(.WIDTH(1)) perv_1to0_reg_2 (.din(func_nsl_thold_1   ),.q(func_nsl_thold_0[t]    ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+               tri_plat #(.WIDTH(1)) perv_1to0_reg_3 (.din(cfg_sl_thold_1     ),.q(cfg_sl_thold_0[t]      ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+               tri_plat #(.WIDTH(1)) perv_1to0_reg_4 (.din(sg_1               ),.q(sg_0[t]                ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+               tri_plat #(.WIDTH(1)) perv_1to0_reg_5 (.din(fce_1              ),.q(fce_0[t]               ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
 
 
                tri_lcbor perv_lcbor_cfg_sl(
@@ -1792,14 +1849,22 @@ module xu_spr
    );
 
 
-   tri_plat #(.WIDTH(1)) perv_1to0_reg_0 (.din(abst_sl_thold_1      ),.q(abst_sl_thold_0      ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-   tri_plat #(.WIDTH(1)) perv_1to0_reg_1 (.din(ary_nsl_thold_1      ),.q(ary_nsl_thold_0      ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-   tri_plat #(.WIDTH(1)) perv_1to0_reg_2 (.din(time_sl_thold_1      ),.q(time_sl_thold_0      ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-   tri_plat #(.WIDTH(1)) perv_1to0_reg_3 (.din(repr_sl_thold_1      ),.q(repr_sl_thold_0      ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-   tri_plat #(.WIDTH(1)) perv_1to0_reg_4 (.din(gptr_sl_thold_1      ),.q(gptr_sl_thold_0      ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-   tri_plat #(.WIDTH(1)) perv_1to0_reg_5 (.din(bolt_sl_thold_1      ),.q(bolt_sl_thold_0      ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-   tri_plat #(.WIDTH(1)) perv_1to0_reg_6 (.din(func_slp_nsl_thold_1 ),.q(func_slp_nsl_thold_0 ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
-   tri_plat #(.WIDTH(1)) perv_1to0_reg_7 (.din(cfg_slp_sl_thold_1   ),.q(cfg_slp_sl_thold_0   ),.vd(vdd),.gd(gnd),.nclk(nclk),.flush(pc_xu_ccflush_dc));
+   tri_plat #(.WIDTH(1)) perv_1to0_reg_0 (.din(abst_sl_thold_1      ),.q(abst_sl_thold_0      ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+   tri_plat #(.WIDTH(1)) perv_1to0_reg_1 (.din(ary_nsl_thold_1      ),.q(ary_nsl_thold_0      ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+   tri_plat #(.WIDTH(1)) perv_1to0_reg_2 (.din(time_sl_thold_1      ),.q(time_sl_thold_0      ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+   tri_plat #(.WIDTH(1)) perv_1to0_reg_3 (.din(repr_sl_thold_1      ),.q(repr_sl_thold_0      ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+   tri_plat #(.WIDTH(1)) perv_1to0_reg_4 (.din(gptr_sl_thold_1      ),.q(gptr_sl_thold_0      ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+   tri_plat #(.WIDTH(1)) perv_1to0_reg_5 (.din(bolt_sl_thold_1      ),.q(bolt_sl_thold_0      ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+   tri_plat #(.WIDTH(1)) perv_1to0_reg_6 (.din(func_slp_nsl_thold_1 ),.q(func_slp_nsl_thold_0 ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
+   tri_plat #(.WIDTH(1)) perv_1to0_reg_7 (.din(cfg_slp_sl_thold_1   ),.q(cfg_slp_sl_thold_0   ),.vd(vdd),.gd(gnd),.clk(clk),
+	.rst(rst),.flush(pc_xu_ccflush_dc));
 
 
    tri_lcbor perv_lcbor_abst_sl(

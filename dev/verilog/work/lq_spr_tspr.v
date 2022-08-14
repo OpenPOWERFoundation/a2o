@@ -37,7 +37,8 @@ module lq_spr_tspr
 )(
 
    (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-   input [0:`NCLK_WIDTH-1] nclk,
+   input                  clk,
+   input                  rst,
 
    input                  d_mode_dc,
    input                  delay_lclkr_dc,
@@ -470,7 +471,8 @@ assign spr_eplc_wr = eplc_we_q;
 generate
 	if (a2mode == 1) begin : acop_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) acop_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(acop_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -490,7 +492,8 @@ endgenerate
 generate
 	if (a2mode == 1) begin : dbcr2_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(29), .INIT(0), .NEEDS_SRESET(1)) dbcr2_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dbcr2_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -508,7 +511,8 @@ generate
 	end
 endgenerate
      tri_ser_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) dbcr3_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dbcr3_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -521,7 +525,8 @@ endgenerate
         .dout(dbcr3_q)
      );
      tri_ser_rlmreg_p #(.WIDTH(6), .INIT(32), .NEEDS_SRESET(1)) dscr_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(dscr_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -536,7 +541,8 @@ endgenerate
 generate
 	if (hvmode == 1) begin : eplc_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(25), .INIT(0), .NEEDS_SRESET(1)) eplc_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(eplc_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -556,7 +562,8 @@ endgenerate
 generate
 	if (hvmode == 1) begin : epsc_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(25), .INIT(0), .NEEDS_SRESET(1)) epsc_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(epsc_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -576,7 +583,8 @@ endgenerate
 generate
 	if (hvmode == 1) begin : hacop_latch_gen
      tri_ser_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) hacop_latch(
-        .nclk(nclk),.vd(vdd),.gd(gnd),
+        .clk(clk),
+	.rst(rst),.vd(vdd),.gd(gnd),
         .act(hacop_act),
         .force_t(func_sl_force),
         .d_mode(d_mode_dc),.delay_lclkr(delay_lclkr_dc),
@@ -599,7 +607,8 @@ endgenerate
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) eplc_we_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -618,7 +627,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) eplc_we_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) epsc_we_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

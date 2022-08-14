@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -36,11 +36,12 @@
 
 `include "tri_a2o.vh"
 
-module tri_512x162_4w_0(
+module tri_512x162_4w_0 (
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    ccflush_dc,
    lcb_clkoff_dc_b,
    lcb_d_mode_dc,
@@ -116,7 +117,8 @@ module tri_512x162_4w_0(
    (* analysis_not_referenced="true" *)
    inout                                          vcs;
    // CLOCK and CLOCKCONTROL ports
-   input [0:`NCLK_WIDTH-1]                        nclk;
+   input                                          clk;
+   input                                          rst;
    input                                          ccflush_dc;
    input                                          lcb_clkoff_dc_b;
    input                                          lcb_d_mode_dc;
@@ -257,7 +259,7 @@ module tri_512x162_4w_0(
                .DOPB(dopb),
                .ADDRA(ramb_addr),
                .ADDRB(ramb_addr),
-               .CLKA(nclk[0]),
+               .CLKA(clk),
                .CLKB(tidn),
                .DIA(ramb_data_in[x * ramb_base_width:x * ramb_base_width + 31]),
                .DIB(ramb_data_in[x * ramb_base_width:x * ramb_base_width + 31]),
@@ -265,7 +267,7 @@ module tri_512x162_4w_0(
                .DIPB(ramb_data_in[x * ramb_base_width + 32:x * ramb_base_width + 35]),
                .ENA(act[w]),
                .ENB(tidn),
-               .SSRA(nclk[1]),
+               .SSRA(rst),
                .SSRB(tidn),
                .WEA(write[w]),
                .WEB(tidn)
@@ -283,7 +285,8 @@ module tri_512x162_4w_0(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) rd_act_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(1'b1),
       .thold_b(lcb_func_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -301,7 +304,8 @@ module tri_512x162_4w_0(
    tri_rlmreg_p #(.WIDTH(port_bitwidth*ways), .INIT(0), .NEEDS_SRESET(0)) data_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(rd_act_l2),
       .thold_b(lcb_func_sl_thold_0_b),
       .sg(lcb_sg_0),
@@ -319,7 +323,8 @@ module tri_512x162_4w_0(
    tri_plat #(.WIDTH(1)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(ccflush_dc),
       .din(lcb_sg_1),
       .q(lcb_sg_0)
@@ -332,7 +337,7 @@ module tri_512x162_4w_0(
      assign bo_pc_failout = 2'b00;
      assign bo_pc_diagloop = 2'b00;
 
-     assign unused = | ({nclk[2:`NCLK_WIDTH-1], ramb_data_out[0][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ramb_data_out[1][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ramb_data_out[2][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ramb_data_out[3][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ccflush_dc, lcb_clkoff_dc_b, lcb_d_mode_dc, lcb_act_dis_dc, scan_dis_dc_b, scan_diag_dc, bitw_abist, lcb_sg_1, lcb_time_sg_0, lcb_repr_sg_0, lcb_abst_sl_thold_0, lcb_repr_sl_thold_0, lcb_time_sl_thold_0, lcb_ary_nsl_thold_0, tc_lbist_ary_wrt_thru_dc, abist_en_1, din_abist, abist_cmp_en, abist_raw_b_dc, data_cmp_abist, addr_abist, r_wb_abist, write_thru_en_dc, abst_scan_in, time_scan_in, repr_scan_in, func_scan_in, lcb_delay_lclkr_np_dc, ctrl_lcb_delay_lclkr_np_dc, dibw_lcb_delay_lclkr_np_dc, ctrl_lcb_mpw1_np_dc_b, dibw_lcb_mpw1_np_dc_b, lcb_mpw1_pp_dc_b, lcb_mpw1_2_pp_dc_b, aodo_lcb_delay_lclkr_dc, aodo_lcb_mpw1_dc_b, aodo_lcb_mpw2_dc_b, lcb_bolt_sl_thold_0, pc_bo_enable_2, pc_bo_reset, pc_bo_unload, pc_bo_repair, pc_bo_shdata, pc_bo_select, tri_lcb_mpw1_dc_b, tri_lcb_mpw2_dc_b, tri_lcb_delay_lclkr_dc, tri_lcb_clkoff_dc_b, tri_lcb_act_dis_dc, write_act, dob, dopb, unused_scout});
+     assign unused = | ({ramb_data_out[0][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ramb_data_out[1][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ramb_data_out[2][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ramb_data_out[3][port_bitwidth:ramb_base_width * ramb_width_mult - 1], ccflush_dc, lcb_clkoff_dc_b, lcb_d_mode_dc, lcb_act_dis_dc, scan_dis_dc_b, scan_diag_dc, bitw_abist, lcb_sg_1, lcb_time_sg_0, lcb_repr_sg_0, lcb_abst_sl_thold_0, lcb_repr_sl_thold_0, lcb_time_sl_thold_0, lcb_ary_nsl_thold_0, tc_lbist_ary_wrt_thru_dc, abist_en_1, din_abist, abist_cmp_en, abist_raw_b_dc, data_cmp_abist, addr_abist, r_wb_abist, write_thru_en_dc, abst_scan_in, time_scan_in, repr_scan_in, func_scan_in, lcb_delay_lclkr_np_dc, ctrl_lcb_delay_lclkr_np_dc, dibw_lcb_delay_lclkr_np_dc, ctrl_lcb_mpw1_np_dc_b, dibw_lcb_mpw1_np_dc_b, lcb_mpw1_pp_dc_b, lcb_mpw1_2_pp_dc_b, aodo_lcb_delay_lclkr_dc, aodo_lcb_mpw1_dc_b, aodo_lcb_mpw2_dc_b, lcb_bolt_sl_thold_0, pc_bo_enable_2, pc_bo_reset, pc_bo_unload, pc_bo_repair, pc_bo_shdata, pc_bo_select, tri_lcb_mpw1_dc_b, tri_lcb_mpw2_dc_b, tri_lcb_delay_lclkr_dc, tri_lcb_clkoff_dc_b, tri_lcb_act_dis_dc, write_act, dob, dopb, unused_scout});
    end
    endgenerate
 endmodule

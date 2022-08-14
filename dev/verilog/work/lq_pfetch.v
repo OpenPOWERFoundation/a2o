@@ -84,7 +84,8 @@ module lq_pfetch(
    vdd,
    gnd,
    vcs,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -188,16 +189,11 @@ module lq_pfetch(
 
 
    inout                                     vcs;
-
-
    inout                                     vdd;
-
-
    inout                                     gnd;
 
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-   input [0:`NCLK_WIDTH-1]                   nclk;
+   input                                     clk;
+   input                                     rst;
    input                                     sg_0;
    input                                     func_sl_thold_0_b;
    input                                     func_sl_force;
@@ -648,7 +644,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv_i0_vld_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -667,7 +664,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rv_i0_isLoad_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -686,7 +684,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rv_i0_rte_lq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -705,7 +704,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`PF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) rv_i0_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -724,7 +724,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) rv_i0_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -743,7 +744,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) rv_i1_vld_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -762,7 +764,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rv_i1_isLoad_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -781,7 +784,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) rv_i1_rte_lq_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -800,7 +804,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`PF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) rv_i1_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -819,7 +824,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) rv_i1_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -838,7 +844,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -857,7 +864,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush2_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -876,7 +884,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush3_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -895,7 +904,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush4_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -914,7 +924,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) inj_pfetch_parity_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -970,7 +981,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) odq_resolved_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -989,7 +1001,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) odq_report_itag_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1008,7 +1021,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) odq_report_tid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1060,7 +1074,8 @@ module lq_pfetch(
               tri_rlmreg_p #(.WIDTH(`PF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) pf_iar_tbl_latch(
                  .vd(vdd),
                  .gd(gnd),
-                 .nclk(nclk),
+                 .clk(clk),
+	.rst(rst),
                  .act(pf_itag_tbl_act[i]),
                  .force_t(func_sl_force),
                  .d_mode(d_mode_dc),
@@ -1079,7 +1094,8 @@ module lq_pfetch(
               tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) pf_itag_tbl_latch(
                  .vd(vdd),
                  .gd(gnd),
-                 .nclk(nclk),
+                 .clk(clk),
+	.rst(rst),
                  .act(pf_itag_tbl_act[i]),
                  .force_t(func_sl_force),
                  .d_mode(d_mode_dc),
@@ -1098,7 +1114,8 @@ module lq_pfetch(
               tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) pf_tid_tbl_latch(
                  .vd(vdd),
                  .gd(gnd),
-                 .nclk(nclk),
+                 .clk(clk),
+	.rst(rst),
                  .act(pf_itag_tbl_act[i]),
                  .force_t(func_sl_force),
                  .d_mode(d_mode_dc),
@@ -1118,7 +1135,8 @@ module lq_pfetch(
 
 
     tri_rlmreg_p #(.WIDTH(`LDSTQ_ENTRIES), .INIT(0)) latch_pf_iar_tbl_val(
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(tiup),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1176,7 +1194,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(`PF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) ex6_iar_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex6_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1195,7 +1214,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(`PF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) ex7_iar_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex7_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1214,7 +1234,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(`PF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) ex8_iar_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex8_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1233,7 +1254,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex6_thrd_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex6_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1252,7 +1274,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex7_thrd_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex7_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1271,7 +1294,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex8_thrd_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex8_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1290,7 +1314,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH((59-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) ex6_eff_addr_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex6_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1309,7 +1334,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH((59-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) ex7_eff_addr_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex7_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1328,7 +1354,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH((59-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) ex8_eff_addr_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex8_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1347,7 +1374,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex6_req_val_4pf_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex6_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1368,7 +1396,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex7_req_val_4pf_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex7_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1387,7 +1416,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex8_req_val_4pf_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex8_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1406,7 +1436,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) pf1_req_val_4pf_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(pf1_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1427,7 +1458,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) pf2_req_val_4pf_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(pf2_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1448,7 +1480,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex6_loadmiss_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex6_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1467,7 +1500,8 @@ module lq_pfetch(
     tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex7_loadmiss_latch(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex7_pf_act),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),
@@ -1494,7 +1528,8 @@ module lq_pfetch(
        .vdd(vdd),
        .vcs(vcs),
        // CLOCK and CLOCKCONTROL ports
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .rd_act(rpt_rd_act[0:1]),
        .wr_act(rpt_wen[0:1]),
        .sg_0(sg_0),
@@ -1607,7 +1642,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) byp_rpt_ary_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1625,7 +1661,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) byp1_rpt_ary_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1644,7 +1681,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(70), .INIT(0), .NEEDS_SRESET(1)) rpt_byp_dat_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(byp_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1662,7 +1700,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(70), .INIT(0), .NEEDS_SRESET(1)) rpt_byp_dat1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(byp1_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -1716,7 +1755,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(22), .INIT(0), .NEEDS_SRESET(1)) ex8_last_dat_addr_latch(
 													     .vd(vdd),
                   .gd(gnd),
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .act(ex8_pf_act),
                   .force_t(func_sl_force),
                   .d_mode(d_mode_dc),
@@ -1735,7 +1775,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(22), .INIT(0), .NEEDS_SRESET(1)) ex8_stride_latch(
                      .vd(vdd),
                      .gd(gnd),
-                     .nclk(nclk),
+                     .clk(clk),
+	.rst(rst),
                      .act(ex8_pf_act),
                      .force_t(func_sl_force),
                      .d_mode(d_mode_dc),
@@ -1754,7 +1795,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex8_pf_state_latch(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(ex8_pf_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1773,7 +1815,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex8_burst_cnt_latch(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(ex8_pf_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1792,7 +1835,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex8_dup_flag_latch(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(ex8_pf_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1811,7 +1855,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) ex8_pf_hits_latch(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(ex8_pf_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1830,7 +1875,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex8_rpt_pe_latch(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(ex8_pf_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1848,7 +1894,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) ex8_pfetch_pe_latch(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(ex8_pf_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1908,7 +1955,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(22), .INIT(0)) latch_pf1_new_stride(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1927,7 +1975,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(22), .INIT(0)) latch_pf1_rpt_stride(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1946,7 +1995,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH((59-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0)) latch_pf1_data_ea(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1965,7 +2015,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(`PF_IFAR_WIDTH), .INIT(0)) latch_pf1_iar(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -1984,7 +2035,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) latch_pf1_pf_state(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2003,7 +2055,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) latch_pf1_burst_cnt(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2022,7 +2075,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(1), .INIT(0)) latch_pf1_dup_flag(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2041,7 +2095,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) latch_pf1_hits(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2062,7 +2117,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) pf1_rpt_pe_latch(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2078,7 +2134,8 @@ module lq_pfetch(
                         );
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) latch_pf1_thrd(
-										       .nclk(nclk),
+										       .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2097,7 +2154,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(1), .INIT(0)) latch_pf1_same_cline(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2116,7 +2174,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(1), .INIT(0)) latch_pf1_stride_too_small(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf1_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2175,7 +2234,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(1), .INIT(0)) latch_pf2_gen_pfetch(
-										       .nclk(nclk),
+										       .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2194,7 +2254,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(22), .INIT(0)) latch_pf2_rpt_stride(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2213,7 +2274,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH((59-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0)) latch_pf2_data_ea(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2232,7 +2294,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(`PF_IFAR_WIDTH), .INIT(0)) latch_pf2_iar(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2251,7 +2314,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) latch_pf2_pf_state(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2270,7 +2334,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) latch_pf2_burst_cnt(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2289,7 +2354,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) latch_pf2_hits(
-										 .nclk(nclk),
+										 .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2310,7 +2376,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) pf2_rpt_pe_latch(
                            .vd(vdd),
                            .gd(gnd),
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2326,7 +2393,8 @@ module lq_pfetch(
                         );
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) latch_pf2_thrd(
-                           .nclk(nclk),
+                           .clk(clk),
+	.rst(rst),
                            .act(pf2_act),
                            .force_t(func_sl_force),
                            .d_mode(d_mode_dc),
@@ -2409,7 +2477,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) latch_rpt_lru(
-                              .nclk(nclk),
+                              .clk(clk),
+	.rst(rst),
                               .act(pf2_valid),
                               .force_t(func_sl_force),
                               .d_mode(d_mode_dc),
@@ -2474,7 +2543,8 @@ module lq_pfetch(
               tri_rlmreg_p #(.WIDTH(22), .INIT(0), .NEEDS_SRESET(1)) pfq_stride_latch(
                                        .vd(vdd),
                                        .gd(gnd),
-                                       .nclk(nclk),
+                                       .clk(clk),
+	.rst(rst),
                                        .act(pf2_act),
                                        .force_t(func_sl_force),
                                        .d_mode(d_mode_dc),
@@ -2493,7 +2563,8 @@ module lq_pfetch(
               tri_rlmreg_p #(.WIDTH((59-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0), .NEEDS_SRESET(1)) pfq_data_ea_latch(
                                        .vd(vdd),
                                        .gd(gnd),
-                                       .nclk(nclk),
+                                       .clk(clk),
+	.rst(rst),
                                        .act(pf2_act),
                                        .force_t(func_sl_force),
                                        .d_mode(d_mode_dc),
@@ -2512,7 +2583,8 @@ module lq_pfetch(
               tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) pfq_thrd_latch(
                                        .vd(vdd),
                                        .gd(gnd),
-                                       .nclk(nclk),
+                                       .clk(clk),
+	.rst(rst),
                                        .act(tiup),
                                        .force_t(func_sl_force),
                                        .d_mode(d_mode_dc),
@@ -2531,7 +2603,8 @@ module lq_pfetch(
               tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) pfq_dscr_latch(
 				.vd(vdd),
 				.gd(gnd),
-				.nclk(nclk),
+				.clk(clk),
+	.rst(rst),
 				.act(pf2_act),
 				.force_t(func_sl_force),
 				.d_mode(d_mode_dc),
@@ -2551,7 +2624,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(`PFETCH_Q_SIZE), .INIT(1)) latch_pfq_dup_flag(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(pf2_act),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),
@@ -2572,7 +2646,8 @@ module lq_pfetch(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pfq_full_latch(
 											  .vd(vdd),
                                  .gd(gnd),
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(tiup),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),
@@ -2591,7 +2666,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`PFETCH_Q_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) pfq_wrt_ptr_latch(
                                  .vd(vdd),
                                  .gd(gnd),
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(tiup),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),
@@ -2682,7 +2758,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(5), .INIT(1)) latch_pf_state(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc),
@@ -2706,7 +2783,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) latch_pf_count(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(tiup),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),
@@ -2732,7 +2810,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(`PFETCH_Q_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) pfq_rd_ptr_latch(
 														     .vd(vdd),
                                  .gd(gnd),
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(tiup),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),
@@ -2787,7 +2866,8 @@ module lq_pfetch(
    tri_rlmreg_p #(.WIDTH(22), .INIT(0), .NEEDS_SRESET(1)) pf3_stride_latch(
                                  .vd(vdd),
                                  .gd(gnd),
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(pf3_act),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),
@@ -2821,7 +2901,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH((59-(64-(2**`GPR_WIDTH_ENC))+1)), .INIT(0)) latch_pf3_req_addr(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(pf3_act),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),
@@ -2842,7 +2923,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(1), .INIT(0)) latch_pf3_req_val(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(pf3_act),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),
@@ -2863,7 +2945,8 @@ module lq_pfetch(
 
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) latch_pf3_thrd(
-                                 .nclk(nclk),
+                                 .clk(clk),
+	.rst(rst),
                                  .act(pf3_act),
                                  .force_t(func_sl_force),
                                  .d_mode(d_mode_dc),

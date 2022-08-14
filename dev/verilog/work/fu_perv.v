@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -39,7 +39,8 @@
 module fu_perv(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_fu_sg_3,
    pc_fu_abst_sl_thold_3,
    pc_fu_func_sl_thold_3,
@@ -74,7 +75,8 @@ module fu_perv(
    inout        vdd;
    inout        gnd;
 
-   input [0:`NCLK_WIDTH-1]        nclk;
+   input        clk;
+   input        rst;
    input [0:1]  pc_fu_sg_3;
    input        pc_fu_abst_sl_thold_3;
    input [0:1]  pc_fu_func_sl_thold_3;
@@ -158,7 +160,8 @@ module fu_perv(
    tri_plat #(.WIDTH(12)) perv_3to2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ac_ccflush_dc),
 
       .din({
@@ -190,7 +193,8 @@ module fu_perv(
    tri_plat #(.WIDTH(12)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ac_ccflush_dc),
 
       .din({
@@ -224,7 +228,8 @@ module fu_perv(
    tri_plat #(.WIDTH(3)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({ gptr_sl_thold_1,
              sg_1_int[0],
@@ -253,7 +258,8 @@ module fu_perv(
       .vdd(vdd),
       .gnd(gnd),
       .sg(sg_0),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .scan_in(gptr_scan_in),
       .scan_diag_dc(tc_ac_scan_diag_dc),
       .thold(gptr_sl_thold_0_int),
@@ -270,7 +276,8 @@ module fu_perv(
       .vdd(vdd),
       .gnd(gnd),
       .sg(sg_0),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .scan_in(gptr_sio),
       .scan_diag_dc(tc_ac_scan_diag_dc),
       .thold(gptr_sl_thold_0_int),
@@ -306,7 +313,8 @@ module fu_perv(
    assign repr_in = 1'b0;
 
    tri_rlmreg_p #(.INIT(0),  .WIDTH(1)) repr_rpwr_lat(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tihi),
       .force_t(repr_sl_force),
       .d_mode(tiup),

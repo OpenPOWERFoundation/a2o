@@ -36,11 +36,12 @@
 
 `include "tri_a2o.vh"
 
-module tri_256x144_8w_1r1w(
+module tri_256x144_8w_1r1w (
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    rd_act,
    wr_act,
    sg_0,
@@ -115,7 +116,8 @@ inout                                      vdd;
 inout                                      vcs;
 
 // CLOCK and CLOCKCONTROL ports
-input [0:`NCLK_WIDTH-1]                    nclk;
+input                                      clk;
+input                                      rst;
 input [0:7]                                rd_act;
 input [0:7]                                wr_act;
 input                                      sg_0;
@@ -362,8 +364,8 @@ generate
          .CASCADEINLATB(1'b0),
          .CASCADEINREGA(1'b0),
          .CASCADEINREGB(1'b0),
-         .CLKA(nclk[0]),
-         .CLKB(nclk[0]),
+         .CLKA(clk),
+         .CLKB(clk),
          .DIA(p0_arr_data_in[way][(arr * 32) + 0:(arr * 32) + 31]),
          .DIB(p1_arr_data_in[way][(arr * 32) + 0:(arr * 32) + 31]),
          .DIPA(p0_arr_par_in[way][(arr * 4) + 0:(arr * 4) + 3]),
@@ -372,8 +374,8 @@ generate
          .ENB(wr_act[way]),
          .REGCEA(1'b0),
          .REGCEB(1'b0),
-         .SSRA(nclk[1]),   //sreset
-         .SSRB(nclk[1]),   //sreset
+         .SSRA(rst),
+         .SSRB(rst),
          .WEA(p0_wayEn[way][(arr * 4) + 0:(arr * 4) + 3]),
          .WEB(p1_wayEn[way][(arr * 4) + 0:(arr * 4) + 3])
        );
@@ -392,7 +394,6 @@ assign unused = |({
     cascadeoutlatb ,
     cascadeoutrega ,
     cascadeoutregb ,
-    nclk[0:`NCLK_WIDTH-1] ,
     gnd ,
     vdd ,
     vcs ,
@@ -445,7 +446,8 @@ assign unused = |({
 tri_rlmreg_p #(.WIDTH(ways), .INIT(0), .NEEDS_SRESET(1)) rd_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -471,7 +473,8 @@ generate
        .mpw1_b(mpw1_dc_b),
        .mpw2_b(mpw2_dc_b),
        .force_t(func_sl_force),
-       .nclk(nclk),
+       .clk(clk),
+       .rst(rst),
        .vd(vdd),
        .gd(gnd),
        .act(rd_act_q[way]),

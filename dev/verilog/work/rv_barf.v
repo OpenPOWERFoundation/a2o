@@ -14,23 +14,23 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
 //-----------------------------------------------------------------------------------------------------
 // Title:   rv_station12.vhdl
-// Desc:       Paramaterizable reservation station
+// Desc:       Parameterizable reservation station
 //-----------------------------------------------------------------------------------------------------
 module rv_barf(
 	       w0_dat,
@@ -44,7 +44,8 @@ module rv_barf(
 	       r0_dat,
 	       vdd,
 	       gnd,
-	       nclk,
+          clk,
+          rst,
 	       sg_1,
 	       func_sl_thold_1,
 	       ccflush_dc,
@@ -80,7 +81,8 @@ module rv_barf(
    // pervasive
    inout                       vdd;
    inout                       gnd;
-   input [0:`NCLK_WIDTH-1]     nclk;
+   input                       clk;
+   input                       rst;
    input                       sg_1;
    input                       func_sl_thold_1;
    input                       ccflush_dc;
@@ -216,7 +218,8 @@ module rv_barf(
 	      perv_1to0_reg(
 			    .vd(vdd),
 			    .gd(gnd),
-			    .nclk(nclk),
+			    .clk(clk),
+             .rst(rst),
 			    .flush(ccflush_dc),
 			    .din({func_sl_thold_1, sg_1}),
 			    .q({func_sl_thold_0[n], sg_0[n]})
@@ -238,7 +241,8 @@ module rv_barf(
 	      q_dat_q_reg(
 			  .vd(vdd),
 			  .gd(gnd),
-			  .nclk(nclk),
+			  .clk(clk),
+           .rst(rst),
 			  .act(q_dat_act[n]),
 			  .thold_b(func_sl_thold_0_b[n]),
 			  .sg(sg_0[n]),

@@ -48,7 +48,8 @@ module iuq_axu_fu_rn #(
    (
    inout                        vdd,
    inout                        gnd,
-   input [0:`NCLK_WIDTH-1]      nclk,
+   input                        clk,
+   input                        rst,
    input                        pc_iu_func_sl_thold_2,		// acts as reset for non-ibm types
    input                        pc_iu_sg_2,
    input                        clkoff_b,
@@ -416,7 +417,8 @@ module iuq_axu_fu_rn #(
    iuq_rn_map #(.ARCHITECTED_REGISTER_DEPTH((32 + FPR_UCODE_POOL)), .REGISTER_RENAME_DEPTH(FPR_POOL), .STORAGE_WIDTH(`GPR_POOL_ENC)) fpr_rn_map(
    	.vdd(vdd),
    	.gnd(gnd),
-   	.nclk(nclk),
+   	.clk(clk),
+	.rst(rst),
    	.pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
    	.pc_iu_sg_0(pc_iu_sg_0),
    	.force_t(force_t),
@@ -511,7 +513,8 @@ module iuq_axu_fu_rn #(
    iuq_rn_map #(.ARCHITECTED_REGISTER_DEPTH(1), .REGISTER_RENAME_DEPTH(24), .STORAGE_WIDTH(5)) fpscr_rn_map(		//`GPR_POOL_ENC)
    	.vdd(vdd),
    	.gnd(gnd),
-   	.nclk(nclk),
+   	.clk(clk),
+	.rst(rst),
    	.pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
    	.pc_iu_sg_0(pc_iu_sg_0),
    	.force_t(force_t),
@@ -582,7 +585,8 @@ module iuq_axu_fu_rn #(
    iuq_rn_map #(.ARCHITECTED_REGISTER_DEPTH(1), .REGISTER_RENAME_DEPTH(32), .STORAGE_WIDTH(5)) fpscr_rn_map(		//`GPR_POOL_ENC)
    	.vdd(vdd),
    	.gnd(gnd),
-   	.nclk(nclk),
+   	.clk(clk),
+	.rst(rst),
    	.pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
    	.pc_iu_sg_0(pc_iu_sg_0),
    	.force_t(force_t),
@@ -654,7 +658,8 @@ module iuq_axu_fu_rn #(
    tri_rlmlatch_p #(.INIT(0)) cp_flush_latch(
    	.vd(vdd),
    	.gd(gnd),
-   	.nclk(nclk),
+   	.clk(clk),
+	.rst(rst),
    	.act(tiup),
    	.thold_b(pc_iu_func_sl_thold_0_b),
    	.sg(pc_iu_sg_0),
@@ -673,7 +678,8 @@ module iuq_axu_fu_rn #(
    tri_rlmlatch_p #(.INIT(0)) br_iu_hold_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -696,7 +702,8 @@ module iuq_axu_fu_rn #(
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2,pc_iu_sg_2}),
       .q({pc_iu_func_sl_thold_1,pc_iu_sg_1})
@@ -706,7 +713,8 @@ module iuq_axu_fu_rn #(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1,pc_iu_sg_1}),
       .q({pc_iu_func_sl_thold_0,pc_iu_sg_0})

@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -26,16 +26,18 @@
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
 // obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
-`timescale 1 fs / 1 fs
+`timescale 1 ns / 1 ns
 
 // *!****************************************************************
 // *! FILENAME    : tri_iuq_cpl_arr.v
 // *! DESCRIPTION : iuq completion array (fpga model)
 // *!****************************************************************
 
+// sim model - get rid of latched reset and other junk
+
 `include "tri_a2o.vh"
 
-module tri_iuq_cpl_arr(gnd, vdd, nclk, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, force_t, thold_0_b, sg_0, scan_in, scan_out, re0, ra0, do0, re1, ra1, do1, we0, wa0, di0, we1, wa1, di1, perr);
+module tri_iuq_cpl_arr (gnd, vdd, clk, rst, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, force_t, thold_0_b, sg_0, scan_in, scan_out, re0, ra0, do0, re1, ra1, do1, we0, wa0, di0, we1, wa1, di1, perr);
    parameter                    ADDRESSABLE_PORTS = 64;         // number of addressable register in this array
    parameter                    ADDRESSBUS_WIDTH = 6;		// width of the bus to address all ports (2^ADDRESSBUS_WIDTH >= addressable_ports)
    parameter                    PORT_BITWIDTH = 64;		// bitwidth of ports
@@ -49,7 +51,8 @@ module tri_iuq_cpl_arr(gnd, vdd, nclk, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, for
    (* power_pin=1 *)
    inout                        vdd;
 
-   input [0:`NCLK_WIDTH-1]      nclk;
+   input                        clk;
+   input                        rst;
 
    //-------------------------------------------------------------------
    // Pervasive
@@ -100,10 +103,8 @@ module tri_iuq_cpl_arr(gnd, vdd, nclk, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, for
    wire [0:PORT_BITWIDTH-1]     do1_d;
    reg  [0:PORT_BITWIDTH-1]     di1_q;
 
-   wire                         correct_clk;
+   wire                         clk;
    wire                         reset;
-   wire                         reset_hi;
-   reg                          reset_q;
 
    wire [0:PORT_BITWIDTH-1]     dout0;		//std
    wire                         wen0;		//std
@@ -129,36 +130,18 @@ module tri_iuq_cpl_arr(gnd, vdd, nclk, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, for
 
 
    generate
-      assign reset = nclk[1];
-      assign correct_clk = nclk[0];
 
-      assign reset_hi = reset;
-
-
-      // Slow Latches (nclk)
-
-      always @(posedge correct_clk or posedge reset)
-      begin: slatch
-         begin
-            if (reset == 1'b1)
-               we1_latch_q <= 1'b0;
-            else
-            begin
-               we1_latch_q <= we1_q;
-               wa1_latch_q <= wa1_q;
-               di1_latch_q <= di1_q;
-            end
+      always @(posedge clk) begin
+         if (rst)
+            we1_latch_q <= 1'b0;
+         else begin
+            we1_latch_q <= we1_q;
+            wa1_latch_q <= wa1_q;
+            di1_latch_q <= di1_q;
          end
       end
 
-
-      // repower latches for resets
-      always @(posedge correct_clk)
-      begin: rlatch
-         reset_q <= reset_hi;
-      end
-
-      // need to select which array to write based on the lowest order bit of the address which will indicate odd or even itag
+       // need to select which array to write based on the lowest order bit of the address which will indicate odd or even itag
       // when both we0 and we1 are both asserted it is assumed that the low order bit of wa0 will not be equal to the low order
       // bit of wa1
       assign addr_w0 = (wa0_q[ADDRESSBUS_WIDTH-1]) ? {wa1_q[0:ADDRESSBUS_WIDTH-2], 1'b0 } : {wa0_q[0:ADDRESSBUS_WIDTH-2], 1'b0 };
@@ -199,7 +182,7 @@ module tri_iuq_cpl_arr(gnd, vdd, nclk, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, for
                .DPRA5(addr_r0[5]),
 
                //.DPRA(addr_r0),
-               .WCLK(correct_clk),
+               .WCLK(clk),
                .WE(wen0)
             );
 
@@ -225,7 +208,7 @@ module tri_iuq_cpl_arr(gnd, vdd, nclk, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, for
                .DPRA5(addr_r1[5]),
 
                //.DPRA(addr_r1),
-               .WCLK(correct_clk),
+               .WCLK(clk),
                .WE(wen1)
             );
 
@@ -238,44 +221,31 @@ module tri_iuq_cpl_arr(gnd, vdd, nclk, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, for
       assign do0 = do0_q;
       assign do1 = do1_q;
 
-      if (LATCHED_READ == 1'b0)
-      begin : read_latched_false
-         always @(*)
-         begin
+      if (LATCHED_READ == 1'b0) begin : read_latched_false
+         always @(*) begin
             re0_q <= re0;
             ra0_q <= ra0;
             re1_q <= re1;
             ra1_q <= ra1;
          end
-      end
-      if (LATCHED_READ == 1'b1)
-      begin : read_latched_true
-         always @(posedge correct_clk)
-         begin: read_latches
-            if (correct_clk == 1'b1)
-            begin
-               if (reset_q == 1'b1)
-               begin
-                  re0_q <= 1'b0;
-                  ra0_q <= {ADDRESSBUS_WIDTH{1'b0}};
-                  re1_q <= 1'b0;
-                  ra1_q <= {ADDRESSBUS_WIDTH{1'b0}};
-               end
-               else
-               begin
-                  re0_q <= re0;
-                  ra0_q <= ra0;
-                  re1_q <= re1;
-                  ra1_q <= ra1;
-               end
+      end else begin : read_latched_true
+         always @(posedge clk) begin: read_latches
+            if (reset) begin
+               re0_q <= 1'b0;
+               ra0_q <= {ADDRESSBUS_WIDTH{1'b0}};
+               re1_q <= 1'b0;
+               ra1_q <= {ADDRESSBUS_WIDTH{1'b0}};
+            end else begin
+               re0_q <= re0;
+               ra0_q <= ra0;
+               re1_q <= re1;
+               ra1_q <= ra1;
             end
          end
       end
 
-      if (LATCHED_WRITE == 1'b0)
-      begin : write_latched_false
-         always @(*)
-         begin
+      if (LATCHED_WRITE == 1'b0) begin : write_latched_false
+         always @(*) begin
             we0_q <= we0;
             wa0_q <= wa0;
             di0_q <= di0;
@@ -283,61 +253,43 @@ module tri_iuq_cpl_arr(gnd, vdd, nclk, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b, for
             wa1_q <= wa1;
             di1_q <= di1;
          end
+      end else begin : write_latched_true
+         always @(posedge clk)  begin: write_latches
+            if (reset) begin
+               we0_q <= 1'b0;
+               wa0_q <= {ADDRESSBUS_WIDTH{1'b0}};
+               di0_q <= {PORT_BITWIDTH{1'b0}};
+               we1_q <= 1'b0;
+               wa1_q <= {ADDRESSBUS_WIDTH{1'b0}};
+               di1_q <= {PORT_BITWIDTH{1'b0}};
+            end else begin
+               we0_q <= we0;
+               wa0_q <= wa0;
+               di0_q <= di0;
+               we1_q <= we1;
+               wa1_q <= wa1;
+               di1_q <= di1;
+            end
+          end
       end
-      if (LATCHED_WRITE == 1'b1)
-      begin : write_latched_true
-         always @(posedge correct_clk)
-         begin: write_latches
-            if (correct_clk == 1'b1)
-            begin
-               if (reset_q == 1'b1)
-               begin
-                  we0_q <= 1'b0;
-                  wa0_q <= {ADDRESSBUS_WIDTH{1'b0}};
-                  di0_q <= {PORT_BITWIDTH{1'b0}};
-                  we1_q <= 1'b0;
-                  wa1_q <= {ADDRESSBUS_WIDTH{1'b0}};
-                  di1_q <= {PORT_BITWIDTH{1'b0}};
-               end
-               else
-               begin
-                  we0_q <= we0;
-                  wa0_q <= wa0;
-                  di0_q <= di0;
-                  we1_q <= we1;
-                  wa1_q <= wa1;
-                  di1_q <= di1;
-               end
+
+      if (LATCHED_READ_DATA == 1'b0) begin : read_data_latched_false
+         always @(*) begin
+            do0_q <= do0_d;
+            do1_q <= do1_d;
+         end
+      end else begin : read_data_latched_true
+         always @(posedge clk) begin: read_data_latches
+            if (reset) begin
+               do0_q <= 0;
+               do1_q <= 0;
+            end else begin
+               do0_q <= do0_d;
+               do1_q <= do1_d;
             end
          end
       end
 
-      if (LATCHED_READ_DATA == 1'b0)
-      begin : read_data_latched_false
-         always @(*)
-         begin
-            do0_q <= do0_d;
-            do1_q <= do1_d;
-         end
-      end
-      if (LATCHED_READ_DATA == 1'b1)
-      begin : read_data_latched_true
-         always @(posedge correct_clk)
-         begin: read_data_latches
-            if (correct_clk == 1'b1)
-            begin
-               if (reset_q == 1'b1)
-               begin
-                  do0_q <= {PORT_BITWIDTH{1'b0}};
-                  do1_q <= {PORT_BITWIDTH{1'b0}};
-               end
-               else
-               begin
-                  do0_q <= do0_d;
-                  do1_q <= do1_d;
-               end
-            end
-         end
-      end
    endgenerate
+
 endmodule

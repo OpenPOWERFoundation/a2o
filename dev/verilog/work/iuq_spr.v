@@ -163,8 +163,8 @@ module iuq_spr(
    output [0:31]                spr_cp_perf_event_mux_ctrls,
 
    //pervasive
-   (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]      nclk,
+   input                        clk,
+   input                        rst,
    input                        pc_iu_sg_2,
    input                        pc_iu_func_sl_thold_2,
    input                        clkoff_b,
@@ -489,7 +489,8 @@ module iuq_spr(
    tri_rlmlatch_p #(.INIT(0)) slowspr_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -507,7 +508,8 @@ module iuq_spr(
    tri_rlmlatch_p #(.INIT(0)) slowspr_rw_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -525,7 +527,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) slowspr_etid_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -543,7 +546,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(10), .INIT(0)) slowspr_addr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -561,7 +565,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0)) slowspr_data_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -579,7 +584,8 @@ module iuq_spr(
    tri_rlmlatch_p #(.INIT(0)) slowspr_done_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -597,7 +603,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH-12), .INIT(0)) ivpr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ivpr_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -615,7 +622,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH-12), .INIT(0)) givpr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(givpr_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -633,7 +641,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(16), .INIT(65535)) immr0a_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(immr0_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -651,7 +660,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(16), .INIT(65535)) immr0b_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(immr0_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -669,7 +679,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) imr0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(imr0_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -689,7 +700,8 @@ module iuq_spr(
       //  generic map (width => iucr0_l2'length, init => 249, `EXPAND_TYPE => `EXPAND_TYPE)
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iucr0_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -714,7 +726,8 @@ module iuq_spr(
             tri_rlmreg_p #(.WIDTH(32), .INIT(0)) eheir_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(eheir_wren[i]),
                .thold_b(pc_iu_func_sl_thold_0_b),
                .sg(pc_iu_sg_0),
@@ -733,7 +746,8 @@ module iuq_spr(
             tri_rlmreg_p #(.WIDTH(14), .INIT(4096)) iucr1_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(iucr1_wren[i]),
                .thold_b(pc_iu_func_sl_thold_0_b),
                .sg(pc_iu_sg_0),
@@ -752,7 +766,8 @@ module iuq_spr(
             tri_rlmreg_p #(.WIDTH(8), .INIT(0)) iucr2_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(iucr2_wren[i]),
                .thold_b(pc_iu_func_sl_thold_0_b),
                .sg(pc_iu_sg_0),
@@ -771,7 +786,8 @@ module iuq_spr(
             tri_rlmreg_p #(.WIDTH(3), .INIT(3)) ppr32_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(ppr32_wren[i]),
                .thold_b(pc_iu_func_sl_thold_0_b),
                .sg(pc_iu_sg_0),
@@ -791,7 +807,8 @@ module iuq_spr(
             tri_rlmreg_p #(.WIDTH(32), .INIT(168431114)) cpcr2_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(cpcr2_wren[i]),
                .thold_b(pc_iu_func_sl_thold_0_b),
                .sg(pc_iu_sg_0),
@@ -810,7 +827,8 @@ module iuq_spr(
             tri_rlmreg_p #(.WIDTH(32), .INIT(655392)) cpcr3_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(cpcr3_wren[i]),
                .thold_b(pc_iu_func_sl_thold_0_b),
                .sg(pc_iu_sg_0),
@@ -829,7 +847,8 @@ module iuq_spr(
             tri_rlmreg_p #(.WIDTH(32), .INIT(101058566)) cpcr4_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(cpcr4_wren[i]),
                .thold_b(pc_iu_func_sl_thold_0_b),
                .sg(pc_iu_sg_0),
@@ -848,7 +867,8 @@ module iuq_spr(
             tri_rlmreg_p #(.WIDTH(32), .INIT(393232)) cpcr5_reg(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(cpcr5_wren[i]),
                .thold_b(pc_iu_func_sl_thold_0_b),
                .sg(pc_iu_sg_0),
@@ -869,7 +889,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cpcr_we_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -888,7 +909,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(32), .INIT(`INIT_CPCR0)) cpcr0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cpcr0_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -907,7 +929,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(32), .INIT(`INIT_CPCR1)) cpcr1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cpcr1_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -926,7 +949,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0)) iac1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iac1_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -945,7 +969,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0)) iac2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iac2_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -964,7 +989,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0)) iac3_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iac3_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -983,7 +1009,8 @@ module iuq_spr(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0)) iac4_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iac4_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1001,7 +1028,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(32), .INIT(26)) iulfsr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iulfsr_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1019,7 +1047,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(9), .INIT(0)) iudbg0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iudbg0_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1037,7 +1066,8 @@ module iuq_spr(
    tri_rlmlatch_p #(.INIT(0)) iudbg0_done_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iudbg0_done_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1055,7 +1085,8 @@ module iuq_spr(
    tri_rlmlatch_p #(.INIT(0)) iudbg0_exec_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iudbg0_exec_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1073,7 +1104,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(11), .INIT(0)) iudbg1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iudbg1_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1091,7 +1123,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(29), .INIT(0)) iudbg2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iudbg2_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1110,7 +1143,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(18), .INIT(131136)) iullcr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iullcr_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1128,7 +1162,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1146,7 +1181,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) spr_msr_gs_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1164,7 +1200,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) spr_msr_pr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1182,7 +1219,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(3), .INIT(0)) xu_iu_pri_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1200,7 +1238,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) xu_iu_pri_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1218,7 +1257,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(32), .INIT(0)) iesr3_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iesr3_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1236,7 +1276,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(24), .INIT(0)) iesr1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iesr1_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1254,7 +1295,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(24), .INIT(0)) iesr2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iesr2_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1272,7 +1314,8 @@ module iuq_spr(
    tri_ser_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) raise_iss_pri_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1714,7 +1757,8 @@ module iuq_spr(
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
 	   .vd(vdd),
 	   .gd(gnd),
-	   .nclk(nclk),
+	   .clk(clk),
+	   .rst(rst),
 	   .flush(tc_ac_ccflush_dc),
 	   .din({pc_iu_func_sl_thold_2, pc_iu_sg_2}),
 	   .q({pc_iu_func_sl_thold_1, pc_iu_sg_1})
@@ -1723,7 +1767,8 @@ module iuq_spr(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
    	.vd(vdd),
    	.gd(gnd),
-   	.nclk(nclk),
+      .clk(clk),
+	   .rst(rst),
    	.flush(tc_ac_ccflush_dc),
 	   .din({pc_iu_func_sl_thold_1, pc_iu_sg_1}),
 	   .q({pc_iu_func_sl_thold_0, pc_iu_sg_0})

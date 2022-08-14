@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -37,7 +37,8 @@
 module lq_perv(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_lq_trace_bus_enable,
    pc_lq_debug_mux1_ctrls,
    pc_lq_debug_mux2_ctrls,
@@ -129,8 +130,8 @@ module lq_perv(
 
 inout                       vdd;
 inout                       gnd;
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-input [0:`NCLK_WIDTH-1]     nclk;
+input                       clk;
+input                       rst;
 
 // Pervasive Debug Control
 input                       pc_lq_trace_bus_enable;
@@ -591,10 +592,11 @@ assign event_bus_out = perf_event_data_q;
 // Pervasive Clock Control Logic
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-tri_plat #(.WIDTH(18)) perv_3to2_reg(
+tri_plat#(.WIDTH(18)) perv_3to2_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .flush(pc_lq_ccflush_dc),
    .din({pc_lq_func_sl_thold_3,
          pc_lq_func_slp_sl_thold_3,
@@ -663,10 +665,11 @@ assign mpw1_dc_b           = mpw1_dc_b_int;
 assign mpw2_dc_b           = mpw2_dc_b_int[0];
 
 
-tri_plat #(.WIDTH(3)) perv_2to1_reg(
+tri_plat#(.WIDTH(3)) perv_2to1_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .flush(pc_lq_ccflush_dc),
    .din({gptr_sl_thold_2,
          func_slp_sl_thold_2_int,
@@ -676,10 +679,11 @@ tri_plat #(.WIDTH(3)) perv_2to1_reg(
        sg_1})
 );
 
-tri_plat #(.WIDTH(3)) perv_1to0_reg(
+tri_plat#(.WIDTH(3)) perv_1to0_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .flush(pc_lq_ccflush_dc),
    .din({gptr_sl_thold_1,
          func_slp_sl_thold_1,
@@ -702,7 +706,8 @@ tri_lcbcntl_mac perv_lcbctrl_0(
    .vdd(vdd),
    .gnd(gnd),
    .sg(sg_0),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .scan_in(gptr_siv[3]),
    .scan_diag_dc(an_ac_scan_diag_dc),
    .thold(gptr_sl_thold_0),
@@ -719,7 +724,8 @@ tri_lcbcntl_mac perv_lcbctrl_1(
    .vdd(vdd),
    .gnd(gnd),
    .sg(sg_0),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .scan_in(gptr_siv[4]),
    .scan_diag_dc(an_ac_scan_diag_dc),
    .thold(gptr_sl_thold_0),
@@ -736,7 +742,8 @@ tri_lcbcntl_array_mac perv_lcbctrl_g6t_0(
    .vdd(vdd),
    .gnd(gnd),
    .sg(sg_0),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .scan_in(gptr_siv[0]),
    .scan_diag_dc(an_ac_scan_diag_dc),
    .thold(gptr_sl_thold_0),
@@ -753,7 +760,8 @@ tri_lcbcntl_array_mac perv_lcbctrl_g8t_0(
    .vdd(vdd),
    .gnd(gnd),
    .sg(sg_0),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .scan_in(gptr_siv[1]),
    .scan_diag_dc(an_ac_scan_diag_dc),
    .thold(gptr_sl_thold_0),
@@ -770,7 +778,8 @@ tri_lcbcntl_array_mac perv_lcbctrl_cam_0(
    .vdd(vdd),
    .gnd(gnd),
    .sg(sg_0),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .scan_in(gptr_siv[2]),
    .scan_diag_dc(an_ac_scan_diag_dc),
    .thold(gptr_sl_thold_0),
@@ -789,7 +798,8 @@ tri_lcbcntl_array_mac perv_lcbctrl_cam_0(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_lq_trace_bus_enable_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -807,7 +817,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_lq_trace_bus_enable_reg(
 tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) pc_lq_debug_mux1_ctrls_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_trace_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -825,7 +836,8 @@ tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) pc_lq_debug_mux1_ctrls_re
 tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) pc_lq_debug_mux2_ctrls_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_trace_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -843,7 +855,8 @@ tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(1)) pc_lq_debug_mux2_ctrls_re
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_lq_instr_trace_mode_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -861,7 +874,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_lq_instr_trace_mode_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) pc_lq_instr_trace_tid_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_trace_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -879,7 +893,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) pc_lq_instr_trace_t
 tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) lq_mux1_debug_data_out_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_trace_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -897,7 +912,8 @@ tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) lq_mux1_debug_data_out_re
 tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lq_mux1_coretrace_out_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_trace_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -915,7 +931,8 @@ tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lq_mux1_coretrace_out_reg(
 tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) lq_mux2_debug_data_out_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_trace_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -933,7 +950,8 @@ tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) lq_mux2_debug_data_out_re
 tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lq_mux2_coretrace_out_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_trace_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -951,7 +969,8 @@ tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) lq_mux2_coretrace_out_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_gs_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -969,7 +988,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_gs_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_pr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -987,7 +1007,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_pr_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_lq_event_bus_enable_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -1005,7 +1026,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) pc_lq_event_bus_enable_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) perf_event_en_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_event_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -1023,7 +1045,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) perf_event_en_reg(
 tri_rlmreg_p #(.WIDTH((4*`THREADS)), .INIT(0), .NEEDS_SRESET(1)) perf_event_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_event_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),
@@ -1041,7 +1064,8 @@ tri_rlmreg_p #(.WIDTH((4*`THREADS)), .INIT(0), .NEEDS_SRESET(1)) perf_event_data
 tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) pc_lq_event_count_mode_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(pc_lq_event_bus_enable_q),
    .force_t(func_slp_sl_force),
    .d_mode(d_mode_dc_int[0]),

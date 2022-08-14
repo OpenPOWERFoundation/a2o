@@ -36,9 +36,10 @@ module xu_gpr(
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   input [0:`NCLK_WIDTH-1] nclk,
    inout                               vdd,
    inout                               gnd,
+   input                               clk,
+   input                               rst,
 
    //-------------------------------------------------------------------
    // Pervasive
@@ -162,7 +163,8 @@ module xu_gpr(
    tri_144x78_2r4w gpr0(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .delay_lclkr_dc(delay_lclkr_dc),
       .mpw1_dc_b(mpw1_dc_b),
       .mpw2_dc_b(mpw2_dc_b),
@@ -197,7 +199,8 @@ module xu_gpr(
    tri_144x78_2r4w gpr1(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .delay_lclkr_dc(delay_lclkr_dc),
       .mpw1_dc_b(mpw1_dc_b),
       .mpw2_dc_b(mpw2_dc_b),
@@ -230,7 +233,8 @@ module xu_gpr(
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) r4e_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -248,7 +252,8 @@ module xu_gpr(
    );
 
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC+`THREADS_POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) r4a_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),

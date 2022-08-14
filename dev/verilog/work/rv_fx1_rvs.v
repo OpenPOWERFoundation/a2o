@@ -219,8 +219,8 @@ module rv_fx1_rvs(
 
    inout 			 vdd,
    inout 			 gnd,
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1] 	 nclk,
+   input           clk,
+   input           rst,
    input 			 func_sl_thold_1,
    input 			 sg_1,
    input 			 clkoff_b,
@@ -612,7 +612,8 @@ module rv_fx1_rvs(
 
        .vdd(vdd),
        .gnd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+       .rst(rst),
        .sg_1(sg_1),
        .func_sl_thold_1(func_sl_thold_1),
        .ccflush_dc(ccflush_dc),
@@ -693,7 +694,8 @@ module rv_fx1_rvs(
    ex0_itag_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -714,7 +716,8 @@ module rv_fx1_rvs(
    ex0_t1_v_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -734,7 +737,8 @@ module rv_fx1_rvs(
    ex0_t2_v_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(rv_ex0_act),
             .thold_b(func_sl_thold_0_b),
             .sg(sg_0),
@@ -754,7 +758,8 @@ module rv_fx1_rvs(
          tri_rlmlatch_p #(.INIT(0)) ex0_t3_v_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(rv_ex0_act),
             .thold_b(func_sl_thold_0_b),
             .sg(sg_0),
@@ -774,7 +779,8 @@ module rv_fx1_rvs(
          tri_rlmlatch_p #(.INIT(0)) ex0_s1_v_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(rv_ex0_act),
             .thold_b(func_sl_thold_0_b),
             .sg(sg_0),
@@ -793,7 +799,8 @@ module rv_fx1_rvs(
          tri_rlmreg_p #(.WIDTH(3), .INIT(0)) ex0_s3_t_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(rv_ex0_act),
             .thold_b(func_sl_thold_0_b),
             .sg(sg_0),
@@ -827,7 +834,8 @@ module rv_fx1_rvs(
    perv_1to0_reg(
 		 .vd(vdd),
 		 .gd(gnd),
-		 .nclk(nclk),
+		 .clk(clk),
+	.rst(rst),
 		 .flush(ccflush_dc),
 		 .din({func_sl_thold_1, sg_1}),
 		 .q({func_sl_thold_0, sg_0})

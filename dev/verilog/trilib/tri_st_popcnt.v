@@ -36,7 +36,8 @@
 `include "tri_a2o.vh"
 
 module tri_st_popcnt(
-   nclk,
+   clk,
+   rst,
    vdd,
    gnd,
    delay_lclkr_dc,
@@ -56,7 +57,8 @@ module tri_st_popcnt(
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   input [0:`NCLK_WIDTH-1] nclk;
+   input                 clk;
+   input                 rst;
    inout                 vdd;
    inout                 gnd;
 
@@ -193,7 +195,8 @@ module tri_st_popcnt(
    //-------------------------------------------------------------------
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) exx_act_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -211,7 +214,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex2_instr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[1]),
@@ -229,7 +233,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) ex3_popcnt_sel_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[2]),
@@ -247,7 +252,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_b3_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[2]),
@@ -265,7 +271,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_b2_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[2]),
@@ -283,7 +290,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_b1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[2]),
@@ -301,7 +309,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex3_b0_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[2]),
@@ -319,7 +328,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex4_b3_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[3]),
@@ -337,7 +347,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex4_b2_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[3]),
@@ -355,7 +366,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex4_b1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[3]),
@@ -373,7 +385,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ex4_b0_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[3]),
@@ -391,7 +404,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex4_word0_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[3]),
@@ -409,7 +423,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex4_word1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[3]),
@@ -427,7 +442,8 @@ module tri_st_popcnt(
    );
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) ex4_popcnt_sel_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(exx_act[3]),

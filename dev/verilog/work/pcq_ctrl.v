@@ -41,7 +41,8 @@ module pcq_ctrl(
 
    inout			vdd,
    inout			gnd,
-   input  [0:`NCLK_WIDTH-1] 	nclk,
+   input       clk,
+   input       rst,
    input			scan_dis_dc_b,
    input			lcb_clkoff_dc_b,
    input			lcb_mpw1_dc_b,
@@ -264,7 +265,8 @@ module pcq_ctrl(
    tri_rlmlatch_p #(.INIT(1)) initactive(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -281,7 +283,8 @@ module pcq_ctrl(
    tri_rlmreg_p #(.WIDTH(HOLDCNTR_SIZE), .INIT(0)) holdcntr(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(initcntr_enabled),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -298,7 +301,8 @@ module pcq_ctrl(
    tri_rlmreg_p #(.WIDTH(INITCNTR_SIZE), .INIT(INITCNT_START)) initcntr(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(initcntr_enabled),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -315,7 +319,8 @@ module pcq_ctrl(
    tri_rlmlatch_p #(.INIT(0)) initerat(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(initcntr_enabled),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -332,7 +337,8 @@ module pcq_ctrl(
    tri_rlmreg_p #(.WIDTH(PMCTRLS_T0_SIZE), .INIT(0)) pmctrls_t0(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -356,7 +362,8 @@ module pcq_ctrl(
          tri_rlmreg_p #(.WIDTH(PMCTRLS_T1_SIZE), .INIT(0)) pmctrls_t1(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(pc_pc_func_slp_sl_thold_0_b),
             .sg(pc_pc_sg_0),
@@ -376,7 +383,8 @@ module pcq_ctrl(
    tri_rlmreg_p #(.WIDTH(SPARECTRL_SIZE), .INIT(0)) sparectrl(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_pc_func_slp_sl_thold_0_b),
       .sg(pc_pc_sg_0),

@@ -41,11 +41,12 @@
 
 `include "tri_a2o.vh"
 
-module tri_bht_1024x8_1r1w(
+module tri_bht_1024x8_1r1w (
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    pc_iu_func_sl_thold_2,
    pc_iu_sg_2,
    pc_iu_time_sl_thold_2,
@@ -112,7 +113,8 @@ module tri_bht_1024x8_1r1w(
    inout               vcs;
 
    // clock and clockcontrol ports
-   input [0:`NCLK_WIDTH-1]              nclk;
+   input                clk;
+   input                rst;
    input               pc_iu_func_sl_thold_2;
    input               pc_iu_sg_2;
    input               pc_iu_time_sl_thold_2;
@@ -331,7 +333,8 @@ module tri_bht_1024x8_1r1w(
                .gnd(gnd),
                .vdd(vdd),
                .vcs(vcs),
-               .nclk(nclk),
+               .clk(clk),
+               .rst(rst),
 
                .rd_act(ary_r_en),
                .wr_act(ary_w_en),
@@ -404,7 +407,8 @@ module tri_bht_1024x8_1r1w(
       tri_rlmreg_p #(.WIDTH(2), .INIT(0)) data_in_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .act(lat_wi_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -423,7 +427,8 @@ module tri_bht_1024x8_1r1w(
       tri_rlmreg_p #(.WIDTH(4), .INIT(0)) w_act_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -442,7 +447,8 @@ module tri_bht_1024x8_1r1w(
       tri_rlmlatch_p #(.INIT(0)) r_act_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .act(tiup),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -461,7 +467,8 @@ module tri_bht_1024x8_1r1w(
       tri_rlmreg_p #(.WIDTH(10), .INIT(0)) w_addr_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .act(lat_wi_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -480,7 +487,8 @@ module tri_bht_1024x8_1r1w(
       tri_rlmreg_p #(.WIDTH(10), .INIT(0)) r_addr_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .act(lat_ri_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -499,7 +507,8 @@ module tri_bht_1024x8_1r1w(
       tri_rlmreg_p #(.WIDTH(8), .INIT(0)) data_out_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .act(lat_ro_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -517,7 +526,8 @@ module tri_bht_1024x8_1r1w(
       tri_rlmreg_p #(.WIDTH(9), .INIT(0)) reset_w_addr_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .act(reset_act),
          .thold_b(pc_iu_func_sl_thold_0_b),
          .sg(pc_iu_sg_0),
@@ -540,7 +550,8 @@ module tri_bht_1024x8_1r1w(
       tri_plat #(.WIDTH(7)) perv_2to1_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .flush(tc_ac_ccflush_dc),
          .din({pc_iu_func_sl_thold_2, pc_iu_sg_2, pc_iu_time_sl_thold_2, pc_iu_abst_sl_thold_2, pc_iu_ary_nsl_thold_2, pc_iu_repr_sl_thold_2, pc_iu_bolt_sl_thold_2}),
          .q({pc_iu_func_sl_thold_1, pc_iu_sg_1, pc_iu_time_sl_thold_1, pc_iu_abst_sl_thold_1, pc_iu_ary_nsl_thold_1, pc_iu_repr_sl_thold_1, pc_iu_bolt_sl_thold_1})
@@ -550,7 +561,8 @@ module tri_bht_1024x8_1r1w(
       tri_plat #(.WIDTH(7)) perv_1to0_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .flush(tc_ac_ccflush_dc),
          .din({pc_iu_func_sl_thold_1, pc_iu_sg_1, pc_iu_time_sl_thold_1, pc_iu_abst_sl_thold_1, pc_iu_ary_nsl_thold_1, pc_iu_repr_sl_thold_1, pc_iu_bolt_sl_thold_1}),
          .q({pc_iu_func_sl_thold_0, pc_iu_sg_0, pc_iu_time_sl_thold_0, pc_iu_abst_sl_thold_0, pc_iu_ary_nsl_thold_0, pc_iu_repr_sl_thold_0, pc_iu_bolt_sl_thold_0})

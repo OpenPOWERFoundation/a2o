@@ -76,7 +76,8 @@ module lq_data_ld(
    stq6_rd_data_wh,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -146,7 +147,8 @@ output [0:143]                   stq6_rd_data_wh;
 inout                            vdd;
 inout                            gnd;
 (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-input [0:`NCLK_WIDTH-1]          nclk;
+input                            clk;
+input                            rst;
 input                            sg_0;
 input                            func_sl_thold_0_b;
 input                            func_sl_force;
@@ -341,7 +343,8 @@ generate begin : l1dcrotrWA
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -370,7 +373,8 @@ generate begin : l1dcrotrWA
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -414,7 +418,8 @@ generate begin : l1dcrotrWB
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -443,7 +448,8 @@ generate begin : l1dcrotrWB
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -487,7 +493,8 @@ generate begin : l1dcrotrWC
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -516,7 +523,8 @@ generate begin : l1dcrotrWC
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -560,7 +568,8 @@ generate begin : l1dcrotrWD
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -589,7 +598,8 @@ generate begin : l1dcrotrWD
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -633,7 +643,8 @@ generate begin : l1dcrotrWE
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -662,7 +673,8 @@ generate begin : l1dcrotrWE
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -706,7 +718,8 @@ generate begin : l1dcrotrWF
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -735,7 +748,8 @@ generate begin : l1dcrotrWF
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -779,7 +793,8 @@ generate begin : l1dcrotrWG
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -808,7 +823,8 @@ generate begin : l1dcrotrWG
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -852,7 +868,8 @@ generate begin : l1dcrotrWH
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -881,7 +898,8 @@ generate begin : l1dcrotrWH
 
             .vdd(vdd),
             .gnd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ex3_stg_act),
             .func_sl_force(func_sl_force),
             .delay_lclkr_dc(delay_lclkr_dc),
@@ -1126,7 +1144,8 @@ assign stq6_rd_data_wh = {dcarr_rd_data_wh, dcarr_rd_parity_wh};
 tri_regk #(.WIDTH(`STQ_DATA_SIZE), .INIT(0), .NEEDS_SRESET(1)) ex5_ld_hit_data_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(ex4_stg_act),
    .force_t(func_nsl_force),
    .d_mode(d_mode_dc),

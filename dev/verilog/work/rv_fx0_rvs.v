@@ -246,8 +246,8 @@ module rv_fx0_rvs(
    output [0:31]                   fx0_rvs_dbg_bus,
    inout 			   vdd,
    inout 			   gnd,
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1] 	   nclk,
+   input             clk,
+   input             rst,
    input 			   func_sl_thold_1,
    input 			   sg_1,
    input 			   clkoff_b,
@@ -637,7 +637,8 @@ module rv_fx0_rvs(
 
        .vdd(vdd),
        .gnd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+       .rst(rst),
        .sg_1(sg_1),
        .func_sl_thold_1(func_sl_thold_1),
        .ccflush_dc(ccflush_dc),
@@ -744,7 +745,8 @@ module rv_fx0_rvs(
    ex0_is_brick_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(tiup),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -764,7 +766,8 @@ module rv_fx0_rvs(
    ex0_itag_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(tiup),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -784,7 +787,8 @@ module rv_fx0_rvs(
    ex0_ord_reg(
 	       .vd(vdd),
 	       .gd(gnd),
-	       .nclk(nclk),
+	       .clk(clk),
+	.rst(rst),
 	       .act(rv_ex0_act),
 	       .thold_b(func_sl_thold_0_b),
 	       .sg(sg_0),
@@ -804,7 +808,8 @@ module rv_fx0_rvs(
    ex0_t1_v_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -826,7 +831,8 @@ module rv_fx0_rvs(
    ex0_t1_t_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -846,7 +852,8 @@ module rv_fx0_rvs(
    ex0_t2_v_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -866,7 +873,8 @@ module rv_fx0_rvs(
    ex0_t2_t_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -886,7 +894,8 @@ module rv_fx0_rvs(
    ex0_t3_v_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -906,7 +915,8 @@ module rv_fx0_rvs(
    ex0_t3_t_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -926,7 +936,8 @@ module rv_fx0_rvs(
    ex0_s1_v_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -946,7 +957,8 @@ module rv_fx0_rvs(
    ex0_s2_v_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -966,7 +978,8 @@ module rv_fx0_rvs(
    ex0_s2_t_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -986,7 +999,8 @@ module rv_fx0_rvs(
    ex0_s3_v_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -1006,7 +1020,8 @@ module rv_fx0_rvs(
    ex0_s3_t_reg(
 		.vd(vdd),
 		.gd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+	.rst(rst),
 		.act(rv_ex0_act),
 		.thold_b(func_sl_thold_0_b),
 		.sg(sg_0),
@@ -1027,7 +1042,8 @@ module rv_fx0_rvs(
    cp_next_itag_reg(
 		    .vd(vdd),
 		    .gd(gnd),
-		    .nclk(nclk),
+		    .clk(clk),
+	.rst(rst),
 		    .act(tiup),
 		    .thold_b(func_sl_thold_0_b),
 		    .sg(sg_0),
@@ -1058,7 +1074,8 @@ module rv_fx0_rvs(
    perv_1to0_reg(
 		 .vd(vdd),
 		 .gd(gnd),
-		 .nclk(nclk),
+		 .clk(clk),
+	.rst(rst),
 		 .flush(ccflush_dc),
 		 .din({func_sl_thold_1, sg_1}),
                  .q({func_sl_thold_0, sg_0})

@@ -37,9 +37,10 @@ module xu1(
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   input [0:`NCLK_WIDTH-1]                   nclk,
    inout                                     vdd,
    inout                                     gnd,
+   input                                     clk,
+   input                                     rst,
 
    //-------------------------------------------------------------------
    // Pervasive
@@ -253,7 +254,8 @@ module xu1(
 
 
    xu_alu alu(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -289,7 +291,8 @@ module xu1(
 
 
    xu1_byp byp(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -390,7 +393,8 @@ module xu1(
 
 
    xu1_dec dec(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),

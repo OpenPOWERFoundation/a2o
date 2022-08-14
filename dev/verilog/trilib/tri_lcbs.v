@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -35,11 +35,13 @@
 
 `include "tri_a2o.vh"
 
-module tri_lcbs(
+//wtf this should be changed to output clk,rst instead of lclk; think it's only for alternate ring lats?
+module tri_lcbs (
    vd,
    gd,
    delay_lclkr,
-   nclk,
+   clk,
+   rst,
    force_t,
    thold_b,
    dclk,
@@ -48,7 +50,8 @@ module tri_lcbs(
    inout      vd;
    inout      gd;
    input      delay_lclkr;
-   input[0:`NCLK_WIDTH-1]  nclk;
+   input      clk;
+   input      rst;
    input      force_t;
    input      thold_b;
    output     dclk;
@@ -63,5 +66,5 @@ module tri_lcbs(
 
    // No scan chain in this methodology
    assign dclk = thold_b;
-   assign lclk = nclk;
+   assign lclk = {clk, rst, {`NCLK_WIDTH-2{1'b0}}};
 endmodule

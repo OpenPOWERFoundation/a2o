@@ -1,10 +1,8 @@
 # RTL
 
-
 ## fpga/sim arrays
 
-* created sim-only (not fpga?) clk1x versions in trilib_clk1x to eliminate any possible problems with iverilog
-and verilator dealing with multiple clocks
+* arrays that had 2x/4x clks
 
 ```
 trilib/tri_144x78_2r4w.v
@@ -19,6 +17,18 @@ trilib/tri_512x16_1r1w_1.v
 trilib/tri_128x16_1r1w_1.v
 ```
 
+* also got rid of reset_q usages (clk and reset in same nclk vector)
+***i doubt reset is needed in any of the array components***
+
+```
+trilib/tri_128x16_1r1w_1.v:   reg                                            reset_q;
+trilib/tri_512x16_1r1w_1.v:   reg                                            reset_q;
+trilib/tri_64x72_1r1w.v:   reg                                 reset_q;
+trilib/tri_cam_16x143_1r1w1c.v:   reg                           sreset_q;
+trilib/tri_cam_32x143_1r1w1c.v:   reg                           sreset_q;
+trilib/tri_iuq_cpl_arr.v:   reg                          reset_q;
+```
+
 ### arrays using clk4x
 
 * 4W was done with clk4x
@@ -27,7 +37,6 @@ trilib/tri_128x16_1r1w_1.v
 ```
 grep "nclk\[3\]" trilib/*
 trilib/tri_144x78_2r4w.v:                  .WCLK(nclk[3]),                       // Port A write clock input : clk4x
-trilib/tri_144x78_2r4w.v:                  .WCLK(nclk[3]),		// Port A write clock input : clk4x
 ```
 
 ### arrays using clk2x

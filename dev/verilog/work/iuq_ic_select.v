@@ -42,8 +42,8 @@ module iuq_ic_select(
    inout                            vdd,
    inout                            gnd,
 
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]          nclk,
+   input                            clk,
+   input                            rst,
    input                            pc_iu_func_sl_thold_0_b,
    input                            pc_iu_func_slp_sl_thold_0_b,
    input                            pc_iu_sg_0,
@@ -1055,7 +1055,8 @@ module iuq_ic_select(
    tri_rlmlatch_p #(.INIT(0)) an_ac_back_inv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1073,7 +1074,8 @@ module iuq_ic_select(
    tri_rlmlatch_p #(.INIT(0)) an_ac_back_inv_target_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1091,7 +1093,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH-6), .INIT(0)) an_ac_back_inv_addr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(back_inv_addr_act),		//back_inv_d,
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1109,7 +1112,8 @@ module iuq_ic_select(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_idir_read_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1127,7 +1131,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(7), .INIT(0), .NEEDS_SRESET(0)) spr_idir_row_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1154,7 +1159,8 @@ module iuq_ic_select(
        tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) oldest_prefetch_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(tiup),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -1175,7 +1181,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu0_need_prefetch_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1198,7 +1205,8 @@ module iuq_ic_select(
        tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH-4), .INIT(0)) iu0_prefetch_ifar_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(iu0_prefetch_ifar_act[i]),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -1219,7 +1227,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH((`THREADS*`THREADS-1+1)), .INIT(0)) lq_iu_icbi_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1242,7 +1251,8 @@ module iuq_ic_select(
        tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH-6), .INIT(0)) lq_iu_icbi_addr_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(lq_iu_icbi_val[i]),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -1263,7 +1273,8 @@ module iuq_ic_select(
    tri_rlmlatch_p #(.INIT(0)) back_inv_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1281,7 +1292,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) back_inv_icbi_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1299,7 +1311,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) xu_iu_run_thread_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1317,7 +1330,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) xu_iu_msr_cm_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1335,7 +1349,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) xu_iu_msr_cm2_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1353,7 +1368,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) xu_iu_msr_cm3_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1371,7 +1387,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_ic_stop_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1389,7 +1406,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) pc_iu_pm_fetch_halt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1407,7 +1425,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ierat_hold_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1425,7 +1444,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu0_2ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1443,7 +1463,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu0_2ucode_type_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1461,7 +1482,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu0_flip_index51_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1488,7 +1510,8 @@ module iuq_ic_select(
        tri_rlmlatch_p #(.INIT(0)) iu0_last_tid_sent_latch(
           .vd(vdd),
           .gd(gnd),
-          .nclk(nclk),
+          .clk(clk),
+	.rst(rst),
           .act(tiup),
           .thold_b(pc_iu_func_sl_thold_0_b),
           .sg(pc_iu_sg_0),
@@ -1517,7 +1540,8 @@ module iuq_ic_select(
          tri_rlmreg_p #(.WIDTH(3), .INIT(0)) iu0_sent_latch(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(tiup),
             .thold_b(pc_iu_func_sl_thold_0_b),
             .sg(pc_iu_sg_0),
@@ -1549,7 +1573,8 @@ module iuq_ic_select(
            tri_rlmlatch_p #(.INIT(1), .NEEDS_SRESET(1)) iu0_ifar_latch(
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .thold_b(pc_iu_func_slp_sl_thold_0_b),
               .sg(pc_iu_sg_0),
@@ -1567,7 +1592,8 @@ module iuq_ic_select(
            tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) iu0_ifar_latch(
               .vd(vdd),
               .gd(gnd),
-              .nclk(nclk),
+              .clk(clk),
+	.rst(rst),
               .act(tiup),
               .thold_b(pc_iu_func_slp_sl_thold_0_b),
               .sg(pc_iu_sg_0),
@@ -1608,7 +1634,8 @@ module iuq_ic_select(
          tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH-10), .INIT(0)) stored_erat_ifar_latch(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(stored_erat_act[i]),
             .thold_b(pc_iu_func_sl_thold_0_b),
             .sg(pc_iu_sg_0),
@@ -1628,7 +1655,8 @@ module iuq_ic_select(
      tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) stored_erat_valid_latch(
         .vd(vdd),
         .gd(gnd),
-        .nclk(nclk),
+        .clk(clk),
+	.rst(rst),
         .act(tiup),
         .thold_b(pc_iu_func_slp_sl_thold_0_b),
         .sg(pc_iu_sg_0),
@@ -1648,7 +1676,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_hold_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1666,7 +1695,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_bus_snoop_hold_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1684,7 +1714,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1702,7 +1733,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_into_uc_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1725,7 +1757,8 @@ module iuq_ic_select(
         tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0)) cp_flush_ifar_latch(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(tiup),
            .thold_b(pc_iu_func_slp_sl_thold_0_b),
            .sg(pc_iu_sg_0),
@@ -1746,7 +1779,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_2ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1764,7 +1798,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_2ucode_type_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1782,7 +1817,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_nonspec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1800,7 +1836,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) br_iu_redirect_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1818,7 +1855,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_ARCH), .INIT(0)) br_iu_bta_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1836,7 +1874,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) next_fetch_nonspec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1854,7 +1893,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu1_nonspec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1872,7 +1912,8 @@ module iuq_ic_select(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu2_nonspec_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1895,7 +1936,8 @@ module iuq_ic_select(
         tri_rlmreg_p #(.WIDTH(6), .INIT(0)) perf_event_latch(
            .vd(vdd),
            .gd(gnd),
-           .nclk(nclk),
+           .clk(clk),
+	.rst(rst),
            .act(event_bus_enable),
            .thold_b(pc_iu_func_sl_thold_0_b),
            .sg(pc_iu_sg_0),

@@ -35,10 +35,11 @@
 
 `include "tri_a2o.vh"
 
-module tri_regs(
+module tri_regs (
    vd,
    gd,
-   nclk,
+   clk,
+   rst,
    force_t,
    thold_b,
    delay_lclkr,
@@ -57,7 +58,8 @@ module tri_regs(
 
    inout                          vd;
    inout                          gd;
-   input [0:`NCLK_WIDTH-1]        nclk;
+   input                          clk;
+   input                          rst;
    input                          force_t;		// 1: force LCB active
    input                          thold_b;		// 1: functional, 0: no clock
    input                          delay_lclkr;		// 0: functional
@@ -73,9 +75,9 @@ module tri_regs(
        (* analysis_not_referenced="true" *)
       wire                        unused;
 
-      assign sreset = (NEEDS_SRESET == 1) ? nclk[1] : 0;
+      assign sreset = (NEEDS_SRESET == 1) ? rst : 0;
 
-      always @(posedge nclk[0]) begin: l
+      always @(posedge clk) begin: l
          if (sreset)
             int_dout <= init_v;
       end
@@ -84,7 +86,7 @@ module tri_regs(
 
       assign scout = {WIDTH{1'b0}};
 
-      assign unused = |{vd, gd, delay_lclkr, scin} | (|nclk[2:`NCLK_WIDTH-1]) | ((NEEDS_SRESET == 1) ? 0 : nclk[1]);
+      assign unused = |{vd, gd, delay_lclkr, scin};
 
    endgenerate
 

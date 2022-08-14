@@ -36,7 +36,8 @@
 
 
 module lq_dec(
-   nclk,
+   clk,
+   rst,
    vdd,
    gnd,
    d_mode_dc,
@@ -228,14 +229,9 @@ module lq_dec(
 
 
 inout                                                       vdd;
-
-
 inout                                                       gnd;
-
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-input [0:`NCLK_WIDTH-1]                                     nclk;
-
+input                                                       clk;
+input                                                       rst;
 input                                                       d_mode_dc;
 input                                                       delay_lclkr_dc;
 input                                                       mpw1_dc_b;
@@ -2161,7 +2157,8 @@ assign ex0_is_icswxdot  = (rv_lq_ex0_instr[0:5] == 6'b011111) & (rv_lq_ex0_instr
 //----------------------------------------------------------------------------------------------------------------------------------------
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_gs_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2179,7 +2176,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_gs_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_pr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2197,7 +2195,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_pr_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_ucle_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2215,7 +2214,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msr_ucle_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msrp_uclep_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2233,7 +2233,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) spr_msrp_uclep_latc
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_ccr2_en_pc_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2251,7 +2252,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_ccr2_en_pc_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_ccr2_en_ditc_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2269,7 +2271,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_ccr2_en_ditc_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_ccr2_en_icswx_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2287,7 +2290,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) spr_ccr2_en_icswx_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2305,7 +2309,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2323,7 +2328,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2341,7 +2347,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2359,7 +2366,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2377,7 +2385,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2395,7 +2404,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2413,7 +2423,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_stg_act_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2431,7 +2442,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_stg_act_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2449,7 +2461,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_stg_act_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2467,7 +2480,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_stg_act_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2485,7 +2499,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_stg_act_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2503,7 +2518,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_stg_act_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2521,7 +2537,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_stg_act_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_stg_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2539,7 +2556,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex7_stg_act_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex1_ucode_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_stg_act_q),
@@ -2557,7 +2575,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) ex1_ucode_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_ucode_cnt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_stg_act_q),
@@ -2575,7 +2594,8 @@ tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_ucode
 );
 
 tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) ex1_instr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2593,7 +2613,8 @@ tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(1)) ex1_instr_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_any_load_dac_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex1_stg_act_q),
@@ -2611,7 +2632,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_any_load_dac_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_any_store_dac_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex1_stg_act_q),
@@ -2629,7 +2651,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_is_any_store_dac_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_dir_rd_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2647,7 +2670,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_dir_rd_act_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_tid_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2665,7 +2689,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex0_tid_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_tid_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_stq2_stg_act),
@@ -2683,7 +2708,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex1_tid_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_tid_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex2_stg_act_d),
@@ -2701,7 +2727,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex2_tid_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_tid_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex2_stg_act_q),
@@ -2719,7 +2746,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex3_tid_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_tid_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex3_stg_act_q),
@@ -2737,7 +2765,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_tid_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_s1_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_stg_act_q),
@@ -2755,7 +2784,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_s1_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_s2_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_stg_act_q),
@@ -2773,7 +2803,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_s2_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_t1_we_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2791,7 +2822,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_t1_we_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_t1_we_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2809,7 +2841,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_t1_we_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_t1_we_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2827,7 +2860,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_t1_we_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_t1_we_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2845,7 +2879,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_t1_we_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_t1_we_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2863,7 +2898,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_t1_we_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_t1_we_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2881,7 +2917,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_t1_we_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq_xu_ex5_act_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2899,7 +2936,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq_xu_ex5_act_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_t1_wa_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_stg_act_q),
@@ -2917,7 +2955,8 @@ tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_t1_wa_latc
 );
 
 tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_t3_wa_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_stg_act_q),
@@ -2935,7 +2974,8 @@ tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_t3_wa_latc
 );
 
 tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_itag_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_stq2_stg_act),
@@ -2953,7 +2993,8 @@ tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex1_itag_latc
 );
 
 tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex2_itag_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex1_stq3_stg_act),
@@ -2971,7 +3012,8 @@ tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) ex2_itag_latc
 );
 
 tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) release_itag_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -2989,7 +3031,8 @@ tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) release_itag_
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) release_tid_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3007,7 +3050,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) release_tid_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) release_itag_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3025,7 +3069,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) release_itag_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_needs_release_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3043,7 +3088,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_needs_release_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_needs_release_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3061,7 +3107,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_needs_release_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_needs_release_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3079,7 +3126,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_needs_release_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_physical_upd_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3097,7 +3145,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_physical_upd_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_req_abort_rpt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3115,7 +3164,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_req_abort_rpt_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_req_abort_rpt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3133,7 +3183,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_req_abort_rpt_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_req_abort_rpt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3151,7 +3202,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_req_abort_rpt_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_axu_physical_upd_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3169,7 +3221,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_axu_physical_upd_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_axu_abort_rpt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3187,7 +3240,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_axu_abort_rpt_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_axu_abort_rpt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3205,7 +3259,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_axu_abort_rpt_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_axu_abort_rpt_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3223,7 +3278,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_axu_abort_rpt_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_release_attmp_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3241,7 +3297,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_release_attmp_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_release_attmp_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3259,7 +3316,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_release_attmp_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_needs_release_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3277,7 +3335,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_needs_release_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_release_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3295,7 +3354,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq2_release_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_release_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3313,7 +3373,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq3_release_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_release_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3331,7 +3392,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq4_release_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq5_release_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3349,7 +3411,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq5_release_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq6_release_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3367,7 +3430,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq6_release_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq7_release_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3385,7 +3449,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq7_release_vld_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_lq_hold_req_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3403,7 +3468,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_lq_hold_req_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_hold_req_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3421,7 +3487,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_hold_req_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_hold_done_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3439,7 +3506,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) mm_hold_done_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv1_hold_taken_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3457,7 +3525,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv1_hold_taken_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_hold_taken_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3475,7 +3544,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_hold_taken_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_hold_taken_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3493,7 +3563,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_hold_taken_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv1_back_inv_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3511,7 +3582,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rv1_back_inv_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_back_inv_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3529,7 +3601,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_back_inv_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH-`CL_SIZE), .INIT(0), .NEEDS_SRESET(1)) ex0_back_inv_addr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(rv1_back_inv_q),
@@ -3547,7 +3620,8 @@ tri_rlmreg_p #(.WIDTH(`REAL_IFAR_WIDTH-`CL_SIZE), .INIT(0), .NEEDS_SRESET(1)) ex
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_selimm_addr_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3565,7 +3639,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex1_selimm_addr_val_latch(
 );
 
 tri_rlmreg_p #(.WIDTH((64-`CL_SIZE)), .INIT(0), .NEEDS_SRESET(1)) ex1_selimm_addr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(ex0_selimm_addr_val),
@@ -3583,7 +3658,8 @@ tri_rlmreg_p #(.WIDTH((64-`CL_SIZE)), .INIT(0), .NEEDS_SRESET(1)) ex1_selimm_add
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_arr_rd_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3601,7 +3677,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_arr_rd_val_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex0_arr_rd_congr_cl_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3619,7 +3696,8 @@ tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex0_arr_rd_congr_cl_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_derat_snoop_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3637,7 +3715,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex0_derat_snoop_val_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(52), .INIT(0), .NEEDS_SRESET(1)) ex0_derat_snoop_addr_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(derat_rv1_snoop_val),
@@ -3655,7 +3734,8 @@ tri_rlmreg_p #(.WIDTH(52), .INIT(0), .NEEDS_SRESET(1)) ex0_derat_snoop_addr_latc
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu_lq_cp_flush_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3673,7 +3753,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) iu_lq_cp_flush_latc
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq6_mftgpr_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3691,7 +3772,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq6_mftgpr_val_latch(
 );
 
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq7_mftgpr_val_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3709,7 +3791,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) stq7_mftgpr_val_latch(
 );
 
 tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) stq2_release_itag_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -3727,7 +3810,8 @@ tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0), .NEEDS_SRESET(1)) stq2_release_
 );
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) stq2_release_tid_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),

@@ -39,7 +39,8 @@
 module tri_fu_mul_92(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    si,
    so,
    ex2_act,
@@ -58,7 +59,8 @@ module tri_fu_mul_92(
    parameter     inst = 0;
    inout         vdd;
    inout         gnd;
-   input  [0:`NCLK_WIDTH-1]         nclk;		//perv
+   input         clk;
+   input         rst;
    input         si;		//perv
    output        so;		//perv
    input         ex2_act;		//act
@@ -4385,7 +4387,8 @@ module tri_fu_mul_92(
       .mpw1_b(lcb_mpw1_b),		//in -- tidn ,
       .mpw2_b(lcb_mpw2_b),		//in -- tidn ,
       .force_t(force_t),		//in -- tidn ,
-      .nclk(nclk),		//in
+      .clk(clk),		//in
+      .rst(rst),
       .vd(vdd),		//inout
       .gd(gnd),		//inout
       .act(ex2_act),		//in

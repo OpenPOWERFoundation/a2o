@@ -36,10 +36,11 @@
 
 `include "tri_a2o.vh"
 
-module tri_aoi22_nlats_wlcb(
+module tri_aoi22_nlats_wlcb (
    vd,
    gd,
-   nclk,
+   clk,
+   rst,
    act,
    force_t,
    thold_b,
@@ -71,7 +72,8 @@ module tri_aoi22_nlats_wlcb(
 
    inout                          vd;
    inout                          gd;
-   input [0:`NCLK_WIDTH-1]        nclk;
+   input                          clk;
+   input                          rst;
    input                          act;		// 1: functional, 0: no clock
    input                          force_t;		// 1: force LCB active
    input                          thold_b;		// 1: functional, 0: no clock
@@ -107,12 +109,9 @@ module tri_aoi22_nlats_wlcb(
        (* analysis_not_referenced="true" *)
       wire                        unused;
 
-      if (NEEDS_SRESET == 1)
-      begin : rst
-         assign sreset = nclk[1];
-      end
-      if (NEEDS_SRESET != 1)
-      begin : no_rst
+      if (NEEDS_SRESET == 1) begin
+         assign sreset = rst;
+      end else begin
          assign sreset = 1'b0;
       end
 
@@ -128,7 +127,7 @@ module tri_aoi22_nlats_wlcb(
       assign vthold_b = {WIDTH{thold_b}};
       assign vthold = {WIDTH{~thold_b}};
 
-      always @(posedge nclk[0]) begin: l
+      always @(posedge clk) begin: l
         //int_dout <= (((vact & vthold_b) | vsreset) & int_din) | (((vact_b | vthold) & vsreset_b) & int_dout);
         if (sreset)
           int_dout <= int_din;
@@ -140,6 +139,6 @@ module tri_aoi22_nlats_wlcb(
 
       assign scout = ZEROS;
 
-      assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | vd | gd | (|nclk) | (|scin);
+      assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | vd | gd | (|scin);
    endgenerate
 endmodule

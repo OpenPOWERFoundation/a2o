@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -407,7 +407,8 @@ module lq(
 //   vcs,
 //   vdd,
 //   gnd,
-   nclk,
+   clk,
+   rst,
    pc_lq_init_reset,
    pc_lq_ccflush_dc,
    pc_lq_gptr_sl_thold_3,
@@ -969,9 +970,8 @@ output                                                       ac_an_req_endian;
 output                                                       ac_an_st_data_pwr_token;
 
 // Pervasive
-
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-input [0:`NCLK_WIDTH-1]                                      nclk;
+input                                                        clk;
+input                                                        rst;
 
 // Thold inputs
 input                                                        pc_lq_init_reset;
@@ -1865,7 +1865,8 @@ lq_ctl #(.XU0_PIPE_START(XU0_PIPE_START), .XU0_PIPE_END(XU0_PIPE_END), .XU1_PIPE
    .vcs(vdd),
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .sg_2(sg_2),
    .fce_2(fce_2),
    .func_sl_thold_2(func_sl_thold_2),
@@ -1955,6 +1956,8 @@ lq_ctl #(.XU0_PIPE_START(XU0_PIPE_START), .XU0_PIPE_END(XU0_PIPE_END), .XU1_PIPE
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 lq_data  dat(
+   .clk(clk),
+   .rst(rst),
 
    // Execution Pipe
    .ctl_dat_ex1_data_act(ctl_dat_ex1_data_act),
@@ -2006,7 +2009,6 @@ lq_data  dat(
    .vdd(vdd),
    .gnd(gnd),
    .vcs(vdd),
-   .nclk(nclk),
    .pc_lq_ccflush_dc(pc_lq_ccflush_dc),
    .sg_2(sg_2),
    .fce_2(fce_2),
@@ -2493,7 +2495,8 @@ lq_lsq  lsq(
    .vcs(vdd),
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .pc_lq_ccflush_dc(pc_lq_ccflush_dc),
    .sg_2(sg_2),
    .fce_2(fce_2),
@@ -2560,7 +2563,8 @@ assign lq_debug_bus0 = 32'h00000000;
 lq_perv lq_perv(
    .vdd(vdd),
    .gnd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .pc_lq_trace_bus_enable(pc_lq_trace_bus_enable),
    .pc_lq_debug_mux1_ctrls(pc_lq_debug_mux1_ctrls),
    .pc_lq_debug_mux2_ctrls(pc_lq_debug_mux2_ctrls),

@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -182,8 +182,8 @@ module rv_axu0_rvs(
 
    inout 			       vdd,
    inout 			       gnd,
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1]	       nclk,
+   input                 clk,
+   input                 rst,
    input 			       func_sl_thold_1,
    input 			       sg_1,
    input 			       clkoff_b,
@@ -574,7 +574,8 @@ module rv_axu0_rvs(
 
        .vdd(vdd),
        .gnd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+       .rst(rst),
        .sg_1(sg_1),
        .func_sl_thold_1(func_sl_thold_1),
        .ccflush_dc(ccflush_dc),
@@ -636,7 +637,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -655,7 +657,8 @@ module rv_axu0_rvs(
       tri_rlmlatch_p #(.INIT(0)) ex0_ord_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(rv_ex0_act),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -674,7 +677,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex1_ord_vld_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -693,7 +697,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex2_ord_vld_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -712,7 +717,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex3_ord_flush_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -733,7 +739,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex0_vld_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -752,7 +759,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) ex0_itag_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(rv_ex0_act),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -771,7 +779,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) axu0_rv_itag_vld_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -789,7 +798,8 @@ module rv_axu0_rvs(
       tri_rlmlatch_p #( .INIT(0)) axu0_rv_itag_abort_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -808,7 +818,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) axu0_rv_itag_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -827,7 +838,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) lq_rv_itag0_vld_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -846,7 +858,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) lq_rv_itag0_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -865,7 +878,8 @@ module rv_axu0_rvs(
       tri_rlmlatch_p #(.INIT(0)) lq_rv_itag0_spec_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -884,7 +898,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) lq_rv_itag1_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -903,7 +918,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) lq_rv_itag2_vld_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -922,7 +938,8 @@ module rv_axu0_rvs(
       tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) lq_rv_itag2_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .thold_b(func_sl_thold_0_b),
          .sg(sg_0),
@@ -941,7 +958,8 @@ module rv_axu0_rvs(
    cp_next_itag_reg(
 		    .vd(vdd),
 		    .gd(gnd),
-		    .nclk(nclk),
+		    .clk(clk),
+	.rst(rst),
 		    .act(tiup),
 		    .thold_b(func_sl_thold_0_b),
 		    .sg(sg_0),
@@ -972,7 +990,8 @@ module rv_axu0_rvs(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
 				       .vd(vdd),
 				       .gd(gnd),
-				       .nclk(nclk),
+				       .clk(clk),
+	.rst(rst),
 				       .flush(ccflush_dc),
 				       .din({func_sl_thold_1, sg_1}),
 				       .q({func_sl_thold_0, sg_0})

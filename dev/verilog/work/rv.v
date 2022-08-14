@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 
 `timescale 1 ns / 1 ns
@@ -542,9 +542,8 @@ module rv(
 	  //------------------------------------------------------------------------------------------------------------
 	  // Pervasive
 	  //------------------------------------------------------------------------------------------------------------
-	  (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-	  input[0:`NCLK_WIDTH-1]                         nclk,
-
+     input                                          clk,
+     input                                          rst,
 	  input                                          rp_rv_ccflush_dc,
 	  input                                          rp_rv_func_sl_thold_3,
 	  input                                          rp_rv_gptr_sl_thold_3,
@@ -1520,7 +1519,8 @@ module rv(
 
 	      .vdd(vdd),
 	      .gnd(gnd),
-	      .nclk(nclk),
+	      .clk(clk),
+         .rst(rst),
 	      .func_sl_thold_1(func_sl_thold_1),
 	      .sg_1(sg_1),
 	      .clkoff_b(clkoff_dc_b),
@@ -1721,7 +1721,8 @@ module rv(
 	     .fx0_rvs_dbg_bus(fx0_rvs_dbg_bus),
 	     .vdd(vdd),
 	     .gnd(gnd),
-	     .nclk(nclk),
+	     .clk(clk),
+        .rst(rst),
 	     .func_sl_thold_1(func_sl_thold_1),
 	     .sg_1(sg_1),
 	     .clkoff_b(clkoff_dc_b),
@@ -1886,7 +1887,8 @@ module rv(
 	     .fx1_rvs_dbg_bus(fx1_rvs_dbg_bus),
 	     .vdd(vdd),
 	     .gnd(gnd),
-	     .nclk(nclk),
+	     .clk(clk),
+        .rst(rst),
 	     .func_sl_thold_1(func_sl_thold_1),
 	     .sg_1(sg_1),
 	     .clkoff_b(clkoff_dc_b),
@@ -2047,7 +2049,8 @@ module rv(
 
 	     .vdd(vdd),
 	     .gnd(gnd),
-	     .nclk(nclk),
+	     .clk(clk),
+        .rst(rst),
 	     .func_sl_thold_1(func_sl_thold_1),
 	     .sg_1(sg_1),
 	     .clkoff_b(clkoff_dc_b),
@@ -2190,7 +2193,8 @@ module rv(
 
 	      .vdd(vdd),
 	      .gnd(gnd),
-	      .nclk(nclk),
+	      .clk(clk),
+         .rst(rst),
 	      .func_sl_thold_1(func_sl_thold_1),
 	      .sg_1(sg_1),
 	      .clkoff_b(clkoff_dc_b),
@@ -2243,7 +2247,8 @@ module rv(
 
    tri_144x78_2r4w
      lqrf(
-          .nclk(nclk),
+          .clk(clk),
+          .rst(rst),
           .vdd(vdd),
           .gnd(gnd),
           .delay_lclkr_dc(delay_lclkr_dc[0]),
@@ -2409,7 +2414,8 @@ module rv(
 	    //-------------------------------------------------------------------
 	    // Pervasive
 	    //-------------------------------------------------------------------
-	    .nclk(nclk),
+	    .clk(clk),
+       .rst(rst),
 	    .vdd(vdd),
 	    .gnd(gnd),
 
@@ -2432,7 +2438,8 @@ module rv(
 
    rv_perv
      prv(
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .vdd(vdd),
          .gnd(gnd),
          .rp_rv_ccflush_dc(rp_rv_ccflush_dc),

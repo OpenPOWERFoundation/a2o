@@ -48,10 +48,10 @@ module xu_rf
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1] nclk,
    inout                  vdd,
    inout                  gnd,
+   input                  clk,
+   input                  rst,
 
    //-------------------------------------------------------------------
    // Pervasive
@@ -451,7 +451,8 @@ generate
    for (r=0;r<=POOL-1;r=r+1)
    begin : entry
       tri_regk #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) reg_latch(
-         .nclk(nclk),
+         .clk(clk),
+         .rst(rst),
          .vd(vdd),
          .gd(gnd),
          .act(reg_act[r]),
@@ -472,7 +473,8 @@ endgenerate
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) r0e_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -490,7 +492,8 @@ endgenerate
    );
 
    tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) r0a_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(r0e_e),
@@ -508,7 +511,8 @@ endgenerate
    );
 
    tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) r0d_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(r0e_q),
@@ -530,7 +534,8 @@ endgenerate
       begin : r1_gen1
 
          tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) r1e_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(1'b1),
@@ -548,7 +553,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) r1a_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(r1e_e),
@@ -566,7 +572,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) r1d_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(r1e_q),
@@ -589,7 +596,8 @@ endgenerate
       begin : r2_gen1
 
          tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) r2e_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(1'b1),
@@ -607,7 +615,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) r2a_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(r2e_e),
@@ -625,7 +634,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) r2d_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(r2e_q),
@@ -648,7 +658,8 @@ endgenerate
       begin : r3_gen1
 
          tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) r3e_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(1'b1),
@@ -666,7 +677,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) r3a_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(r3e_e),
@@ -684,7 +696,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) r3d_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(r3e_q),
@@ -707,7 +720,8 @@ endgenerate
       begin : r4_gen1
 
          tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) r4e_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(1'b1),
@@ -725,7 +739,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) r4a_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(r4e_e),
@@ -743,7 +758,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) r4d_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(r4e_q),
@@ -763,7 +779,8 @@ endgenerate
    endgenerate
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) w0e_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(1'b1),
@@ -781,7 +798,8 @@ endgenerate
    );
 
    tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) w0a_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(w0e_e),
@@ -799,7 +817,8 @@ endgenerate
    );
 
    tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) w0d_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(w0e_e),
@@ -820,7 +839,8 @@ endgenerate
       begin : w1_gen1
 
          tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) w1e_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(1'b1),
@@ -838,7 +858,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) w1a_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(w1e_e),
@@ -856,7 +877,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) w1d_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(w1e_e),
@@ -879,7 +901,8 @@ endgenerate
       begin : w2_gen1
 
          tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) w2e_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(1'b1),
@@ -897,7 +920,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) w2a_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(w2e_e),
@@ -915,7 +939,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) w2d_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(w2e_e),
@@ -938,7 +963,8 @@ endgenerate
       begin : w3_gen1
 
          tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) w3e_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(1'b1),
@@ -956,7 +982,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) w3a_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(w3e_e),
@@ -974,7 +1001,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) w3d_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(w3e_e),
@@ -997,7 +1025,8 @@ endgenerate
       begin : w4_gen1
 
          tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) w4e_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(1'b1),
@@ -1015,7 +1044,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(POOL_ENC), .INIT(0), .NEEDS_SRESET(1)) w4a_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(w4e_e),
@@ -1033,7 +1063,8 @@ endgenerate
          );
 
          tri_rlmreg_p #(.WIDTH(WIDTH), .INIT(0), .NEEDS_SRESET(1)) w4d_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(w4e_e),

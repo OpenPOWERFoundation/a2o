@@ -41,8 +41,8 @@ module pcq(
 
    // inout                     	vdd,
    // inout                     	gnd,
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input  [0:`NCLK_WIDTH-1]  	nclk,
+   input                       	clk,
+   input                         rst,
    //SCOM and Register Interfaces
    //  SCOM Satellite
    input  [0:3]              	an_ac_scom_sat_id,
@@ -391,7 +391,8 @@ module pcq(
    pcq_regs  pcq_regs(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .scan_dis_dc_b(an_ac_scan_dis_dc_b),
       .lcb_clkoff_dc_b(clkoff_dc_b),
       .lcb_d_mode_dc(d_mode_dc),
@@ -576,7 +577,8 @@ module pcq(
    pcq_ctrl  pcq_ctrl(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .scan_dis_dc_b(an_ac_scan_dis_dc_b),
       .lcb_clkoff_dc_b(clkoff_dc_b),
       .lcb_mpw1_dc_b(mpw1_dc_b[1]),
@@ -608,7 +610,8 @@ module pcq(
    pcq_dbg  pcq_dbg(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .scan_dis_dc_b(an_ac_scan_dis_dc_b),
       .lcb_clkoff_dc_b(clkoff_dc_b),
       .lcb_mpw1_dc_b(mpw1_dc_b[2]),
@@ -641,7 +644,8 @@ module pcq(
    pcq_spr  pcq_spr(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .scan_dis_dc_b(an_ac_scan_dis_dc_b),
       .lcb_clkoff_dc_b(clkoff_dc_b),
       .lcb_mpw1_dc_b(mpw1_dc_b[0]),
@@ -702,7 +706,8 @@ module pcq(
    pcq_clks  pcq_clks(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .rtim_sl_thold_7(an_ac_rtim_sl_thold_7),
       .func_sl_thold_7(an_ac_func_sl_thold_7),
       .func_nsl_thold_7(an_ac_func_nsl_thold_7),
@@ -772,7 +777,8 @@ module pcq(
       .vdd(vdd),
       .gnd(gnd),
       .sg(pc_pc_sg_0),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in(gptr_scan_in),
       .scan_diag_dc(an_ac_scan_diag_dc),
       .thold(pc_pc_gptr_sl_thold_0),

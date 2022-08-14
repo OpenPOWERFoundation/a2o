@@ -41,7 +41,8 @@ module pcq_clks_ctrl(
 
    inout			vdd,
    inout			gnd,
-   input  [0:`NCLK_WIDTH-1]	nclk,
+   input       clk,
+   input       rst,
    input			rtim_sl_thold_6,
    input			func_sl_thold_6,
    input			func_nsl_thold_6,
@@ -209,7 +210,8 @@ module pcq_clks_ctrl(
    tri_plat #(.WIDTH(1)) fast_stop_staging(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc_int),
       .din(rg_ck_fast_xstop),
       .q(fast_xstop_gated_staged)
@@ -218,7 +220,8 @@ module pcq_clks_ctrl(
    tri_plat #(.WIDTH(2)) sg_fce_plat(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc_int),
       .din({sg_in, fce_in}),
       .q  ({sg_5,  fce_5 })
@@ -227,7 +230,8 @@ module pcq_clks_ctrl(
    tri_plat #(.WIDTH(16)) thold_plat(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(ccflush_out_dc_int),
 
       .din({gptr_sl_thold_in,      time_sl_thold_in,     repr_sl_thold_in,     cfg_run_sl_thold_in,

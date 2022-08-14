@@ -42,7 +42,8 @@
 module iuq_uc(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_func_sl_thold_2,
    pc_iu_sg_2,
    tc_ac_ccflush_dc,
@@ -95,11 +96,9 @@ module iuq_uc(
 
 
    inout                         vdd;
-
    inout                         gnd;
-
-    (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]       nclk;
+   input                         clk;
+   input                         rst;
    input                         pc_iu_func_sl_thold_2;
    input                         pc_iu_sg_2;
    input                         tc_ac_ccflush_dc;
@@ -357,7 +356,8 @@ module iuq_uc(
    iuq_uc_buffer  iuq_uc_buffer0(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	   .rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -1360,7 +1360,8 @@ assign uc_legal =
    iuq_uc_control  uc_control(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	   .rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -1429,7 +1430,8 @@ assign uc_legal =
    iuq_uc_rom_even  uc_rom_even(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -1448,7 +1450,8 @@ assign uc_legal =
    iuq_uc_rom_odd  uc_rom_odd(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .pc_iu_func_sl_thold_0_b(pc_iu_func_sl_thold_0_b),
       .pc_iu_sg_0(pc_iu_sg_0),
       .force_t(force_t),
@@ -1564,7 +1567,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) iu3_val_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1582,7 +1586,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(0)) iu3_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ic_bp_iu2_val[0]),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1600,7 +1605,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) iu3_2ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1618,7 +1624,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) iu3_2ucode_type_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1636,7 +1643,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(34 * 4), .INIT(0), .NEEDS_SRESET(0)) iu3_instr_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(ic_bp_iu2_val[0]),    // ??? Could create act for 0:31 when buffers full?
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1654,7 +1662,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) iu_pc_err_ucode_illegal_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1672,7 +1681,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) iu_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1690,7 +1700,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) br_hold_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1708,7 +1719,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) flush_into_uc_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1726,7 +1738,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) np1_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cp_flush_into_uc),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1744,7 +1757,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(19), .INIT(0), .NEEDS_SRESET(0)) flush_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cp_flush_into_uc),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1762,7 +1776,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) cp_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1780,7 +1795,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) br_iu_redirect_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1798,7 +1814,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) advance_buffers_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1817,7 +1834,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) romvalid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1835,7 +1853,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) rom_data_even_late_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1853,7 +1872,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) rom_data_odd_late_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1872,7 +1892,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) iu4_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1890,7 +1911,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(uc_ifar), .INIT(0), .NEEDS_SRESET(0)) iu4_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1908,7 +1930,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(0)) iu4_ext0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1926,7 +1949,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(0)) iu4_ext1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1944,7 +1968,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) iu4_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1963,7 +1988,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) iu4_ov_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(uc_default_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1981,7 +2007,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(uc_ifar), .INIT(0), .NEEDS_SRESET(0)) iu4_ov_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_ov_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -1999,7 +2026,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) iu4_ov_instr0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_ov_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2017,7 +2045,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) iu4_ov_instr1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_ov_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2035,7 +2064,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(0)) u4_ov_ext0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_ov_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2053,7 +2083,8 @@ assign uc_legal =
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(0)) iu4_ov_ext1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_ov_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2071,7 +2102,8 @@ assign uc_legal =
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) iu4_ov_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(iu4_ov_stage_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -2093,7 +2125,8 @@ assign uc_legal =
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2, pc_iu_sg_2}),
       .q(  {pc_iu_func_sl_thold_1, pc_iu_sg_1})
@@ -2102,7 +2135,8 @@ assign uc_legal =
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1, pc_iu_sg_1}),
       .q(  {pc_iu_func_sl_thold_0, pc_iu_sg_0})

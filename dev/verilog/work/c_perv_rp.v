@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -37,7 +37,8 @@ module c_perv_rp(
 
 //   inout                	vdd,
 //   inout                	gnd,
-   input  [0:`NCLK_WIDTH-1]	nclk,
+   input                   clk,
+   input                   rst,
    //CLOCK CONTROLS
    //Top level clock controls
    input                	an_ac_ccflush_dc,
@@ -327,7 +328,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(6)) perv_4to3_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({pc_rp_func_sl_thold_4,	pc_rp_func_slp_sl_thold_4,	pc_rp_gptr_sl_thold_4,
@@ -340,7 +342,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(6)) perv_3to2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({func_sl_thold_3_int,	func_slp_sl_thold_3_int,	gptr_sl_thold_3_int,
@@ -353,7 +356,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(6)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({func_sl_thold_2,		func_slp_sl_thold_2,		gptr_sl_thold_2,
@@ -366,7 +370,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(6)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({func_sl_thold_1,		func_slp_sl_thold_1,		gptr_sl_thold_1,
@@ -381,7 +386,8 @@ module c_perv_rp(
       .vdd(vdd),
       .gnd(gnd),
       .sg(sg_0),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .scan_in(gptr_scan_in),
       .scan_diag_dc(scan_diag_dc),
       .thold(gptr_sl_thold_0),
@@ -432,7 +438,8 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .delay_lclkr(delay_lclkr[0]),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .force_t(slat_force),
       .thold_b(func_slat_thold_b),
       .dclk(func_slat_d2clk),
@@ -443,7 +450,8 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .delay_lclkr(delay_lclkr[0]),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .force_t(slat_force),
       .thold_b(abst_slat_thold_b),
       .dclk(abst_slat_d2clk),
@@ -454,7 +462,8 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .delay_lclkr(delay_lclkr[0]),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .force_t(slat_force),
       .thold_b(cfg_slat_thold_b),
       .dclk(cfg_slat_d2clk),
@@ -468,7 +477,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(6)) pcq_lvl8to7(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(an_ac_ccflush_dc),
 
       .din({rtim_sl_thold_8,		func_sl_thold_8,		func_nsl_thold_8,
@@ -489,7 +499,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(16)) iu_clkstg_4to3(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
@@ -508,7 +519,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(15)) rv_clkstg_4to3(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
@@ -527,7 +539,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(16)) xu_clkstg_4to3(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
@@ -546,7 +559,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(16)) lq_clkstg_4to3(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
@@ -565,7 +579,8 @@ module c_perv_rp(
    tri_plat #(.WIDTH(15)) mm_clkstg_4to3(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(pc_rp_ccflush_out_dc),
 
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
@@ -642,7 +657,8 @@ module c_perv_rp(
    tri_rlmreg_p #(.WIDTH(FUNC2_T0_SIZE), .INIT(0)) func2_t0_rp(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(1'b1),
       .thold_b(func_slp_sl_thold_0_b),
       .sg(sg_0),
@@ -674,7 +690,8 @@ module c_perv_rp(
          tri_rlmreg_p #(.WIDTH(FUNC2_T1_SIZE), .INIT(0)) func2_t1_rp(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .act(1'b1),
             .thold_b(func_slp_sl_thold_0_b),
             .sg(sg_0),

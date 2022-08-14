@@ -41,7 +41,8 @@ module pcq_spr(
 
    inout                     vdd,
    inout                     gnd,
-   input  [0:`NCLK_WIDTH-1]  nclk,
+   input                     clk,
+   input                     rst,
    // pervasive signals
    input                     scan_dis_dc_b,
    input                     lcb_clkoff_dc_b,
@@ -221,7 +222,8 @@ module pcq_spr(
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) cp_flush_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -238,7 +240,8 @@ module pcq_spr(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_val_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -255,7 +258,8 @@ module pcq_spr(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_rw_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -272,7 +276,8 @@ module pcq_spr(
    tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) slowspr_etid_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -289,7 +294,8 @@ module pcq_spr(
    tri_rlmreg_p #(.WIDTH(10), .INIT(0), .NEEDS_SRESET(1)) slowspr_addr_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -306,7 +312,8 @@ module pcq_spr(
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .INIT(0), .NEEDS_SRESET(1)) slowspr_data_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(slowspr_val_d),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -323,7 +330,8 @@ module pcq_spr(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) slowspr_done_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -340,7 +348,8 @@ module pcq_spr(
    tri_ser_rlmreg_p #(.WIDTH(CESR1_SIZE), .INIT(0)) cesr1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cesr1_wren),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -357,7 +366,8 @@ module pcq_spr(
    tri_ser_rlmreg_p #(.WIDTH(CESR1_IS0_SIZE), .INIT(0)) cesr1_is0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cesr1_is_wren[0]),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -374,7 +384,8 @@ module pcq_spr(
    tri_ser_rlmreg_p #(.WIDTH(CESR1_IS1_SIZE), .INIT(0)) cesr1_is1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(cesr1_is_wren[1]),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -391,7 +402,8 @@ module pcq_spr(
    tri_ser_rlmreg_p #(.WIDTH(RESR1_SIZE), .INIT(0)) resr1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(resr1_wren),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -408,7 +420,8 @@ module pcq_spr(
    tri_ser_rlmreg_p #(.WIDTH(RESR2_SIZE), .INIT(0)) resr2_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(resr2_wren),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -425,7 +438,8 @@ module pcq_spr(
    tri_ser_rlmreg_p #(.WIDTH(SRAMD_SIZE), .INIT(0)) sramd_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(sramd_wren),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),
@@ -442,7 +456,8 @@ module pcq_spr(
    tri_rlmreg_p #(.WIDTH(MISC_SIZE), .INIT(0)) misc_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_pc_func_sl_thold_0_b),
       .sg(pc_pc_sg_0),

@@ -97,7 +97,8 @@ module lq_ldq_relq(
    vcs,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -196,8 +197,8 @@ output [8:9]                                                lq_pc_bo_diagout;
 inout                                                       vcs;
 inout                                                       vdd;
 inout                                                       gnd;
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-input [0:`NCLK_WIDTH-1]                                     nclk;
+input                                                       clk;
+input                                                       rst;
 input                                                       sg_0;
 input                                                       func_sl_thold_0_b;
 input                                                       func_sl_force;
@@ -608,7 +609,8 @@ generate begin : relq
          .gnd(gnd),
 
          // CLOCK AND CLOCKCONTROL PORTS
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .rd_act(ldq_rel0_arr_rd_act),
          .wr_act(ldq_rel2_arr_wren),
          .sg_0(sg_0),
@@ -779,7 +781,8 @@ generate begin : ldqe_rel_datRet
       tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ldqe_rel_datRet_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(ldqe_ctrl_act[ldq]),
          .force_t(func_sl_force),
          .d_mode(d_mode_dc),
@@ -800,7 +803,8 @@ endgenerate
 tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ldq_rel1_beat_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -818,7 +822,8 @@ tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ldq_rel1_beat_upd_reg(
 tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ldq_rel2_beat_upd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -839,7 +844,8 @@ generate begin : ldqe_relAttempts
       tri_rlmreg_p #(.WIDTH(3), .INIT(7), .NEEDS_SRESET(1)) ldqe_relAttempts_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(ldqe_ctrl_act[ldq]),
          .force_t(func_sl_force),
          .d_mode(d_mode_dc),
@@ -860,7 +866,8 @@ endgenerate
 tri_rlmreg_p #(.WIDTH(`LMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ldq_rel1_arb_sent_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -878,7 +885,8 @@ tri_rlmreg_p #(.WIDTH(`LMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ldq_rel1_arb_se
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel0_arb_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -896,7 +904,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel0_arb_val_reg(
 tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) ldq_rel0_arb_qw_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -914,7 +923,8 @@ tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) ldq_rel0_arb_qw_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel0_arb_thresh_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -932,7 +942,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel0_arb_thresh_reg(
 tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ldq_rel0_arb_cTag_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -953,7 +964,8 @@ generate begin : rel_grpEntry_last_sel
       tri_rlmreg_p #(.WIDTH(4), .INIT(8), .NEEDS_SRESET(1)) rel_grpEntry_last_sel_reg(
          .vd(vdd),
          .gd(gnd),
-         .nclk(nclk),
+         .clk(clk),
+	.rst(rst),
          .act(tiup),
          .force_t(func_sl_force),
          .d_mode(d_mode_dc),
@@ -974,7 +986,8 @@ endgenerate
 tri_rlmreg_p #(.WIDTH(4), .INIT(8), .NEEDS_SRESET(1)) rel_group_last_sel_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -992,7 +1005,8 @@ tri_rlmreg_p #(.WIDTH(4), .INIT(8), .NEEDS_SRESET(1)) rel_group_last_sel_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel1_rdat_sel_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1010,7 +1024,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel1_rdat_sel_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel2_rdat_sel_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1028,7 +1043,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel2_rdat_sel_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel3_rdat_par_err_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1046,7 +1062,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel3_rdat_par_err_reg(
 tri_rlmreg_p #(.WIDTH(`LMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ldqe_rel_rdat_perr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1064,7 +1081,8 @@ tri_rlmreg_p #(.WIDTH(`LMQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) ldqe_rel_rdat_p
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel1_arr_wren_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1082,7 +1100,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel1_arr_wren_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel2_arr_wren_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1100,7 +1119,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ldq_rel2_arr_wren_reg(
 tri_rlmreg_p #(.WIDTH(7), .INIT(0), .NEEDS_SRESET(1)) ldq_rel2_arr_waddr_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(ldq_rel1_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1118,7 +1138,8 @@ tri_rlmreg_p #(.WIDTH(7), .INIT(0), .NEEDS_SRESET(1)) ldq_rel2_arr_waddr_reg(
 tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) ldq_rel1_rdat_qw_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(ldq_rel0_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1136,7 +1157,8 @@ tri_rlmreg_p #(.WIDTH(3), .INIT(0), .NEEDS_SRESET(1)) ldq_rel1_rdat_qw_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) inj_relq_parity_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

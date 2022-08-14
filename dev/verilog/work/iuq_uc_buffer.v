@@ -42,7 +42,8 @@
 module iuq_uc_buffer(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_func_sl_thold_0_b,
    pc_iu_sg_0,
    force_t,
@@ -83,12 +84,10 @@ module iuq_uc_buffer(
 
 
    inout                         vdd;
-
    inout                         gnd;
 
-
-    (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]       nclk;
+   input                         clk;
+   input                         rst;
    input                         pc_iu_func_sl_thold_0_b;
    input                         pc_iu_sg_0;
    input                         force_t;
@@ -468,7 +467,8 @@ module iuq_uc_buffer(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) uc_ic_hold_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_buffer_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -487,7 +487,8 @@ module iuq_uc_buffer(
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) uc_iu4_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_buffer_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -506,7 +507,8 @@ module iuq_uc_buffer(
    tri_rlmreg_p #(.WIDTH(`EFF_IFAR_WIDTH), .INIT(0), .NEEDS_SRESET(0)) uc_iu4_flush_ifar_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_iu4_flush_d),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -525,7 +527,8 @@ module iuq_uc_buffer(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) buffer_valid_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_buffer_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -543,7 +546,8 @@ module iuq_uc_buffer(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) buffer1_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_buffer_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -562,7 +566,8 @@ module iuq_uc_buffer(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) buffer2_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_buffer_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -581,7 +586,8 @@ module iuq_uc_buffer(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) buffer3_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_buffer_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -600,7 +606,8 @@ module iuq_uc_buffer(
    tri_rlmreg_p #(.WIDTH(32), .INIT(0), .NEEDS_SRESET(0)) buffer4_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .act(uc_buffer_act),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),

@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 //********************************************************************
 //*
@@ -44,8 +44,8 @@ module mmq_dbg(
 
    inout                      vdd,
    inout                      gnd,
-   (* pin_data ="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]    nclk,
+   input                      clk,
+   input                      rst,
 
    input                      pc_func_slp_sl_thold_2,
    input                      pc_func_slp_nsl_thold_2,
@@ -1544,7 +1544,8 @@ module mmq_dbg(
 
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(0)) trace_bus_enable_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1563,7 +1564,8 @@ module mmq_dbg(
 
 //========================================================================================
    tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(0)) debug_mux1_ctrls_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(pc_mm_trace_bus_enable_q),
@@ -1581,7 +1583,8 @@ module mmq_dbg(
    );
 
    tri_rlmreg_p #(.WIDTH(11), .INIT(0), .NEEDS_SRESET(0)) debug_mux1_ctrls_loc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(pc_mm_trace_bus_enable_q),
@@ -1602,7 +1605,8 @@ module mmq_dbg(
    tri_rlmreg_p #(.WIDTH(`DEBUG_TRIGGER_WIDTH), .INIT(0)) trigger_data_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_mm_trace_bus_enable_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -1621,7 +1625,8 @@ module mmq_dbg(
    tri_rlmreg_p #(.WIDTH(`DEBUG_TRACE_WIDTH), .INIT(0)) trace_data_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_mm_trace_bus_enable_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -1640,7 +1645,8 @@ module mmq_dbg(
    tri_rlmreg_p #(.WIDTH(8), .INIT(0)) trace_data_out_int_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_mm_trace_bus_enable_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -1658,7 +1664,8 @@ module mmq_dbg(
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) coretrace_ctrls_out_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_mm_trace_bus_enable_q),
       .thold_b(pc_func_slp_sl_thold_0_b),
       .sg(pc_sg_0),
@@ -1675,7 +1682,8 @@ module mmq_dbg(
 
 
    tri_regk #(.WIDTH(DEBUG_LATCH_WIDTH), .INIT(0), .NEEDS_SRESET(0)) debug_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(pc_mm_trace_bus_enable_q),
@@ -1694,7 +1702,8 @@ module mmq_dbg(
 
 
    tri_regk #(.WIDTH(TRIGGER_LATCH_WIDTH), .INIT(0), .NEEDS_SRESET(0)) trigger_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(pc_mm_trace_bus_enable_q),
@@ -1713,7 +1722,8 @@ module mmq_dbg(
 
 
    tri_regk #(.WIDTH(`DEBUG_TRACE_WIDTH), .INIT(0), .NEEDS_SRESET(0)) debug_bus_in_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(pc_mm_trace_bus_enable_q),
@@ -1732,7 +1742,8 @@ module mmq_dbg(
 
 
    tri_regk #(.WIDTH(`DEBUG_TRIGGER_WIDTH), .INIT(0), .NEEDS_SRESET(0)) trace_triggers_in_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(pc_mm_trace_bus_enable_q),
@@ -1750,7 +1761,8 @@ module mmq_dbg(
    );
 
    tri_regk #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(0)) coretrace_ctrls_in_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(pc_mm_trace_bus_enable_q),
@@ -1775,7 +1787,8 @@ module mmq_dbg(
    tri_plat #(.WIDTH(4)) perv_2to1_plat(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din( {pc_func_slp_sl_thold_2, pc_func_slp_nsl_thold_2, pc_sg_2, pc_fce_2} ),
       .q( {pc_func_slp_sl_thold_1, pc_func_slp_nsl_thold_1, pc_sg_1, pc_fce_1} )
@@ -1785,7 +1798,8 @@ module mmq_dbg(
    tri_plat #(.WIDTH(4)) perv_1to0_plat(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din( {pc_func_slp_sl_thold_1, pc_func_slp_nsl_thold_1, pc_sg_1, pc_fce_1} ),
       .q( {pc_func_slp_sl_thold_0, pc_func_slp_nsl_thold_0, pc_sg_0, pc_fce_0} )

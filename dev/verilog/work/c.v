@@ -44,7 +44,8 @@ module c(
 //	 inout                                                  vcs,
 //	 inout                                                  vdd,
 //	 inout                                                  gnd,
-	 input[0:`NCLK_WIDTH-1] nclk,
+    input                                                  clk,
+    input                                                  rst,
 	 input                                                  scan_in,
 	 output                                                 scan_out,
 
@@ -191,8 +192,11 @@ module c(
 
 	 );
 
-
+   `ifndef FLOAT_TYPE
    parameter                                              float_type = 1;
+   `else
+   parameter                                              float_type = `FLOAT_TYPE;
+   `endif
 
    // I$
    // Cache inject
@@ -1816,7 +1820,8 @@ module c(
 	//.vcs(vcs),
 	//.vdd(vdd),
 	//.gnd(gnd),
-	.nclk(nclk),
+   .clk(clk),
+   .rst(rst),
 	.pc_iu_sg_3(rp_iu_sg_3),
 	.pc_iu_fce_3(rp_iu_fce_3),
 	.pc_iu_func_slp_sl_thold_3(rp_iu_func_slp_sl_thold_3),
@@ -2514,7 +2519,8 @@ module c(
        //-------------------------------------------------------------------
        // Clocks & Power
        //-------------------------------------------------------------------
-       .nclk(nclk),
+       .clk(clk),
+       .rst(rst),
 //       .vcs(vcs),
 //       .vdd(vdd),
 //       .gnd(gnd),
@@ -3159,6 +3165,8 @@ module c(
 
    rv
      rv0(
+	 .clk(clk),
+    .rst(rst),
 
 	 //-------------------------------------------------------------------
 	 // Instructions from IU
@@ -3637,7 +3645,6 @@ module c(
 	 //-------------------------------------------------------------------
 	 //.vdd(vdd),
 	 //.gnd(gnd),
-	 .nclk(nclk),
 
 	 .rp_rv_ccflush_dc(rp_rv_ccflush_dc),
 	 .rp_rv_func_sl_thold_3(rp_rv_func_sl_thold_3),
@@ -3654,6 +3661,9 @@ module c(
 
    lq
    lq0(
+       .clk(clk),
+       .rst(rst),
+
        //--------------------------------------------------------------
        // SPR Interface
        //--------------------------------------------------------------
@@ -4088,7 +4098,6 @@ module c(
        //.vcs(vcs),
        //.vdd(vdd),
        //.gnd(gnd),
-       .nclk(nclk),
 
        //--Thold inputs
        .pc_lq_init_reset(pc_lq_init_reset),
@@ -4166,13 +4175,13 @@ module c(
        .func_scan_out(scan_out_lq)
        );
 
-   // 6=64-bit model, 5=32-bit model
    mmq
    mmu0(
 //			.vcs(vcs),
 //			.vdd(vdd),
 //			.gnd(gnd),
-			.nclk(nclk),
+			.clk(clk),
+         .rst(rst),
 
 			.tc_ac_ccflush_dc(rp_mm_ccflush_dc),
 			.tc_ac_scan_dis_dc_b(an_ac_scan_dis_dc_b),
@@ -4456,12 +4465,12 @@ module c(
 
 			);
 
-
    c_fu_pc  #(.float_type(float_type))
      fupc(
 		// .vdd(vdd),
 		// .gnd(gnd),
-		.nclk(nclk),
+		.clk(clk),
+      .rst(rst),
 
 		.fu_debug_bus_in(fu_debug_bus_in),
  		.fu_debug_bus_out(fu_debug_bus_out),
@@ -4853,7 +4862,8 @@ module c(
    perv_rp(
 //	   .vdd(vdd),
 //	   .gnd(gnd),
-	   .nclk(nclk),
+	   .clk(clk),
+      .rst(rst),
 
 	   //CLOCK CONTROLS
 	   //Top level clock controls

@@ -37,11 +37,12 @@
 
 `include "tri_a2o.vh"
 
-module tri_32x70_2w_1r1w(
+module tri_32x70_2w_1r1w (
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    rd_act,
    wr_act,
    sg_0,
@@ -113,7 +114,8 @@ inout                             gnd;
 inout                             vdd;
 inout                             vcs;
 // CLOCK and CLOCKCONTROL ports
-input [0:`NCLK_WIDTH-1]           nclk;
+input                             clk;
+input                             rst;
 input [0:1]                       rd_act;
 input [0:1]                       wr_act;
 input                             sg_0;
@@ -333,7 +335,8 @@ assign ary_nsl_thold_0_b = ~ ary_nsl_thold_0;
 tri_regk #(.WIDTH(addressable_ports), .INIT(0), .NEEDS_SRESET(1)) arrA_bit0_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(write_enable_AB),
    .force_t(tidn[0]),
    .d_mode(tidn[0]),
@@ -351,7 +354,8 @@ tri_regk #(.WIDTH(addressable_ports), .INIT(0), .NEEDS_SRESET(1)) arrA_bit0_latc
 tri_regk #(.WIDTH(addressable_ports), .INIT(0), .NEEDS_SRESET(1)) arrC_bit0_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(write_enable_CD),
    .force_t(tidn[0]),
    .d_mode(tidn[0]),
@@ -369,7 +373,8 @@ tri_regk #(.WIDTH(addressable_ports), .INIT(0), .NEEDS_SRESET(1)) arrC_bit0_latc
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) arrA_bit0_out_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(tiup),
    .force_t(tidn[0]),
    .d_mode(tidn[0]),
@@ -387,7 +392,8 @@ tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) arrA_bit0_out_latch(
 tri_regk #(.WIDTH(1), .INIT(0), .NEEDS_SRESET(1)) arrC_bit0_out_latch(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(tiup),
    .force_t(tidn[0]),
    .d_mode(tidn[0]),
@@ -412,16 +418,16 @@ arr0_A(
    .DOPB(ramb_data_p1_outA[32:35]),
    .ADDRA(ramb_addr_wr_rd0),
    .ADDRB(ramb_addr_rd1),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(ramb_data_in_l[0:31]),
    .DIB(tidn[0:31]),
    .DIPA(ramb_data_in_l[32:35]),
    .DIPB(tidn[32:35]),
    .ENA(act[0]),
    .ENB(act[0]),
-   .SSRA(nclk[1]),   //sreset
-   .SSRB(nclk[1]),   //sreset
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_AB),
    .WEB(tidn[0])
 );
@@ -435,16 +441,16 @@ arr1_B(
    .DOPB(ramb_data_p1_outB[32:35]),
    .ADDRA(ramb_addr_wr_rd0),
    .ADDRB(ramb_addr_rd1),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(ramb_data_in_r[0:31]),
    .DIB(tidn[0:31]),
    .DIPA(ramb_data_in_r[32:35]),
    .DIPB(tidn[32:35]),
    .ENA(act[0]),
    .ENB(act[0]),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_AB),
    .WEB(tidn[0])
 );
@@ -458,16 +464,16 @@ arr2_C(
    .DOPB(ramb_data_p1_outC[32:35]),
    .ADDRA(ramb_addr_wr_rd0),
    .ADDRB(ramb_addr_rd1),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(ramb_data_in_l[0:31]),
    .DIB(tidn[0:31]),
    .DIPA(ramb_data_in_l[32:35]),
    .DIPB(tidn[32:35]),
    .ENA(act[1]),
    .ENB(act[1]),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_CD),
    .WEB(tidn[0])
 );
@@ -481,16 +487,16 @@ arr3_D(
    .DOPB(ramb_data_p1_outD[32:35]),
    .ADDRA(ramb_addr_wr_rd0),
    .ADDRB(ramb_addr_rd1),
-   .CLKA(nclk[0]),
-   .CLKB(nclk[0]),
+   .CLKA(clk),
+   .CLKB(clk),
    .DIA(ramb_data_in_r[0:31]),
    .DIB(tidn[0:31]),
    .DIPA(ramb_data_in_r[32:35]),
    .DIPB(tidn[32:35]),
    .ENA(act[1]),
    .ENB(act[1]),
-   .SSRA(nclk[1]),
-   .SSRB(nclk[1]),
+   .SSRA(rst),
+   .SSRB(rst),
    .WEA(write_enable_CD),
    .WEB(tidn[0])
 );
@@ -502,7 +508,8 @@ arr3_D(
 tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) rd_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -520,7 +527,8 @@ tri_rlmreg_p #(.WIDTH(2), .INIT(0), .NEEDS_SRESET(1)) rd_act_reg(
 tri_rlmreg_p #(.WIDTH(port_bitwidth), .INIT(0), .NEEDS_SRESET(1)) data_out0_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(rd_act_q[0]),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -538,7 +546,8 @@ tri_rlmreg_p #(.WIDTH(port_bitwidth), .INIT(0), .NEEDS_SRESET(1)) data_out0_reg(
 tri_rlmreg_p #(.WIDTH(port_bitwidth), .INIT(0), .NEEDS_SRESET(1)) data_out1_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(rd_act_q[1]),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

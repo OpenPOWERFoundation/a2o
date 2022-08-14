@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -46,7 +46,8 @@ module iuq_ram(
    rm_ib_iu3_instr,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_iu_sg_2,
    pc_iu_func_sl_thold_2,
    clkoff_b,
@@ -78,8 +79,8 @@ module iuq_ram(
    //pervasive
    inout                vdd;
    inout                gnd;
-   (* pin_data="PIN_FUNCTION=/G_CLK/" *)
-   input [0:`NCLK_WIDTH-1]  nclk;
+   input                clk;
+   input                rst;
    input                pc_iu_sg_2;
    input                pc_iu_func_sl_thold_2;
    input                clkoff_b;
@@ -179,7 +180,8 @@ module iuq_ram(
          tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(tiup),
             .thold_b(pc_iu_func_sl_thold_0_b),
             .sg(pc_iu_sg_0),
@@ -198,7 +200,8 @@ module iuq_ram(
          tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ram_val_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(tiup),
             .thold_b(pc_iu_func_sl_thold_0_b),
             .sg(pc_iu_sg_0),
@@ -217,7 +220,8 @@ module iuq_ram(
          tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ram_act_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(tiup),
             .thold_b(pc_iu_func_sl_thold_0_b),
             .sg(pc_iu_sg_0),
@@ -236,7 +240,8 @@ module iuq_ram(
          tri_rlmreg_p #(.WIDTH(36), .INIT(0)) ram_instr_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(ram_valid),
             .thold_b(pc_iu_func_sl_thold_0_b),
             .sg(pc_iu_sg_0),
@@ -255,7 +260,8 @@ module iuq_ram(
          tri_rlmlatch_p #(.INIT(0)) ram_done_reg(
             .vd(vdd),
             .gd(gnd),
-            .nclk(nclk),
+            .clk(clk),
+            .rst(rst),
             .act(tiup),
             .thold_b(pc_iu_func_sl_thold_0_b),
             .sg(pc_iu_sg_0),
@@ -278,7 +284,8 @@ module iuq_ram(
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2,pc_iu_sg_2}),
       .q({pc_iu_func_sl_thold_1,pc_iu_sg_1})
@@ -288,7 +295,8 @@ module iuq_ram(
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1,pc_iu_sg_1}),
       .q({pc_iu_func_sl_thold_0,pc_iu_sg_0})

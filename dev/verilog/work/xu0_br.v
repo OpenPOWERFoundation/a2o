@@ -41,7 +41,8 @@
 module xu0_br(
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    pc_br_func_sl_thold_2,
    pc_br_sg_2,
    clkoff_b,
@@ -116,7 +117,8 @@ module xu0_br(
    // pervasive
    inout                         vdd;
    inout                         gnd;
-   input [0:`NCLK_WIDTH-1] nclk;
+   input                         clk;
+   input                         rst;
    input                         pc_br_func_sl_thold_2;
    input                         pc_br_sg_2;
    input                         clkoff_b;
@@ -1007,7 +1009,8 @@ endgenerate
 //-----------------------------------------------
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex0_vld_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1026,7 +1029,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex0_vld_latch(
 
 
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu_br_flush_latch(
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .vd(vdd),
    .gd(gnd),
    .act(tiup),
@@ -1051,7 +1055,8 @@ generate
 
 
          tri_rlmreg_p #(.WIDTH((`EFF_IFAR_ARCH-`EFF_IFAR_WIDTH)), .INIT(0)) iu_br_flush_ifar_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(iu_br_flush[i]),
@@ -1073,7 +1078,8 @@ generate
          begin : q_depth_gen
             if((62-`EFF_IFAR_ARCH+n) > 31)
                tri_rlmlatch_p #(.INIT(1), .NEEDS_SRESET(1)) br_upper_ifar_latch(
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .vd(vdd),
                   .gd(gnd),
                   .act(iu_br_flush_q[i]),
@@ -1091,7 +1097,8 @@ generate
                );
             else
                tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) br_upper_ifar_latch(
-                  .nclk(nclk),
+                  .clk(clk),
+	.rst(rst),
                   .vd(vdd),
                   .gd(gnd),
                   .act(iu_br_flush_q[i]),
@@ -1112,7 +1119,8 @@ generate
 
 
          tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) ex4_itag_saved_latch(
-            .nclk(nclk),
+            .clk(clk),
+	.rst(rst),
             .vd(vdd),
             .gd(gnd),
             .act(tiup),
@@ -1134,7 +1142,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) ex3_cr1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1153,7 +1162,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) ex3_cr2_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1172,7 +1182,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) ex3_cr3_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1191,7 +1202,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`GPR_WIDTH+1)), .INIT(0)) ex3_ctr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1209,7 +1221,8 @@ generate
    );
 
    tri_rlmreg_p #(.WIDTH((-1+`GPR_WIDTH+1)), .INIT(0)) ex3_lr1_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1228,7 +1241,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`GPR_WIDTH+1)), .INIT(0)) ex3_lr2_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1247,7 +1261,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex1_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1266,7 +1281,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex1_fusion_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1285,7 +1301,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) ex1_instr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1304,7 +1321,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_WIDTH+1)), .INIT(0)) ex1_ifar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1323,7 +1341,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) ex1_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1342,7 +1361,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`LR_POOL_ENC), .INIT(0)) ex1_lr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1361,7 +1381,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`CTR_POOL_ENC), .INIT(0)) ex1_ctr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1380,7 +1401,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`CR_POOL_ENC), .INIT(0)) ex1_cr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1399,7 +1421,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex1_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1418,7 +1441,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex1_bta_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1437,7 +1461,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_WIDTH+1)), .INIT(0)) ex1_pred_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1456,7 +1481,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) ex1_ls_ptr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1475,7 +1501,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex1_bh_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1494,7 +1521,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) ex1_gshare_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex1_act),
@@ -1513,7 +1541,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex2_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1532,7 +1561,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex2_slow_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1551,7 +1581,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex2_fusion_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1570,7 +1601,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(32), .INIT(0)) ex2_instr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1589,7 +1621,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_WIDTH+1)), .INIT(0)) ex2_ifar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1608,7 +1641,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) ex2_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1627,7 +1661,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`LR_POOL_ENC), .INIT(0)) ex2_lr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1646,7 +1681,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`CTR_POOL_ENC), .INIT(0)) ex2_ctr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1665,7 +1701,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`CR_POOL_ENC), .INIT(0)) ex2_cr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1684,7 +1721,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex2_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1703,7 +1741,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex2_bta_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1722,7 +1761,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_WIDTH+1)), .INIT(0)) ex2_pred_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1741,7 +1781,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) ex2_ls_ptr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1760,7 +1801,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex2_bh_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1779,7 +1821,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) ex2_gshare_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex2_act),
@@ -1798,7 +1841,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex3_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -1817,7 +1861,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_slow_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1836,7 +1881,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_fusion_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1855,7 +1901,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(26), .INIT(0)) ex3_instr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1874,7 +1921,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_WIDTH+1)), .INIT(0)) ex3_ifar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1893,7 +1941,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_ARCH+1)), .INIT(0)) ex3_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1912,7 +1961,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_ARCH+1)), .INIT(0)) ex3_nia_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1931,7 +1981,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) ex3_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1950,7 +2001,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`LR_POOL_ENC), .INIT(0)) ex3_lr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1969,7 +2021,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`CTR_POOL_ENC), .INIT(0)) ex3_ctr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -1988,7 +2041,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`CR_POOL_ENC), .INIT(0)) ex3_cr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2007,7 +2061,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_b_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2026,7 +2081,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_bc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2045,7 +2101,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_bclr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2064,7 +2121,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_bcctr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2083,7 +2141,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_bctar_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2102,7 +2161,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_pred_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2121,7 +2181,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_bta_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2140,7 +2201,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_WIDTH+1)), .INIT(0)) ex3_pred_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2159,7 +2221,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) ex3_ls_ptr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2178,7 +2241,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_bh_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2197,7 +2261,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) ex3_gshare_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2216,7 +2281,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_mcrf_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2235,7 +2301,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_crand_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2254,7 +2321,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_crandc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2273,7 +2341,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_creqv_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2292,7 +2361,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_crnand_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2311,7 +2381,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_crnor_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2330,7 +2401,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_cror_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2349,7 +2421,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_crorc_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2368,7 +2441,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex3_is_crxor_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex3_act),
@@ -2387,7 +2461,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex4_vld_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -2406,7 +2481,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex4_slow_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2425,7 +2501,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`ITAG_SIZE_ENC), .INIT(0)) ex4_itag_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2444,7 +2521,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`LR_POOL_ENC), .INIT(0)) ex4_lr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2463,7 +2541,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`CTR_POOL_ENC), .INIT(0)) ex4_ctr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2482,7 +2561,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`CR_POOL_ENC), .INIT(0)) ex4_cr_wa_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2501,7 +2581,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex4_taken_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2520,7 +2601,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_ARCH+1)), .INIT(0)) ex4_bta_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2538,7 +2620,8 @@ generate
    );
 
    tri_rlmreg_p #(.WIDTH(18), .INIT(0)) ex4_gshare_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2557,7 +2640,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(3), .INIT(0)) ex4_ls_ptr_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2576,7 +2660,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`EFF_IFAR_WIDTH+1)), .INIT(0)) ex4_ls_data_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2595,7 +2680,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex4_ls_update_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_act),
@@ -2614,7 +2700,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex4_redirect_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -2633,7 +2720,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ex4_itag_saved_val_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -2652,7 +2740,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex4_lr_we_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -2671,7 +2760,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`GPR_WIDTH+1)), .INIT(0)) ex4_lr_wd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_lr_we_d),
@@ -2690,7 +2780,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex4_ctr_we_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -2709,7 +2800,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH((-1+`GPR_WIDTH+1)), .INIT(0)) ex4_ctr_wd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_ctr_we_d),
@@ -2728,7 +2820,8 @@ generate
 
 
    tri_rlmlatch_p #(.INIT(0)) ex4_cr_we_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -2747,7 +2840,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) ex4_cr_wd_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(ex4_cr_we_d),
@@ -2765,7 +2859,8 @@ generate
    );
 
    tri_rlmreg_p #(.WIDTH(4), .INIT(0)) ex4_perf_event(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -2784,7 +2879,8 @@ generate
 
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) spr_msr_cm_latch(
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .vd(vdd),
       .gd(gnd),
       .act(tiup),
@@ -2808,7 +2904,8 @@ generate
    tri_plat #(.WIDTH(2)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_br_func_sl_thold_2,pc_br_sg_2}),
       .q({func_sl_thold_1,sg_1})
@@ -2818,7 +2915,8 @@ generate
    tri_plat #(.WIDTH(2)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({func_sl_thold_1,sg_1}),
       .q({func_sl_thold_0,sg_0})

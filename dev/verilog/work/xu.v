@@ -38,8 +38,8 @@ module xu(
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   (* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *) // nclk
-   input [0:`NCLK_WIDTH-1]                                  nclk,
+   input                                                    clk,
+   input                                                    rst,
 
    //-------------------------------------------------------------------
    // Pervasive
@@ -947,7 +947,8 @@ module xu(
 
 
    xu0 xu0(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .pc_xu_ccflush_dc(pc_xu_ccflush_dc),
@@ -1213,7 +1214,8 @@ module xu(
 
 
    xu1 xu1(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -1337,7 +1339,8 @@ module xu(
 
 
    xu_rf #(.WIDTH(4), .PAR_WIDTH(1), .POOL_ENC(`CR_POOL_ENC + `THREADS_POOL_ENC), .POOL(`CR_POOL * `THREADS), .RD_PORTS(4), .WR_PORTS(5), .BYPASS(1)) cr(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -1391,7 +1394,8 @@ module xu(
 
 
    xu_rf #(.WIDTH(10), .PAR_WIDTH(2),  .POOL_ENC(`XER_POOL_ENC + `THREADS_POOL_ENC), .POOL(`XER_POOL * `THREADS), .RD_PORTS(3 + `THREADS), .WR_PORTS(2), .BYPASS(1)) xer(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -1440,7 +1444,8 @@ module xu(
 
 
    xu_rf #(.WIDTH(`GPR_WIDTH), .PAR_WIDTH(`GPR_WIDTH/8),  .POOL_ENC(`BR_POOL_ENC + `THREADS_POOL_ENC), .POOL(`BR_POOL * `THREADS), .RD_PORTS(2), .WR_PORTS(1), .BYPASS(1)) lr(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -1474,7 +1479,8 @@ module xu(
 
 
    xu_rf #(.WIDTH(`GPR_WIDTH), .PAR_WIDTH(`GPR_WIDTH/8),   .POOL_ENC(`CTR_POOL_ENC + `THREADS_POOL_ENC), .POOL(`CTR_POOL * `THREADS), .RD_PORTS(1), .WR_PORTS(1), .BYPASS(1)) ctr(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -1504,7 +1510,8 @@ module xu(
 
 
    xu_gpr gpr(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .pc_xu_ccflush_dc(pc_xu_ccflush_dc),
@@ -1552,7 +1559,8 @@ module xu(
 
 
    xu_spr #(.hvmode(1), .a2mode(1)) spr(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
 
       // CHIP IO
       .an_ac_chipid_dc(an_ac_chipid_dc),
@@ -1908,7 +1916,8 @@ module xu(
    );
 
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) xu_pc_ram_done_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),
@@ -1921,7 +1930,8 @@ module xu(
       .dout(xu_pc_ram_done_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) xu_pc_ram_data_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(xu_pc_ram_done_d),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),
@@ -1934,7 +1944,8 @@ module xu(
       .dout(xu_pc_ram_data_q)
    );
    tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) lq_xu_gpr_ex6_we_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(1'b1),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),
@@ -1947,7 +1958,8 @@ module xu(
       .dout(lq_xu_gpr_ex6_we_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_POOL_ENC+`THREADS_POOL_ENC), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) lq_xu_gpr_ex6_wa_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(lq_xu_ex5_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),
@@ -1960,7 +1972,8 @@ module xu(
       .dout(lq_xu_gpr_ex6_wa_q)
    );
    tri_rlmreg_p #(.WIDTH(`GPR_WIDTH), .OFFSET(64-`GPR_WIDTH),.INIT(0), .NEEDS_SRESET(1)) lq_xu_gpr_ex6_wd_latch(
-      .nclk(nclk), .vd(vdd), .gd(gnd),
+      .clk(clk),
+	.rst(rst), .vd(vdd), .gd(gnd),
       .act(lq_xu_ex5_act),
       .force_t(func_sl_force),
       .d_mode(d_mode_dc), .delay_lclkr(delay_lclkr_dc),

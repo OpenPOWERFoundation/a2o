@@ -39,7 +39,8 @@ module pcq_local_fir2(
 // Include model build parameters
 `include "tri_a2o.vh"
 
-   nclk,
+   clk,
+   rst,
    vdd,
    gnd,
    lcb_clkoff_dc_b,
@@ -89,9 +90,10 @@ module pcq_local_fir2(
 // Port Definitions
 //=====================================================================
    //  Global lines for clocking and scan control
-   input  [0:`NCLK_WIDTH-1]       nclk;
    inout                          vdd;
    inout                          gnd;
+   input                          clk;
+   input                          rst;
    input                          lcb_clkoff_dc_b;		//from lcb_cntl external to component
    input                          lcb_mpw1_dc_b;		//from lcb_cntl external to component
    input                          lcb_mpw2_dc_b;		//from lcb_cntl external to component
@@ -221,7 +223,8 @@ module pcq_local_fir2(
       .delay_lclkr(lcb_delay_lclkr_dc),
       .mpw1_b(lcb_mpw1_dc_b),
       .mpw2_b(lcb_mpw2_dc_b),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .force_t(func_force),
       .sg(lcb_sg_0),
       .thold_b(func_thold_b),
@@ -250,7 +253,8 @@ module pcq_local_fir2(
       .delay_lclkr(lcb_delay_lclkr_dc),
       .mpw1_b(lcb_mpw1_dc_b),
       .mpw2_b(lcb_mpw2_dc_b),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .force_t(mode_force),
       .sg(lcb_sg_0),
       .thold_b(mode_thold_b),
@@ -266,7 +270,8 @@ module pcq_local_fir2(
       .delay_lclkr(lcb_delay_lclkr_dc),
       .mpw1_b(lcb_mpw1_dc_b),
       .mpw2_b(lcb_mpw2_dc_b),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .force_t(mode_force),
       .sg(lcb_sg_0),
       .thold_b(mode_thold_b),

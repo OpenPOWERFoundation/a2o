@@ -164,7 +164,8 @@ module lq_fgen(
    lq_pc_err_dir_stp_multihit,
    vdd,
    gnd,
-   nclk,
+   clk,
+   rst,
    sg_0,
    func_sl_thold_0_b,
    func_sl_force,
@@ -329,16 +330,11 @@ output                                       lq_pc_err_dir_ldp_multihit;
 output                                       lq_pc_err_dir_stp_multihit;
 
 //pervasive
-
-
 inout                                        vdd;
-
-
 inout                                        gnd;
 
-(* pin_data="PIN_FUNCTION=/G_CLK/CAP_LIMIT=/99999/" *)
-
-input [0:`NCLK_WIDTH-1]                      nclk;
+input                                        clk;
+input                                        rst;
 input                                        sg_0;
 input                                        func_sl_thold_0_b;
 input                                        func_sl_force;
@@ -1131,7 +1127,8 @@ assign ex5_misalign_flush = ex5_misalign_flush_q;
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_valid_resv_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1149,7 +1146,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_valid_resv_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_prealign_int_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1167,7 +1165,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_prealign_int_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_flush_2ucode_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1185,7 +1184,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_flush_2ucode_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_flush_2ucode_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1203,7 +1203,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_flush_2ucode_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_ucode_dis_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1221,7 +1222,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_ucode_dis_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_is_dcbz_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1239,7 +1241,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_is_dcbz_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_misalign_flush_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1257,7 +1260,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_misalign_flush_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_axu_ap_unavail_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1275,7 +1279,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_axu_ap_unavail_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_axu_fp_unavail_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1293,7 +1298,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_axu_fp_unavail_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_axu_spv_unavail_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1311,7 +1317,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_axu_spv_unavail_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_local_flush_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1329,7 +1336,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_local_flush_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_tlb_flush_req_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1347,7 +1355,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_tlb_flush_req_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_tlb_mchk_req_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1365,7 +1374,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_tlb_mchk_req_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_low_pri_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1383,7 +1393,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_low_pri_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_high_pri_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1401,7 +1412,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_high_pri_excp_reg(
 tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex5_exception_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(ex4_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1419,7 +1431,8 @@ tri_rlmreg_p #(.WIDTH(6), .INIT(0), .NEEDS_SRESET(1)) ex5_exception_reg(
 tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_dear_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1437,7 +1450,8 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex5_dear_val_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_derat_multihit_flush_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1455,7 +1469,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_derat_multihit_flush_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_derat_multihit_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1473,7 +1488,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_derat_multihit_det_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_derat_perr_flush_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1491,7 +1507,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_derat_perr_flush_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_derat_perr_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1509,7 +1526,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_derat_perr_det_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sfx_excpt_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1527,7 +1545,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_sfx_excpt_det_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_sfx_excpt_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1545,7 +1564,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_sfx_excpt_det_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_sfx_excpt_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1563,7 +1583,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_sfx_excpt_det_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_priv_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1581,7 +1602,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_priv_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_priv_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1599,7 +1621,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_priv_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_priv_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1617,7 +1640,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_priv_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_hypv_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1635,7 +1659,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_hypv_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_hypv_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1653,7 +1678,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_hypv_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_hypv_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1671,7 +1697,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_hypv_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_illeg_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1689,7 +1716,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_illeg_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_illeg_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1707,7 +1735,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_illeg_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_illeg_prog_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1725,7 +1754,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_illeg_prog_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_dlock_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1743,7 +1773,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_dlock_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_dlock_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1761,7 +1792,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_dlock_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_dlock_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1779,7 +1811,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_dlock_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_ilock_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1797,7 +1830,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_ilock_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_ilock_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1815,7 +1849,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_ilock_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_ilock_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1833,7 +1868,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_ilock_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_ehpriv_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1851,7 +1887,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex2_ehpriv_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_ehpriv_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1869,7 +1906,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex3_ehpriv_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_cache_acc_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1887,7 +1925,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_cache_acc_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_ucode_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1905,7 +1944,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex4_ucode_val_reg(
 tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0), .NEEDS_SRESET(1)) ex4_ucode_cnt_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(ex3_stg_act),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1923,7 +1963,8 @@ tri_rlmreg_p #(.WIDTH(`UCODE_ENTRIES_ENC), .INIT(0), .NEEDS_SRESET(1)) ex4_ucode
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_wNComp_rcvd_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1941,7 +1982,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_wNComp_rcvd_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_wNComp_excp_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1959,7 +2001,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex6_wNComp_excp_reg(
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dac_int_det_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1977,7 +2020,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) ex5_dac_int_det_reg(
 tri_rlmreg_p #(.WIDTH(7), .INIT(0), .NEEDS_SRESET(1)) perv_fir_rpt_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -1995,7 +2039,8 @@ tri_rlmreg_p #(.WIDTH(7), .INIT(0), .NEEDS_SRESET(1)) perv_fir_rpt_reg(
 tri_rlmreg_p #(.WIDTH(UCODEDEPTH), .INIT(0), .NEEDS_SRESET(1)) ucode_cnt_val_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -2013,7 +2058,8 @@ tri_rlmreg_p #(.WIDTH(UCODEDEPTH), .INIT(0), .NEEDS_SRESET(1)) ucode_cnt_val_reg
 tri_rlmreg_p #(.WIDTH(UCODEDEPTH), .INIT(0), .NEEDS_SRESET(1)) ucode_cnt_2ucode_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+	.rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -2034,7 +2080,8 @@ generate begin : ucode_cnt_memAttr
     tri_rlmreg_p #(.WIDTH(9), .INIT(1), .NEEDS_SRESET(1)) ucode_cnt_memAttr_reg(
        .vd(vdd),
        .gd(gnd),
-       .nclk(nclk),
+       .clk(clk),
+	.rst(rst),
        .act(ex4_ucode_cnt_set[ucodeEntry]),
        .force_t(func_sl_force),
        .d_mode(d_mode_dc),

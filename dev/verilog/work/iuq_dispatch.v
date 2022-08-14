@@ -40,7 +40,8 @@
 module iuq_dispatch(
    inout                        vdd,
    inout                        gnd,
-   input [0:`NCLK_WIDTH-1]      nclk,
+   input                        clk,
+   input                        rst,
    input                        pc_iu_sg_2,
    input                        pc_iu_func_sl_thold_2,
    input                        pc_iu_func_slp_sl_thold_2,
@@ -2965,7 +2966,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_FX0_ENTRIES - 2)) fx0_high_credit_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -2983,7 +2985,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_FX1_ENTRIES - 2)) fx1_high_credit_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3001,7 +3004,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`LDSTQ_ENTRIES - 2)) lq_cmdq_high_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3019,7 +3023,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`STQ_ENTRIES - 2)) sq_cmdq_high_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3037,7 +3042,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_AXU0_ENTRIES - 2)) fu0_high_credit_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3055,7 +3061,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_AXU1_ENTRIES - 2)) fu1_high_credit_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3073,7 +3080,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_FX0_ENTRIES / 2)) fx0_med_credit_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3091,7 +3099,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_FX1_ENTRIES / 2)) fx1_med_credit_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3109,7 +3118,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`LDSTQ_ENTRIES / 2)) lq_cmdq_med_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3127,7 +3137,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`STQ_ENTRIES / 2)) sq_cmdq_med_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3145,7 +3156,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_AXU0_ENTRIES / 2)) fu0_med_credit_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3163,7 +3175,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_AXU1_ENTRIES / 2)) fu1_med_credit_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3184,7 +3197,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_FX0_ENTRIES)) fx0_total_credit_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3202,7 +3216,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_FX1_ENTRIES)) fx1_total_credit_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3220,7 +3235,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(5), .INIT(`LDSTQ_ENTRIES)) lq_cmdq_total_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3238,7 +3254,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(5), .INIT(`STQ_ENTRIES)) sq_cmdq_total_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3256,7 +3273,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_AXU0_ENTRIES)) fu0_total_credit_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3274,7 +3292,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(5), .INIT(`RV_AXU1_ENTRIES)) fu1_total_credit_cnt_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3292,7 +3311,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cp_flush_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3310,7 +3330,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) xu_iu_run_thread_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3328,7 +3349,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmlatch_p #(.INIT(0)) iu_xu_credits_returned_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3347,7 +3369,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(2), .INIT(0)) dual_issue_use_fx0_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3365,7 +3388,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(1)) last_thread_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(last_thread_act),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3383,7 +3407,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_hold_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(funcslp_force),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
@@ -3401,7 +3426,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_hold_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(funcslp_force),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
@@ -3419,7 +3445,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_bus_snoop_hold_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(funcslp_force),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
@@ -3437,7 +3464,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_bus_snoop_hold_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(funcslp_force),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
@@ -3455,7 +3483,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmlatch_p #(.INIT(0)) hold_instructions_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),
@@ -3473,7 +3502,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) hold_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3491,7 +3521,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) ivax_hold_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3509,7 +3540,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) hold_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3527,7 +3559,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_iu_flush_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(funcslp_force),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
@@ -3545,7 +3578,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_iu_hold_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(funcslp_force),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
@@ -3563,7 +3597,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_iu_bus_snoop_hold_req_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(funcslp_force),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
@@ -3581,7 +3616,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) mm_iu_bus_snoop_hold_done_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(funcslp_force),
       .thold_b(pc_iu_func_slp_sl_thold_0_b),
@@ -3599,7 +3635,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) in_ucode_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3617,7 +3654,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) in_fusion_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3635,7 +3673,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) total_pri_mask_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3653,7 +3692,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) high_pri_mask_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3671,7 +3711,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) med_pri_mask_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3689,7 +3730,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) low_pri_mask_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3712,7 +3754,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(8), .INIT(0)) low_pri_cnt_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(low_pri_cnt_act[i]),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3730,7 +3773,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(6), .INIT(0)) low_pri_max_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(tiup),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3751,7 +3795,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) perf_iu6_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3774,7 +3819,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(2), .INIT(0)) perf_iu6_dispatch_fx0_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(pc_iu_event_bus_enable),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3792,7 +3838,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(2), .INIT(0)) perf_iu6_dispatch_fx1_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(pc_iu_event_bus_enable),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3810,7 +3857,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(2), .INIT(0)) perf_iu6_dispatch_lq_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(pc_iu_event_bus_enable),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3828,7 +3876,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(2), .INIT(0)) perf_iu6_dispatch_axu0_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(pc_iu_event_bus_enable),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3846,7 +3895,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
             tri_rlmreg_p #(.WIDTH(2), .INIT(0)) perf_iu6_dispatch_axu1_latch(
                .vd(vdd),
                .gd(gnd),
-               .nclk(nclk),
+               .clk(clk),
+	.rst(rst),
                .act(pc_iu_event_bus_enable),
                .force_t(force_t),
                .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3867,7 +3917,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) perf_iu6_fx0_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3885,7 +3936,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) perf_iu6_fx1_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3903,7 +3955,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) perf_iu6_lq_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3921,7 +3974,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) perf_iu6_sq_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3939,7 +3993,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) perf_iu6_axu0_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3957,7 +4012,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) perf_iu6_axu1_credit_stall_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(pc_iu_event_bus_enable),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3975,7 +4031,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu_pc_fx0_credit_ok_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -3993,7 +4050,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu_pc_fx1_credit_ok_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4011,7 +4069,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu_pc_lq_credit_ok_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4029,7 +4088,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu_pc_sq_credit_ok_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4047,7 +4107,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu_pc_axu0_credit_ok_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4065,7 +4126,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu_pc_axu1_credit_ok_latch(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+	.rst(rst),
       .act(tiup),
       .force_t(force_t),
       .thold_b(pc_iu_func_sl_thold_0_b),
@@ -4089,7 +4151,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_plat #(.WIDTH(3)) perv_2to1_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_2, pc_iu_func_slp_sl_thold_2, pc_iu_sg_2}),
       .q({pc_iu_func_sl_thold_1, pc_iu_func_slp_sl_thold_1, pc_iu_sg_1})
@@ -4098,7 +4161,8 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    tri_plat #(.WIDTH(3)) perv_1to0_reg(
       .vd(vdd),
       .gd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .flush(tc_ac_ccflush_dc),
       .din({pc_iu_func_sl_thold_1, pc_iu_func_slp_sl_thold_1, pc_iu_sg_1}),
       .q({pc_iu_func_sl_thold_0, pc_iu_func_slp_sl_thold_0, pc_iu_sg_0})

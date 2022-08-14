@@ -1,4 +1,4 @@
-// © IBM Corp. 2020
+// © IBM Corp. 2022
 // Licensed under the Apache License, Version 2.0 (the "License"), as modified by
 // the terms below; you may not use the files in this repository except in
 // compliance with the License as modified.
@@ -36,11 +36,12 @@
 
 `include "tri_a2o.vh"
 
-module tri_64x144_1r1w(
+module tri_64x144_1r1w (
    gnd,
    vdd,
    vcs,
-   nclk,
+   clk,
+   rst,
    rd_act,
    wr_act,
    sg_0,
@@ -114,7 +115,8 @@ inout                                          vdd;
 inout                                          vcs;
 
 // CLOCK and CLOCKCONTROL ports
-input [0:`NCLK_WIDTH-1]                        nclk;
+input                                          clk;
+input                                          rst;
 input                                          rd_act;
 input                                          wr_act;
 input                                          sg_0;
@@ -302,8 +304,8 @@ generate begin
       .CASCADEINLATB(1'b0),
       .CASCADEINREGA(1'b0),
       .CASCADEINREGB(1'b0),
-      .CLKA(nclk[0]),
-      .CLKB(nclk[0]),
+      .CLKA(clk),
+      .CLKB(clk),
       .DIA(ramb_data_in[(32 * anum):31 + (32 * anum)]),
       .DIB(32'b0),
       .DIPA(ramb_par_in[(4 * anum):3 + (4 * anum)]),
@@ -312,8 +314,8 @@ generate begin
       .ENB(act),
       .REGCEA(1'b0),
       .REGCEB(1'b0),
-      .SSRA(nclk[1]),        //sreset
-      .SSRB(nclk[1]),
+      .SSRA(rst),
+      .SSRB(rst),
       .WEA(wrt_en[anum * 4:anum * 4 + 3]),
       .WEB(4'b0)	//'
    );
@@ -336,7 +338,6 @@ assign unused = | {
   cascadeoutregb ,
   ramb_data_dummy ,
   ramb_par_dummy ,
-  nclk[2:`NCLK_WIDTH-1] ,
   gnd ,
   vdd ,
   vcs ,
@@ -387,7 +388,8 @@ assign unused = | {
 tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rd_act_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(tiup),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),
@@ -405,7 +407,8 @@ tri_rlmlatch_p #(.INIT(0), .NEEDS_SRESET(1)) rd_act_reg(
 tri_rlmreg_p #(.WIDTH(port_bitwidth), .INIT(0), .NEEDS_SRESET(1)) data_out_reg(
    .vd(vdd),
    .gd(gnd),
-   .nclk(nclk),
+   .clk(clk),
+   .rst(rst),
    .act(rd_act_q),
    .force_t(func_sl_force),
    .d_mode(d_mode_dc),

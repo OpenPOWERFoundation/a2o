@@ -38,7 +38,8 @@ module xu0
    //-------------------------------------------------------------------
    // Clocks & Power
    //-------------------------------------------------------------------
-   input [0:`NCLK_WIDTH-1]                   nclk,
+   input                                     clk,
+   input                                     rst,
    inout                                     vdd,
    inout                                     gnd,
 
@@ -508,7 +509,8 @@ module xu0
 
 
    xu_alu alu(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -543,8 +545,9 @@ module xu0
    );
 
 
-   tri_st_popcnt pop(
-      .nclk(nclk),
+   tri_st_popcnt pop (
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .delay_lclkr_dc(delay_lclkr_dc),
@@ -583,7 +586,8 @@ module xu0
 
 
    xu0_bcd bcd(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -616,7 +620,8 @@ module xu0
 
 
    xu0_div_r4 div(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -650,7 +655,8 @@ module xu0
 
 
    tri_st_mult mult(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -689,7 +695,8 @@ module xu0
    xu0_br br(
       .vdd(vdd),
       .gnd(gnd),
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .pc_br_func_sl_thold_2(1'b0),		//<<TEMP>>
       .pc_br_sg_2(1'b1),		//<<TEMP>>
       .clkoff_b(1'b1),		//<<TEMP>>
@@ -754,7 +761,8 @@ module xu0
 
 
    xu0_byp byp(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
@@ -944,7 +952,8 @@ module xu0
 
 
    xu0_dec dec(
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .vdd(vdd),
       .gnd(gnd),
       .d_mode_dc(d_mode_dc),
