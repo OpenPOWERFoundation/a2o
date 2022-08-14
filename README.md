@@ -7,8 +7,8 @@
    * compiles with verilator, iverilog, yosys
    * runs simple version of kernel/bios/random test with cocotb (A2L2 interface partially implemented in Python) and Verilog core wrapper (A2L2<->mem interface)
    * wrapper converts A2L2 interface to mem and Wishbone interfaces
-   * verilator builds, but does not simulate correctly
-
+   * verilator now runs with a2o_litex
+   
 ## To Do
 
    * continue with cocotb testing
