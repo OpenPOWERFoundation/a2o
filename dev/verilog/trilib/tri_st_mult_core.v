@@ -102,7 +102,7 @@ module tri_st_mult_core(
    //wire [0:`NCLK_WIDTH-1] ex4_lclk;
    //wire [0:`NCLK_WIDTH-1] ex5_lclk;
    wire             ex4_lclk;
-   wire             ex6_lclk;
+   wire             ex5_lclk;
 
    wire [198:240]   ex4_pp2_0c_din;
    wire [198:240]   ex4_pp2_0c;

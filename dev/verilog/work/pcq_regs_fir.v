@@ -219,6 +219,7 @@ module pcq_regs_fir(
    wire                           func_d1clk;
    wire                           func_d2clk;
    //wire [0:`NCLK_WIDTH-1]         func_lclk;
+   wire                           func_lclk;
    wire                           func_thold_b;
    wire                           func_force;
    // SCOM
