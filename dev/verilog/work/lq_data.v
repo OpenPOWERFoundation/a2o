@@ -131,13 +131,6 @@ module lq_data(
    func_scan_out
 );
 
-//-------------------------------------------------------------------
-// Generics
-//-------------------------------------------------------------------
-//parameter                        EXPAND_TYPE = 2;		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
-//parameter                        GPR_WIDTH_ENC = 6;		// Register Mode 5 = 32bit, 6 = 64bit
-//parameter                        DC_SIZE = 15;		   // 2^15 = 32768 Bytes L1 D$
-
 // Execution Pipe
 input                            ctl_dat_ex1_data_act;
 input [52:59]                    ctl_dat_ex2_eff_addr;
@@ -378,16 +371,16 @@ wire                             pc_lq_abist_g8t1p_renb_0_q;
 wire                             slat_force;
 wire                             abst_slat_thold_b;
 wire                             abst_slat_d2clk;
-wire  [0:`NCLK_WIDTH-1]          abst_slat_lclk;
+//wire  [0:`NCLK_WIDTH-1]          abst_slat_lclk;
 wire                             time_slat_thold_b;
 wire                             time_slat_d2clk;
-wire  [0:`NCLK_WIDTH-1]          time_slat_lclk;
+//wire  [0:`NCLK_WIDTH-1]          time_slat_lclk;
 wire                             repr_slat_thold_b;
 wire                             repr_slat_d2clk;
-wire  [0:`NCLK_WIDTH-1]          repr_slat_lclk;
+//wire  [0:`NCLK_WIDTH-1]          repr_slat_lclk;
 wire                             func_slat_thold_b;
 wire                             func_slat_d2clk;
-wire  [0:`NCLK_WIDTH-1]          func_slat_lclk;
+//wire  [0:`NCLK_WIDTH-1]          func_slat_lclk;
 wire [0:7]                       abst_scan_q;
 wire [0:7]                       abst_scan_q_b;
 wire [0:1]                       time_scan_q;
@@ -1052,7 +1045,7 @@ assign time_slat_thold_b = (~time_sl_thold_0);
 assign repr_slat_thold_b = (~repr_sl_thold_0);
 assign func_slat_thold_b = (~func_sl_thold_0);
 
-
+/*
 tri_lcbs  perv_lcbs_abst(
    .vd(vdd),
    .gd(gnd),
@@ -1064,7 +1057,10 @@ tri_lcbs  perv_lcbs_abst(
    .dclk(abst_slat_d2clk),
    .lclk(abst_slat_lclk)
 );
-
+*/
+wire abst_slat_lclk;
+assign abst_slat_lclk = 0;
+assign abst_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(8), .INIT(8'b00000000)) perv_abst_stg(
    .vd(vdd),
@@ -1077,7 +1073,7 @@ tri_slat_scan #(.WIDTH(8), .INIT(8'b00000000)) perv_abst_stg(
    .q_b(abst_scan_q_b)
 );
 
-
+/*
 tri_lcbs  perv_lcbs_time(
    .vd(vdd),
    .gd(gnd),
@@ -1089,7 +1085,10 @@ tri_lcbs  perv_lcbs_time(
    .dclk(time_slat_d2clk),
    .lclk(time_slat_lclk)
 );
-
+*/
+wire time_slat_lclk;
+assign time_slat_lclk = 0;
+assign time_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_time_stg(
    .vd(vdd),
@@ -1102,7 +1101,7 @@ tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_time_stg(
    .q_b(time_scan_q_b)
 );
 
-
+/*
 tri_lcbs  perv_lcbs_repr(
    .vd(vdd),
    .gd(gnd),
@@ -1114,7 +1113,10 @@ tri_lcbs  perv_lcbs_repr(
    .dclk(repr_slat_d2clk),
    .lclk(repr_slat_lclk)
 );
-
+*/
+wire repr_slat_lclk;
+assign repr_slat_lclk = 0;;
+assign repr_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_repr_stg(
    .vd(vdd),
@@ -1127,7 +1129,7 @@ tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_repr_stg(
    .q_b(repr_scan_q_b)
 );
 
-
+/*
 tri_lcbs  perv_lcbs_func(
    .vd(vdd),
    .gd(gnd),
@@ -1139,7 +1141,10 @@ tri_lcbs  perv_lcbs_func(
    .dclk(func_slat_d2clk),
    .lclk(func_slat_lclk)
 );
-
+*/
+wire func_slat_lclk;
+assign func_slat_lclk = 0;
+assign func_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(14), .INIT(14'b00000000000000)) perv_func_stg(
    .vd(vdd),

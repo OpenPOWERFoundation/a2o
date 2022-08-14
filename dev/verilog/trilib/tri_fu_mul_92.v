@@ -118,7 +118,8 @@ module tri_fu_mul_92(
    wire [0:70]   pp3_lat_car_so;
    wire          mul92_d1clk;
    wire          mul92_d2clk;
-   wire   [0:`NCLK_WIDTH-1]         mul92_lclk;
+   //wire   [0:`NCLK_WIDTH-1]         mul92_lclk;
+   wire          mul92_lclk;
 
    wire          unused;
 
@@ -4403,7 +4404,8 @@ module tri_fu_mul_92(
    tri_inv_nlats #(.WIDTH(73),  .NEEDS_SRESET(0)) pp3_lat_sum(
       .vd(vdd),
       .gd(gnd),
-      .lclk(mul92_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(mul92_d1clk),
       .d2clk(mul92_d2clk),
       .scanin({si,
@@ -4417,7 +4419,8 @@ module tri_fu_mul_92(
    tri_inv_nlats #(.WIDTH(71),   .NEEDS_SRESET(0)) pp3_lat_car(
       .vd(vdd),
       .gd(gnd),
-      .lclk(mul92_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(mul92_d1clk),
       .d2clk(mul92_d2clk),
       .scanin({ pp3_lat_car_so[1:70],

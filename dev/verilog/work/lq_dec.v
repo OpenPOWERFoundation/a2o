@@ -33,8 +33,6 @@
 
 `include "tri_a2o.vh"
 
-
-
 module lq_dec(
    clk,
    rst,
@@ -209,24 +207,6 @@ module lq_dec(
    ctl_lsq_ex_pipe_full,
    dcc_dec_ex5_wren
 );
-
-//-------------------------------------------------------------------
-// Generics
-//-------------------------------------------------------------------
-//parameter                                               EXPAND_TYPE = 2;
-//parameter                                               `GPR_WIDTH_ENC = 6;
-//parameter                                               `XER_POOL_ENC = 4;
-//parameter                                               `CR_POOL_ENC = 5;
-//parameter                                               `GPR_POOL_ENC = 6;
-//parameter                                               `AXU_SPARE_ENC = 3;
-//parameter                                               `CL_SIZE = 6;
-//parameter                                               `REAL_IFAR_WIDTH = 42;
-//parameter                                               `UCODE_ENTRIES_ENC = 3;
-//parameter                                               `THREADS = 2;
-//parameter                                               `THREADS_POOL_ENC = 1;
-//parameter                                               `ITAG_SIZE_ENC = 7;
-
-
 
 inout                                                       vdd;
 inout                                                       gnd;

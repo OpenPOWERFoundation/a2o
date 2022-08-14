@@ -337,7 +337,8 @@ module fu_eov(
    wire          ex5_unf_calc_1_b;
    wire          ex6_d1clk;
    wire          ex6_d2clk;
-   wire [0:`NCLK_WIDTH-1]          ex6_lclk;
+   //wire [0:`NCLK_WIDTH-1]          ex6_lclk;
+   wire          ex6_lclk;
    (* analysis_not_referenced="TRUE" *) // unused
    wire          unused;
 
@@ -965,7 +966,8 @@ module fu_eov(
    tri_nand2_nlats #(.WIDTH(13), .NEEDS_SRESET(0)) ex6_urnd0_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(ex6_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(ex6_d1clk),
       .d2clk(ex6_d2clk),
       .scanin(ex6_urnd0_si),
@@ -978,7 +980,8 @@ module fu_eov(
    tri_nand2_nlats #(.WIDTH(13),  .NEEDS_SRESET(0)) ex6_urnd1_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(ex6_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex6_d1clk),
       .d2clk(ex6_d2clk),
       .scanin(ex6_urnd1_si),
@@ -991,7 +994,8 @@ module fu_eov(
    tri_nand2_nlats #(.WIDTH(3),   .NEEDS_SRESET(0)) ex6_ovctl_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(ex6_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex6_d1clk),
       .d2clk(ex6_d2clk),
       .scanin(ex6_ovctl_si),

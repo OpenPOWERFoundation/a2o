@@ -269,13 +269,13 @@ module c_perv_rp(
    wire                 	slat_force;
    wire                 	func_slat_thold_b;
    wire                 	func_slat_d2clk;
-   wire [0:`NCLK_WIDTH-1]       func_slat_lclk;
+   //wire [0:`NCLK_WIDTH-1]       func_slat_lclk;
    wire                 	abst_slat_thold_b;
    wire                 	abst_slat_d2clk;
-   wire [0:`NCLK_WIDTH-1]       abst_slat_lclk;
+   //wire [0:`NCLK_WIDTH-1]       abst_slat_lclk;
    wire                 	cfg_slat_thold_b;
    wire                 	cfg_slat_d2clk;
-   wire [0:`NCLK_WIDTH-1]       cfg_slat_lclk;
+   //wire [0:`NCLK_WIDTH-1]       cfg_slat_lclk;
    //
    wire                 	sg_3_int;
    wire                 	func_sl_thold_3_int;
@@ -434,6 +434,7 @@ module c_perv_rp(
    assign abst_slat_thold_b = (~abst_sl_thold_0);
    assign cfg_slat_thold_b = (~cfg_sl_thold_0);
 
+/*
    tri_lcbs  lcbs_func(
       .vd(vdd),
       .gd(gnd),
@@ -469,6 +470,15 @@ module c_perv_rp(
       .dclk(cfg_slat_d2clk),
       .lclk(cfg_slat_lclk)
    );
+*/
+   // tri_lcbs dclk=thold lclk=clk,rst
+   wire func_slat_lclk, abst_slat_lclk, cfg_slat_lclk;
+   assign func_slat_d2clk = 0;
+   assign func_slat_lclk = 0;
+   assign abst_slat_d2clk = 0;
+   assign abst_slat_lclk = 0;
+   assign cfg_slat_d2clk = 0;
+   assign cfg_slat_lclk = 0;
 
 // *****************************************************************************
 // CLOCK REPOWERING LOGIC
@@ -478,9 +488,8 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .clk(clk),
-	.rst(rst),
+	   .rst(rst),
       .flush(an_ac_ccflush_dc),
-
       .din({rtim_sl_thold_8,		func_sl_thold_8,		func_nsl_thold_8,
             ary_nsl_thold_8,		sg_8,				fce_8 }),
 
@@ -500,10 +509,9 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .clk(clk),
-	.rst(rst),
+	   .rst(rst),
       .flush(pc_rp_ccflush_out_dc),
-
-      .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
+         .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
             pc_rp_abst_sl_thold_4,		pc_rp_abst_slp_sl_thold_4,	pc_rp_regf_slp_sl_thold_4,
 	    pc_rp_func_sl_thold_4,		pc_rp_func_slp_sl_thold_4,      pc_rp_cfg_sl_thold_4,
 	    pc_rp_cfg_slp_sl_thold_4,		pc_rp_func_nsl_thold_4,		pc_rp_func_slp_nsl_thold_4,
@@ -520,9 +528,8 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .clk(clk),
-	.rst(rst),
+	   .rst(rst),
       .flush(pc_rp_ccflush_out_dc),
-
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
             pc_rp_abst_sl_thold_4,		pc_rp_abst_slp_sl_thold_4,	pc_rp_func_sl_thold_4,
 	    pc_rp_func_slp_sl_thold_4,		pc_rp_cfg_sl_thold_4,           pc_rp_cfg_slp_sl_thold_4,
@@ -540,9 +547,8 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .clk(clk),
-	.rst(rst),
+	   .rst(rst),
       .flush(pc_rp_ccflush_out_dc),
-
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
             pc_rp_abst_sl_thold_4,		pc_rp_abst_slp_sl_thold_4,	pc_rp_regf_slp_sl_thold_4,
 	    pc_rp_func_sl_thold_4,		pc_rp_func_slp_sl_thold_4,      pc_rp_cfg_sl_thold_4,
@@ -560,9 +566,8 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .clk(clk),
-	.rst(rst),
+	   .rst(rst),
       .flush(pc_rp_ccflush_out_dc),
-
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
             pc_rp_abst_sl_thold_4,		pc_rp_abst_slp_sl_thold_4,	pc_rp_regf_slp_sl_thold_4,
 	    pc_rp_func_sl_thold_4,		pc_rp_func_slp_sl_thold_4,      pc_rp_cfg_sl_thold_4,
@@ -580,9 +585,8 @@ module c_perv_rp(
       .vd(vdd),
       .gd(gnd),
       .clk(clk),
-	.rst(rst),
+	   .rst(rst),
       .flush(pc_rp_ccflush_out_dc),
-
       .din({pc_rp_gptr_sl_thold_4,		pc_rp_time_sl_thold_4,		pc_rp_repr_sl_thold_4,
             pc_rp_abst_sl_thold_4,		pc_rp_abst_slp_sl_thold_4,	pc_rp_func_sl_thold_4,
 	    pc_rp_func_slp_sl_thold_4,		pc_rp_cfg_sl_thold_4,           pc_rp_cfg_slp_sl_thold_4,

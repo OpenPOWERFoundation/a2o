@@ -133,13 +133,13 @@ module pcq_local_fir2(
    // Clocks
    wire                           func_d1clk;
    wire                           func_d2clk;
-   wire  [0:`NCLK_WIDTH-1]        func_lclk;
+   //wire  [0:`NCLK_WIDTH-1]        func_lclk;
    wire                           mode_d1clk;
    wire                           mode_d2clk;
-   wire  [0:`NCLK_WIDTH-1]        mode_lclk;
+   //wire  [0:`NCLK_WIDTH-1]        mode_lclk;
    wire                           scom_mode_d1clk;
    wire                           scom_mode_d2clk;
-   wire  [0:`NCLK_WIDTH-1]	  scom_mode_lclk;
+   //wire  [0:`NCLK_WIDTH-1]	  scom_mode_lclk;
    wire                           func_thold_b;
    wire                           func_force;
    wire                           mode_thold_b;
@@ -233,7 +233,6 @@ module pcq_local_fir2(
       .lclk(func_lclk)
    );
 
-
    // config ring regs; NOT power managed
    tri_lcbor  mode_lcbor(
       .clkoff_b(lcb_clkoff_dc_b),
@@ -246,6 +245,7 @@ module pcq_local_fir2(
 
    assign fir_act = sc_active | (|error_in);
 
+/*
    tri_lcbnd  mode_lcb(
       .act(fir_act),			// active during scom access or FIR error input
       .vd(vdd),
@@ -279,6 +279,7 @@ module pcq_local_fir2(
       .d2clk(scom_mode_d2clk),
       .lclk(scom_mode_lclk)
    );
+*/
 
    //--------------------------------------------------------------------
    // Mode Registers
@@ -288,7 +289,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(scom_mode_d1clk),
       .d2clk(scom_mode_d2clk),
-      .lclk(scom_mode_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in( mode_si[0:WIDTH - 1]),
       .scan_out(mode_so[0:WIDTH - 1]),
       .din(fir_action0_in),
@@ -300,7 +302,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(scom_mode_d1clk),
       .d2clk(scom_mode_d2clk),
-      .lclk(scom_mode_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in( mode_si[WIDTH:WIDTH]),
       .scan_out(mode_so[WIDTH:WIDTH]),
       .din(fir_action0_par_in),
@@ -312,7 +315,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(scom_mode_d1clk),
       .d2clk(scom_mode_d2clk),
-      .lclk(scom_mode_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in( mode_si[(WIDTH + 1):(2*WIDTH)]),
       .scan_out(mode_so[(WIDTH + 1):(2*WIDTH)]),
       .din(fir_action1_in),
@@ -324,7 +328,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(scom_mode_d1clk),
       .d2clk(scom_mode_d2clk),
-      .lclk(scom_mode_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in( mode_si[(2*WIDTH + 1):(2*WIDTH + 1)]),
       .scan_out(mode_so[(2*WIDTH + 1):(2*WIDTH + 1)]),
       .din(fir_action1_par_in),
@@ -336,7 +341,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(scom_mode_d1clk),
       .d2clk(scom_mode_d2clk),
-      .lclk(scom_mode_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in( mode_si[(2*WIDTH + 2):(3*WIDTH + 1)]),
       .scan_out(mode_so[(2*WIDTH + 2):(3*WIDTH + 1)]),
       .din(fir_mask_in),
@@ -348,7 +354,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(scom_mode_d1clk),
       .d2clk(scom_mode_d2clk),
-      .lclk(scom_mode_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in( mode_si[(3*WIDTH + 2):(3*WIDTH + 2)]),
       .scan_out(mode_so[(3*WIDTH + 2):(3*WIDTH + 2)]),
       .din(fir_mask_par_in),
@@ -360,7 +367,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(mode_d1clk),
       .d2clk(mode_d2clk),
-      .lclk(mode_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in( mode_si[(3*WIDTH + 3):(4*WIDTH + 2)]),
       .scan_out(mode_so[(3*WIDTH + 3):(4*WIDTH + 2)]),
       .din(fir_in),
@@ -376,7 +384,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(func_d1clk),
       .d2clk(func_d2clk),
-      .lclk(func_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in(func_si[1]),
       .scan_out(func_so[1]),
       .din(sys_xstop_in),
@@ -388,7 +397,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(func_d1clk),
       .d2clk(func_d2clk),
-      .lclk(func_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in(func_si[2]),
       .scan_out(func_so[2]),
       .din(recov_in),
@@ -400,7 +410,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(func_d1clk),
       .d2clk(func_d2clk),
-      .lclk(func_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in(func_si[3]),
       .scan_out(func_so[3]),
       .din(xstop_in),
@@ -412,7 +423,8 @@ module pcq_local_fir2(
       .gd(gnd),
       .d1clk(func_d1clk),
       .d2clk(func_d2clk),
-      .lclk(func_lclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in(func_si[4]),
       .scan_out(func_so[4]),
       .din(trace_error_in),
@@ -542,7 +554,8 @@ module pcq_local_fir2(
             .d1clk(func_d1clk),
             .vd(vdd),
             .gd(gnd),
-            .lclk(func_lclk),
+            .clk(clk),
+            .rst(rst),
             .d2clk(func_d2clk),
             .scan_in(func_si[0]),
             .scan_out(func_so[0]),

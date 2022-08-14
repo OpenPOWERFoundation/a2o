@@ -946,7 +946,7 @@ module iuq_ic_ierat(
    wire                              pc_cfg_slp_sl_thold_0_b;
    wire                              pc_cfg_slp_sl_force;
    wire                              lcb_dclk;
-   wire [0:`NCLK_WIDTH-1]            lcb_lclk;
+   //wire [0:`NCLK_WIDTH-1]            lcb_lclk;
    wire                              init_alias;
 
   // Clock Gating
@@ -7413,7 +7413,7 @@ assign ex6_data_maskpar =
    //------------------------------------------------
    // local clock buffer for boot config
    //------------------------------------------------
-
+   /*
    tri_lcbs  bcfg_lcb(
       .vd(vdd),
       .gd(gnd),
@@ -7425,6 +7425,11 @@ assign ex6_data_maskpar =
       .dclk(lcb_dclk),
       .lclk(lcb_lclk)
    );
+   */
+   // tri_lcbs dclk=thold lclk=clk,rst
+   wire lcb_lclk;
+   assign lcb_lclk = 0;
+   assign lcb_dclk = 0;
 
    // these terms in the absence of another lcbor component
    //  that drives the thold_b and force into the bcfg_lcb for slat's

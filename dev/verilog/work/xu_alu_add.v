@@ -91,7 +91,8 @@ module xu_alu_add
    wire [0:scan_right-1]    siv;
    wire [0:scan_right-1]    sov;
    // Signals
-   wire [0:`NCLK_WIDTH-1]   ex1_rs0_inv_lclk;
+   //wire [0:`NCLK_WIDTH-1]   ex1_rs0_inv_lclk;
+   wire                     ex1_rs0_inv_lclk;
    wire                     ex1_rs0_inv_d1clk;
    wire                     ex1_rs0_inv_d2clk;
    wire [64-`GPR_WIDTH:63]   ex2_rs1_b;
@@ -192,7 +193,8 @@ module xu_alu_add
    tri_inv_nlats #(.WIDTH(`GPR_WIDTH), .BTR("NLI0001_X1_A12TH"), .INIT(0)) ex1_rs0_inv_b_latch(
       .vd(vdd),
       .gd(gnd),
-      .lclk(ex1_rs0_inv_lclk),
+      .clk(clk),
+      .rst(rst),
       .d1clk(ex1_rs0_inv_d1clk),
       .d2clk(ex1_rs0_inv_d2clk),
       .scanin(siv[ex2_rs1_inv_b_offset:ex2_rs1_inv_b_offset + `GPR_WIDTH - 1]),

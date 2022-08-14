@@ -40,7 +40,8 @@ module tri_nlat(
    gd,
    d1clk,
    d2clk,
-   lclk,
+   clk,
+   rst,
    scan_in,
    din,
    q,
@@ -63,7 +64,8 @@ module tri_nlat(
    inout                          gd;
    input                          d1clk;
    input                          d2clk;
-   input [0:`NCLK_WIDTH-1]        lclk;
+   input                          clk;
+   input                          rst;
    input                          scan_in;
    input [OFFSET:OFFSET+WIDTH-1]  din;
    output [OFFSET:OFFSET+WIDTH-1] q;
@@ -88,12 +90,9 @@ module tri_nlat(
        (* analysis_not_referenced="true" *)
       wire                          unused;
 
-      if (NEEDS_SRESET == 1)
-      begin : rst
-        assign sreset = lclk[1];
-      end
-      if (NEEDS_SRESET != 1)
-      begin : no_rst
+      if (NEEDS_SRESET == 1) begin
+        assign sreset = rst;
+      end else begin
         assign sreset = 1'b0;
       end
 
@@ -107,7 +106,7 @@ module tri_nlat(
       assign vthold_b = {WIDTH{d2clk}};
       assign vthold = {WIDTH{~d2clk}};
 
-      always @(posedge lclk[0]) begin: l
+      always @(posedge clk) begin: l
         //int_dout <= (((vact & vthold_b) | vsreset) & int_din) | (((vact_b | vthold) & vsreset_b) & int_dout);
         if (sreset)
           int_dout <= int_din;
@@ -119,7 +118,7 @@ module tri_nlat(
       assign q_b = (~int_dout);
       assign scan_out = 1'b0;
 
-      assign unused = | {vd, gd, lclk, scan_in};
+      assign unused = | {vd, gd, scan_in};
    end
    endgenerate
 endmodule

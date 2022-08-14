@@ -224,14 +224,6 @@ module lq_dir_val(
    scan_out
 );
 
-//-------------------------------------------------------------------
-// Generics
-//-------------------------------------------------------------------
-//parameter                         EXPAND_TYPE = 2;		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
-//parameter                         THREADS = 2;
-//parameter                         DC_SIZE = 15;		// 14 => 16K L1D$, 15 => 32K L1D$
-//parameter                         CL_SIZE = 6;		// 6 => 64B CLINE, 7 => 128B CLINE
-
 // ACT's
 input                               dcc_dir_ex2_stg_act;
 input                               dcc_dir_ex3_stg_act;

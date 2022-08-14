@@ -637,7 +637,8 @@ module xu_spr_cspr
    wire [0:scan_right_dcfg-1]            sov_dcfg;
    // Signals
    wire [00:63]                           tidn;
-   wire [0:`NCLK_WIDTH-1]                 spare_0_lclk;
+   //wire [0:`NCLK_WIDTH-1]                 spare_0_lclk;
+   wire                                   spare_0_lclk;
    wire                                   spare_0_d1clk;
    wire                                   spare_0_d2clk;
    wire [00:63]                           tb;
@@ -5003,7 +5004,8 @@ wire [0:0] core_event;
    tri_inv_nlats #(.WIDTH(16), .BTR("NLI0001_X2_A12TH"), .INIT(0)) spare_0_latch(
       .vd(vdd),
       .gd(gnd),
-      .lclk(spare_0_lclk),
+      .clk(clk),
+      .rst(rst),
       .d1clk(spare_0_d1clk),
       .d2clk(spare_0_d2clk),
       .scanin(siv[spare_0_offset:spare_0_offset + 16 - 1]),

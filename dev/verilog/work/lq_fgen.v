@@ -177,15 +177,6 @@ module lq_fgen(
    scan_out
 );
 
-//-------------------------------------------------------------------
-// Generics
-//-------------------------------------------------------------------
-//parameter                                    EXPAND_TYPE = 2;
-//parameter                                    THREADS = 2;
-//parameter                                    UCODE_ENTRIES_ENC = 3;
-//parameter                                    THREADS_POOL_ENC = 1;
-//parameter                                    ITAG_SIZE_ENC = 7;
-
 // IU Dispatch to RV0
 input [0:`THREADS-1]                         ex0_i0_vld;
 input                                        ex0_i0_ucode_preissue;

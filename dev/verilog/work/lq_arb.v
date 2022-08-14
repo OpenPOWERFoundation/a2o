@@ -41,15 +41,6 @@
 
 `include "tri_a2o.vh"
 
-//   parameter                              EXPAND_TYPE = 2;		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
-// `define                                   LOAD_CREDITS   16
-// `define                                   STORE_CREDITS   32
-//   parameter                              ITAG_SIZE_ENC = 7;
-//   parameter                              CL_SIZE = 6;		// 6 => 64B CLINE, 7 => 128B CLINE
-//   parameter                              THREADS = 2;		// Number of Threads in the system
-//   parameter                              STQ_DATA_SIZE = 64;		// 64 or 128 Bit store data sizes supported
-//   parameter                              REAL_IFAR_WIDTH = 42;		// real addressing bits
-
 module lq_arb(
    imq_arb_iuq_ld_req_avail,
    imq_arb_iuq_tid,

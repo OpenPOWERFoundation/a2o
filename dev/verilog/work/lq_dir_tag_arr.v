@@ -93,10 +93,6 @@ module lq_dir_tag_arr(
 //-------------------------------------------------------------------
 // Generics
 //-------------------------------------------------------------------
-//parameter                                                    EXPAND_TYPE = 2;	     // 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
-//parameter                                                   `DC_SIZE = 15;		     // 2^14 = 16384, 2^15 = 32768 Bytes L1 D$
-//parameter                                                   `CL_SIZE = 6;		     // 2^6 = 64 Bytes CacheLines
-//parameter                                                   `REAL_IFAR_WIDTH = 42;  // 42 bit real address
 parameter                                                    WAYDATASIZE = 34;	    // TagSize + Parity Bits
 parameter                                                    PARBITS = 4;		       // Parity Bits
 

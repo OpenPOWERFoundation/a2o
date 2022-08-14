@@ -118,12 +118,14 @@ module tri_serial_scom2 (
 
    // for mask slat inside of c_err_rpt
    input                                                    dcfg_scan_dclk;
-   input  [0:`NCLK_WIDTH-1]                                 dcfg_scan_lclk;
+   //input  [0:`NCLK_WIDTH-1]                                 dcfg_scan_lclk;
+   input                                                    dcfg_scan_lclk;
 
    //! for nlats inside of c_err_rpt
    input                                                    dcfg_d1clk;	// needed for one bit only, always or scom_local_act clocked dcfg
    input                                                    dcfg_d2clk;	// needed for one bit only, always or scom_local_act clocked dcfg
-   input  [0:`NCLK_WIDTH-1]                                 dcfg_lclk;	// needed for one bit only, always or scom_local_act clocked dcfg
+   //input  [0:`NCLK_WIDTH-1]                                 dcfg_lclk;	// needed for one bit only, always or scom_local_act clocked dcfg
+   input                                                    dcfg_lclk;
 
    // contains mask slat and hold nlat of c_err_rpt
    input  [0:1]                                             dcfg_scan_in;
@@ -296,7 +298,7 @@ module tri_serial_scom2 (
    wire                                                     func_thold_b;
    wire                                                     d1clk;
    wire                                                     d2clk;
-   wire [0:`NCLK_WIDTH-1]                                   lclk;
+   //wire [0:`NCLK_WIDTH-1]                                   lclk;
    wire                                                     local_act;
    wire                                                     local_act_int;
    wire                                                     scom_err_in;
@@ -338,6 +340,7 @@ module tri_serial_scom2 (
       .thold_b(func_thold_b)
    );
 
+/*
    tri_lcbnd lcb_func(
       .vd(vdd),
       .gd(gnd),
@@ -355,6 +358,9 @@ module tri_serial_scom2 (
       .d2clk(d2clk),
       .lclk(lclk)
    );
+*/
+   assign d1clk = local_act_int;
+   assign d2clk = func_thold_b;
 
    //-----------------------------------------------------------------------------
    tri_err_rpt #(.WIDTH(1), 			// use to bundle error reporting checkers of the same exact type
@@ -366,7 +372,8 @@ module tri_serial_scom2 (
       .gd(gnd),
       .err_d1clk(dcfg_d1clk),
       .err_d2clk(dcfg_d2clk),
-      .err_lclk(dcfg_lclk),
+      .clk(clk),
+      .rst(rst),
       .err_scan_in(dcfg_scan_in[0:0]),
       .err_scan_out(dcfg_scan_out[0:0]),
       .mode_dclk(dcfg_scan_dclk),
@@ -640,7 +647,8 @@ module tri_serial_scom2 (
         .d1clk(d1clk),
         .vd(vdd),
         .gd(gnd),
-        .lclk(lclk),
+        .clk(clk),
+        .rst(rst),
         .d2clk(d2clk),
         .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+22:STATE_WIDTH+WIDTH+(2*PAR_NOBITS)+HEAD_WIDTH+21]),
         .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+22:STATE_WIDTH+WIDTH+(2*PAR_NOBITS)+HEAD_WIDTH+21]),
@@ -697,7 +705,8 @@ module tri_serial_scom2 (
               .vd(vdd),
               .gd(gnd),
               .d2clk(d2clk),
-              .lclk(lclk),
+              .clk(clk),
+               .rst(rst),
               .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+(2*PAR_NOBITS)+HEAD_WIDTH+22 +i]),
               .scan_out(func_scan_out[STATE_WIDTH+WIDTH+(2*PAR_NOBITS)+HEAD_WIDTH+22 +i]),
               .din(dec_addr_in[i]),
@@ -779,7 +788,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  0:STATE_WIDTH-1]),
       .scan_out(func_scan_out[0:STATE_WIDTH-1]),
@@ -792,7 +802,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH:STATE_WIDTH+6]),
       .scan_out(func_scan_out[STATE_WIDTH:STATE_WIDTH+6]),
@@ -805,7 +816,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+7:STATE_WIDTH+WIDTH+6]),
       .scan_out(func_scan_out[STATE_WIDTH+7:STATE_WIDTH+WIDTH+6]),
@@ -818,7 +830,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+7:STATE_WIDTH+WIDTH+PAR_NOBITS+6]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+7:STATE_WIDTH+WIDTH+PAR_NOBITS+6]),
@@ -831,7 +844,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+7:STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+6]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+7:STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+6]),
@@ -844,7 +858,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+7:STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+11]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+7:STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+11]),
@@ -857,7 +872,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+12]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+12]),
@@ -870,7 +886,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+13:STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+14]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+13:STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+14]),
@@ -883,7 +900,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+15]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+15]),
@@ -896,7 +914,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+16:STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+17]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+16:STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+17]),
@@ -909,7 +928,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+18]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+18]),
@@ -922,7 +942,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+19]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+19]),
@@ -935,7 +956,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+20]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+20]),
@@ -948,7 +970,8 @@ module tri_serial_scom2 (
       .d1clk(d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(d2clk),
       .scan_in(func_scan_in[  STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+21]),
       .scan_out(func_scan_out[STATE_WIDTH+WIDTH+PAR_NOBITS+HEAD_WIDTH+21]),

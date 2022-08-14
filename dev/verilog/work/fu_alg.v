@@ -352,9 +352,8 @@ module fu_alg(
    wire           ex3_sh16_163;
    wire           alg_ex3_d1clk;
    wire           alg_ex3_d2clk;
-
-   wire [0:`NCLK_WIDTH-1]          alg_ex3_lclk;
-
+   //wire [0:`NCLK_WIDTH-1]          alg_ex3_lclk;
+   wire           alg_ex3_lclk;
    wire [6:9]     ex3_bsha_b;
    wire           ex3_bsha_neg_b;
    wire           ex3_sh_ovf_b;
@@ -665,7 +664,8 @@ module fu_alg(
    tri_inv_nlats #(.WIDTH(68),   .NEEDS_SRESET(0)) ex3_shd_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(alg_ex3_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(alg_ex3_d1clk),
       .d2clk(alg_ex3_d2clk),
       .scanin(ex3_shd_si),
@@ -680,7 +680,8 @@ module fu_alg(
    tri_inv_nlats #(.WIDTH(25),  .NEEDS_SRESET(0)) ex3_shc_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(alg_ex3_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(alg_ex3_d1clk),
       .d2clk(alg_ex3_d2clk),
       .scanin(ex3_shc_si),
@@ -767,7 +768,8 @@ module fu_alg(
    tri_inv_nlats #(.WIDTH(15),  .NEEDS_SRESET(0)) ex3_ctl_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(alg_ex3_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(alg_ex3_d1clk),
       .d2clk(alg_ex3_d2clk),
       .scanin(ex3_ctl_si),

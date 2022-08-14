@@ -35,7 +35,6 @@
 
 `include "tri_a2o.vh"
 
-//wtf this should be changed to output clk,rst instead of lclk; think it's only for alternate ring lats?
 module tri_lcbs (
    vd,
    gd,

@@ -66,7 +66,7 @@ module tri_lcbnd (
    input      thold_b;
    output     d1clk;
    output     d2clk;
-   output[0:`NCLK_WIDTH-1]  lclk;
+   output     lclk;
 
    // tri_lcbnd
    wire       gate_b;
@@ -79,5 +79,5 @@ module tri_lcbnd (
 
    assign d1clk = gate_b;
    assign d2clk = thold_b;
-   assign lclk = {clk,rst,{`NCLK_WIDTH-2{1'b0}}};
+   assign lclk = clk;
 endmodule

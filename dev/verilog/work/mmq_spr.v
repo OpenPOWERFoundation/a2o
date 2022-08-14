@@ -1046,7 +1046,7 @@ module mmq_spr(
       wire                                 pc_cfg_sl_thold_0_b;
       wire                                 pc_cfg_sl_force;
       wire                                 lcb_dclk;
-      wire [0:`NCLK_WIDTH-1]               lcb_lclk;
+      //wire [0:`NCLK_WIDTH-1]               lcb_lclk;
       wire [47:48]                         mmucfg_q_b;
       wire [45:47]                         tlb0cfg_q_b;
       wire [0:15]                          bcfg_spare_q_b;
@@ -5913,7 +5913,7 @@ endgenerate
       //------------------------------------------------
       // local clock buffer for boot config
       //------------------------------------------------
-
+      /*
       tri_lcbs  bcfg_lcb(
          .vd(vdd),
          .gd(gnd),
@@ -5925,10 +5925,14 @@ endgenerate
          .dclk(lcb_dclk),
          .lclk(lcb_lclk)
       );
-
+      */
+      wire lcb_lclk;
+      assign lcb_lclk = 0;
+      assign lcb_dclk = 0;
       end
    endgenerate
 
+   //wtf why is this an fpga gen only??
    generate
       if (`EXPAND_TYPE == 1)
       begin : fpga_bcfg_gen

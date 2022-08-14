@@ -53,9 +53,11 @@ module pcq_regs_fir(
    input                           lcb_cfg_slp_sl_thold_0,
    input                           cfgslp_d1clk,
    input                           cfgslp_d2clk,
-   input  [0:`NCLK_WIDTH-1]        cfgslp_lclk,
+   //input  [0:`NCLK_WIDTH-1]        cfgslp_lclk,
+   input                           cfgslp_lclk,
    input                           cfg_slat_d2clk,
-   input  [0:`NCLK_WIDTH-1]        cfg_slat_lclk,
+   //input  [0:`NCLK_WIDTH-1]        cfg_slat_lclk,
+   input                           cfg_slat_lclk,
    input                           bcfg_scan_in,
    output                          bcfg_scan_out,
    input                           func_scan_in,
@@ -216,7 +218,7 @@ module pcq_regs_fir(
    // Clocks
    wire                           func_d1clk;
    wire                           func_d2clk;
-   wire [0:`NCLK_WIDTH-1]         func_lclk;
+   //wire [0:`NCLK_WIDTH-1]         func_lclk;
    wire                           func_thold_b;
    wire                           func_force;
    // SCOM
@@ -658,7 +660,8 @@ module pcq_regs_fir(
       .gd(gnd),
       .err_d1clk(cfgslp_d1clk),		// CAUTION: if LCB uses powersavings,
       .err_d2clk(cfgslp_d2clk),		//          errors must always get reported
-      .err_lclk(cfgslp_lclk),
+      .clk(clk),
+      .rst(rst),
       .err_scan_in(bcfg_siv[ BCFG_ERPT1_HLD_OFFSET:BCFG_ERPT1_HLD_OFFSET + SCPAR_ERR_RPT_WIDTH - 1]),
       .err_scan_out(bcfg_sov[BCFG_ERPT1_HLD_OFFSET:BCFG_ERPT1_HLD_OFFSET + SCPAR_ERR_RPT_WIDTH - 1]),
       .mode_dclk(cfg_slat_d2clk),
@@ -681,7 +684,8 @@ module pcq_regs_fir(
       .gd(gnd),
       .err_d1clk(cfgslp_d1clk),		// CAUTION: if LCB uses powersavings,
       .err_d2clk(cfgslp_d2clk),		//          errors must always get reported
-      .err_lclk(cfgslp_lclk),
+      .clk(clk),
+      .rst(rst),
       .err_scan_in(bcfg_siv[ BCFG_ERPT2_HLD_OFFSET:BCFG_ERPT2_HLD_OFFSET + SCACK_ERR_RPT_WIDTH - 1]),
       .err_scan_out(bcfg_sov[BCFG_ERPT2_HLD_OFFSET:BCFG_ERPT2_HLD_OFFSET + SCACK_ERR_RPT_WIDTH - 1]),
       .mode_dclk(cfg_slat_d2clk),
@@ -899,7 +903,8 @@ module pcq_regs_fir(
       .d1clk(func_d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(func_lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(func_d2clk),
       .scan_in(func_siv[ FUNC_ERROUT_OFFSET:FUNC_ERROUT_OFFSET + ERROUT_FUNC_SIZE - 1]),
       .scan_out(func_sov[FUNC_ERROUT_OFFSET:FUNC_ERROUT_OFFSET + ERROUT_FUNC_SIZE - 1]),
@@ -920,7 +925,8 @@ module pcq_regs_fir(
       .d1clk(func_d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(func_lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(func_d2clk),
       .scan_in(func_siv[ FUNC_F0ERR_OFFSET:FUNC_F0ERR_OFFSET + FIR0_WIDTH - 1]),
       .scan_out(func_sov[FUNC_F0ERR_OFFSET:FUNC_F0ERR_OFFSET + FIR0_WIDTH - 1]),
@@ -932,7 +938,8 @@ module pcq_regs_fir(
       .d1clk(func_d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(func_lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(func_d2clk),
       .scan_in(func_siv[ FUNC_F1ERR_OFFSET:FUNC_F1ERR_OFFSET + FIR1_WIDTH - 1]),
       .scan_out(func_sov[FUNC_F1ERR_OFFSET:FUNC_F1ERR_OFFSET + FIR1_WIDTH - 1]),
@@ -944,7 +951,8 @@ module pcq_regs_fir(
       .d1clk(func_d1clk),
       .vd(vdd),
       .gd(gnd),
-      .lclk(func_lclk),
+      .clk(clk),
+      .rst(rst),
       .d2clk(func_d2clk),
       .scan_in(func_siv[ FUNC_F2ERR_OFFSET:FUNC_F2ERR_OFFSET + FIR2_WIDTH - 1]),
       .scan_out(func_sov[FUNC_F2ERR_OFFSET:FUNC_F2ERR_OFFSET + FIR2_WIDTH - 1]),

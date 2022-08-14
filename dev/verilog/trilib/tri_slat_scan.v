@@ -56,7 +56,8 @@ module tri_slat_scan(
    inout                          vd;
    inout                          gd;
    input                          dclk;
-   input [0:`NCLK_WIDTH-1]        lclk;
+   //input [0:`NCLK_WIDTH-1]        lclk;
+   input                          lclk;
    input [OFFSET:OFFSET+WIDTH-1]  scan_in;
    output [OFFSET:OFFSET+WIDTH-1] scan_out;
    output [OFFSET:OFFSET+WIDTH-1] q;

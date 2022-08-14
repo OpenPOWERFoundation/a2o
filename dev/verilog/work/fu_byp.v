@@ -631,7 +631,8 @@ module fu_byp(
 
    wire             byp_ex2_d1clk;
    wire             byp_ex2_d2clk;
-   wire  [0:`NCLK_WIDTH-1]            byp_ex2_lclk;
+   //wire  [0:`NCLK_WIDTH-1]            byp_ex2_lclk;
+   wire             byp_ex2_lclk;
    wire             ex1_c_frac_pre3_hulp_b;
    wire             ex1_hulp_sp;
    wire             ex1_c_frac_pre_hulp;
@@ -1989,7 +1990,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(53),  .NEEDS_SRESET(0)) ex2_frac_b_alg_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_b_frac_si),		//in
@@ -2002,7 +2004,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(53),   .NEEDS_SRESET(0)) ex2_frac_a_fmt_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_frac_a_fmt_si),		//in
@@ -2015,7 +2018,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(53),   .NEEDS_SRESET(0)) ex2_frac_c_fmt_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_frac_c_fmt_si),		//in
@@ -2028,7 +2032,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(53),  .NEEDS_SRESET(0)) ex2_frac_b_fmt_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_frac_b_fmt_si),		//in
@@ -2051,7 +2056,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(54), .NEEDS_SRESET(0)) ex2_frac_c_mul_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(frac_mul_c_si),		//in
@@ -2065,7 +2071,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(55),  .NEEDS_SRESET(0)) ex2_frac_a_mul_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in  --lclk.clk
+      .clk(clk),		//in  --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(frac_mul_a_si),		//in
@@ -2198,7 +2205,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(14),  .NEEDS_SRESET(0)) ex2_expo_b_alg_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_b_alg_si),		//in
@@ -2213,7 +2221,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(13),   .NEEDS_SRESET(0)) ex2_expo_c_alg_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_c_alg_si),		//in
@@ -2226,7 +2235,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(13),   .NEEDS_SRESET(0)) ex2_expo_a_alg_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_a_alg_si),		//in
@@ -2239,7 +2249,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(14),   .NEEDS_SRESET(0)) ex2_expo_b_fmt_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_b_fmt_si),		//in
@@ -2254,7 +2265,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(14),  .NEEDS_SRESET(0)) ex2_expo_a_fmt_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_a_fmt_si),		//in
@@ -2269,7 +2281,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(14),  .NEEDS_SRESET(0)) ex2_expo_c_fmt_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_c_fmt_si),		//in
@@ -2284,7 +2297,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(14), .NEEDS_SRESET(0)) ex2_expo_b_eie_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_b_eie_si),		//in
@@ -2299,7 +2313,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(14),.NEEDS_SRESET(0)) ex2_expo_a_eie_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_a_eie_si),		//in
@@ -2314,7 +2329,8 @@ module fu_byp(
    tri_inv_nlats #(.WIDTH(14), .NEEDS_SRESET(0)) ex2_expo_c_eie_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(byp_ex2_lclk),		//in      --lclk.clk
+      .clk(clk),		//in      --lclk.clk
+      .rst(rst),
       .d1clk(byp_ex2_d1clk),		//in
       .d2clk(byp_ex2_d2clk),		//in
       .scanin(ex2_expo_c_eie_si),		//in

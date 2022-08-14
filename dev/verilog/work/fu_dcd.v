@@ -1531,7 +1531,7 @@ module fu_dcd(
    wire                                     func_slp_sl_force;
    wire                                     func_slp_sl_thold_0_b;
    wire                                     cfg_slat_d2clk;
-   wire [0:`NCLK_WIDTH-1]                   cfg_slat_lclk;
+   //wire [0:`NCLK_WIDTH-1]                   cfg_slat_lclk;
 
    assign tilo = 1'b0;
    assign tihi = 1'b1;
@@ -1719,17 +1719,23 @@ module fu_dcd(
       .thold_b(func_slp_sl_thold_0_b)
    );
 
+   /*
    tri_lcbs  lcbs_cfg(
       .vd(vdd),
       .gd(gnd),
       .delay_lclkr(delay_lclkr[9]),
       .clk(clk),
-	.rst(rst),
+	   .rst(rst),
       .force_t(cfg_sl_force),
       .thold_b(cfg_sl_thold_0_b),
       .dclk(cfg_slat_d2clk),
       .lclk(cfg_slat_lclk)
    );
+   */
+   // tri_lcbs dclk=thold lclk=clk,rst
+   wire func_slat_lclk, abst_slat_lclk, cfg_slat_lclk;
+   assign cfg_slat_d2clk = 0;
+   assign cfg_slat_lclk = 0;
 
    tri_slat_scan #(.WIDTH(2), .INIT(0), .RESET_INVERTS_SCAN(1'b1)) cfg_stg(
       .vd(vdd),

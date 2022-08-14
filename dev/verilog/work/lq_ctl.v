@@ -519,37 +519,6 @@ module lq_ctl(
 //-------------------------------------------------------------------
 // Generics
 //-------------------------------------------------------------------
-//parameter                                                    EXPAND_TYPE = 2;
-//parameter                                                    `GPR_WIDTH_ENC = 6;
-//parameter                                                    `XER_POOL_ENC = 4;
-//parameter                                                    `CR_POOL_ENC = 5;
-//parameter                                                    `GPR_POOL_ENC = 6;
-//parameter                                                    `AXU_SPARE_ENC = 3;
-//parameter                                                    `THREADS_POOL_ENC = 1;
-//parameter                                                    `ITAG_SIZE_ENC = 7;		      // Instruction Tag Size
-//parameter                                                    `CR_WIDTH = 4;
-//parameter                                                    `UCODE_ENTRIES_ENC = 3;
-//parameter                                                    `STQ_DATA_SIZE = 64;		      // 64 or 128 Bit store data sizes supported
-//parameter                                                    ``FXU0_PIPE_START = 2;
-//parameter                                                    `XU0_PIPE_END = 8;
-//parameter                                                    ``FXU1_PIPE_START = 2;
-//parameter                                                    `XU1_PIPE_END = 5;
-//parameter                                                    `LQ_LOAD_PIPE_START = 4;
-//parameter                                                    `LQ_LOAD_PIPE_END = 8;
-//parameter                                                    `LQ_REL_PIPE_START = 2;
-//parameter                                                    `LQ_REL_PIPE_END = 4;
-//parameter                                                    `THREADS = 2;
-//parameter                                                    `DC_SIZE = 15;		            // 14 => 16K L1D$, 15 => 32K L1D$
-//parameter                                                    `CL_SIZE = 6;
-//parameter                                                    `LMQ_ENTRIES = 8;
-//parameter                                                    `EMQ_ENTRIES = 4;
-//parameter                                                    `REAL_IFAR_WIDTH = 42;		   // 42 bit real address
-//parameter                                                    `LDSTQ_ENTRIES = 16;		      // Order Queue Size
-//parameter                                                    `PF_IFAR_WIDTH = 12;		      // number of IAR bits used by prefetch
-//parameter                                                    `BUILD_PFETCH = 1;		      // 1=> include pfetch in the build, 0=> build without pfetch
-//parameter                                                    `PFETCH_INITIAL_DEPTH = 0;		// the initial value for the SPR that determines how many lines to prefetch
-//parameter                                                    ``PFETCH_Q_SIZE_ENC = 3;		// number of bits to address queue size (3 => 8 entries, 4 => 16 entries)
-//parameter                                                    `PFETCH_Q_SIZE = 8;		      // number of entries in prefetch queue
 parameter                                                    WAYDATASIZE = 34;		         // TagSize + Parity Bits
 parameter                                                    XU0_PIPE_START = `FXU0_PIPE_START+1;
 parameter                                                    XU0_PIPE_END   = `FXU0_PIPE_END;
@@ -1577,19 +1546,19 @@ wire [4:9]                                                   pc_lq_abist_waddr_0
 wire                                                         slat_force;
 wire                                                         abst_slat_thold_b;
 wire                                                         abst_slat_d2clk;
-wire [0:`NCLK_WIDTH-1]                                       abst_slat_lclk;
+//wire [0:`NCLK_WIDTH-1]                                       abst_slat_lclk;
 wire                                                         time_slat_thold_b;
 wire                                                         time_slat_d2clk;
-wire [0:`NCLK_WIDTH-1]                                       time_slat_lclk;
+//wire [0:`NCLK_WIDTH-1]                                       time_slat_lclk;
 wire                                                         repr_slat_thold_b;
 wire                                                         repr_slat_d2clk;
-wire [0:`NCLK_WIDTH-1]                                       repr_slat_lclk;
+//wire [0:`NCLK_WIDTH-1]                                       repr_slat_lclk;
 wire                                                         func_slat_thold_b;
 wire                                                         func_slat_d2clk;
-wire [0:`NCLK_WIDTH-1]                                       func_slat_lclk;
+//wire [0:`NCLK_WIDTH-1]                                       func_slat_lclk;
 wire                                                         regf_slat_thold_b;
 wire                                                         regf_slat_d2clk;
-wire [0:`NCLK_WIDTH-1]                                       regf_slat_lclk;
+//wire [0:`NCLK_WIDTH-1]                                       regf_slat_lclk;
 wire [0:3]                                                   abst_scan_q;
 wire [0:3]                                                   abst_scan_q_b;
 wire [0:3]                                                   time_scan_q;
@@ -3558,7 +3527,7 @@ assign repr_slat_thold_b = (~repr_sl_thold_0);
 assign func_slat_thold_b = (~func_sl_thold_0);
 assign regf_slat_thold_b = (~regf_slp_sl_thold_0);
 
-
+/*
 tri_lcbs perv_lcbs_abst(
    .vd(vdd),
    .gd(gnd),
@@ -3570,6 +3539,11 @@ tri_lcbs perv_lcbs_abst(
    .dclk(abst_slat_d2clk),
    .lclk(abst_slat_lclk)
 );
+*/
+// tri_lcbs dclk=thold lclk=clk,rst
+wire abst_slat_lclk;
+assign abst_slat_lclk = 0;
+assign abst_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(4), .INIT(4'b0000)) perv_abst_stg(
    .vd(vdd),
@@ -3588,6 +3562,7 @@ tri_slat_scan #(.WIDTH(4), .INIT(4'b0000)) perv_abst_stg(
    .q_b(abst_scan_q_b)
 );
 
+/*
 tri_lcbs perv_lcbs_time(
    .vd(vdd),
    .gd(gnd),
@@ -3599,7 +3574,11 @@ tri_lcbs perv_lcbs_time(
    .dclk(time_slat_d2clk),
    .lclk(time_slat_lclk)
 );
-
+*/
+// tri_lcbs dclk=thold lclk=clk,rst
+wire time_slat_lclk;
+assign time_slat_lclk = 0;
+assign time_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(4), .INIT(4'b0000)) perv_time_stg(
    .vd(vdd),
@@ -3618,6 +3597,7 @@ tri_slat_scan #(.WIDTH(4), .INIT(4'b0000)) perv_time_stg(
    .q_b(time_scan_q_b)
 );
 
+/*
 tri_lcbs perv_lcbs_repr(
    .vd(vdd),
    .gd(gnd),
@@ -3629,7 +3609,10 @@ tri_lcbs perv_lcbs_repr(
    .dclk(repr_slat_d2clk),
    .lclk(repr_slat_lclk)
 );
-
+*/
+wire repr_slat_lclk;
+assign repr_slat_lclk = 0;
+assign repr_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(3), .INIT(3'b000)) perv_repr_stg(
    .vd(vdd),
@@ -3646,6 +3629,7 @@ tri_slat_scan #(.WIDTH(3), .INIT(3'b000)) perv_repr_stg(
    .q_b(repr_scan_q_b)
 );
 
+/*
 tri_lcbs perv_lcbs_func(
    .vd(vdd),
    .gd(gnd),
@@ -3657,6 +3641,10 @@ tri_lcbs perv_lcbs_func(
    .dclk(func_slat_d2clk),
    .lclk(func_slat_lclk)
 );
+*/
+wire func_slat_lclk;
+assign func_slat_lclk = 0;
+assign func_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(22), .INIT(22'b0000000000000000000000)) perv_func_stg(
    .vd(vdd),
@@ -3711,6 +3699,7 @@ tri_slat_scan #(.WIDTH(22), .INIT(22'b0000000000000000000000)) perv_func_stg(
    .q_b(func_scan_q_b)
 );
 
+/*
 tri_lcbs perv_lcbs_regf(
    .vd(vdd),
    .gd(gnd),
@@ -3722,7 +3711,10 @@ tri_lcbs perv_lcbs_regf(
    .dclk(regf_slat_d2clk),
    .lclk(regf_slat_lclk)
 );
-
+*/
+wire regf_slat_lclk;
+assign regf_slat_lclk = 0;
+assign regf_slat_d2clk = 0;
 
 tri_slat_scan #(.WIDTH(14), .INIT(14'b00000000000000)) perv_regf_stg(
    .vd(vdd),

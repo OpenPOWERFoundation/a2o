@@ -344,10 +344,11 @@ module pcq_regs(
    wire 		       	force_funcslp;
    wire 		       	cfgslp_d1clk;
    wire 		       	cfgslp_d2clk;
-   wire [0:`NCLK_WIDTH-1]      	cfgslp_lclk;
+   //wire [0:`NCLK_WIDTH-1]      	cfgslp_lclk;
+   wire              cfgslp_lclk;
    wire 		       	cfg_slat_force;
    wire 		       	cfg_slat_d2clk;
-   wire [0:`NCLK_WIDTH-1]      	cfg_slat_lclk;
+   //wire [0:`NCLK_WIDTH-1]      	cfg_slat_lclk;
    wire 		       	cfg_slat_thold_b;
    // SCOM satellite/decode signals
    wire 		       	scom_cch_q;
@@ -2377,6 +2378,7 @@ module pcq_regs(
    assign cfg_slat_thold_b = (~lcb_cfg_sl_thold_0);
    assign cfg_slat_force   = lcb_sg_0;
 
+   /*
    tri_lcbs  lcbs_cfg(
       .vd(vdd),
       .gd(gnd),
@@ -2388,6 +2390,10 @@ module pcq_regs(
       .dclk(cfg_slat_d2clk),
       .lclk(cfg_slat_lclk)
    );
+   */
+   wire cfg_slat_lclk;
+   assign cfg_slat_lclk = 0;
+   assign cfg_slat_d2clk = 0;
 
    // Config ring thold staging - NOT power managed
    tri_lcbor  lcbor_cfgslp(

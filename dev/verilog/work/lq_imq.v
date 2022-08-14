@@ -42,12 +42,6 @@
 
 `include "tri_a2o.vh"
 
-//   parameter                          EXPAND_TYPE = 2;		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
-//   parameter                          THREADS = 2;		// Number of Threads
-// `define                               IUQ_ENTRIES   4 		// Instruction Fetch Queue Size
-// `define                               MMQ_ENTRIES   2 		// MMU Queue Size
-//   parameter                          REAL_IFAR_WIDTH = 42;		// real addressing bits
-
 module lq_imq(
    iu_lq_request,
    iu_lq_cTag,

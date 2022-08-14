@@ -209,18 +209,6 @@ module lq_derat(
    derat_xu_debug_group3
 );
 
-   // Parameters used from tri_a2o.vh
-
-   //   parameter                         EXPAND_TYPE   = 1;
-   //   parameter                         GPR_WIDTH_ENC = 6;
-   //   parameter                         ITAG_SIZE_ENC = 7;
-   //   parameter                         EMQ_ENTRIES   = 4;
-   //   parameter                         THREADS       = 2;
-
-
-
-
-
    inout                             gnd;
    inout                             vdd;
    inout                             vcs;
@@ -1245,7 +1233,7 @@ module lq_derat(
    wire                               pc_cfg_slp_sl_thold_0_b;
    wire                               pc_cfg_slp_sl_force;
    wire                               lcb_dclk;
-   wire [0:`NCLK_WIDTH-1]             lcb_lclk;
+   //wire [0:`NCLK_WIDTH-1]             lcb_lclk;
    wire                               init_alias;
    // Clock Gating
    wire                               clkg_ctl_override_d;
@@ -10338,18 +10326,22 @@ module lq_derat(
          //------------------------------------------------
          // local clock buffer for boot config
          //------------------------------------------------
-
+/*
          tri_lcbs bcfg_lcb(
             .vd(vdd),
             .gd(gnd),
             .delay_lclkr(lcb_delay_lclkr_dc[0]),
             .clk(clk),
-	.rst(rst),
+	         .rst(rst),
             .force_t(pc_cfg_slp_sl_force),
             .thold_b(pc_cfg_slp_sl_thold_0_b),
             .dclk(lcb_dclk),
             .lclk(lcb_lclk)
          );
+*/
+   wire lcb_lclk;
+   assign lcb_lclk = 0;
+   assign lcb_dclk = 0;
          // these terms in the absence of another lcbor component
          //  that drives the thold_b and force into the bcfg_lcb for slat's
          assign pc_cfg_slp_sl_thold_0_b = (~pc_cfg_slp_sl_thold_0);

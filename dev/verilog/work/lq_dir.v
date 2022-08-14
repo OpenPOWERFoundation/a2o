@@ -207,16 +207,6 @@ module lq_dir(
 //-------------------------------------------------------------------
 // Generics
 //-------------------------------------------------------------------
-//parameter                                                    EXPAND_TYPE = 2;
-//parameter                                                    THREADS = 2;
-//parameter                                                    ITAG_SIZE_ENC = 7;
-//parameter                                                    DC_SIZE = 15;		// 14 => 16K L1D$, 15 => 32K L1D$
-//parameter                                                    CL_SIZE = 6;		// 6 => 64B CLINE, 7 => 128B CLINE
-//parameter                                                    LMQ_ENTRIES = 8;
-//parameter                                                    CR_POOL_ENC = 5;
-//parameter                                                    UCODE_ENTRIES_ENC = 3;
-//parameter                                                    REAL_IFAR_WIDTH = 42;
-//parameter                                                    `GPR_WIDTH_ENC = 6;
 parameter                                                    WAYDATASIZE = 34;		// TagSize + Parity Bits
 parameter                                                    PARBITS = 4;
 

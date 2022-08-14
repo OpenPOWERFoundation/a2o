@@ -99,8 +99,10 @@ module tri_st_mult_core(
    wire             ex5_d1clk;
    wire             ex4_d2clk;
    wire             ex5_d2clk;
-   wire [0:`NCLK_WIDTH-1] ex4_lclk;
-   wire [0:`NCLK_WIDTH-1] ex5_lclk;
+   //wire [0:`NCLK_WIDTH-1] ex4_lclk;
+   //wire [0:`NCLK_WIDTH-1] ex5_lclk;
+   wire             ex4_lclk;
+   wire             ex6_lclk;
 
    wire [198:240]   ex4_pp2_0c_din;
    wire [198:240]   ex4_pp2_0c;
@@ -7271,7 +7273,8 @@ module tri_st_mult_core(
    tri_inv_nlats #(.WIDTH(45), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) ex4_pp2_0s_lat(
       .vd(vdd),		//inout
       .gd(gnd),		//inout
-      .lclk(ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex4_d1clk),
       .d2clk(ex4_d2clk),
       .scanin(ex4_pp2_0s_lat_si),
@@ -7283,7 +7286,8 @@ module tri_st_mult_core(
    tri_inv_nlats #(.WIDTH(43), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) ex4_pp2_0c_lat(
       .vd(vdd),		//inout
       .gd(gnd),		//inout
-      .lclk(ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex4_d1clk),
       .d2clk(ex4_d2clk),
       .scanin(ex4_pp2_0c_lat_si),
@@ -7296,7 +7300,8 @@ module tri_st_mult_core(
    tri_inv_nlats #(.WIDTH(47), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) ex4_pp2_1s_lat(
       .vd(vdd),		//inout
       .gd(gnd),		//inout
-      .lclk(ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex4_d1clk),
       .d2clk(ex4_d2clk),
       .scanin(ex4_pp2_1s_lat_si),
@@ -7309,7 +7314,8 @@ module tri_st_mult_core(
    tri_inv_nlats #(.WIDTH(45), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) ex4_pp2_1c_lat(
       .vd(vdd),		//inout
       .gd(gnd),		//inout
-      .lclk(ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex4_d1clk),
       .d2clk(ex4_d2clk),
       .scanin(ex4_pp2_1c_lat_si),
@@ -7322,7 +7328,8 @@ module tri_st_mult_core(
    tri_inv_nlats #(.WIDTH(45), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) ex4_pp2_2s_lat(
       .vd(vdd),		//inout
       .gd(gnd),		//inout
-      .lclk(ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex4_d1clk),
       .d2clk(ex4_d2clk),
       .scanin(ex4_pp2_2s_lat_si),
@@ -7335,7 +7342,8 @@ module tri_st_mult_core(
    tri_inv_nlats #(.WIDTH(44), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) ex4_pp2_2c_lat(
       .vd(vdd),		//inout
       .gd(gnd),		//inout
-      .lclk(ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex4_d1clk),
       .d2clk(ex4_d2clk),
       .scanin(ex4_pp2_2c_lat_si),
@@ -7348,7 +7356,8 @@ module tri_st_mult_core(
    tri_inv_nlats #(.WIDTH(69), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(0)) ex5_pp5_0s_lat(
       .vd(vdd),		//inout
       .gd(gnd),		//inout
-      .lclk(ex5_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex5_d1clk),
       .d2clk(ex5_d2clk),
       .scanin(ex5_pp5_0s_lat_si),
@@ -7361,7 +7370,8 @@ module tri_st_mult_core(
    tri_inv_nlats #(.WIDTH(68), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(0)) ex5_pp5_0c_lat(
       .vd(vdd),		//inout
       .gd(gnd),		//inout
-      .lclk(ex5_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(ex5_d1clk),
       .d2clk(ex5_d2clk),
       .scanin(ex5_pp5_0c_lat_si),

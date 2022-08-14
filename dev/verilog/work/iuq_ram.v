@@ -28,6 +28,8 @@
 
 `timescale 1 ns / 1 ns
 
+`include "tri_a2o.vh"
+
 // *********************************************************************
 //
 // This is the ENTITY for iuq_ram
@@ -60,9 +62,6 @@ module iuq_ram(
    scan_in,
    scan_out
 );
-`include "tri_a2o.vh"
-//   parameter            `EXPAND_TYPE = 2;
-//   parameter            `THREADS = 2;		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    input [0:31]         pc_iu_ram_instr;
    input [0:3]          pc_iu_ram_instr_ext;
    input                pc_iu_ram_issue;

@@ -115,7 +115,8 @@ output              scan_out;
 
 wire                my_d1clk;
 wire                my_d2clk;
-wire [0:`NCLK_WIDTH-1]  my_lclk;
+//wire [0:`NCLK_WIDTH-1]  my_lclk;
+wire                my_lclk;
 
 wire [0:15]         data_latched_b;
 
@@ -632,7 +633,8 @@ tri_lcbnd  my_lcb(
 tri_inv_nlats #(.WIDTH(1), .INIT(1'b0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(0)) bele_gp0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[bele_gp0_din_offset:bele_gp0_din_offset + 1 - 1]),
@@ -644,7 +646,8 @@ tri_inv_nlats #(.WIDTH(1), .INIT(1'b0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(0)) be_shx04_gp0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[be_shx04_gp0_din_offset:be_shx04_gp0_din_offset + 4 - 1]),
@@ -656,7 +659,8 @@ tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(0)) le_shx04_gp0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[le_shx04_gp0_din_offset:le_shx04_gp0_din_offset + 4 - 1]),
@@ -668,7 +672,8 @@ tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) be_shx01_gp0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[be_shx01_gp0_din_offset:be_shx01_gp0_din_offset + 4 - 1]),
@@ -680,7 +685,8 @@ tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) le_shx01_gp0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[le_shx01_gp0_din_offset:le_shx01_gp0_din_offset + 4 - 1]),
@@ -692,7 +698,8 @@ tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(5), .INIT(5'b0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) mask_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[mask_din_offset:mask_din_offset + 5 - 1]),
@@ -704,7 +711,8 @@ tri_inv_nlats #(.WIDTH(5), .INIT(5'b0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(0)) be_shx04_sgn0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[be_shx04_sgn0_din_offset:be_shx04_sgn0_din_offset + 4 - 1]),
@@ -716,7 +724,8 @@ tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) be_shx01_sgn0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[be_shx01_sgn0_din_offset:be_shx01_sgn0_din_offset + 4 - 1]),
@@ -728,7 +737,8 @@ tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(0)) le_shx04_sgn0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[le_shx04_sgn0_din_offset:le_shx04_sgn0_din_offset + 4 - 1]),
@@ -740,7 +750,8 @@ tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X2_A12TH"), .NEEDS_SRESET(
 tri_inv_nlats #(.WIDTH(4), .INIT(4'h0), .BTR("NLI0001_X1_A12TH"), .NEEDS_SRESET(0)) le_shx01_sgn0_lat(
    .vd(vdd),
    .gd(gnd),
-   .lclk(my_lclk),
+   .clk(clk),
+   .rst(rst),
    .d1clk(my_d1clk),
    .d2clk(my_d2clk),
    .scanin(siv[le_shx01_sgn0_din_offset:le_shx01_sgn0_din_offset + 4 - 1]),

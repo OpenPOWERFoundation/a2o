@@ -14,17 +14,17 @@
 //    necessary for implementation of the Work that are available from OpenPOWER
 //    via the Power ISA End User License Agreement (EULA) are explicitly excluded
 //    hereunder, and may be obtained from OpenPOWER under the terms and conditions
-//    of the EULA.  
+//    of the EULA.
 //
 // Unless required by applicable law or agreed to in writing, the reference design
 // distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
 // for the specific language governing permissions and limitations under the License.
-// 
+//
 // Additional rights, including the ability to physically implement a softcore that
 // is compliant with the required sections of the Power ISA Specification, are
 // available at no cost under the terms of the OpenPOWER Power ISA EULA, which can be
-// obtained (along with the Power ISA) here: https://openpowerfoundation.org. 
+// obtained (along with the Power ISA) here: https://openpowerfoundation.org.
 
 `timescale 1 ns / 1 ns
 
@@ -40,7 +40,8 @@ module tri_err_rpt(
    gd,
    err_d1clk,
    err_d2clk,
-   err_lclk,
+   clk,
+   rst,
    err_scan_in,
    err_scan_out,
    mode_dclk,
@@ -64,14 +65,17 @@ module tri_err_rpt(
    inout                         gd;
    input                         err_d1clk;     // caution1: if lcb uses powersavings, errors must always get reported
    input                         err_d2clk;     // caution2: if use_nlats is used these are also the clocks for the mask latches
-   input [0:`NCLK_WIDTH-1]       err_lclk;      // caution2:   hence these have to be the mode clocks
+   //input [0:`NCLK_WIDTH-1]       err_lclk;      // caution2:   hence these have to be the mode clocks
                                                 // caution2:   and all bits in the "func" chain have to be connected to the mode chain
+   input                         clk;
+   input                         rst;
    // error scan chain (func or mode)
    input [0:WIDTH-1]             err_scan_in;   // NOTE: connected to mode or func ring
    output [0:WIDTH-1]            err_scan_out;
    // clock gateable mode clocks
    input                         mode_dclk;
-   input [0:`NCLK_WIDTH-1]       mode_lclk;
+   //input [0:`NCLK_WIDTH-1]       mode_lclk;
+   input                         mode_lclk;
    // mode scan chain
    input [0:WIDTH-1]             mode_scan_in;
    output [0:WIDTH-1]            mode_scan_out;
@@ -81,8 +85,6 @@ module tri_err_rpt(
 
    output [0:WIDTH-1]            hold_out;		// sticky error hold latch for trap usage
    output [0:WIDTH-1]            mask_out;
-
-   // tri_err_rpt
 
    parameter [0:WIDTH-1]         mask_initv = MASK_RESET_VALUE;
    wire [0:WIDTH-1]              hold_in;
@@ -100,7 +102,8 @@ module tri_err_rpt(
             .gd(gd),
             .d1clk(err_d1clk),
             .d2clk(err_d2clk),
-            .lclk(err_lclk),
+            .clk(clk),
+            .rst(rst),
             .scan_in(err_scan_in[0:WIDTH - 1]),
             .scan_out(err_scan_out[0:WIDTH - 1]),
             .din(hold_in),
@@ -111,12 +114,9 @@ module tri_err_rpt(
    generate
    begin
       // mask
-     if (SHARE_MASK == 1'b0)
-     begin : m
+     if (SHARE_MASK == 1'b0) begin
        assign mask_lt = mask_initv;
-     end
-     if (SHARE_MASK == 1'b1)
-     begin : sm
+     end else begin
        assign mask_lt = {WIDTH{MASK_RESET_VALUE[0]}};
      end
 
@@ -126,13 +126,9 @@ module tri_err_rpt(
      assign hold_out = hold_lt;
      assign mask_out = mask_lt;
 
-     if (INLINE == 1'b1)
-     begin : inline_hold
+     if (INLINE == 1'b1) begin
        assign err_out = hold_lt & (~mask_lt);
-     end
-
-     if (INLINE == 1'b0)
-     begin : side_hold
+     end else begin
        assign err_out = err_in & (~mask_lt);
      end
 

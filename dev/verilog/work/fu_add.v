@@ -206,7 +206,8 @@ module fu_add(
    wire           ex4_flag_eq_cp1;
    wire           add_ex5_d1clk;
    wire           add_ex5_d2clk;
-   wire [0:`NCLK_WIDTH-1]           add_ex5_lclk;
+   //wire [0:`NCLK_WIDTH-1]           add_ex5_lclk;
+   wire           add_ex5_lclk;
 
    wire [53:162]  ex4_s_p0n;
    wire [53:162]  ex4_res_p0n_b;
@@ -624,7 +625,8 @@ module fu_add(
    tri_inv_nlats #(.WIDTH(53),   .NEEDS_SRESET(0)) ex5_res_hi_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(add_ex5_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(add_ex5_d1clk),
       .d2clk(add_ex5_d2clk),
       .scanin(ex5_res_si[0:52]),
@@ -637,7 +639,8 @@ module fu_add(
    tri_inv_nlats #(.WIDTH(110),  .NEEDS_SRESET(0)) ex5_res_lo_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(add_ex5_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(add_ex5_d1clk),
       .d2clk(add_ex5_d2clk),
       .scanin(ex5_res_si[53:162]),
@@ -654,7 +657,8 @@ module fu_add(
    tri_inv_nlats #(.WIDTH(10),  .NEEDS_SRESET(0)) ex5_cmp_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(add_ex5_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(add_ex5_d1clk),
       .d2clk(add_ex5_d2clk),
       .scanin(ex5_cmp_si),

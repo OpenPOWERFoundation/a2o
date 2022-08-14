@@ -202,8 +202,10 @@ module fu_tbllut(
    wire          tbl_ex4_d2clk;
    wire          tbl_ex5_d1clk;
    wire          tbl_ex5_d2clk;
-   wire [0:`NCLK_WIDTH-1]          tbl_ex4_lclk;
-   wire [0:`NCLK_WIDTH-1]          tbl_ex5_lclk;
+   //wire [0:`NCLK_WIDTH-1]          tbl_ex4_lclk;
+   //wire [0:`NCLK_WIDTH-1]          tbl_ex5_lclk;
+   wire          tbl_ex4_lclk;
+   wire          tbl_ex5_lclk;
    wire          unused;
    wire [0:36]   ex5_tbl_sum_b;
    wire [0:35]   ex5_tbl_car_b;
@@ -312,7 +314,8 @@ module fu_tbllut(
    tri_inv_nlats #(.WIDTH(20),   .NEEDS_SRESET(0)) ex4_lut_e_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(tbl_ex4_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(tbl_ex4_d1clk),
       .d2clk(tbl_ex4_d2clk),
       .scanin(ex4_lut_e_si),
@@ -325,7 +328,8 @@ module fu_tbllut(
    tri_inv_nlats #(.WIDTH(15),  .NEEDS_SRESET(0)) ex4_lut_r_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(tbl_ex4_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(tbl_ex4_d1clk),
       .d2clk(tbl_ex4_d2clk),
       .scanin(ex4_lut_r_si),
@@ -338,7 +342,8 @@ module fu_tbllut(
    tri_inv_nlats #(.WIDTH(16),   .NEEDS_SRESET(0)) ex4_lut_b_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(tbl_ex4_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(tbl_ex4_d1clk),
       .d2clk(tbl_ex4_d2clk),
       .scanin(ex4_lut_b_si),
@@ -374,7 +379,8 @@ module fu_tbllut(
    tri_inv_nlats #(.WIDTH(80),   .NEEDS_SRESET(0)) ex5_lut_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(tbl_ex5_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(tbl_ex5_d1clk),
       .d2clk(tbl_ex5_d2clk),
       .scanin(ex5_lut_si),

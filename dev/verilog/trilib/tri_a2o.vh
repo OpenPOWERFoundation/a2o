@@ -165,6 +165,9 @@
 `define INIT_CPCR1                  32'h000C0C00     // 0000 0000 000a aaaa 000b bbbb 0000 0000   credits: a=fx0 b=fx1 c=ls d=sq ---- um p.544 wrong!; was this in vlog: hex 000C0C00 = 789504
 //`define INIT_CPCR1                  32'h00010100      // 1/1
 
+// table walks?
+`define MM_THREADS2
+
 // IERAT boot config entry values
 `define  IERAT_BCFG_EPN_0TO15      0
 `define  IERAT_BCFG_EPN_16TO31     0

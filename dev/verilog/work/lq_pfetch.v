@@ -35,18 +35,6 @@
 
 `include "tri_a2o.vh"
 
-//   parameter                                 EXPAND_TYPE = 2;
-//   parameter                                 GPR_WIDTH_ENC = 6;		// 5 = 32bit mode, 6 = 64bit mode
-//   parameter                                 CL_SIZE = 6;		// 6 => 64B CLINE, 7 => 128B CLINE
-//   parameter                                 THREADS = 2;		// Number of Threads in the system
-//   parameter                                 REAL_IFAR_WIDTH = 42;		// width of the read address
-//   parameter                                 ITAG_SIZE_ENC = 7;
-//   parameter                                 LDSTQ_ENTRIES = 16;		// Order Queue Size
-//   `define                                 PF_IFAR_WIDTH  12 		// number of IAR bits used by prefetch
-//   `define                                 PFETCH_INITIAL_DEPTH  0		// the initial value for the SPR that determines how many lines to prefetch
-//   `define                                 PFETCH_Q_SIZE_ENC  3		// number of bits to address queue size (3 => 8 entries, 4 => 16 entries)
-//   `define                                 PFETCH_Q_SIZE  8		// number of entries in prefetch queue
-
 module lq_pfetch(
    rv_lq_rv1_i0_vld,
    rv_lq_rv1_i0_rte_lq,

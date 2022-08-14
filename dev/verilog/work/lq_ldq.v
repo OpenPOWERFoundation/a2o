@@ -277,22 +277,6 @@ module lq_ldq(
    repr_scan_out
 );
 
-//-------------------------------------------------------------------
-// Generics
-//-------------------------------------------------------------------
-//parameter                                               EXPAND_TYPE = 2;		   // 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
-//parameter                                               `THREADS = 2;		      // Number of `THREADS in the System
-//parameter                                               `GPR_WIDTH_ENC = 6;		// Register Mode 5 = 32bit, 6 = 64bit
-//parameter                                               `GPR_POOL_ENC = 6;
-//parameter                                               `AXU_SPARE_ENC = 3;
-//parameter                                               `THREADS_POOL_ENC = 1;
-//parameter                                               `LMQ_ENTRIES = 8;		// Load/Store Queue Size
-//parameter                                               `LGQ_ENTRIES = 8;		// Load Gather Queue Size
-//parameter                                               `ITAG_SIZE_ENC = 7;		// ITAG size
-//parameter                                               `DC_SIZE = 15;		   // 14 => 16K L1D$, 15 => 32K L1D$
-//parameter                                               `CL_SIZE = 6;		      // 6 => 64B CLINE, 7 => 128B CLINE
-//parameter                                               `REAL_IFAR_WIDTH = 42;	// real addressing bits
-
 // RV1 RV Issue Valid
 input [0:`THREADS-1]                                        rv_lq_vld;
 input                                                       rv_lq_isLoad;

@@ -404,31 +404,7 @@ module lq_lsq(
    repr_scan_out,
    func_scan_out
 );
-//   parameter                                                   EXPAND_TYPE = 2;		// 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
-//   parameter                                                   GPR_WIDTH_ENC = 6;		// Register Mode 5 = 32bit, 6 = 64bit
-//   parameter                                                   LDSTQ_ENTRIES = 16;		// Order Queue Size
-//   parameter                                                   LDSTQ_ENTRIES_ENC = 4;		// Order Queue Size Encoded
-//   parameter                                                   LMQ_ENTRIES = 8;		// Loadmiss Queue Size
-//   parameter                                                   LMQ_ENTRIES_ENC = 3;		// Loadmiss Queue Size Encoded
-//   parameter                                                   LGQ_ENTRIES = 8;		// Load Gather Queue Size
-//   parameter                                                   STQ_ENTRIES = 12;		// Store Queue Size
-//   parameter                                                   STQ_ENTRIES_ENC = 4;		// Store Queue Size Encoded
-//   parameter                                                   STQ_FWD_ENTRIES = 4;		// number of stq entries that can be forwarded from
-//   parameter                                                   STQ_DATA_SIZE = 64;		// 64 or 128 Bit store data sizes supported
-//   parameter                                                   IUQ_ENTRIES = 4;		// Instruction Fetch Queue Size
-//   parameter                                                   MMQ_ENTRIES = 1;		// Memory Management Queue Size
-//   parameter                                                   ITAG_SIZE_ENC = 7;		// ITAG size
-//   parameter                                                   CR_POOL_ENC = 5;		// Encode of CR rename pool size
-//   parameter                                                   GPR_POOL_ENC = 6;
-//   parameter                                                   AXU_SPARE_ENC = 3;
-//   parameter                                                   THREADS_POOL_ENC = 1;
-//   parameter                                                   DC_SIZE = 15;		// 14 => 16K L1D$, 15 => 32K L1D
-//   parameter                                                   CL_SIZE = 6;		// 6 => 64B CLINE, 7 => 128B CLINE
-//   parameter                                                   LOAD_CREDITS = 8;
-//   parameter                                                   STORE_CREDITS = 32;
-//   parameter                                                   THREADS = 2;		// Number of Threads in the System
-//   parameter                                                   CR_WIDTH = 4;
-//   parameter                                                   REAL_IFAR_WIDTH = 42;		// real addressing bits
+
    parameter                                                   WAYDATASIZE = 34;		// TagSize + Parity Bits
 
    //   IU interface to RV for instruction insertion
@@ -1228,16 +1204,16 @@ module lq_lsq(
    wire                                                        slat_force;
    wire                                                        abst_slat_thold_b;
    wire                                                        abst_slat_d2clk;
-   wire  [0:`NCLK_WIDTH-1]                                     abst_slat_lclk;
+   //wire  [0:`NCLK_WIDTH-1]                                     abst_slat_lclk;
    wire                                                        time_slat_thold_b;
    wire                                                        time_slat_d2clk;
-   wire  [0:`NCLK_WIDTH-1]                                     time_slat_lclk;
+   //wire  [0:`NCLK_WIDTH-1]                                     time_slat_lclk;
    wire                                                        repr_slat_thold_b;
    wire                                                        repr_slat_d2clk;
-   wire  [0:`NCLK_WIDTH-1]                                     repr_slat_lclk;
+   //wire  [0:`NCLK_WIDTH-1]                                     repr_slat_lclk;
    wire                                                        func_slat_thold_b;
    wire                                                        func_slat_d2clk;
-   wire  [0:`NCLK_WIDTH-1]                                     func_slat_lclk;
+   //wire  [0:`NCLK_WIDTH-1]                                     func_slat_lclk;
 
    wire [0:3]                                                   abst_scan_q;
    wire [0:3]                                                   abst_scan_q_b;
@@ -3661,7 +3637,7 @@ module lq_lsq(
    assign repr_slat_thold_b = (~repr_sl_thold_0);
    assign func_slat_thold_b = (~func_sl_thold_0);
 
-
+/*
    tri_lcbs  perv_lcbs_abst(
       .vd(vdd),
       .gd(gnd),
@@ -3673,7 +3649,10 @@ module lq_lsq(
       .dclk(abst_slat_d2clk),
       .lclk(abst_slat_lclk)
    );
-
+*/
+   wire abst_slat_lclk;
+   assign abst_slat_lclk = 0;
+   assign abst_slat_d2clk = 0;
 
    tri_slat_scan #(.WIDTH(4), .INIT(4'b0000)) perv_abst_stg(
       .vd(vdd),
@@ -3692,7 +3671,7 @@ module lq_lsq(
       .q_b(abst_scan_q_b)
    );
 
-
+/*
    tri_lcbs  perv_lcbs_time(
       .vd(vdd),
       .gd(gnd),
@@ -3704,7 +3683,10 @@ module lq_lsq(
       .dclk(time_slat_d2clk),
       .lclk(time_slat_lclk)
    );
-
+*/
+   wire time_slat_lclk;
+   assign time_slat_lclk = 0;
+   assign time_slat_d2clk = 0;
 
    tri_slat_scan #(.WIDTH(3), .INIT(3'b000)) perv_time_stg(
       .vd(vdd),
@@ -3721,7 +3703,7 @@ module lq_lsq(
       .q_b(time_scan_q_b)
    );
 
-
+/*
    tri_lcbs  perv_lcbs_repr(
       .vd(vdd),
       .gd(gnd),
@@ -3733,7 +3715,10 @@ module lq_lsq(
       .dclk(repr_slat_d2clk),
       .lclk(repr_slat_lclk)
    );
-
+*/
+   wire repr_slat_lclk;
+   assign repr_slat_lclk = 0;
+   assign repr_slat_d2clk = 0;
 
    tri_slat_scan #(.WIDTH(3), .INIT(3'b000)) perv_repr_stg(
       .vd(vdd),
@@ -3750,7 +3735,7 @@ module lq_lsq(
       .q_b(repr_scan_q_b)
    );
 
-
+   /*
    tri_lcbs  perv_lcbs_func(
       .vd(vdd),
       .gd(gnd),
@@ -3762,7 +3747,10 @@ module lq_lsq(
       .dclk(func_slat_d2clk),
       .lclk(func_slat_lclk)
    );
-
+   */
+   wire func_slat_lclk;
+   assign func_slat_lclk = 0;
+   assign func_slat_d2clk = 0;
 
    tri_slat_scan #(.WIDTH(14), .INIT(14'b00000000000000)) perv_func_stg(
       .vd(vdd),

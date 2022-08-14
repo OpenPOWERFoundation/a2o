@@ -120,7 +120,8 @@ module fu_sa3(
    wire [53:161]   ex4_car_add_b;
    wire            sa3_ex4_d2clk;
    wire            sa3_ex4_d1clk;
-   wire [0:`NCLK_WIDTH-1]            sa3_ex4_lclk;
+   //wire [0:`NCLK_WIDTH-1]            sa3_ex4_lclk;
+   wire            sa3_ex4_lclk;
 
 
    wire [0:52]     ex3_alg_b;
@@ -1258,7 +1259,8 @@ module fu_sa3(
    tri_inv_nlats #(.WIDTH(53),  .NEEDS_SRESET(0)) ex4_000_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(sa3_ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(sa3_ex4_d1clk),
       .d2clk(sa3_ex4_d2clk),
       .scanin(ex4_000_si),
@@ -1270,7 +1272,8 @@ module fu_sa3(
    tri_inv_nlats #(.WIDTH(110),  .NEEDS_SRESET(0)) ex4_053_sum_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(sa3_ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(sa3_ex4_d1clk),
       .d2clk(sa3_ex4_d2clk),
       .scanin(ex4_053_sum_si),
@@ -1282,7 +1285,8 @@ module fu_sa3(
    tri_inv_nlats #(.WIDTH(109),  .NEEDS_SRESET(0)) ex4_053_car_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(sa3_ex4_lclk),		//lclk.clk
+      .clk(clk),		//lclk.clk
+      .rst(rst),
       .d1clk(sa3_ex4_d1clk),
       .d2clk(sa3_ex4_d2clk),
       .scanin(ex4_053_car_si),

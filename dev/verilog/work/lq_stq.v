@@ -42,23 +42,6 @@
 
 `include "tri_a2o.vh"
 
-  // `define                                                   `EXPAND_TYPE   2;
-  // `define                                                   `GPR_WIDTH_ENC   6;		// Register Mode 5   32bit, 6   64bit
-  // `define                                                   `STQ_ENTRIES   12;		// Store Queue Size
-  // `define                                                   STQ_FWD_ENTRIES   4;		// number of stq entries that can be forwarded from
-  // `define                                                   `STQ_ENTRIES_ENC   4;		// Store Queue Encoded Size
-  // `define                                                   STQ_DATA_SIZE   64;		// 64 or 128 Bit store data sizes supported
-  // `define                                                   `ITAG_SIZE_ENC   7;		// ITAG size
-  // `define                                                   `CR_POOL_ENC   5;		// Encode of CR rename pool size
-  // `define                                                   `GPR_POOL_ENC   6;
-  // `define                                                   AXU_SPARE_ENC   3;
-  // `define                                                   THREADS_POOL_ENC   1;
-  // `define                                                   DC_SIZE   15;		// 14  > 16K L1D$, 15  > 32K L1D$
-  // `define                                                   CL_SIZE   6;		// 6  > 64B CLINE, 7  > 128B CLINE
-  // `define                                                   REAL_IFAR_WIDTH   42;		// real addressing bits
-  // `define                                                   `THREADS   2;
-  // `define                                                   LMQ_ENTRIES   8;
-
 module lq_stq(
    rv_lq_rv1_i0_vld,
    rv_lq_rv1_i0_ucode_preissue,

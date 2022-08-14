@@ -697,11 +697,10 @@ module iuq_spr(
 
    //init 0x000000F9
    tri_rlmreg_p #(.WIDTH(16), .INIT(`INIT_IUCR0)) iucr0_reg(
-      //  generic map (width => iucr0_l2'length, init => 249, `EXPAND_TYPE => `EXPAND_TYPE)
       .vd(vdd),
       .gd(gnd),
       .clk(clk),
-	.rst(rst),
+   	.rst(rst),
       .act(iucr0_wren),
       .thold_b(pc_iu_func_sl_thold_0_b),
       .sg(pc_iu_sg_0),

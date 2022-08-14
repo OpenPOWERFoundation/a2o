@@ -38,7 +38,8 @@
 module tri_inv_nlats(
    vd,
    gd,
-   lclk,
+   clk,
+   rst,
    d1clk,
    d2clk,
    scanin,
@@ -58,7 +59,8 @@ module tri_inv_nlats(
 
    inout                          vd;
    inout                          gd;
-   input [0:`NCLK_WIDTH-1]        lclk;
+   input                          clk;
+   input                          rst;
    input                          d1clk;
    input                          d2clk;
    input [OFFSET:OFFSET+WIDTH-1]  scanin;
@@ -86,12 +88,9 @@ module tri_inv_nlats(
        (* analysis_not_referenced="true" *)
       wire                          unused;
 
-      if (NEEDS_SRESET == 1)
-      begin : rst
-        assign sreset = lclk[1];
-      end
-      if (NEEDS_SRESET != 1)
-      begin : no_rst
+      if (NEEDS_SRESET == 1) begin
+        assign sreset = rst;
+      end else begin
         assign sreset = 1'b0;
       end
 
@@ -106,7 +105,7 @@ module tri_inv_nlats(
       assign vthold_b = {WIDTH{d2clk}};
       assign vthold = {WIDTH{~d2clk}};
 
-      always @(posedge lclk[0]) begin: l
+      always @(posedge clk) begin: l
         //int_dout <= (((vact & vthold_b) | vsreset) & int_din) | (((vact_b | vthold) & vsreset_b) & int_dout);
         if (sreset)
           int_dout <= int_din;
@@ -117,7 +116,7 @@ module tri_inv_nlats(
       assign qb = (~int_dout);
       assign scanout = ZEROS;
 
-      assign unused = | {vd, gd, lclk, scanin};
+      assign unused = | {vd, gd, scanin};
    end
    endgenerate
 endmodule

@@ -189,7 +189,8 @@ module tri_st_rot(
    localparam            scan_right = dummy_offset + 1;
    wire [0:scan_right-1] siv;
    wire [0:scan_right-1] sov;
-   wire [0:`NCLK_WIDTH-1] rot_lclk_int;
+   //wire [0:`NCLK_WIDTH-1] rot_lclk_int;
+   wire                  rot_lclk_int;
    wire                  rot_d1clk_int;
    wire                  rot_d2clk_int;
    wire                  ex2_zm;
@@ -1082,7 +1083,8 @@ module tri_st_rot(
    tri_inv_nlats #(.WIDTH(64), .BTR("NLI0001_X1_A12TH"), .INIT(0)) rot_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(rot_lclk_int),
+      .clk(clk),
+      .rst(rst),
       .d1clk(rot_d1clk_int),
       .d2clk(rot_d2clk_int),
       .scanin(siv[ex3_rotate_b_offset:ex3_rotate_b_offset + 64 - 1]),
@@ -1094,7 +1096,8 @@ module tri_st_rot(
    tri_inv_nlats #(.WIDTH(64), .BTR("NLI0001_X2_A12TH"), .INIT(0)) res_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(rot_lclk_int),
+      .clk(clk),
+      .rst(rst),
       .d1clk(rot_d1clk_int),
       .d2clk(rot_d2clk_int),
       .scanin(siv[ex3_result_b_offset:ex3_result_b_offset + 64 - 1]),
@@ -1106,7 +1109,8 @@ module tri_st_rot(
    tri_inv_nlats #(.WIDTH(64), .BTR("NLI0001_X1_A12TH"), .INIT(0)) msk_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(rot_lclk_int),
+      .clk(clk),
+      .rst(rst),
       .d1clk(rot_d1clk_int),
       .d2clk(rot_d2clk_int),
       .scanin(siv[ex3_mask_b_offset:ex3_mask_b_offset + 64 - 1]),

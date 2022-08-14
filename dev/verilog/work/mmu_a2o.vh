@@ -36,10 +36,11 @@
 `ifndef _mmu_a2o_vh_
 `define _mmu_a2o_vh_
 
-// why not use main setting?
+// there are some expand_type generates within mmq!
 `ifndef EXPAND_TYPE
 `define EXPAND_TYPE  1       // 0 = ibm (Umbra), 1 = non-ibm, 2 = ibm (MPG)
 `endif
+
 
 `ifndef EXPAND_TLB_TYPE
 `define EXPAND_TLB_TYPE 2    // 0 = erat-only, 1 = tlb logic, 2 = tlb array
@@ -59,7 +60,10 @@
 `define WAIT_UPDATES
 
 // Use this line for 2 mmu h/w thread.  Comment out for 1 thread design.
+//wtf why not use THREADS1 everywhere??? i guess to allow 2 walks even with one thread? (I+D)
+`ifndef MM_THREADS2
 `define MM_THREADS2
+`endif
 
 // set this variable for internal thread-wise generates
 `ifdef MM_THREADS2

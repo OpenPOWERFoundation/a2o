@@ -227,7 +227,8 @@ wire [0:(port_bitwidth*ways)-1]            data_out_b_q;
 
 wire [0:ways-1]                            my_d1clk;
 wire [0:ways-1]                            my_d2clk;
-wire [0:`NCLK_WIDTH-1]                     my_lclk[0:ways-1];
+//wire [0:`NCLK_WIDTH-1]                     my_lclk[0:ways-1];
+wire                                       my_lclk[0:ways-1];
 wire                                       tiup;
 wire [0:scan_right]                        siv;
 wire [0:scan_right]                        sov;
@@ -491,7 +492,8 @@ generate
     tri_inv_nlats #(.WIDTH(port_bitwidth), .INIT(0), .BTR("NLI0001_X4_A12TH"), .NEEDS_SRESET(0)) data_out_reg(
        .vd(vdd),
        .gd(gnd),
-       .lclk(my_lclk[way]),
+       .clk(clk),
+       .rst(rst),
        .d1clk(my_d1clk[way]),
        .d2clk(my_d2clk[way]),
        .scanin(siv[data_out_offset + (port_bitwidth*way):data_out_offset + (port_bitwidth*(way+1)) - 1]),

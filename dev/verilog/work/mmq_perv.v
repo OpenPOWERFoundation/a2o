@@ -275,28 +275,28 @@ module mmq_perv(
       wire [0:1]   slat_force;
       wire         abst_slat_thold_b;
       wire         abst_slat_d2clk;
-      wire [0:`NCLK_WIDTH-1]         abst_slat_lclk;
+      //wire [0:`NCLK_WIDTH-1]         abst_slat_lclk;
       wire         time_slat_thold_b;
       wire         time_slat_d2clk;
-      wire [0:`NCLK_WIDTH-1]         time_slat_lclk;
+      //wire [0:`NCLK_WIDTH-1]         time_slat_lclk;
       wire         repr_slat_thold_b;
       wire         repr_slat_d2clk;
-      wire [0:`NCLK_WIDTH-1]         repr_slat_lclk;
+      //wire [0:`NCLK_WIDTH-1]         repr_slat_lclk;
       wire         gptr_slat_thold_b;
       wire         gptr_slat_d2clk;
-      wire [0:`NCLK_WIDTH-1]         gptr_slat_lclk;
+      //wire [0:`NCLK_WIDTH-1]         gptr_slat_lclk;
       wire         bcfg_slat_thold_b;
       wire         bcfg_slat_d2clk;
-      wire [0:`NCLK_WIDTH-1]         bcfg_slat_lclk;
+      //wire [0:`NCLK_WIDTH-1]         bcfg_slat_lclk;
       wire         ccfg_slat_thold_b;
       wire         ccfg_slat_d2clk;
-      wire [0:`NCLK_WIDTH-1]         ccfg_slat_lclk;
+      //wire [0:`NCLK_WIDTH-1]         ccfg_slat_lclk;
       wire         dcfg_slat_thold_b;
       wire         dcfg_slat_d2clk;
-      wire [0:`NCLK_WIDTH-1]         dcfg_slat_lclk;
+      //wire [0:`NCLK_WIDTH-1]         dcfg_slat_lclk;
       wire         func_slat_thold_b;
       wire         func_slat_d2clk;
-      wire [0:`NCLK_WIDTH-1]         func_slat_lclk;
+      //wire [0:`NCLK_WIDTH-1]         func_slat_lclk;
 
       wire         pc_abst_sl_thold_0_b;
       wire         pc_abst_sl_force;
@@ -570,7 +570,7 @@ module mmq_perv(
       assign dcfg_slat_thold_b = (~pc_cfg_sl_thold_0_int);
       assign func_slat_thold_b = (~pc_func_sl_thold_0_int[0]);
 
-
+      /*
       tri_lcbs  perv_lcbs_abst(
          .vd(vdd),
          .gd(gnd),
@@ -582,7 +582,10 @@ module mmq_perv(
          .dclk(abst_slat_d2clk),
          .lclk(abst_slat_lclk)
       );
-
+      */
+      wire abst_slat_lclk;
+      assign abst_slat_lclk = 0;
+      assign abst_slat_d2clk = 0;
 
       tri_slat_scan #(.WIDTH(4), .INIT(4'b0000)) perv_abst_stg(
          .vd(vdd),
@@ -595,7 +598,7 @@ module mmq_perv(
          .q_b( perv_abst_stg_q_b)
       );
 
-
+      /*
       tri_lcbs perv_lcbs_time(
          .vd(vdd),
          .gd(gnd),
@@ -607,7 +610,10 @@ module mmq_perv(
          .dclk(time_slat_d2clk),
          .lclk(time_slat_lclk)
       );
-
+      */
+      wire time_slat_lclk;
+      assign time_slat_lclk = 0;
+      assign time_slat_d2clk = 0;
 
       tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_time_stg(
          .vd(vdd),
@@ -620,7 +626,7 @@ module mmq_perv(
          .q_b( perv_time_stg_q_b)
       );
 
-
+      /*
       tri_lcbs perv_lcbs_repr(
          .vd(vdd),
          .gd(gnd),
@@ -632,7 +638,10 @@ module mmq_perv(
          .dclk(repr_slat_d2clk),
          .lclk(repr_slat_lclk)
       );
-
+      */
+      wire repr_slat_lclk;
+      assign repr_slat_lclk = 0;
+      assign repr_slat_d2clk = 0;
 
       tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_repr_stg(
          .vd(vdd),
@@ -645,8 +654,8 @@ module mmq_perv(
          .q_b( perv_repr_stg_q_b)
       );
 
-
-      tri_lcbs perv_lcbs_gptr(
+     /*
+     tri_lcbs perv_lcbs_gptr(
          .vd(vdd),
          .gd(gnd),
          .delay_lclkr(tiup),
@@ -657,7 +666,10 @@ module mmq_perv(
          .dclk(gptr_slat_d2clk),
          .lclk(gptr_slat_lclk)
       );
-
+      */
+      wire gptr_slat_lclk;
+      assign gptr_slat_lclk = 0;
+      assign gptr_slat_d2clk = 0;
 
       tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_gptr_stg(
          .vd(vdd),
@@ -670,7 +682,7 @@ module mmq_perv(
          .q_b( perv_gptr_stg_q_b)
       );
 
-
+      /*
       tri_lcbs perv_lcbs_bcfg(
          .vd(vdd),
          .gd(gnd),
@@ -682,7 +694,10 @@ module mmq_perv(
          .dclk(bcfg_slat_d2clk),
          .lclk(bcfg_slat_lclk)
       );
-
+      */
+      wire bcfg_slat_lclk;
+      assign bcfg_slat_lclk = 0;
+      assign bcfg_slat_d2clk = 0;
 
       tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_bcfg_stg(
          .vd(vdd),
@@ -695,7 +710,7 @@ module mmq_perv(
          .q_b( perv_bcfg_stg_q_b)
       );
 
-
+      /*
       tri_lcbs perv_lcbs_ccfg(
          .vd(vdd),
          .gd(gnd),
@@ -707,7 +722,10 @@ module mmq_perv(
          .dclk(ccfg_slat_d2clk),
          .lclk(ccfg_slat_lclk)
       );
-
+      */
+      wire ccfg_slat_lclk;
+      assign ccfg_slat_lclk = 0;
+      assign ccfg_slat_d2clk = 0;
 
       tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_ccfg_stg(
          .vd(vdd),
@@ -720,7 +738,7 @@ module mmq_perv(
          .q_b( perv_ccfg_stg_q_b)
       );
 
-
+      /*
       tri_lcbs perv_lcbs_dcfg(
          .vd(vdd),
          .gd(gnd),
@@ -732,7 +750,10 @@ module mmq_perv(
          .dclk(dcfg_slat_d2clk),
          .lclk(dcfg_slat_lclk)
       );
-
+      */
+      wire dcfg_slat_lclk;
+      assign dcfg_slat_lclk = 0;
+      assign dcfg_slat_d2clk = 0;
 
       tri_slat_scan #(.WIDTH(2), .INIT(2'b00)) perv_dcfg_stg(
          .vd(vdd),
@@ -745,7 +766,7 @@ module mmq_perv(
          .q_b( perv_dcfg_stg_q_b)
       );
 
-
+      /*
       tri_lcbs perv_lcbs_func(
          .vd(vdd),
          .gd(gnd),
@@ -757,7 +778,10 @@ module mmq_perv(
          .dclk(func_slat_d2clk),
          .lclk(func_slat_lclk)
       );
-
+      */
+      wire func_slat_lclk;
+      assign func_slat_lclk = 0;
+      assign func_slat_d2clk = 0;
 
       tri_slat_scan #(.WIDTH(20), .INIT(20'b00000000000000000000)) perv_func_stg(
          .vd(vdd),

@@ -160,8 +160,10 @@ module fu_lza(
    wire           lza_ex5_d2clk;
    wire           lza_ex4_d1clk;
    wire           lza_ex4_d2clk;
-   wire  [0:`NCLK_WIDTH-1]           lza_ex5_lclk;
-   wire  [0:`NCLK_WIDTH-1]           lza_ex4_lclk;
+   //wire  [0:`NCLK_WIDTH-1]           lza_ex5_lclk;
+   //wire  [0:`NCLK_WIDTH-1]           lza_ex4_lclk;
+   wire           lza_ex4_lclk;
+   wire           lza_ex5_lclk;
 
    //=###############################################################
    //= map block attributes
@@ -285,7 +287,8 @@ module fu_lza(
    tri_inv_nlats #(.WIDTH(163),  .NEEDS_SRESET(0)) ex4_lzo_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(lza_ex4_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(lza_ex4_d1clk),
       .d2clk(lza_ex4_d2clk),
       .scanin(ex4_lzo_si),
@@ -304,7 +307,8 @@ module fu_lza(
    tri_inv_nlats #(.WIDTH(1),  .NEEDS_SRESET(0)) ex4_sub_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(lza_ex4_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(lza_ex4_d1clk),
       .d2clk(lza_ex4_d2clk),
       .scanin(ex4_sub_si[0]),
@@ -370,7 +374,8 @@ module fu_lza(
    tri_inv_nlats #(.WIDTH(9),   .NEEDS_SRESET(0)) ex5_dcd_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(lza_ex5_lclk),		// lclk.clk
+      .clk(clk),		// lclk.clk
+      .rst(rst),
       .d1clk(lza_ex5_d1clk),
       .d2clk(lza_ex5_d2clk),
       .scanin(ex5_dcd_si[0:8]),
@@ -400,7 +405,8 @@ module fu_lza(
    tri_nand2_nlats #(.WIDTH(16),   .NEEDS_SRESET(0)) ex5_amt_lat(
       .vd(vdd),
       .gd(gnd),
-      .lclk(lza_ex5_lclk),		//in   --lclk.clk
+      .clk(clk),		//in   --lclk.clk
+      .rst(rst),
       .d1clk(lza_ex5_d1clk),		//in
       .d2clk(lza_ex5_d2clk),		//in
       .scanin(ex5_amt_si[0:15]),

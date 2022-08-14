@@ -121,10 +121,6 @@ module lq_dir_tag(
 //-------------------------------------------------------------------
 // Generics
 //-------------------------------------------------------------------
-//parameter                                                      EXPAND_TYPE = 2;
-//parameter                                                      `DC_SIZE = 15;
-//parameter                                                      `CL_SIZE = 6;
-//parameter                                                      `REAL_IFAR_WIDTH = 42;
 parameter                                                      WAYDATASIZE = 34;		// TagSize + Parity Bits
 parameter                                                      PARBITS = 4;
 

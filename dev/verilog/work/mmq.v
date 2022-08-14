@@ -1851,7 +1851,6 @@ mmq_spr #(.BCFG_MMUCR1_VALUE(BCFG_MMUCR1_VALUE), .BCFG_MMUCR2_VALUE(BCFG_MMUCR2_
 // Debug Trace component instantiation
 //---------------------------------------------------------------------
 
-//work.mmq_dbg #(.`THREADS(`THREADS), .`THDID_WIDTH(`THDID_WIDTH), .`TLB_TAG_WIDTH(`TLB_TAG_WIDTH), .`EXPAND_TYPE(`EXPAND_TYPE)) mmq_dbg(
 mmq_dbg  mmq_dbg(
    .vdd(vdd),
    .gnd(gnd),
@@ -2225,7 +2224,6 @@ mmq_dbg  mmq_dbg(
 // Performance Event component instantiation
 //---------------------------------------------------------------------
 
-//work.mmq_perf #(.`THREADS(`THREADS), .`THDID_WIDTH(`THDID_WIDTH), .`EXPAND_TYPE(`EXPAND_TYPE)) mmq_perf(
 mmq_perf  mmq_perf(
    .vdd(vdd),
    .gnd(gnd),
@@ -2341,7 +2339,6 @@ mmq_perf  mmq_perf(
 // Pervasive and LCB Control Component Instantiation
 //---------------------------------------------------------------------
 
-//work.mmq_perv #(.`EXPAND_TYPE(`EXPAND_TYPE)) mmq_perv(
 mmq_perv  mmq_perv(
    .vdd(vdd),
    .gnd(gnd),
@@ -2694,7 +2691,6 @@ assign mm_xu_ord_write_done = mm_xu_ord_write_done_sig[0:`THREADS - 1];
    //---------------------------------------------------------------------
    // TLB Request Queue Component Instantiation
    //---------------------------------------------------------------------
-         //work.mmq_tlb_req #(.`THREADS(`THREADS), .`THDID_WIDTH(`THDID_WIDTH), .`PID_WIDTH(`PID_WIDTH), .`PID_WIDTH_erat(`PID_WIDTH_erat), .`LPID_WIDTH(`LPID_WIDTH), .`EPN_WIDTH(`EPN_WIDTH), .`RS_DATA_WIDTH(`RS_DATA_WIDTH), .`EXPAND_TYPE(`EXPAND_TYPE)) mmq_tlb_req(
          mmq_tlb_req  mmq_tlb_req(
             .vdd(vdd),
             .gnd(gnd),
