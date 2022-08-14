@@ -3,7 +3,7 @@
 # make -f Makefile.icarus run    # sim and fst
 # make -f Makefile.icarus        # sim
 
-SIM_BUILD ?= build_smt2
+SIM_BUILD ?= build_smt
 SIM ?= icarus
 
 # options
@@ -19,7 +19,7 @@ SIM ?= icarus
 
 VERILOG_ROOT = ../../verilog
 
-COMPILE_ARGS = -I$(VERILOG_ROOT)/smt2 -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib_clk1x -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work
+COMPILE_ARGS = -I$(VERILOG_ROOT)/smt -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work
 
 # other options
 
@@ -31,6 +31,7 @@ TOPLEVEL = cocotb_icarus
 
 # python test
 MODULE = tb
+TESTCASE = tb_smt
 
 # cocotb make rules
 include $(shell cocotb-config --makefiles)/Makefile.sim
@@ -40,5 +41,5 @@ build: clean sim fst
 run: sim fst
 
 fst:
-	vcd2fst wtf-coco.vcd wtf-coco.fst
-	rm wtf-coco.vcd
+	vcd2fst a2ocore.vcd a2ocore_smt.fst
+	rm a2ocore.vcd

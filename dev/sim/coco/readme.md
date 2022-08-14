@@ -24,9 +24,3 @@ make -f Makefile.node build |& grep -v Anac
 make -f Makefile.wb build |& grep -v Anac
 ``
 
-* update wrapper to include normal Litex, etc. I/O (WB plus ints, config, etc.)
-* add Litex core definition (migen)
-
-* can add L2 mem
-* can add multiple core intefaces (SMP)
-* can add multicore+heterogeneous cores (mixed A2L2, WB-1, WB-2)

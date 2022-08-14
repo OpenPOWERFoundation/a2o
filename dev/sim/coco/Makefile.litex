@@ -8,7 +8,7 @@ VERILOG_ROOT = ../../verilog
 
 # litex version
 NODE = $(VERILOG_ROOT)/a2o_litex
-COMPILE_ARGS = -I$(NODE) -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(NODE) -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib_clk1x -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work
+COMPILE_ARGS = -I$(NODE) -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(NODE) -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work
 
 # other options
 

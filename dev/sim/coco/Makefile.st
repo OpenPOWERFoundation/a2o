@@ -24,7 +24,7 @@ SIM ?= icarus
 
 VERILOG_ROOT = ../../verilog
 
-COMPILE_ARGS = -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib_clk1x -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work
+COMPILE_ARGS = -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work
 
 # other options
 
@@ -36,6 +36,7 @@ TOPLEVEL = cocotb_icarus
 
 # python test
 MODULE = tb
+TESTCASE = tb
 
 # cocotb make rules
 include $(shell cocotb-config --makefiles)/Makefile.sim
@@ -47,5 +48,5 @@ run: sim fst
 vcd: sim
 
 fst:
-	vcd2fst wtf-coco.vcd wtf-coco.fst
-	rm wtf-coco.vcd
+	vcd2fst a2ocore.vcd a2ocore.fst
+	rm a2ocore.vcd

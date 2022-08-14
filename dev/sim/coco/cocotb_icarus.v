@@ -1,13 +1,12 @@
 
 `include "tri_a2o.vh"
 
-`timescale 1ns/1ps
-
-// might add some sim-only lines to enable clks, etc.
+`timescale 1ns / 1ns
 
 module cocotb_icarus (
 
-	 input[0:`NCLK_WIDTH-1] nclk,
+	 input                                                  clk,
+    input                                                  reset,
 	 input                                                  scan_in,
 	 output                                                 scan_out,
 
@@ -158,7 +157,8 @@ c c0(
       //       EXPAND_TYPE         => EXPAND_TYPE
       //  );
 
-      .nclk(nclk),
+      .clk(clk),
+      .rst(rst),
       .scan_in(scan_in),
       .scan_out(scan_out),
 
@@ -301,7 +301,7 @@ c c0(
    );
 
 initial begin
-  $dumpfile ("wtf-coco.vcd");
+  $dumpfile ("a2ocore.vcd");
   // you can do it by levels and also by module so could prune down
   $dumpvars;
   // need to explicitly specify arrays for icarus
@@ -309,13 +309,5 @@ initial begin
   //$dumpvars(0, c0.iuq0.iuq_slice_top0.slice0.iuq_ibuf0.buffer_data_q);
   #1;
 end
-
-// see if coco lets me risingedge() these
-wire clk_1x, clk_2x, clk_4x, rst;
-
-assign clk_1x = nclk[0];
-assign clk_2x = nclk[2];
-assign clk_4x = nclk[3];
-assign rst = nclk[1];
 
 endmodule

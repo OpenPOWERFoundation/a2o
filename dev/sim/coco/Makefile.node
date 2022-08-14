@@ -6,10 +6,11 @@ SIM ?= icarus
 # icarus
 VERILOG_ROOT = ../../verilog
 
+#NODE = a2node
 # a2node_verilator has some test, etc. inputs tied in rtl
 # also has l/s credits set to 1 in defines
-COMPILE_ARGS = -I$(VERILOG_ROOT)/a2node_verilator -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib_clk1x -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/a2node_verilator
-
+NODE = $(VERILOG_ROOT)/a2node_verilator
+COMPILE_ARGS = -I$(NODE) -I$(VERILOG_ROOT)/trilib -I$(VERILOG_ROOT)/work -y$(VERILOG_ROOT)/unisims -y$(VERILOG_ROOT)/trilib -y$(VERILOG_ROOT)/work -y$(NODE)
 # other options
 
 # rtl

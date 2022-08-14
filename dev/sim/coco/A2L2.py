@@ -269,7 +269,7 @@ async def A2L2Driver(dut, sim):
 
    while ok and not sim.done:
 
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
 
       sim.a2o.root.an_ac_req_ld_pop.value = 0
       sim.a2o.root.an_ac_req_st_pop.value = 0
@@ -283,12 +283,12 @@ async def A2L2Driver(dut, sim):
       sim.a2o.root.an_ac_reld_l1_dump.value = 0
       sim.a2o.root.an_ac_req_spare_ctrl_a1.value = 0
 
-      if sim.threads == 1:
+      if sim.a2o.config.threads == 1:
          sim.a2o.root.an_ac_reservation_vld.value = 0
          sim.a2o.root.an_ac_stcx_complete.value = 0
          sim.a2o.root.an_ac_stcx_pass.value = 0
       else:
-         for i in range(sim.threads):
+         for i in range(sim.a2o.config.threads):
             sim.a2o.root.an_ac_reservation_vld[i].value = 0
             sim.a2o.root.an_ac_stcx_complete[i].value = 0
             sim.a2o.root.an_ac_stcx_pass[i].value = 0
@@ -316,7 +316,8 @@ async def A2L2Driver(dut, sim):
 
          tt = hex(sim.a2o.root.ac_an_req_ttype, 2)
          transType = transTypes[tt]
-         tid = hex(sim.a2o.root.ac_an_req_thread)
+         tid = sim.a2o.root.ac_an_req_thread.value >> 1
+         ditc = sim.a2o.root.ac_an_req_thread.value & 0x1
          ra = hex(sim.a2o.root.ac_an_req_ra, 8)
          tag = hex(sim.a2o.root.ac_an_req_ld_core_tag, 2)
          lenEnc = hex(sim.a2o.root.ac_an_req_ld_xfr_len)
@@ -414,7 +415,7 @@ async def A2L2Checker(dut, sim):
    sim.msg(f'{me}: started.')
 
    while ok:
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
 
 
 # A2L2 Monitor
@@ -435,7 +436,7 @@ async def A2L2Monitor(dut, sim, watchTrans=False):
 
    while start and ok:
 
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
 
       if sim.a2o.root.ac_an_req.value:             # should first check ac_an_req_pwr_token prev cyc
 

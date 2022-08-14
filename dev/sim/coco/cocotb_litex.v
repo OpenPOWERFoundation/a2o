@@ -5,8 +5,7 @@
 
 module cocotb (
 
-    input                            clk_1x,
-    input                            clk_2x,
+    input                            clk,
     input                            rst,
 
     input  [0:31]                    cfg_dat,
@@ -30,8 +29,7 @@ module cocotb (
 );
 
 a2owb c0 (
-      .clk_1x(clk_1x),
-      .clk_2x(clk_2x),
+      .clk(clk),
       .rst(rst),
 
       .cfg_wr(cfg_wr),

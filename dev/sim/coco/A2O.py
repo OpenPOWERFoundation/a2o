@@ -35,13 +35,13 @@ async def A2OConfig(dut, sim):
    cpcr4_q = sim.a2o.root.iuq0.iuq_ifetch0.iuq_spr0.cpcr4_l2
    cpcr4_act = sim.a2o.root.iuq0.iuq_ifetch0.iuq_spr0.cpcr4_wren
 
-   await RisingEdge(dut.clk_1x)
+   await RisingEdge(sim.sigClk)
 
    if sim.a2o.config.creditsLd is not None:
       creditsLd.value = Force(sim.a2o.config.creditsLd)
       creditsLdMax.value = Force(sim.a2o.config.creditsLd)
       sim.msg(f'A2O: load credits changed from {creditsLd.value.integer} to {sim.a2o.config.creditsLd}.')
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
       creditsLd.value = Release()
    else:
       sim.msg(f'A2O: load credits = {creditsLd.value.integer}.')
@@ -50,7 +50,7 @@ async def A2OConfig(dut, sim):
       creditsSt.value = Force(sim.a2o.config.creditsSt)
       creditsStMax.value = Force(sim.a2o.config.creditsSt)
       sim.msg(f'A2O: store credits changed from {creditsSt.value.integer} to {sim.a2o.config.creditsSt}.')
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
       creditsSt.value = Release()
    else:
       sim.msg(f'A2O: store credits = {creditsSt.value.integer}.')
@@ -59,7 +59,7 @@ async def A2OConfig(dut, sim):
       v = 1 if sim.a2o.config.creditsLdStSingle else 0
       creditsLdStSingle.value = Force(v)
       sim.msg(f'A2O: only one load OR store allowed when credits=1/1.')
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
       #creditsLdStSingle.value = Release()  # to release have to set _q with xucr0_d[51] and xucr0_act
    elif sim.a2o.root.lq0.lsq.arb.load_cred_cnt_q.value.integer == 1 and sim.a2o.root.lq0.lsq.arb.store_cred_cnt_q.value.integer == 1 and sim.a2o.root.lq0.lsq.arb.spr_xucr0_cred_q.value.integer == 1:
       sim.msg(f'A2O: single-credit mode is enabled.')
@@ -72,7 +72,7 @@ async def A2OConfig(dut, sim):
       v = v << 2
       v = (lsucr0_q.value.integer & ~0x4) | v
       lsucr0_d.value = Force(v)
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
       lsucr0_d.value = Release()
       sim.msg(f'A2O: LSUCR0 = {hex(lsucr0_q.value), 8}')
 
@@ -82,16 +82,16 @@ async def A2OConfig(dut, sim):
       sim.msg(f'A2O: Setting CPCR4[SQ_CNT] = {v}.')
       v = v << 0
       v = (cpcr4_q[0].value.integer & ~0x1F) | v
-      await RisingEdge(dut.clk_1x)  # need cuz of act?
+      await RisingEdge(sim.sigClk)  # need cuz of act?
       cpcr4_d[0].value = Force(v)
       cpcr4_act.value = Force(1)
-      await RisingEdge(dut.clk_1x)
-      await RisingEdge(dut.clk_1x)  # need cuz of act?
+      await RisingEdge(sim.sigClk)
+      await RisingEdge(sim.sigClk)  # need cuz of act?
       cpcr4_d[0].value = Release()
       cpcr4_act.value = Release()
       sim.msg(f'A2O: CPCR4 = {hex(cpcr4_q[0], 8)}')
 
-   await RisingEdge(dut.clk_1x)
+   await RisingEdge(sim.sigClk)
 
 async def A2ODriver(dut, sim):
    """A2O Core Driver"""
@@ -109,7 +109,7 @@ async def A2ODriver(dut, sim):
    sim.msg('A2O Driver: nothing to do.')
 
    #while ok and not sim.done:
-   #   await RisingEdge(dut.clk_1x)
+   #   await RisingEdge(sim.sigClk)
 
 
 # A2O Checker
@@ -131,7 +131,7 @@ async def A2OChecker(dut, sim):
 
    while ok:
 
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
 
       if not sim.resetDone:
          continue
@@ -149,6 +149,8 @@ async def A2OMonitor(dut, sim):
    ok = True
    sim.msg(f'{me}: started.')
 
+   #wtf NEEDS THREADING! separate hang/loop/pass/fail checks for each
+
    # completions
    iu0Comp = sim.a2o.root.iu_lq_i0_completed
    iu0CompIFAR = sim.a2o.root.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar
@@ -157,7 +159,7 @@ async def A2OMonitor(dut, sim):
    iuCompFlushIFAR = sim.a2o.root.cp_t0_flush_ifar
    cp3NIA = sim.a2o.root.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp3_nia_q           # nia after last cycle's completions
 
-   # GPR ppol and arch map
+   # GPR pool and arch map
    gprCompMap = []
    lastGprCompMap = []
    #wtf check what 33:36 are!
@@ -221,10 +223,12 @@ async def A2OMonitor(dut, sim):
 
    while ok:
 
-      await RisingEdge(dut.clk_1x)
+      await RisingEdge(sim.sigClk)
 
       if not sim.resetDone:
          continue
+
+      #wtf NEED SMT
 
       # allow registered callbacks to be called here
       stack = sim.mem.dump(0x1FD00, 0x1FFFF, cols=8, trimLeadingZeros=True, trimTrailingZeros=True)
@@ -339,6 +343,7 @@ class A2OCore(DotMap):
       self.iarPass = None
       self.iarFail = None
       self.config =  DotMap({
+         'threads' : 1,
          'creditsLd': None,
          'creditsSt': None,
          'creditsLdStSingle': None,

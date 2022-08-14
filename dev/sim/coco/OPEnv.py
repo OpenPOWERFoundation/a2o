@@ -23,28 +23,23 @@ class Sim(DotMap):
       self.resetDone = False
 
       # defaults
-      self.memFiles = ['../mem/boot_ieq1.bin.hex'] #wtf cmdline parm
+
+      self.sigClk = None
+      self.sigRst = None
+      self.sigClk2x = None
+      self.sigClk4x = None
+
       self.threads = None
+      self.resetAddr = None # 0xFFFFFFFC
+      self.resetOp = 0x48000002
+      self.memFiles = None
+
       self.resetCycle = 10
       self.hbCycles = 100
-      self.clk2x = True
-      self.clk4x = False
-      self.resetAddr = 0xFFFFFFFC
-      self.resetOp = 0x48000002
       self.maxCycles = 500
-      self.memFiles = None
+
       self.config = DotMap()
-      # these should be in a2 core class
-      self.config.core = DotMap({
-         'creditsLd': None,
-         'creditsSt': None,
-         'creditsLdStSingle': None,
-         'lsDataForward' : None,
-         'cpcr4_sq_cnt' : None
-      })
-      self.config.a2l2 = DotMap({
-         'badAddr': [('E0','E0', 'IRW')]
-      })
+
       # json
       if cfg is not None:
          pass
