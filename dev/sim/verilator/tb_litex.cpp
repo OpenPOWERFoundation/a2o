@@ -52,6 +52,7 @@ double sc_time_stamp() {      // $time in verilog
    return main_time;
 }
 
+const char* tbName = "tb_litex";
 const int resetCycle = 10;
 const int threadRunCycle = resetCycle + 5;
 const int runCycles = 15000;
@@ -60,8 +61,11 @@ const int quiesceCycles = 50;
 const int threads = 1;
 const std::string testFile = "../mem/test3/rom.init";
 const unsigned int bootAdr = 0x00000000;
-const int stopOnHang = 200;
-
+const unsigned int stopOnHang = 200;
+const unsigned int stopOnLoop = 10;
+const unsigned long iarPass = 0x7F0;
+const unsigned long iarFail = 0x7F4;
+const bool debugWB = false;
 
 // Cythonize this and use it for cocotb too...
 
@@ -173,6 +177,7 @@ int main(int argc, char **argv) {
 #endif
 
    bool ok = true;
+   bool done = false;
    bool resetDone = false;
    bool booted = false;
    unsigned int quiesceCount = 0;
@@ -186,45 +191,13 @@ int main(int argc, char **argv) {
    unsigned int readTID = 0;
    unsigned int countReads = 0;
    unsigned int lastCompCycle = 0;
+   unsigned int lastCompSame = 0;
    bool wbRdPending = false, wbWrPending = false;
 
    //unsigned int wbSel, wbDatW;
-   unsigned int iu0Comp, iu1Comp;
-   unsigned long iu0CompIFAR, iu1CompIFAR, iuCompFlushIFAR;
-/*
-   creditsLdErr = sim.a2o.root.lq0.lsq.arb.ld_cred_err_q
-   creditsStErr = sim.a2o.root.lq0.lsq.arb.st_cred_err_q
-*/
+   unsigned int iu0Comp, iu1Comp, iu0CompLast, iu1CompLast;
+   unsigned long iu0CompIFAR, iu1CompIFAR, iu0CompIFARLast, iu1CompIFARLast, iuCompFlushIFAR;
 
-
-   /*
-   iu0CompIFAR = sim.a2o.root.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i0_ifar
-   iu1Comp =                                             cp2_i0_completed
-   iu1CompIFAR = sim.a2o.root.iuq0.iuq_cpl_top0.iuq_cpl0.cp2_i1_ifar
-   iuCompFlushIFAR = sim.a2o.root.cp_t0_flush_ifar
-   cp3NIA = sim.a2o.root.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp3_nia_q           # nia after last cycle's completions
-      comp = ''
-      #wtf seeing something weird here
-      # there are cases where x's are in some bits of comp ifar's; maybe ok (predict array?) but why is completed indicated?
-
-      if iu0Comp.value == 1:
-         comp = f'0:{sim.safeint(iu0CompIFAR.value.binstr + "00", 2):06X} '
-
-      if iu1Comp.value == 1:
-         comp = f'{comp}1:{sim.safeint(iu1CompIFAR.value.binstr + "00", 2):06X} '
-
-      if comp == '':
-         if sim.a2o.stopOnHang != 0 and sim.cycle - lastCompCycle > sim.a2o.stopOnHang:
-            sim.ok = False
-            sim.fail = f'No completion detected in {sim.a2o.stopOnHang} cycles'
-            assert False, sim.fail
-            break
-      else:
-         comp = f'{comp}{sim.safeint(iuCompFlushIFAR.value.binstr + "00", 2):016X}'
-         sim.msg(f'C0: CP {comp}')
-         lastCompCycle = sim.cycle
-
-   */
 
 /*
    # GPR pool and arch map
@@ -301,7 +274,7 @@ int main(int argc, char **argv) {
    const int clocks[2] = {0x1, 0x0};               // 1x
    const int ticks1x = 2;
 
-   while (!Verilated::gotFinish() && (ok | quiesceCount > 0) && cycle <= runCycles) {
+   while (!Verilated::gotFinish() && (ok | quiesceCount > 0) && cycle <= runCycles && !done) {
 
       if (!resetDone && (cycle > resetCycle)) {
          m->rst = 0;
@@ -315,7 +288,7 @@ int main(int argc, char **argv) {
          //cout << dec << setw(8) << cycle << " Thread stop=" << threadStop << endl;
       }
 
-      m->clk_1x = clocks[tick % ticks1x];
+      m->clk = clocks[tick % ticks1x];
       m->eval();
 
       // 1x clock
@@ -324,19 +297,42 @@ int main(int argc, char **argv) {
          // core
          iu0Comp = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i0_completed;
          iu1Comp = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_completed;
-         iu0CompIFAR = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i0_ifar;
-         iu1CompIFAR = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_ifar;
-         iuCompFlushIFAR = root->a2owb->c0->cp_t0_flush_ifar;
+         iu0CompIFAR = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i0_ifar << 2;
+         iu1CompIFAR = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_ifar << 2;
+         iuCompFlushIFAR = root->a2owb->c0->cp_t0_flush_ifar << 2;
 
          if (iu0Comp || iu1Comp) {
             cout << dec << setw(8) << setfill('0') << uppercase << cycle << " C0: CP";
             if (iu0Comp)
-               cout << " 0:" << setw(6) << setfill('0') << hex << (iu0CompIFAR << 2);
+               cout << " 0:" << setw(6) << setfill('0') << hex << (iu0CompIFAR);
             if (iu1Comp)
-               cout << " 1:" << setw(6) << setfill('0') << hex << (iu1CompIFAR << 2);
-            cout << " " << setw(16) << setfill('0') << hex << (iuCompFlushIFAR << 2);
+               cout << " 1:" << setw(6) << setfill('0') << hex << (iu1CompIFAR);
+            cout << " " << setw(16) << setfill('0') << hex << (iuCompFlushIFAR);
             cout << endl;
             lastCompCycle = cycle;
+            if (quiesceCount > 0) {
+               // skip remaining checks
+            } else if ((iu0Comp && (iu0CompIFAR == iarPass)) || (iu1Comp && (iu1CompIFAR == iarPass))) {
+               cout << "*** Passing IAR detected ***" << endl;
+               quiesceCount = 5;
+            } else if ((iu0Comp && (iu0CompIFAR == iarFail)) || (iu1Comp && (iu1CompIFAR == iarFail))) {
+               cout << "*** Failing IAR detected ***" << endl;
+               ok = false;
+               quiesceCount = 5;
+            } else if ((iu0Comp == iu0CompLast) && (!iu0Comp || (iu0CompIFAR == iu0CompIFARLast)) &&
+                (iu1Comp == iu1CompLast) && (!iu1Comp || (iu1CompIFAR == iu1CompIFARLast))) {
+               lastCompSame++;
+               if (stopOnLoop && (lastCompSame == stopOnLoop)) {
+                  ok = false;
+                  cout << "*** Loop detected for " << dec << stopOnLoop << " iterations ***" << endl;
+               }
+            } else {
+               iu0CompLast = iu0Comp;
+               iu0CompIFARLast = iu0CompIFAR;
+               iu1CompLast = iu1Comp;
+               iu1CompIFARLast = iu1CompIFAR;
+               lastCompSame = 0;
+            }
          } else if (!quiesceCount && (stopOnHang != 0) && (cycle - lastCompCycle > stopOnHang)) {
             ok = false;
             cout << "*** No completion detected in " << dec << stopOnHang << " cycles ***" << endl;
@@ -348,17 +344,19 @@ int main(int argc, char **argv) {
 
             m->wb_datr = mem.read(m->wb_adr & 0xFFFFFFFC);
             m->wb_ack = 1;
-            cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD ACK RA=" << setw(8) << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
-                  " DATA=" << setw(8)  << hex << setfill('0') <<  m->wb_datr << endl;
+            if (debugWB)
+               cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD ACK RA=" << setw(8) << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
+                       " DATA=" << setw(8)  << hex << setfill('0') <<  m->wb_datr << endl;
             wbRdPending = false;
 
          } else if (wbWrPending) {
 
             mem.write(m->wb_adr, m->wb_sel, m->wb_datw);
             m->wb_ack = 1;
-            cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR ACK RA=" << setw(8) << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
-                  " SEL=" << setw(1) << setfill('0') << uppercase << hex << (unsigned int)m->wb_sel <<
-                  " DATA=" << setw(8)  << hex << setfill('0') <<  m->wb_datw << endl;
+            if (debugWB)
+               cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR ACK RA=" << setw(8) << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
+                       " SEL=" << setw(1) << setfill('0') << uppercase << hex << (unsigned int)m->wb_sel <<
+                       " DATA=" << setw(8)  << hex << setfill('0') <<  m->wb_datw << endl;
             wbWrPending = false;
 
          } else if (m->wb_cyc && m->wb_stb) {
@@ -408,8 +406,11 @@ int main(int argc, char **argv) {
       if (!ok && quiesceCount == 0) {
          quiesceCount = quiesceCycles;
          cout << "Quiescing..." << endl;
-      } else if (!ok) {
+      } else if (quiesceCount > 0) {
          quiesceCount--;
+         if (ok && quiesceCount == 0) {
+            done = true;
+         }
       }
 
    }
@@ -419,7 +420,8 @@ int main(int argc, char **argv) {
 #endif
    m->final();
 
-   cout << endl << "Cycles run=" << cycle << endl << endl;
+   cout << endl << endl << tbName << endl;
+   cout << endl << "Cycles run=" << dec << cycle << endl << endl;
    if (!ok) {
       cout << "You are worthless and weak." << endl;
       exit(EXIT_FAILURE);
