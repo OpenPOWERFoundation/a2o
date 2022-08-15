@@ -2,10 +2,6 @@
 
 Building with cocotb, verilator, icarus...
 
-```
-cd coco
-```
-
 ## cocotb + Icarus
 
 * A2L2 python interface partially implemented
