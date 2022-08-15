@@ -11,7 +11,7 @@
 
 * Verilator
 
-  * too big(?) to build with verilator --public with cocotb
+  * too big(?) to build with verilator --public_flat_rw with cocotb; but --private can override it; see if it finishes
   * executing boot code and tst with a2o_litex wrapper
   * executing boot code and tst with litex-gen'd SOC
 
