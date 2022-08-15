@@ -93,7 +93,10 @@ commit 7cbbf9f3844a9287c5fac88867bcbcd5739914cf
 * #define OLD_PUBLIC in tb_litex.cpp
 
 * the ifetch is bad, but so are the completes a little before it; @42C=```eratwe    r8,r0,0```
+
+```
 ...
+
 00000250 Completed: I0:1 000000000000042C
 00000262 WB RD RA=00000460
 00000263 WB RD ACK RA=00000460 DATA=7D4011A6
@@ -123,7 +126,7 @@ commit 7cbbf9f3844a9287c5fac88867bcbcd5739914cf
 00000272 Completed: I0:1 0000000000000000 I1:1 0000000000000000
 00000286 WB RD RA=00000000
 *** Fetch to boot address (00000000) after initial boot! ***
-...
+```
 
 * export VERILATOR_ROOT=/tools/verilator/stable  (v4.224-26-g8b7480806)
 
