@@ -48,4 +48,8 @@ WARNING: [Vivado 12-4383] DRC UTLZ-1 may not change severity
 
 * errors to check in source: a lot of critical warnings are vdd vs VCC and gnd vs GND; are these inouts and ties missing?
 
+## 7k410tffv676-1  clk1x=50MHz
 
+```
+|     c0                                  |                                          c |     241529 |     240987 |     540 |    2 | 95676 |     96 |     12 |          0 |
+```

@@ -38,6 +38,8 @@ class A2O(CPU, AutoCSR):
 
    @property
    def mem_map(self):
+      return {}
+      # how do you make this be default but not overwrite any defines in soc.py?
       return {
          'rom':          0x00000000,   # on-board
          'sram':         0x00004000,   # on-board
@@ -78,8 +80,8 @@ class A2O(CPU, AutoCSR):
       self.reset_address    = 0x00000000
 
       self.cpu_params = dict(
-         i_clk_1x            = ClockSignal('sys'),
-         i_clk_2x            = ClockSignal('sys2x'),
+         i_clk               = ClockSignal('sys'),
+         #i_clk_2x            = ClockSignal('sys2x'),
          i_rst               = ResetSignal() | self.reset,
 
          # how do i connect these to csr?
@@ -96,7 +98,9 @@ class A2O(CPU, AutoCSR):
          #wtf i guess you get these names from the Inteface() def - but what about other sigs?
          o_wb_cyc            = dbus.cyc,
          o_wb_stb            = dbus.stb,
-         o_wb_adr            = Cat(dbus.adr,Signal(2)),
+#wtf litex is declaring wire [29:0] a2o_dbus_adr and connecting directly here but a2owb;wb_adr is [0:31]
+#         o_wb_adr            = Cat(dbus.adr,Signal(2)),
+         o_wb_adr            = Cat(Signal(2),dbus.adr),  # wb adr [31:2] = a2o adr[0:29]
          o_wb_we             = dbus.we,
          o_wb_sel            = dbus.sel,
          o_wb_datw           = dbus.dat_w,

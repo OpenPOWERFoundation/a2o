@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 # A2O Test - build with core.py
+# a2o.py --csr-csv csr.csv --no-compile-software
 # a2o.py --csr-csv csr.csv --no-compile-software --build  [--sys-clk-freq 50e6]
 #
 
@@ -11,6 +12,7 @@ from migen import *
 
 # wtf - use local platform
 from platforms import cmod7
+from platforms import cmod7_kintex
 
 # wtf - use local core (not built into litex)
 # help python find package
@@ -52,9 +54,7 @@ class _CRG(Module):
         self.clock_domains.cd_idelay    = ClockDomain()
 
         self.submodules.pll = pll = S7MMCM(speedgrade=-1)
-        #wtf if you do this it crashes later..request() takes the pin off 'available' list i think; so can't put to csr reg
-        #no idea how to modify the reset signal later
-        #maybe have to change this class to take a signal you create first?
+        #wtf how do you add btn to reset sig?
         #x = platform.request('user_btn',0)
         self.comb += pll.reset.eq(self.rst)
         #self.comb += pll.reset.eq(self.rst)
@@ -77,28 +77,29 @@ class BaseSoC(SoCCore):
                        **kwargs):
 
         coreUART = True
+        #romSize = 128*1024
+        #ramSize = 128*1024
+        romSize = 64 * 1024;
+        ramSize = 64 * 1024;
+        ddrSize = 16*1024*1024
+
 
         # try build using different fpga's
         #platform = cmod7.Platform()
         #platform = cmod7.Platform(fpga='xc7a200t-SBG484-1')  # arty-200
-        #platform = cmod7.Platform(fpga='xc7k325t-ffv676-1 )  #
-        platform = cmod7.Platform(fpga='xc7k410t-ffv676-1')   #
+        #platform = cmod7_kintex.Platform(fpga='xc7k325t-ffv676-1 )  # kintex-325
+        platform = cmod7_kintex.Platform(fpga='xc7k410t-ffv676-1')   # kintex-410
 
         SoCCore.__init__(self, platform, sys_clk_freq, csr_data_width=32,
-            with_uart=coreUART, integrated_sram_size=0, integrated_rom_size=0,
-            ident='A2O Test', ident_version=True, uart_baudrate=uart_baudrate,
+            #with_uart=coreUART, integrated_rom_size=romSize, integrated_sram_size=ramSize, don't set rom/ram if doing it below!!!!!
+            with_uart=coreUART, integrated_rom_size=0, integrated_sram_size=0,
+            ident='A2O', ident_version=True, uart_baudrate=uart_baudrate,
             cpu_type='a2o')
 
         print(f'Building variant={self.cpu.variant}.')
 
-        # no irq yet? should be able to connect
-        #self.add_constant('UART_POLLING')
-
-         #!!!!!!!!!!!!!!!!!!
-         # any hints here on using uarts (to get the gpio one working)?
-         # cult-soft.de/2920/05/24/litex-uart-hub
-         # played a little below but didnt try if it works
-         #!!!!!!!!!!!!!!!!!!
+        # no irq yet, but should be able to connect; need irq handler in crt0.s
+        self.add_constant('UART_POLLING')
 
         # this appears to be how to set up fixed csr order but not sure it works this way.  https://github.com/litex-hub/linux-on-litex-vexriscv/blob/master/soc_linux.py
         #SoCCore.csr_map
@@ -114,12 +115,11 @@ class BaseSoC(SoCCore):
         #    'uart':       0,
         #    'timer0':     1,
         #}}
-
         self.mem_map = {
-         'csr':      0xFFF00000,
-         'main_ram': 0x00100000,
          'rom':      0x00000000,
          'ram':      0x00010000,
+         'main_ram': 0x01000000,
+         'csr':      0xFFF00000
         }
 
         # CRG --------------------------------------------------------------------------------------
@@ -157,9 +157,12 @@ class BaseSoC(SoCCore):
         outFile.close()
         print('Wrote mem.init')
 
-        self.add_rom('rom', origin=self.mem_map['rom'], size=0x10000, contents=romdata)  # name, origin, size, contents=[], mode='r'
+        self.add_rom('rom', origin=self.mem_map['rom'], size=romSize, contents=romdata)  # name, origin, size, contents=[], mode='r'
         # make this sram to match what linker expects
-        self.add_ram('sram', origin=self.mem_map['ram'], size=0x10000)                   # name, origin, size, contents=[], mode='rw'
+        self.add_ram('sram', origin=self.mem_map['ram'], size=ramSize)                   # name, origin, size, contents=[], mode='rw'
+
+        # External Mem -----------------------------------------------------------------------------
+        self.add_ram('main_ram', origin=self.mem_map['main_ram'], size=ddrSize)
 
         # Leds -------------------------------------------------------------------------------------
         self.submodules.leds = LedChaser(
@@ -174,20 +177,17 @@ class BaseSoC(SoCCore):
         )
         self.add_csr('buttons')
 
-        # SRAM -------------------------------------------------------------------------------------
-        self.add_ram('main_ram', origin=self.mem_map['main_ram'], size=0x100)
-
         # Analyzer ---------------------------------------------------------------------------------
         if with_analyzer:
             analyzer_signals = [
-                self.cpu.dbus.stb,
-                self.cpu.dbus.cyc,
-                self.cpu.dbus.adr,
-                self.cpu.dbus.we,
-                self.cpu.dbus.ack,
-                self.cpu.dbus.sel,
-                self.cpu.dbus.dat_w,
-                self.cpu.dbus.dat_r,
+                self.cpu.wb_stb,
+                self.cpu.wb_cyc,
+                self.cpu.wb_adr,
+                self.cpu.wb_we,
+                self.cpu.wb_ack,
+                self.cpu.wb_sel,
+                self.cpu.wb_datw,
+                self.cpu.wb.datr,
             ]
             self.submodules.analyzer = LiteScopeAnalyzer(analyzer_signals,
                 depth        = 512,

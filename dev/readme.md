@@ -1,6 +1,6 @@
 # Testing RTL with new environments
 
-##
+## Working
 
 * RTL
 
@@ -8,11 +8,12 @@
    * updated source for compatibility with Icaraus -g2012
    * changed arrays to use clk1x
    * refactored nclk[] to separate clk, rst signals and removed lcb's from clock path
-   
+
 * Verilator
 
   * too big(?) to build with verilator --public with cocotb
   * executing boot code and tst with a2o_litex wrapper
+  * executing boot code and tst with litex-gen'd SOC
 
 * Icarus (w/cocotb)
 
@@ -33,7 +34,5 @@
 #### node
 
 * test BE/LE versions; kernel can stay BE until jump to BIOS; any problem with BIOS to initial ROM copy/zero or is it always words?
-* eventually node should handle reset vector fetch; or make the reset vector tied to inputs so always configurable?
-* add config pins
-* add L2 internally (before WB)
+* add L2 internally (before WB); or at least a store queue
 

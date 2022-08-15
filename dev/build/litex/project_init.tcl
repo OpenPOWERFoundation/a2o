@@ -1,0 +1,2 @@
+# 
+source init.tcl

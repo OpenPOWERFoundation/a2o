@@ -63,26 +63,26 @@ module a2owb (
     input                            clk,
     input                            rst,
 
-    input  [0:31]                    cfg_dat,
-    input                            cfg_wr,
-    output [0:31]                    status,
+    input  [0:31]                    cfg_dat/*verilator public */,
+    input                            cfg_wr/*verilator public */,
+    output [0:31]                    status/*verilator public */,
 
-    input                            timerInterrupt,
-    input                            externalInterrupt,
-    input                            softwareInterrupt,
-    input                            externalInterruptS,
+    input                            timerInterrupt/*verilator public */,
+    input                            externalInterrupt/*verilator public */,
+    input                            softwareInterrupt/*verilator public */,
+    input                            externalInterruptS/*verilator public */,
 
-    output                           wb_stb,
-    output                           wb_cyc,
-    output [31:0]                    wb_adr,
-    output                           wb_we,
-    output [3:0]                     wb_sel,
-    output [31:0]                    wb_datw,
-    input                            wb_ack,
-    input  [31:0]                    wb_datr
+    output                           wb_stb/*verilator public */,
+    output                           wb_cyc/*verilator public */,
+    output [31:0]                    wb_adr/*verilator public */,
+    output                           wb_we/*verilator public */,
+    output [3:0]                     wb_sel/*verilator public */,
+    output [31:0]                    wb_datw/*verilator public */,
+    input                            wb_ack/*verilator public */,
+    input  [31:0]                    wb_datr/*verilator public */
 );
 
-wire   [0:`THREADS-1]            an_ac_stcx_complete /*verilator public */;
+wire   [0:`THREADS-1]            an_ac_stcx_complete;
 wire   [0:`THREADS-1]            an_ac_stcx_pass;
 wire                             an_ac_icbi_ack;
 wire   [0:1]                     an_ac_icbi_ack_thread;

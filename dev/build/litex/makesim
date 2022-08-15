@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+# don't run vivado
+# uart=576000
+
+if [ "$1" == "-c" ]; then
+   # code
+   cp ~/projects/a2p/src/powaflight-full/rom.init .
+fi
+
+# build and program
+python3 a2p_full_litex.py  --csr-csv csr.csv --no-compile-software --uart-baudrate 576000
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+cp build/cmod7/gateware/cmod7.v cmod7-sim.v
+
+echo "Done."

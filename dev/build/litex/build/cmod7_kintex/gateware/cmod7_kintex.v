@@ -8,8 +8,8 @@
 //
 // Filename   : cmod7_kintex.v
 // Device     : xc7k410t-ffv676-1
-// LiteX sha1 : 6932fc51
-// Date       : 2022-08-04 09:13:14
+// LiteX sha1 : 33ae301d
+// Date       : 2022-08-15 13:16:22
 //------------------------------------------------------------------------------
 
 
@@ -284,17 +284,6 @@ wire [13:0] sram0_adr;
 wire [31:0] sram0_dat_r;
 reg  [3:0] sram0_we = 4'd0;
 wire [31:0] sram0_dat_w;
-reg  [1:0] leds_storage = 2'd0;
-reg  leds_re = 1'd0;
-reg  [1:0] leds_chaser = 2'd0;
-reg  leds_mode = 1'd0;
-wire leds_wait;
-wire leds_done;
-reg  [24:0] leds_count = 25'd25000000;
-reg  [1:0] leds_leds = 2'd0;
-wire [1:0] buttons_status;
-wire buttons_we;
-reg  buttons_re = 1'd0;
 wire [29:0] interface1_ram_bus_adr;
 wire [31:0] interface1_ram_bus_dat_w;
 wire [31:0] interface1_ram_bus_dat_r;
@@ -307,10 +296,21 @@ wire [2:0] interface1_ram_bus_cti;
 wire [1:0] interface1_ram_bus_bte;
 reg  interface1_ram_bus_err = 1'd0;
 reg  sram1_adr_burst = 1'd0;
-wire [5:0] sram1_adr;
+wire [21:0] sram1_adr;
 wire [31:0] sram1_dat_r;
 reg  [3:0] sram1_we = 4'd0;
 wire [31:0] sram1_dat_w;
+reg  [1:0] leds_storage = 2'd0;
+reg  leds_re = 1'd0;
+reg  [1:0] leds_chaser = 2'd0;
+reg  leds_mode = 1'd0;
+wire leds_wait;
+wire leds_done;
+reg  [24:0] leds_count = 25'd25000000;
+reg  [1:0] leds_leds = 2'd0;
+wire [1:0] buttons_status;
+wire buttons_we;
+reg  buttons_re = 1'd0;
 reg  [13:0] basesoc_adr = 14'd0;
 reg  basesoc_we = 1'd0;
 reg  [31:0] basesoc_dat_w = 32'd0;
@@ -527,7 +527,6 @@ always @(*) begin
 end
 assign bus_errors_status = bus_errors;
 always @(*) begin
-	serial_tx_rs232phytx_next_value1 <= 1'd0;
 	serial_tx_rs232phytx_next_value_ce1 <= 1'd0;
 	tx_enable <= 1'd0;
 	tx_data_rs232phytx_next_value2 <= 8'd0;
@@ -536,6 +535,7 @@ always @(*) begin
 	basesoc_rs232phytx_next_state <= 1'd0;
 	tx_count_rs232phytx_next_value0 <= 4'd0;
 	tx_count_rs232phytx_next_value_ce0 <= 1'd0;
+	serial_tx_rs232phytx_next_value1 <= 1'd0;
 	basesoc_rs232phytx_next_state <= basesoc_rs232phytx_state;
 	case (basesoc_rs232phytx_state)
 		1'd1: begin
@@ -739,6 +739,16 @@ end
 assign sram0_adr = interface0_ram_bus_adr[13:0];
 assign interface0_ram_bus_dat_r = sram0_dat_r;
 assign sram0_dat_w = interface0_ram_bus_dat_w;
+always @(*) begin
+	sram1_we <= 4'd0;
+	sram1_we[0] <= (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & interface1_ram_bus_we) & interface1_ram_bus_sel[0]);
+	sram1_we[1] <= (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & interface1_ram_bus_we) & interface1_ram_bus_sel[1]);
+	sram1_we[2] <= (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & interface1_ram_bus_we) & interface1_ram_bus_sel[2]);
+	sram1_we[3] <= (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & interface1_ram_bus_we) & interface1_ram_bus_sel[3]);
+end
+assign sram1_adr = interface1_ram_bus_adr[21:0];
+assign interface1_ram_bus_dat_r = sram1_dat_r;
+assign sram1_dat_w = interface1_ram_bus_dat_w;
 assign leds_wait = (~leds_done);
 always @(*) begin
 	leds_leds <= 2'd0;
@@ -751,20 +761,10 @@ end
 assign {user_led1, user_led0} = (leds_leds ^ 1'd0);
 assign leds_done = (leds_count == 1'd0);
 always @(*) begin
-	sram1_we <= 4'd0;
-	sram1_we[0] <= (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & interface1_ram_bus_we) & interface1_ram_bus_sel[0]);
-	sram1_we[1] <= (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & interface1_ram_bus_we) & interface1_ram_bus_sel[1]);
-	sram1_we[2] <= (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & interface1_ram_bus_we) & interface1_ram_bus_sel[2]);
-	sram1_we[3] <= (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & interface1_ram_bus_we) & interface1_ram_bus_sel[3]);
-end
-assign sram1_adr = interface1_ram_bus_adr[5:0];
-assign interface1_ram_bus_dat_r = sram1_dat_r;
-assign sram1_dat_w = interface1_ram_bus_dat_w;
-always @(*) begin
 	basesoc_wishbone_ack <= 1'd0;
 	basesoc_dat_w <= 32'd0;
-	basesoc_next_state <= 1'd0;
 	basesoc_wishbone_dat_r <= 32'd0;
+	basesoc_next_state <= 1'd0;
 	basesoc_adr <= 14'd0;
 	basesoc_we <= 1'd0;
 	basesoc_next_state <= basesoc_state;
@@ -801,7 +801,7 @@ always @(*) begin
 	slave_sel <= 4'd0;
 	slave_sel[0] <= (shared_adr[29:14] == 1'd0);
 	slave_sel[1] <= (shared_adr[29:14] == 1'd1);
-	slave_sel[2] <= (shared_adr[29:6] == 13'd4096);
+	slave_sel[2] <= (shared_adr[29:22] == 1'd1);
 	slave_sel[3] <= (shared_adr[29:14] == 16'd65520);
 end
 assign ram_bus_adr = shared_adr;
@@ -839,9 +839,9 @@ assign basesoc_wishbone_cyc = (shared_cyc & slave_sel[3]);
 assign shared_err = (((ram_bus_err | interface0_ram_bus_err) | interface1_ram_bus_err) | basesoc_wishbone_err);
 assign wait_1 = ((shared_stb & shared_cyc) & (~shared_ack));
 always @(*) begin
-	shared_ack <= 1'd0;
 	error <= 1'd0;
 	shared_dat_r <= 32'd0;
+	shared_ack <= 1'd0;
 	shared_ack <= (((ram_bus_ack | interface0_ram_bus_ack) | interface1_ram_bus_ack) | basesoc_wishbone_ack);
 	shared_dat_r <= (((({32{slave_sel_r[0]}} & ram_bus_dat_r) | ({32{slave_sel_r[1]}} & interface0_ram_bus_dat_r)) | ({32{slave_sel_r[2]}} & interface1_ram_bus_dat_r)) | ({32{slave_sel_r[3]}} & basesoc_wishbone_dat_r));
 	if (done) begin
@@ -942,8 +942,8 @@ always @(*) begin
 end
 assign csr_bankarray_csrbank3_en0_r = csr_bankarray_interface3_bank_bus_dat_w[0];
 always @(*) begin
-	csr_bankarray_csrbank3_en0_re <= 1'd0;
 	csr_bankarray_csrbank3_en0_we <= 1'd0;
+	csr_bankarray_csrbank3_en0_re <= 1'd0;
 	if ((csr_bankarray_csrbank3_sel & (csr_bankarray_interface3_bank_bus_adr[8:0] == 2'd2))) begin
 		csr_bankarray_csrbank3_en0_re <= csr_bankarray_interface3_bank_bus_we;
 		csr_bankarray_csrbank3_en0_we <= (~csr_bankarray_interface3_bank_bus_we);
@@ -969,8 +969,8 @@ always @(*) begin
 end
 assign csr_bankarray_csrbank3_ev_status_r = csr_bankarray_interface3_bank_bus_dat_w[0];
 always @(*) begin
-	csr_bankarray_csrbank3_ev_status_re <= 1'd0;
 	csr_bankarray_csrbank3_ev_status_we <= 1'd0;
+	csr_bankarray_csrbank3_ev_status_re <= 1'd0;
 	if ((csr_bankarray_csrbank3_sel & (csr_bankarray_interface3_bank_bus_adr[8:0] == 3'd5))) begin
 		csr_bankarray_csrbank3_ev_status_re <= csr_bankarray_interface3_bank_bus_we;
 		csr_bankarray_csrbank3_ev_status_we <= (~csr_bankarray_interface3_bank_bus_we);
@@ -1011,8 +1011,8 @@ assign csr_bankarray_csrbank3_ev_enable0_w = timer_enable_storage;
 assign csr_bankarray_csrbank4_sel = (csr_bankarray_interface4_bank_bus_adr[13:9] == 4'd8);
 assign uart_rxtx_r = csr_bankarray_interface4_bank_bus_dat_w[7:0];
 always @(*) begin
-	uart_rxtx_we <= 1'd0;
 	uart_rxtx_re <= 1'd0;
+	uart_rxtx_we <= 1'd0;
 	if ((csr_bankarray_csrbank4_sel & (csr_bankarray_interface4_bank_bus_adr[8:0] == 1'd0))) begin
 		uart_rxtx_re <= csr_bankarray_interface4_bank_bus_we;
 		uart_rxtx_we <= (~csr_bankarray_interface4_bank_bus_we);
@@ -1056,8 +1056,8 @@ always @(*) begin
 end
 assign csr_bankarray_csrbank4_ev_enable0_r = csr_bankarray_interface4_bank_bus_dat_w[1:0];
 always @(*) begin
-	csr_bankarray_csrbank4_ev_enable0_re <= 1'd0;
 	csr_bankarray_csrbank4_ev_enable0_we <= 1'd0;
+	csr_bankarray_csrbank4_ev_enable0_re <= 1'd0;
 	if ((csr_bankarray_csrbank4_sel & (csr_bankarray_interface4_bank_bus_adr[8:0] == 3'd5))) begin
 		csr_bankarray_csrbank4_ev_enable0_re <= csr_bankarray_interface4_bank_bus_we;
 		csr_bankarray_csrbank4_ev_enable0_we <= (~csr_bankarray_interface4_bank_bus_we);
@@ -1334,6 +1334,10 @@ always @(posedge sys_clk) begin
 	if (((interface0_ram_bus_cyc & interface0_ram_bus_stb) & ((~interface0_ram_bus_ack) | sram0_adr_burst))) begin
 		interface0_ram_bus_ack <= 1'd1;
 	end
+	interface1_ram_bus_ack <= 1'd0;
+	if (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & ((~interface1_ram_bus_ack) | sram1_adr_burst))) begin
+		interface1_ram_bus_ack <= 1'd1;
+	end
 	if (leds_done) begin
 		leds_chaser <= {leds_chaser, (~leds_chaser[1])};
 	end
@@ -1346,10 +1350,6 @@ always @(posedge sys_clk) begin
 		end
 	end else begin
 		leds_count <= 25'd25000000;
-	end
-	interface1_ram_bus_ack <= 1'd0;
-	if (((interface1_ram_bus_cyc & interface1_ram_bus_stb) & ((~interface1_ram_bus_ack) | sram1_adr_burst))) begin
-		interface1_ram_bus_ack <= 1'd1;
 	end
 	basesoc_state <= basesoc_next_state;
 	slave_sel_r <= slave_sel;
@@ -1554,13 +1554,13 @@ always @(posedge sys_clk) begin
 		timer_value <= 32'd0;
 		ram_bus_ack <= 1'd0;
 		interface0_ram_bus_ack <= 1'd0;
+		interface1_ram_bus_ack <= 1'd0;
 		leds_storage <= 2'd0;
 		leds_re <= 1'd0;
 		leds_chaser <= 2'd0;
 		leds_mode <= 1'd0;
 		leds_count <= 25'd25000000;
 		buttons_re <= 1'd0;
-		interface1_ram_bus_ack <= 1'd0;
 		slave_sel_r <= 4'd0;
 		count <= 20'd1000000;
 		csr_bankarray_sel_r <= 1'd0;
@@ -1580,10 +1580,10 @@ end
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// Memory mem: 29-words x 8-bit
+// Memory mem: 24-words x 8-bit
 //------------------------------------------------------------------------------
 // Port 0 | Read: Sync  | Write: ---- | 
-reg [7:0] mem[0:28];
+reg [7:0] mem[0:23];
 initial begin
 	$readmemh("cmod7_kintex_mem.init", mem);
 end
@@ -1695,14 +1695,14 @@ assign sram0_dat_r = sram[sram_adr0];
 
 
 //------------------------------------------------------------------------------
-// Memory main_ram: 64-words x 32-bit
+// Memory main_ram: 4194304-words x 32-bit
 //------------------------------------------------------------------------------
 // Port 0 | Read: Sync  | Write: Sync | Mode: Write-First | Write-Granularity: 8 
-reg [31:0] main_ram[0:63];
+reg [31:0] main_ram[0:4194303];
 initial begin
 	$readmemh("cmod7_kintex_main_ram.init", main_ram);
 end
-reg [5:0] main_ram_adr0;
+reg [21:0] main_ram_adr0;
 always @(posedge sys_clk) begin
 	if (sram1_we[0])
 		main_ram[sram1_adr][7:0] <= sram1_dat_w[7:0];
@@ -1719,8 +1719,7 @@ assign sram1_dat_r = main_ram[main_ram_adr0];
 
 a2owb a2owb(
 	.cfg_wr(1'd0),
-	.clk_1x(sys_clk),
-	.clk_2x(sys2x_clk),
+	.clk(sys_clk),
 	.externalInterrupt(a2o_interrupt[0]),
 	.externalInterruptS(a2o_interruptS),
 	.rst((sys_rst | a2o_reset)),
@@ -1728,7 +1727,7 @@ a2owb a2owb(
 	.timerInterrupt(a2o_interrupt[1]),
 	.wb_ack(a2o_dbus_ack),
 	.wb_datr(a2o_dbus_dat_r),
-	.wb_adr({a2o, a2o_dbus_adr}),
+	.wb_adr({a2o_dbus_adr, a2o}),
 	.wb_cyc(a2o_dbus_cyc),
 	.wb_datw(a2o_dbus_dat_w),
 	.wb_sel(a2o_dbus_sel),
@@ -1887,5 +1886,5 @@ MMCME2_ADV #(
 endmodule
 
 // -----------------------------------------------------------------------------
-//  Auto-Generated by LiteX on 2022-08-04 09:13:14.
+//  Auto-Generated by LiteX on 2022-08-15 13:16:22.
 //------------------------------------------------------------------------------

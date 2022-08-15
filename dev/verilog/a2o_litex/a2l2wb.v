@@ -59,6 +59,7 @@ module a2l2wb #(
 //  101 write mask set
 //  110 write mask rst
 //  111 write mask xor
+// also, should it be edge-triggered (single pulse from nop->cmd)?
 
    input                            cfg_wr,
    output [0:31]                    status,

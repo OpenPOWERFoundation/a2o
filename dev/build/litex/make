@@ -1,0 +1,41 @@
+#!/usr/bin/bash
+
+code=../../src/test3/rom.init
+vivado=vivado
+dir=`pwd`
+
+soc=a2o.py
+gateware=build/cmod7/gateware
+top=$gateware/cmod7
+proj=proj.tcl
+
+if [ "$1" == "-c" ]; then
+   cp $code .
+   echo "Updated code."
+elif [ "$1" == "-p" ]; then
+   $vivado -mode tcl -source pgmfpga.tcl
+   echo "Done."
+   exit
+elif [ "$1" == "-v" ]; then
+   cd $gateware
+   $vivado -mode tcl -source $proj
+   echo "Done."
+   cd $dir
+   exit
+elif [ "$1" != "" ]; then
+   echo "make [-c|-p] (-c=also copy code, -p=just program, -v=run vivado project"
+   exit
+fi
+
+# build and program
+python3 $soc --csr-csv csr.csv --no-compile-software --build
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+echo "Copying .v and .bit, and programming..."
+cp ${top}.v .
+cp ${top}.bit .
+$vivado -mode tcl -source pgmfpga.tcl
+
+echo "Done."
