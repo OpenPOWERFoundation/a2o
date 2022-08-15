@@ -35,7 +35,7 @@ obj_dir/Va2owb
 * debugged several fails near start of test (in issues) - first few are cases of ff behaving incorrectly; syntax changes in trilib got to reaching i=1 ifetches
 * added CP signals to track completions (/*verilator public*/) and now first isync fails (flushes to @04)
 
-### Verilator Debug
+# Verilator Debug
 
 * verilator now successfully runs, once the nclk[] changes were completed to separate clk and rst, and
 remove lcb's driving lclk's
