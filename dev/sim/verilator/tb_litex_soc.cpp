@@ -1,5 +1,5 @@
 // simple verilator top
-// uses a2owb with WB interface
+// litex soc w/a2o
 
 #define TRACING
 
@@ -13,20 +13,20 @@
 #include <unordered_map>
 
 #include "verilated.h"
-#include "Va2owb.h"
+#include "Vsoc.h"
 
 #ifndef OLD_PUBLIC
 // internal nets
-#include "Va2owb___024root.h"
+#include "Vsoc___024root.h"
 #endif
 
-#include "Va2owb_a2owb.h"
-#include "Va2owb_a2l2wb.h"
-#include "Va2owb_c.h"
-#include "Va2owb_iuq.h"
-#include "Va2owb_iuq_cpl_top.h"
-#include "Va2owb_iuq_cpl.h"
-//#include "Va2owb_iuq_cpl_ctrl.h" // getting rid of public sim.a2o.root.iuq0.iuq_cpl_top0.iuq_cpl0.iuq_cpl_ctrl.cp3_nia_q fixed sim probs?#??!?~@?
+#include "Vsoc_soc.h"
+#include "Vsoc_a2owb.h"
+#include "Vsoc_a2l2wb.h"
+#include "Vsoc_c.h"
+#include "Vsoc_iuq.h"
+#include "Vsoc_iuq_cpl_top.h"
+#include "Vsoc_iuq_cpl.h"
 
 #ifdef TRACING
 #include "verilated_vcd_c.h"
@@ -39,11 +39,11 @@ unsigned int t = 0;
 #include "uart/uartsim.h"
 */
 
-Va2owb* m;
+Vsoc* m;
 #ifdef OLD_PUBLIC
-Va2owb* root;
+Vsoc* root;
 #else
-Va2owb___024root* root;
+Vsoc___024root* root;
 #endif
 
 vluint64_t main_time = 0;     // in units of timeprecision used in verilog or --timescale-override
@@ -52,17 +52,17 @@ double sc_time_stamp() {      // $time in verilog
    return main_time;
 }
 
-const char* tbName = "tb_litex";
+const char* tbName = "tb_litex_soc";
 const int resetCycle = 10;
 const int threadRunCycle = resetCycle + 5;
-const int runCycles = 15000;
+const int runCycles = 100000;
 const int hbCycles = 500;
 const int quiesceCycles = 50;
 const int threads = 1;
-const std::string testFile = "../mem/test3/rom.init";
+const std::string testFile = "";
 const unsigned int bootAdr = 0x00000000;
 const bool failMaxCycles = true;
-const unsigned int stopOnHang = 200;
+const unsigned int stopOnHang = 500;
 const unsigned int stopOnLoop = 10;
 const unsigned long iarPass = 0x7F0;
 const unsigned long iarFail = 0x7F4;
@@ -162,7 +162,7 @@ int main(int argc, char **argv) {
    cout << setfill('0');
 
    Verilated::commandArgs(argc, argv);
-   m = new Va2owb;
+   m = new Vsoc;
 #ifdef OLD_PUBLIC
    root = m;
 #else
@@ -259,14 +259,14 @@ int main(int argc, char **argv) {
 
 */
 
-   mem.write(0xFFFFFFFC, 0x48000002);
-   mem.loadFile(testFile);
+   //mem.write(0xFFFFFFFC, 0x48000002);
+   //mem.loadFile(testFile);
 
-   m->rst = 1;
+   root->soc->soc_rst = 1;
 
    cout << dec << setw(8) << cycle << " Resetting..." << endl;
 
-   //m->an_ac_pm_thread_stop = threadStop;
+   //m->an_ac_pm_thread_stop = threadStop;  === a2l2.cfg_q[0] (do write to cfg_dat)
    //cout << dec << setw(8) << cycle << " Thread stop=" << threadStop << endl;
 
    //const int clocks[4] = {0x3, 0x2, 0x1, 0x0};   // 1x, 2x
@@ -278,7 +278,7 @@ int main(int argc, char **argv) {
    while (!Verilated::gotFinish() && (ok | quiesceCount > 0) && cycle <= runCycles && !done) {
 
       if (!resetDone && (cycle > resetCycle)) {
-         m->rst = 0;
+         root->soc->soc_rst = 0;
          cout << dec << setw(8) << cycle << " Releasing reset." << endl;
          resetDone = true;
       }
@@ -289,18 +289,18 @@ int main(int argc, char **argv) {
          //cout << dec << setw(8) << cycle << " Thread stop=" << threadStop << endl;
       }
 
-      m->clk = clocks[tick % ticks1x];
+      m->clk12 = clocks[tick % ticks1x];
       m->eval();
 
       // 1x clock
       if ((tick % ticks1x) == 0) {
 
          // core
-         iu0Comp = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i0_completed;
-         iu1Comp = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_completed;
-         iu0CompIFAR = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i0_ifar << 2;
-         iu1CompIFAR = root->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_ifar << 2;
-         iuCompFlushIFAR = root->a2owb->c0->cp_t0_flush_ifar << 2;
+         iu0Comp = root->soc->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i0_completed;
+         iu1Comp = root->soc->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_completed;
+         iu0CompIFAR = root->soc->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i0_ifar << 2;
+         iu1CompIFAR = root->soc->a2owb->c0->iuq0->iuq_cpl_top0->iuq_cpl0->cp2_i1_ifar << 2;
+         iuCompFlushIFAR = root->soc->a2owb->c0->cp_t0_flush_ifar << 2;
 
          if (iu0Comp || iu1Comp) {
             cout << dec << setw(8) << setfill('0') << uppercase << cycle << " C0: CP";
@@ -339,49 +339,39 @@ int main(int argc, char **argv) {
             cout << "*** No completion detected in " << dec << stopOnHang << " cycles ***" << endl;
          }
 
-         // wb
-         m->wb_ack = 0;
+         // wb - soc can monitor-only
          if (wbRdPending) {
+            if (root->soc->a2owb->wb_ack)
+               if (debugWB)
+                  cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD ACK RA=" << setw(8) << hex << setfill('0') << (root->soc->a2owb->wb_adr & 0xFFFFFFFC) <<
+                          " DATA=" << setw(8)  << hex << setfill('0') <<  root->soc->a2owb->wb_datr << endl;
 
-            m->wb_datr = mem.read(m->wb_adr & 0xFFFFFFFC);
-            m->wb_ack = 1;
-            if (debugWB)
-               cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD ACK RA=" << setw(8) << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
-                       " DATA=" << setw(8)  << hex << setfill('0') <<  m->wb_datr << endl;
             wbRdPending = false;
 
          } else if (wbWrPending) {
-
-            mem.write(m->wb_adr, m->wb_sel, m->wb_datw);
-            m->wb_ack = 1;
-            if (debugWB)
-               cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR ACK RA=" << setw(8) << hex << setfill('0') << (m->wb_adr & 0xFFFFFFFC) <<
-                       " SEL=" << setw(1) << setfill('0') << uppercase << hex << (unsigned int)m->wb_sel <<
-                       " DATA=" << setw(8)  << hex << setfill('0') <<  m->wb_datw << endl;
+            if (root->soc->a2owb->wb_ack)
+               if (debugWB)
+                  cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR ACK RA=" << setw(8) << hex << setfill('0') << (root->soc->a2owb->wb_adr & 0xFFFFFFFC) <<
+                          " SEL=" << setw(1) << setfill('0') << uppercase << hex << (unsigned int)root->soc->a2owb->wb_sel <<
+                          " DATA=" << setw(8)  << hex << setfill('0') <<  root->soc->a2owb->wb_datw << endl;
             wbWrPending = false;
 
-         } else if (m->wb_cyc && m->wb_stb) {
-
-            if (!m->wb_we) {
-               //cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD RA=" << setw(8) << hex << setfill('0') << m->wb_adr << endl;
+         } else if (root->soc->a2owb->wb_cyc && root->soc->a2owb->wb_stb) {
+            if (!root->soc->a2owb->wb_we) {
+               if (debugWB)
+                  cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB RD RA=" << setw(8) << hex << setfill('0') << root->soc->a2owb->wb_adr << endl;
                wbRdPending = true;
-
-               /* only for debug - completions should be checked for loops, hangs, boot re-execute
-               if (m->wb_adr == bootAdr) {
-                  if (booted) {
-                     cout << "*** Fetch to boot address (" << dec << setw(8) << bootAdr << ") after initial boot ***" << endl;
-                     ok = false;
-                  } else {
-                     booted = true;
-                  }
-               }
-               */
             } else {
-               //cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR RA=" << setw(8)  << hex << setfill('0') << m->wb_adr <<
-               //   " SEL=" << m->wb_sel << " DATA=" << setw(8)  << hex << setfill('0') << m->wb_datw << endl;
+               if (debugWB)
+                  cout << dec << setw(8) << setfill('0') << uppercase << cycle << " WB WR RA=" << setw(8)  << hex << setfill('0') << root->soc->a2owb->wb_adr <<
+                          " SEL=" << root->soc->a2owb->wb_sel << " DATA=" << setw(8)  << hex << setfill('0') << root->soc->a2owb->wb_datw << endl;
                wbWrPending = true;
             }
          }
+
+         // leds, btns, mem, etc.
+
+         // uart
 
       }
 

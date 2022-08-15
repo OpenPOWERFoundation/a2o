@@ -1,14 +1,98 @@
 # Verilator
 
-##
 * verilator now successfully runs, once the nclk[] changes were completed to separate clk and rst, and
 remove lcb's driving lclk's
 
+## a2o w/WB wrapper
+
 ```
-verilator -cc  --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1  -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib -Iverilog/unisims a2owb.v tb_litex.cpp  |& tee verilator.txt
+verilator -cc  --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1  -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib -Iverilog/unisims a2owb.v tb_litex.cpp |& tee verilator.txt
+make -C obj_dir -f Va2owb.mk Va2owb
+obj_dir/Va2owb
+
 ```
 
 * about 5 non-scan UNOPTFLATs
+
+## Litex SOC
+
+* full SOC also runs; now need to add uart to tb and more code to get to litex terminal
+
+```
+top=cmod7_kintex
+build=../../build/litex/build/$top/gateware
+# keep consistent naming
+mod=soc
+cp $build/$top.v $mod.v
+sed -i "s/module $top/module $mod/" $mod.v
+
+# don't absolutely need this? soc will reset itself; also, csr can reset
+# make public - would be nice to do these with a --publics <file>
+sed -i 's#reg  soc_rst =.*;#reg  soc_rst /*verilator public*/ = 0;#' $mod.v
+
+# verilog loads a rom init file; gen'd during soc build or externally
+# test3 copies tst to @10000; ALSO! the tst wrapper has to be loaded into ram space since it has save/restore areas.
+#cp $build/${top}_rom.init . #LE
+cp ../mem/test3/rom_soc.init ${top}_rom.init #BE
+touch ${top}_mem.init         # csr
+touch ${top}_sram.init        # on-board
+touch ${top}_main_ram.init    # ext
+
+verilator -cc  --exe --trace --Mdir obj_dir_$mod --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -I$. -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib -Iverilog/unisims -Iverilog/unisims_soc $mod tb_litex_$mod.cpp |& tee verilator_$mod.txt
+
+make -C obj_dir_$mod -f V$mod.mk V$mod
+obj_dir_$mod/V$mod | tee sim_soc.txt
+vcd2fst a2olitex.vcd soc.fst
+rm a2olitex.vcd
+gtkwave soc.fst soc.gtkw
+```
+
+##### first try
+
+* runs until last completion of 134C???
+
+```
+00001338 <tst_cleanup>:
+    1338:	3c 60 00 00 	lis     r3,0
+    133c:	60 63 10 60 	ori     r3,r3,4192
+    1340:	80 23 00 9c 	lwz     r1,156(r3)
+    1344:	3c 60 08 67 	lis     r3,2151
+    1348:	60 63 53 09 	ori     r3,r3,21257
+    134c:	48 00 0e 0f 	bla     e0c <tst_done>
+
+00000e0c <tst_done>:
+     e0c:	94 21 ff e0 	stwu    r1,-32(r1)
+
+```
+
+* bumped stopOnHang to 500 cycles and it does complete 1C0 after 134C.  dsi on stwu.  dear=FFFFFFE0.  that is suspiciously identical to 0-32. what is trying to be read from @1060 to set r1???  that is in rom space. the tst wrapper is being linked into rom and not relocated!  it should probably use a linker-gen'd pointer to use for its r/w data space.  but wouldn't generally be building a tst into rom.
+
+##### second try
+
+* changed linker.ld to put tst in .data so it's copied by bios to ram...
+
+```
+00024966 C0: CP 0:000FD8 0000000000000FD8
+00024983 C0: CP 0:000FDC 1:000FE0 0000000000000FDC
+00024985 C0: CP 0:000FE4 1:000FF4 0000000000000FE4
+00024986 C0: CP 0:000FF8 1:000FFC 0000000000000FF8
+00025000 ...tick...
+00025005 C0: CP 0:001000 0000000000001000
+00025006 C0: CP 0:001004 0000000000001004
+00025008 C0: CP 0:001008 0000000000001008
+00025022 C0: CP 0:00100C 000000000000100C
+00025071 C0: CP 0:0007F0 00000000000007F0
+*** Passing IAR detected ***
+
+
+tb_litex_soc
+
+Cycles run=25074
+
+You has opulence.
+```
+
+
 
 ## Experiments
 
