@@ -5,7 +5,7 @@
 * for now, /rel is the original and /dev has updates:
 
    * compiles with verilator, iverilog, yosys
-   * runs simple version of kernel/bios/random test with cocotb (A2L2 interface partially implemented in Python) and Verilog core wrapper (A2L2<->mem interface)
+   * runs simple version of kernel/bios/random test with cocotb (A2L2 interface partially implemented in Python) and Verilog core wrappers (A2L2<->mem/wb interfaces)
    * wrapper converts A2L2 interface to mem and Wishbone interfaces
    * verilator now runs with a2o_litex
    
