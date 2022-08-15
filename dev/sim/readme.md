@@ -5,7 +5,7 @@ Building with cocotb, verilator, icarus...
 ## cocotb + Icarus
 
 * A2L2 python interface partially implemented
-* original boot code makes it to jump to (missing) test
+* now running core, core+node/mem, core+wb
 * makegtkw creates netlist
 
 ```
