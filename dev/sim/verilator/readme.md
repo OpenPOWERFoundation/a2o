@@ -1,5 +1,17 @@
 # Verilator
 
+##
+* verilator now successfully runs, once the nclk[] changes were completed to separate clk and rst, and
+remove lcb's driving lclk's
+
+```
+verilator -cc  --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1  -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib -Iverilog/unisims a2owb.v tb_litex.cpp  |& tee verilator.txt
+```
+
+* about 5 non-scan UNOPTFLATs
+
+## Experiments
+
 ### core-only initial experiment
 
 ```
@@ -36,15 +48,6 @@ obj_dir/Va2owb
 * added CP signals to track completions (/*verilator public*/) and now first isync fails (flushes to @04)
 
 # Verilator Debug
-
-* verilator now successfully runs, once the nclk[] changes were completed to separate clk and rst, and
-remove lcb's driving lclk's
-
-```
-verilator -cc  --exe --trace --Mdir obj_dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1  -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib -Iverilog/unisims a2owb.v tb_litex.cpp  |& tee verilator.txt
-```
-
-* about 5 non-scan UNOPTFLATs
 
 ##### Old Stuff
 
