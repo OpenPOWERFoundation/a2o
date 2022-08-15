@@ -1,7 +1,9 @@
 // simple verilator top
 // litex soc w/a2o
 
+#ifndef NO_TRACE
 #define TRACING
+#endif
 
 // old public access method
 //#define OLD_PUBLIC

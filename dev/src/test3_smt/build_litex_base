@@ -1,0 +1,43 @@
+#!/usr/bin/bash
+
+export COMMONFLAGS="-ffreestanding -fomit-frame-pointer -Wall -fno-stack-protector"
+export CFLAGS="$COMMONFLAGS -fexceptions -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes"
+
+echo -n "Compiling..."
+
+echo ""
+
+echo -n "libc.c "
+powerpc-linux-gnu-gcc -c -Ilitex/include/base -Ilitex/include/flibm $CFLAGS -DNO_FLOAT litex/libbase/libc.c
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+echo -n "vsnprintf.c "
+# NO_FLOAT gets rid of
+#snprintf.c:(.text+0x800): undefined reference to `log10'
+#powerpc-linux-gnu-ld: vsnprintf.c:(.text+0x80c): undefined reference to `floor'
+#powerpc-linux-gnu-ld: vsnprintf.c:(.text+0x824): undefined reference to `pow'
+#powerpc-linux-gnu-ld: vsnprintf.c:(.text+0x898): undefined reference to `fmod'
+#powerpc-linux-gnu-ld: vsnprintf.c:(.text+0x950): undefined reference to `fmod'
+powerpc-linux-gnu-gcc -c -Ilitex/include/base -Ilitex/include/flibm $CFLAGS -DNO_FLOAT litex/libbase/vsnprintf.c
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+echo -n "console.c "
+# use hacked console.c to printf to mem instead of uart - use console_set_write_hook(console_write_hook putchar_handler)) to print to buffer
+#powerpc-linux-gnu-gcc -c -Ilitex/include/base -Ilitex/include/flibm $CFLAGS litex/libbase/console.c
+powerpc-linux-gnu-gcc -nostdlib -nodefaultlibs -c -Ilitex/include/base -Ilitex/include/flibm $CFLAGS console.c
+
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+echo ""
+
+#echo "Linking to test dependencies..."
+#powerpc-linux-gnu-ld -nostdlib -nodefaultlibs libc.o vsnprintf.o console.o -o litexlib.o
+#if [ $? -ne 0 ]; then
+#   exit
+#fi

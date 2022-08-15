@@ -1,0 +1,102 @@
+#!/usr/bin/bash
+
+export COMMONFLAGS="-ffreestanding -fomit-frame-pointer -Wall -fno-stack-protector"
+export CFLAGS="$COMMONFLAGS -fexceptions -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes"
+
+#LITEXLIB=
+#PRINTF=
+LITEXLIB="libc.o vsnprintf.o console.o"
+# getting dtlb in vsnprintf
+PRINTF="-DPRINTF"
+
+# defines
+
+## define vars to init rom with csr's it uses...
+
+#
+#csr_base=`grep '#define CSR_BASE' generated/csr.h | cut -d ' ' -f 3 | cut -c 1-6`
+#uart_base=`grep 'CSR_UART_BASE' generated/csr.h | cut -d ' ' -f 5 | cut -c 3-6`
+#UART_ADDR="${csr_base}${uart_base}"
+#defsyms="-defsym $UART_ADDR"
+#
+#uart_base=`grep 'CSR_UART_1_BASE' generated/csr.h | cut -d ' ' -f 5 | cut -c 3-6`
+#if [[ "$uart_base" != "" ]] ; then
+#   UART_1_ADDR="${csr_base}${uart_base}"
+#   defsyms="$defsyms -defsym $UART_1_ADDR"
+#fi
+#
+#uart_base=`grep 'CSR_UART_2_BASE' generated/csr.h | cut -d ' ' -f 5 | cut -c 3-6`
+#if [[ "$uart_base" != "" ]] ; then
+#   UART_2_ADDR="${csr_base}${uart_base}"
+#   defsyms="$defsyms -defsym $UART_2_ADDR"
+#fi
+#
+#leds_base=`grep 'CSR_LEDS_BASE' generated/csr.h | cut -d ' ' -f 5 | cut -c 3-6`
+#if [[ "$leds_base" != "" ]] ; then
+#   LEDS_ADDR="${csr_base}${leds_base}"
+#   defsyms="$defsyms -defsym $LEDS_ADDR"
+#fi
+#
+#echo "CSR Addresses"
+#echo "Console UART: ${UART_ADDR}"
+#echo "        LEDS: ${LEDS_ADDR}"
+#echo "      UART_1: ${UART_1_ADDR}"
+#echo "      UART_2: ${UART_1_ADDR}"
+
+# a2o nanokernel
+
+echo -n "Compiling..."
+
+echo -n "boot.s "
+#powerpc-linux-gnu-as -mbig-endian -ma2 -defsym INT_SC=1 -defsym INT_UNHANDLED=1 -I. boot.s -ahlnd -o crt0.o > crt0.lst
+powerpc-linux-gnu-as -mbig-endian -ma2 -defsym THREAD_ENABLES=3 -defsym TST_END=1 -defsym INT_UNHANDLED=1 -defsym TST_PASSFAIL=1 -I. boot.s -ahlnd -o crt0.o > crt0.lst
+
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+echo -n "arcitst.s "
+#powerpc-linux-gnu-as -defsym UART_ADDR=$UART_ADDR -defsym LEDS_ADDR=$LEDS_ADDR -defsym UNHANDLED=1 -mbig-endian -mpower9 -I./asm asm/cmod7-boot.s -ahlnd -o crt0.o > crt0.lst
+powerpc-linux-gnu-as -mbig-endian -ma2 -I. arcitst.s -ahlnd -o arcitst.o > arcitst.lst
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+echo ""
+echo -n "bios.c "
+powerpc-linux-gnu-gcc $PRINTF -c -I. $CFLAGS bios.c
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+echo ""
+echo "Linking..."
+powerpc-linux-gnu-ld -nostdlib -nodefaultlibs -T linker.ld crt0.o bios.o arcitst.o $LITEXLIB -o rom
+if [ $? -ne 0 ]; then
+   exit
+fi
+
+powerpc-linux-gnu-objdump -d rom > rom.d #wtf: why not getting labels in asm code?
+powerpc-linux-gnu-objdump -s rom > rom.s
+#powerpc-linux-gnu-objcopy --change-section-lma .bios=0x10000 -O binary rom rom.bin
+powerpc-linux-gnu-objcopy -O binary rom rom.bin
+
+#python3 -m litex.soc.software.memusage rom ./generated/regions.ld powerpc-linux-gnu
+
+# make rom.bin.hex
+bin/bin2init rom.bin
+mv rom.bin.hex rom.init
+
+echo "Built rom.d, rom.s, rom.init."
+
+romsize=`grep rom regions.ld |  cut -d " " -f 8 | cut -c 3-10`
+
+echo "Hardware ROM Size $romsize"
+#echo ""
+#echo "CSR Addresses"
+#echo "Console UART: ${UART_ADDR}"
+#echo "        LEDS: ${LEDS_ADDR}"
+#echo "      UART_1: ${UART_1_ADDR}"
+#echo "      UART_2: ${UART_2_ADDR}"
+#
+

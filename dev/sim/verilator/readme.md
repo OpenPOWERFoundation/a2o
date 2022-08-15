@@ -45,6 +45,60 @@ obj_dir_$mod/V$mod | tee sim_soc.txt
 vcd2fst a2olitex.vcd soc.fst
 rm a2olitex.vcd
 gtkwave soc.fst soc.gtkw
+
+time obj_dir_$mod/V$mod > sim_soc_notrace.txt
+
+real	1m3.318s
+user	0m58.941s
+sys	0m3.368s
+```
+
+* notrace - faster execution?
+
+```
+dir=obj_dir_${mod}_notrace
+verilator -cc --exe -CFLAGS -DNO_TRACE=1 --Mdir $dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -I$. -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib -Iverilog/unisims -Iverilog/unisims_soc $mod tb_litex_$mod.cpp |& tee verilator_$mod.txt
+make -j6 -C $dir -f V$mod.mk V$mod
+
+time $dir/V$mod > sim_soc_notrace.txt
+
+real	0m19.814s
+user	0m19.577s
+sys	0m0.188s
+```
+
+   that is ~1.25KHz clk (25K cycs/20s).
+
+* -O3 + notrace
+
+```
+dir=obj_dir_${mod}_notrace_o3
+verilator -cc --exe -O3 -CFLAGS -DNO_TRACE=1 --Mdir $dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -I$. -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib -Iverilog/unisims -Iverilog/unisims_soc $mod tb_litex_$mod.cpp |& tee verilator_$mod.txt
+make -j6 -C $dir -f V$mod.mk V$mod
+$dir/V$mod | tee sim_soc_o3.txt
+
+time $dir/V$mod > sim_soc_notrace_o3.txt
+
+real	0m23.279s
+user	0m22.916s
+sys	0m0.260s
+
+```
+
+* -O3 -O3 + notrace
+
+```
+dir=obj_dir_${mod}_notrace_o3_o3
+verilator -cc --exe -O3 -CFLAGS -O3 -CFLAGS -DNO_TRACE=1 --Mdir $dir --language 1364-2001 -Wno-fatal -Wno-LITENDIAN --error-limit 1 -I$. -Iverilog/a2o_litex -Iverilog/work -Iverilog/trilib -Iverilog/unisims -Iverilog/unisims_soc $mod tb_litex_$mod.cpp |& tee verilator_$mod.txt
+make -j6 -C $dir -f V$mod.mk V$mod
+$dir/V$mod | tee sim_soc_o3_o3.txt
+
+time $dir/V$mod > sim_soc_notrace_o3_o3.txt
+
+real	0m23.244s
+user	0m22.963s
+sys	0m0.192s
+
 ```
 
 ##### first try

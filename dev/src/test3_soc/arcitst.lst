@@ -1,0 +1,492 @@
+   1              	# asmtst.tpl
+   2              	
+   3              	.include "defines.s"
+   1              	# © IBM Corp. 2020
+   2              	# Licensed under and subject to the terms of the CC-BY 4.0
+   3              	# license (https://creativecommons.org/licenses/by/4.0/legalcode).
+   4              	# Additional rights, including the right to physically implement a softcore
+   5              	# that is compliant with the required sections of the Power ISA
+   6              	# Specification, will be available at no cost via the OpenPOWER Foundation.
+   7              	# This README will be updated with additional information when OpenPOWER's
+   8              	# license is available.
+   9              	
+  10              	#-----------------------------------------
+  11              	# Defines
+  12              	#-----------------------------------------
+  13              	
+  14              	# Regs
+  15              	
+  16              	.set    r0,  0
+  17              	.set    r1,  1
+  18              	.set    r2,  2
+  19              	.set    r3,  3
+  20              	.set    r4,  4
+  21              	.set    r5,  5
+  22              	.set    r6,  6
+  23              	.set    r7,  7
+  24              	.set    r8,  8
+  25              	.set    r9,  9
+  26              	.set    r10,10
+  27              	.set    r11,11
+  28              	.set    r12,12
+  29              	.set    r13,13
+  30              	.set    r14,14
+  31              	.set    r15,15
+  32              	.set    r16,16
+  33              	.set    r17,17
+  34              	.set    r18,18
+  35              	.set    r19,19
+  36              	.set    r20,20
+  37              	.set    r21,21
+  38              	.set    r22,22
+  39              	.set    r23,23
+  40              	.set    r24,24
+  41              	.set    r25,25
+  42              	.set    r26,26
+  43              	.set    r27,27
+  44              	.set    r28,28
+  45              	.set    r29,29
+  46              	.set    r30,30
+  47              	.set    r31,31
+  48              	
+  49              	.set    f0,  0
+  50              	.set    f1,  1
+  51              	.set    f2,  2
+  52              	.set    f3,  3
+  53              	.set    f4,  4
+  54              	.set    f5,  5
+  55              	.set    f6,  6
+  56              	.set    f7,  7
+  57              	.set    f8,  8
+  58              	.set    f9,  9
+  59              	.set    f10,10
+  60              	.set    f11,11
+  61              	.set    f12,12
+  62              	.set    f13,13
+  63              	.set    f14,14
+  64              	.set    f15,15
+  65              	.set    f16,16
+  66              	.set    f17,17
+  67              	.set    f18,18
+  68              	.set    f19,19
+  69              	.set    f20,20
+  70              	.set    f21,21
+  71              	.set    f22,22
+  72              	.set    f23,23
+  73              	.set    f24,24
+  74              	.set    f25,25
+  75              	.set    f26,26
+  76              	.set    f27,27
+  77              	.set    f28,28
+  78              	.set    f29,29
+  79              	.set    f30,30
+  80              	.set    f31,31
+  81              	
+  82              	.set    cr0, 0
+  83              	.set    cr1, 1
+  84              	.set    cr2, 2
+  85              	.set    cr3, 3
+  86              	.set    cr4, 4
+  87              	.set    cr5, 5
+  88              	.set    cr6, 6
+  89              	.set    cr7, 7
+  90              	
+  91              	# SPR numbers
+  92              	
+  93              	.set    srr0, 26
+  94              	.set    srr1, 27
+  95              	.set    dar, 19
+  96              	.set    dsisr, 18
+  97              	.set    epcr, 307
+  98              	.set    tar, 815
+  99              	
+ 100              	.set    dbsr, 304
+ 101              	.set    dbcr0, 308
+ 102              	.set    dbcr1, 309
+ 103              	.set    dbcr2, 310
+ 104              	.set    dbcr3, 848
+ 105              	
+ 106              	.set    ivpr, 63
+ 107              	
+ 108              	.set    iucr0, 1011
+ 109              	.set    iucr1, 883
+ 110              	.set    iucr2, 884
+ 111              	
+ 112              	.set    iudbg0, 888
+ 113              	.set    iudbg1, 889
+ 114              	.set    iudbg2, 890
+ 115              	.set    iulfsr, 891
+ 116              	.set    iullcr, 892
+ 117              	
+ 118              	.set    mmucr0, 1020
+ 119              	.set    mmucr1, 1021
+ 120              	.set    mmucr2, 1022
+ 121              	.set    mmucr3, 1023
+ 122              	
+ 123              	.set    tb, 268
+ 124              	.set    tbl, 284
+ 125              	.set    tbh, 285
+ 126              	
+ 127              	.set    dec, 22
+ 128              	.set    udec, 550
+ 129              	.set    tsr, 336
+ 130              	.set    tcr, 340
+ 131              	
+ 132              	.set    xucr0, 1014
+ 133              	.set    xucr1, 851
+ 134              	.set    xucr2, 1016
+ 135              	.set    xucr3, 852
+ 136              	.set    xucr4, 853
+ 137              	
+ 138              	.set    tens, 438
+ 139              	.set    tenc, 439
+ 140              	.set    tensr, 437
+ 141              	
+ 142              	.set    pid, 48
+ 143              	.set    pir, 286
+ 144              	.set    pvr, 287
+ 145              	.set    tir, 446
+ 146              	
+ 147              	#.set    sprg0,
+ 148              	#.set    sprg1,
+ 149              	#.set    sprg2,
+ 150              	.set    sprg3, 259
+   4              	
+   5              	# -------------------------------------------------------------------------------------------------
+   6              	# c-accessible
+   7              	
+   8              	.global init_tst
+   9              	.global tst_start
+  10              	.global tst_end
+  11              	.global tst_inits
+  12              	.global tst_results
+  13              	.global tst_expects
+  14              	
+  15              	# -------------------------------------------------------------------------------------------------
+  16              	tst_misc:
+  17              	
+  18 0000 696E666F 	tst_info:      .asciz "info text"
+  18      20746578 
+  18      7400
+  19 000a 68656164 	tst_header:    .asciz "header text"
+  19      65722074 
+  19      65787400 
+  20              	
+  21              	.set SAVESPR,tar
+  22              	.set MAGIC,0x8675309
+  23              	
+  24              	# -------------------------------------------------------------------------------------------------
+  25 0016 00000000 	.align 5
+  25      00000000 
+  25      0000
+  26              	tst_inits:
+  27              	
+  28 0020 00000000 	init_r0:       .int 0x00000000
+  29 0024 5822C905 	init_r1:       .int 0x5822C905
+  30 0028 FFFFFFFF 	init_r2:       .int 0xFFFFFFFF
+  31 002c 91B6D1A3 	init_r3:       .int 0x91B6D1A3
+  32 0030 FFFFFFFF 	init_r4:       .int 0xFFFFFFFF
+  33 0034 FFFFFFFF 	init_r5:       .int 0xFFFFFFFF
+  34 0038 FFFFFFFF 	init_r6:       .int 0xFFFFFFFF
+  35 003c FFFFFFFF 	init_r7:       .int 0xFFFFFFFF
+  36 0040 FFFFFFFF 	init_r8:       .int 0xFFFFFFFF
+  37 0044 7E11EE88 	init_r9:       .int 0x7E11EE88
+  38 0048 FFFFFFFF 	init_r10:      .int 0xFFFFFFFF
+  39 004c 7FFFFFFF 	init_r11:      .int 0x7FFFFFFF
+  40 0050 FFFFFFFF 	init_r12:      .int 0xFFFFFFFF
+  41 0054 FFFFFFFF 	init_r13:      .int 0xFFFFFFFF
+  42 0058 8C20BDE6 	init_r14:      .int 0x8C20BDE6
+  43 005c FFFFFFFF 	init_r15:      .int 0xFFFFFFFF
+  44 0060 76D0DADF 	init_r16:      .int 0x76D0DADF
+  45 0064 15111F42 	init_r17:      .int 0x15111F42
+  46 0068 FFFFFFFF 	init_r18:      .int 0xFFFFFFFF
+  47 006c 36108E50 	init_r19:      .int 0x36108E50
+  48 0070 FFFFFFFF 	init_r20:      .int 0xFFFFFFFF
+  49 0074 FFFFFFFF 	init_r21:      .int 0xFFFFFFFF
+  50 0078 328A0CED 	init_r22:      .int 0x328A0CED
+  51 007c FFFFFFFF 	init_r23:      .int 0xFFFFFFFF
+  52 0080 FFFFFFFF 	init_r24:      .int 0xFFFFFFFF
+  53 0084 AF224C19 	init_r25:      .int 0xAF224C19
+  54 0088 FFFFFFFF 	init_r26:      .int 0xFFFFFFFF
+  55 008c FFFFFFFF 	init_r27:      .int 0xFFFFFFFF
+  56 0090 D624B27A 	init_r28:      .int 0xD624B27A
+  57 0094 FFFFFFFF 	init_r29:      .int 0xFFFFFFFF
+  58 0098 FFFFFFFF 	init_r30:      .int 0xFFFFFFFF
+  59 009c FFFFFFFF 	init_r31:      .int 0xFFFFFFFF
+  60              	
+  61 00a0 DBFD3628 	init_cr:       .int 0xDBFD3628
+  62 00a4 89F0006E 	init_xer:      .int 0x89F0006E
+  63 00a8 FFFFFFFF 	init_ctr:      .int 0xFFFFFFFF
+  64 00ac FFFFFFFF 	init_lr:       .int 0xFFFFFFFF
+  65 00b0 FFFFFFFF 	init_tar:      .int 0xFFFFFFFF
+  66 00b4 00001104 	init_msr:      .int 0x00001104
+  67              	
+  68 00b8 00010000 	init_iar:      .int 0x00010000
+  69              	
+  70 00bc 00000000 	save_r1:       .int 0
+  71              	
+  72 00c0 0000000D 	codelen:       .int 13
+  73 00c4 7C61CC14 	ops:           .int 0x7C61CC14,0x7D230595,0x7AC37392,0x7E094C11,0x7E1CB115,0x7A338886,0x7C6004D1,0x
+  73      7D230595 
+  73      7AC37392 
+  73      7E094C11 
+  73      7E1CB115 
+  74 00f8 00010000 	iars:          .int 0x00010000,0x00010004,0x00010008,0x0001000C,0x00010010,0x00010014,0x00010018,0x
+  74      00010004 
+  74      00010008 
+  74      0001000C 
+  74      00010010 
+  75              	
+  76              	# -------------------------------------------------------------------------------------------------
+  77              	# r3=@tst_inits
+  78 012c 48000014 	.align 5
+  78      60000000 
+  78      60000000 
+  78      60000000 
+  78      60000000 
+  79              	init_tst:
+  80              	
+  81              	# save c stuff
+  82 0140 9023009C 	   stw         r1,(save_r1-tst_inits)(r3)
+  83              	
+  84              	# copy ops
+  85              	opcopy:
+  86 0144 802300A0 	   lwz         r1,(codelen-tst_inits)(r3)
+  87 0148 7C2903A6 	   mtctr       r1
+  88 014c 382300A4 	   la          r1,(ops-tst_inits)(r3)              # @ ops list
+  89 0150 384300D8 	   la          r2,(iars-tst_inits)(r3)             # @ iars list
+  90              	opcopy_loop:
+  91 0154 80810000 	   lwz         r4,0(r1)                            # next op
+  92 0158 80A20000 	   lwz         r5,0(r2)                            # next iar
+  93 015c 90850000 	   stw         r4,0(r5)                            # store it
+  94 0160 38210004 	   addi        r1,r1,4                             # inc to next
+  95 0164 38420004 	   addi        r2,r2,4
+  96 0168 4200FFEC 	   bdnz        opcopy_loop
+  97              	
+  98              	# add end of test op - could be done here or by builder
+  99              	# ways to end:
+ 100              	#   ba <fixed_loc>      - avoid reloc, target op can then branch to tst_end
+ 101              	#   trap,sc,scv         - branch to tst_end in handler
+ 102              	#   attn, priv op, etc. -  "
+ 103              	# overwrite the last epilogue op to avoid any crossing
+ 104              	opcopy_eot:
+ 105 016c 3C804800 	   lis         r4,0x4800
+ 106 0170 60840006 	   ori         r4,r4,0x0006         # ba 0x0004
+ 107 0174 90850000 	   stw         r4,0(r5)
+ 108              	
+ 109              	# get tst start
+ 110 0178 80230094 	   lwz         r1,(init_msr-tst_inits)(r3)
+ 111 017c 7C3B03A6 	   mtsrr1      r1
+ 112 0180 80230098 	   lwz         r1,(init_iar-tst_inits)(r3)
+ 113 0184 7C3A03A6 	   mtsrr0      r1
+ 114              	
+ 115              	# init test regs
+ 116              	init_regs:
+ 117 0188 80230080 	   lwz         r1,(init_cr-tst_inits)(r3)
+ 118 018c 7C2FF120 	   mtcr        r1
+ 119 0190 80230084 	   lwz      r1,(init_xer-tst_inits)(r3)
+ 120 0194 7C2103A6 	   mtxer       r1
+ 121 0198 80230088 	   lwz      r1,(init_ctr-tst_inits)(r3)
+ 122 019c 7C2903A6 	   mtctr       r1
+ 123 01a0 8023008C 	   lwz      r1,(init_lr-tst_inits)(r3)
+ 124 01a4 7C2803A6 	   mtlr        r1
+ 125 01a8 80230090 	   lwz      r1,(init_tar-tst_inits)(r3)
+ 126 01ac 7C2FCBA6 	   mtspr       tar,r1
+ 127              	
+ 128 01b0 80030000 	   lwz         r0,(init_r0-tst_inits)(r3)
+ 129 01b4 80230004 	   lwz         r1,(init_r1-tst_inits)(r3)
+ 130 01b8 80430008 	   lwz         r2,(init_r2-tst_inits)(r3)
+ 131 01bc 80830010 	   lwz         r4,(init_r4-tst_inits)(r3)
+ 132 01c0 80A30014 	   lwz         r5,(init_r5-tst_inits)(r3)
+ 133 01c4 80C30018 	   lwz         r6,(init_r6-tst_inits)(r3)
+ 134 01c8 80E3001C 	   lwz         r7,(init_r7-tst_inits)(r3)
+ 135 01cc 81030020 	   lwz         r8,(init_r8-tst_inits)(r3)
+ 136 01d0 81230024 	   lwz         r9,(init_r9-tst_inits)(r3)
+ 137 01d4 81430028 	   lwz         r10,(init_r10-tst_inits)(r3)
+ 138 01d8 8163002C 	   lwz         r11,(init_r11-tst_inits)(r3)
+ 139 01dc 81830030 	   lwz         r12,(init_r12-tst_inits)(r3)
+ 140 01e0 81A30034 	   lwz         r13,(init_r13-tst_inits)(r3)
+ 141 01e4 81C30038 	   lwz         r14,(init_r14-tst_inits)(r3)
+ 142 01e8 81E3003C 	   lwz         r15,(init_r15-tst_inits)(r3)
+ 143 01ec 82030040 	   lwz         r16,(init_r16-tst_inits)(r3)
+ 144 01f0 82230044 	   lwz         r17,(init_r17-tst_inits)(r3)
+ 145 01f4 82430048 	   lwz         r18,(init_r18-tst_inits)(r3)
+ 146 01f8 8263004C 	   lwz         r19,(init_r19-tst_inits)(r3)
+ 147 01fc 82830050 	   lwz         r20,(init_r20-tst_inits)(r3)
+ 148 0200 82A30054 	   lwz         r21,(init_r21-tst_inits)(r3)
+ 149 0204 82C30058 	   lwz         r22,(init_r22-tst_inits)(r3)
+ 150 0208 82E3005C 	   lwz         r23,(init_r23-tst_inits)(r3)
+ 151 020c 83030060 	   lwz         r24,(init_r24-tst_inits)(r3)
+ 152 0210 83230064 	   lwz         r25,(init_r25-tst_inits)(r3)
+ 153 0214 83430068 	   lwz         r26,(init_r26-tst_inits)(r3)
+ 154 0218 8363006C 	   lwz         r27,(init_r27-tst_inits)(r3)
+ 155 021c 83830070 	   lwz         r28,(init_r28-tst_inits)(r3)
+ 156 0220 83A30074 	   lwz         r29,(init_r29-tst_inits)(r3)
+ 157 0224 83C30078 	   lwz         r30,(init_r30-tst_inits)(r3)
+ 158 0228 83E3007C 	   lwz         r31,(init_r31-tst_inits)(r3)
+ 159 022c 8063000C 	   lwz         r3,(init_r3-tst_inits)(r3)
+ 160              	
+ 161              	jmp2tst:
+ 162 0230 4C000064 	   rfi
+ 163              	   #rfid
+ 164              	   #ba 0x10000
+ 165              	
+ 166              	tst_end:
+ 167 0234 4800000C 	   b           save_results
+ 168              	
+ 169              	# -------------------------------------------------------------------------------------------------
+ 170 0238 60000000 	.align 5
+ 170      60000000 
+ 171              	save_results:
+ 172              	# use a designated spr to save (sprgx, ...)
+ 173 0240 7C2FCBA6 	   mtspr       SAVESPR,r1
+ 174 0244 3C200000 	   lis         r1,tst_results@h
+ 175 0248 60210000 	   ori         r1,r1,tst_results@l
+ 176 024c 90010000 	   stw         r0,(rslt_r0-tst_results)(r1)
+ 177 0250 90410008 	   stw         r2,(rslt_r2-tst_results)(r1)
+ 178 0254 9061000C 	   stw         r3,(rslt_r3-tst_results)(r1)
+ 179 0258 90810010 	   stw         r4,(rslt_r4-tst_results)(r1)
+ 180 025c 90A10014 	   stw         r5,(rslt_r5-tst_results)(r1)
+ 181 0260 90C10018 	   stw         r6,(rslt_r6-tst_results)(r1)
+ 182 0264 90E1001C 	   stw         r7,(rslt_r7-tst_results)(r1)
+ 183 0268 91010020 	   stw         r8,(rslt_r8-tst_results)(r1)
+ 184 026c 91210024 	   stw         r9,(rslt_r9-tst_results)(r1)
+ 185 0270 91410028 	   stw         r10,(rslt_r10-tst_results)(r1)
+ 186 0274 9161002C 	   stw         r11,(rslt_r11-tst_results)(r1)
+ 187 0278 91810030 	   stw         r12,(rslt_r12-tst_results)(r1)
+ 188 027c 91A10034 	   stw         r13,(rslt_r13-tst_results)(r1)
+ 189 0280 91C10038 	   stw         r14,(rslt_r14-tst_results)(r1)
+ 190 0284 91E1003C 	   stw         r15,(rslt_r15-tst_results)(r1)
+ 191 0288 92010040 	   stw         r16,(rslt_r16-tst_results)(r1)
+ 192 028c 92210044 	   stw         r17,(rslt_r17-tst_results)(r1)
+ 193 0290 92410048 	   stw         r18,(rslt_r18-tst_results)(r1)
+ 194 0294 9261004C 	   stw         r19,(rslt_r19-tst_results)(r1)
+ 195 0298 92810050 	   stw         r20,(rslt_r20-tst_results)(r1)
+ 196 029c 92A10054 	   stw         r21,(rslt_r21-tst_results)(r1)
+ 197 02a0 92C10058 	   stw         r22,(rslt_r22-tst_results)(r1)
+ 198 02a4 92E1005C 	   stw         r23,(rslt_r23-tst_results)(r1)
+ 199 02a8 93010060 	   stw         r24,(rslt_r24-tst_results)(r1)
+ 200 02ac 93210064 	   stw         r25,(rslt_r25-tst_results)(r1)
+ 201 02b0 93410068 	   stw         r26,(rslt_r26-tst_results)(r1)
+ 202 02b4 9361006C 	   stw         r27,(rslt_r27-tst_results)(r1)
+ 203 02b8 93810070 	   stw         r28,(rslt_r28-tst_results)(r1)
+ 204 02bc 93A10074 	   stw         r29,(rslt_r29-tst_results)(r1)
+ 205 02c0 93C10078 	   stw         r30,(rslt_r30-tst_results)(r1)
+ 206 02c4 93E1007C 	   stw         r31,(rslt_r31-tst_results)(r1)
+ 207 02c8 7C4FCAA6 	   mfspr       r2,SAVESPR
+ 208 02cc 90410004 	   stw         r2,(rslt_r1-tst_results)(r1)
+ 209 02d0 7C400026 	   mfcr        r2
+ 210 02d4 90410080 	   stw         r2,(rslt_cr-tst_results)(r1)
+ 211 02d8 7C4102A6 	   mfxer       r2
+ 212 02dc 90410084 	   stw         r2,(rslt_xer-tst_results)(r1)
+ 213 02e0 7C4902A6 	   mfctr       r2
+ 214 02e4 90410088 	   stw         r2,(rslt_ctr-tst_results)(r1)
+ 215 02e8 7C4802A6 	   mflr        r2
+ 216 02ec 9041008C 	   stw         r2,(rslt_lr-tst_results)(r1)
+ 217 02f0 7C4FCAA6 	   mfspr       r2,tar
+ 218 02f4 90410090 	   stw         r2,(rslt_tar-tst_results)(r1)
+ 219              	
+ 220              	tst_cleanup:
+ 221              	# restore c stuff
+ 222 02f8 3C600000 	   lis         r3,tst_inits@h
+ 223 02fc 60630000 	   ori         r3,r3,tst_inits@l
+ 224 0300 8023009C 	   lwz         r1,(save_r1-tst_inits)(r3)
+ 225 0304 3C600867 	   lis         r3,MAGIC@h
+ 226 0308 60635309 	   ori         r3,r3,MAGIC@l
+ 227              	
+ 228 030c 48000003 	   bla         tst_done
+ 229              	
+ 230              	# -------------------------------------------------------------------------------------------------
+ 231 0310 60000000 	.align 5
+ 231      60000000 
+ 231      60000000 
+ 231      60000000 
+ 232              	tst_results:
+ 233              	
+ 234 0320 FFFFFFFF 	rslt_r0:       .int 0xFFFFFFFF
+ 235 0324 FFFFFFFF 	rslt_r1:       .int 0xFFFFFFFF
+ 236 0328 FFFFFFFF 	rslt_r2:       .int 0xFFFFFFFF
+ 237 032c FFFFFFFF 	rslt_r3:       .int 0xFFFFFFFF
+ 238 0330 FFFFFFFF 	rslt_r4:       .int 0xFFFFFFFF
+ 239 0334 FFFFFFFF 	rslt_r5:       .int 0xFFFFFFFF
+ 240 0338 FFFFFFFF 	rslt_r6:       .int 0xFFFFFFFF
+ 241 033c FFFFFFFF 	rslt_r7:       .int 0xFFFFFFFF
+ 242 0340 FFFFFFFF 	rslt_r8:       .int 0xFFFFFFFF
+ 243 0344 FFFFFFFF 	rslt_r9:       .int 0xFFFFFFFF
+ 244 0348 FFFFFFFF 	rslt_r10:      .int 0xFFFFFFFF
+ 245 034c FFFFFFFF 	rslt_r11:      .int 0xFFFFFFFF
+ 246 0350 FFFFFFFF 	rslt_r12:      .int 0xFFFFFFFF
+ 247 0354 FFFFFFFF 	rslt_r13:      .int 0xFFFFFFFF
+ 248 0358 FFFFFFFF 	rslt_r14:      .int 0xFFFFFFFF
+ 249 035c FFFFFFFF 	rslt_r15:      .int 0xFFFFFFFF
+ 250 0360 FFFFFFFF 	rslt_r16:      .int 0xFFFFFFFF
+ 251 0364 FFFFFFFF 	rslt_r17:      .int 0xFFFFFFFF
+ 252 0368 FFFFFFFF 	rslt_r18:      .int 0xFFFFFFFF
+ 253 036c FFFFFFFF 	rslt_r19:      .int 0xFFFFFFFF
+ 254 0370 FFFFFFFF 	rslt_r20:      .int 0xFFFFFFFF
+ 255 0374 FFFFFFFF 	rslt_r21:      .int 0xFFFFFFFF
+ 256 0378 FFFFFFFF 	rslt_r22:      .int 0xFFFFFFFF
+ 257 037c FFFFFFFF 	rslt_r23:      .int 0xFFFFFFFF
+ 258 0380 FFFFFFFF 	rslt_r24:      .int 0xFFFFFFFF
+ 259 0384 FFFFFFFF 	rslt_r25:      .int 0xFFFFFFFF
+ 260 0388 FFFFFFFF 	rslt_r26:      .int 0xFFFFFFFF
+ 261 038c FFFFFFFF 	rslt_r27:      .int 0xFFFFFFFF
+ 262 0390 FFFFFFFF 	rslt_r28:      .int 0xFFFFFFFF
+ 263 0394 FFFFFFFF 	rslt_r29:      .int 0xFFFFFFFF
+ 264 0398 FFFFFFFF 	rslt_r30:      .int 0xFFFFFFFF
+ 265 039c FFFFFFFF 	rslt_r31:      .int 0xFFFFFFFF
+ 266              	
+ 267 03a0 FFFFFFFF 	rslt_cr:       .int 0xFFFFFFFF
+ 268 03a4 FFFFFFFF 	rslt_xer:      .int 0xFFFFFFFF
+ 269 03a8 FFFFFFFF 	rslt_ctr:      .int 0xFFFFFFFF
+ 270 03ac FFFFFFFF 	rslt_lr:       .int 0xFFFFFFFF
+ 271 03b0 FFFFFFFF 	rslt_tar:      .int 0xFFFFFFFF
+ 272              	
+ 273              	# -------------------------------------------------------------------------------------------------
+ 274 03b4 60000000 	.align 5
+ 274      60000000 
+ 274      60000000 
+ 275              	tst_expects:
+ 276              	
+ 277 03c0 00000000 	expt_r0:       .int 0x00000000
+ 278 03c4 CD75F313 	expt_r1:       .int 0xCD75F313
+ 279 03c8 FFFFFFFF 	expt_r2:       .int 0xFFFFFFFF
+ 280 03cc 00000000 	expt_r3:       .int 0x00000000
+ 281 03d0 FFFFFFFF 	expt_r4:       .int 0xFFFFFFFF
+ 282 03d4 FFFFFFFF 	expt_r5:       .int 0xFFFFFFFF
+ 283 03d8 FFFFFFFF 	expt_r6:       .int 0xFFFFFFFF
+ 284 03dc FFFFFFFF 	expt_r7:       .int 0xFFFFFFFF
+ 285 03e0 FFFFFFFF 	expt_r8:       .int 0xFFFFFFFF
+ 286 03e4 008A0C68 	expt_r9:       .int 0x008A0C68
+ 287 03e8 FFFFFFFF 	expt_r10:      .int 0xFFFFFFFF
+ 288 03ec 7FFFFFFF 	expt_r11:      .int 0x7FFFFFFF
+ 289 03f0 FFFFFFFF 	expt_r12:      .int 0xFFFFFFFF
+ 290 03f4 FFFFFFFF 	expt_r13:      .int 0xFFFFFFFF
+ 291 03f8 8C20BDE6 	expt_r14:      .int 0x8C20BDE6
+ 292 03fc FFFFFFFF 	expt_r15:      .int 0xFFFFFFFF
+ 293 0400 08AEBF68 	expt_r16:      .int 0x08AEBF68
+ 294 0404 80000001 	expt_r17:      .int 0x80000001
+ 295 0408 FFFFFFFF 	expt_r18:      .int 0xFFFFFFFF
+ 296 040c 00000000 	expt_r19:      .int 0x00000000
+ 297 0410 FFFFFFFF 	expt_r20:      .int 0xFFFFFFFF
+ 298 0414 FFFFFFFF 	expt_r21:      .int 0xFFFFFFFF
+ 299 0418 328A0CED 	expt_r22:      .int 0x328A0CED
+ 300 041c FFFFFFFF 	expt_r23:      .int 0xFFFFFFFF
+ 301 0420 FFFFFFFF 	expt_r24:      .int 0xFFFFFFFF
+ 302 0424 AF224C19 	expt_r25:      .int 0xAF224C19
+ 303 0428 FFFFFFFF 	expt_r26:      .int 0xFFFFFFFF
+ 304 042c FFFFFFFF 	expt_r27:      .int 0xFFFFFFFF
+ 305 0430 D624B27A 	expt_r28:      .int 0xD624B27A
+ 306 0434 FFFFFFFF 	expt_r29:      .int 0xFFFFFFFF
+ 307 0438 FFFFFFFF 	expt_r30:      .int 0xFFFFFFFF
+ 308 043c FFFFFFFF 	expt_r31:      .int 0xFFFFFFFF
+ 309              	
+ 310 0440 9BFD3628 	expt_cr:       .int 0x9BFD3628
+ 311 0444 98F0006E 	expt_xer:      .int 0x98F0006E
+ 312 0448 FFFFFFFF 	expt_ctr:      .int 0xFFFFFFFF
+ 313 044c FFFFFFFF 	expt_lr:       .int 0xFFFFFFFF
+ 314 0450 FFFFFFFF 	expt_tar:      .int 0xFFFFFFFF
+ 315 0454 00001104 	expt_msr:      .int 0x00001104
+ 316              	
+ 317 0458 00010038 	expt_iar:      .int 0x00010038
+ 318              	
