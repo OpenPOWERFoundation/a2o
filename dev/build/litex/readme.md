@@ -2,6 +2,95 @@
 
 ## Litex
 
+### Try 32BE and 64LE software builds
+
+#### 64LE
+
+```
+a2o.py --csr-csv csr.csv
+# completes OK and build/cmod7_kintex/software is created
+```
+
+#### 32BE
+
+```
+a2o_32.py --csr-csv csr.csv
+
+Running test binary command: /data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libc/meson-private/sanitycheckc.exe
+C compiler for the build machine: ccache cc (gcc 9.4.0 "cc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0")
+C linker for the build machine: cc ld.bfd 2.34
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: ppc
+Host machine cpu: a2o
+Target machine cpu family: ppc
+Target machine cpu: a2o
+
+../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/meson.build:99:2: ERROR: Problem encountered:
+
+Unsupported architecture: "ppc"
+```
+
+* change core.py cpu_family="powerpc"; warning only :)
+
+```
+a2o_32.py --csr-csv csr.csv
+
+...
+WARNING: Unknown CPU family powerpc, please report this at https://github.com/mesonbuild/meson/issues/new
+...
+
+[15/795] Compiling C object newlib/libc.a.p/libc_machine_powerpc_setjmp.S.o
+FAILED: newlib/libc.a.p/libc_machine_powerpc_setjmp.S.o
+powerpc-linux-gnu-gcc -Inewlib/libc.a.p -Inewlib -I../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib -Inewlib/libm/common -I../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libm/common -Inewlib/libc/machine/powerpc -I../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/machine/powerpc -Inewlib/libc/tinystdio -I../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I. -I../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data -Inewlib/libc/include -I../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/data/projects/litex/litex/soc/software/libbase -I/data/projects/litex/litex/soc/software/include -I/data/projects/litex/litex/soc/software -I/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/include -I/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/include/../libc -I/data/projects/a2o/dev/build/litex/a2o -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c18 -Os -g -ffunction-sections -Os -mcpu=a2 -m32 -mbig-endian -fomit-frame-pointer -fno-builtin -fno-stack-protector -fexceptions -D__a2o__ -g3 -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -include /data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libc/picolibc.h -fno-stack-protector -U_FORTIFY_SOURCE -fno-common -frounding-math -DFORMAT_DEFAULT_INTEGER -Werror=implicit-function-declaration -Werror=vla -Warray-bounds -Wold-style-definition -Wno-missing-braces -Wno-implicit-int -Wno-return-type -D_COMPILING_NEWLIB -MD -MQ newlib/libc.a.p/libc_machine_powerpc_setjmp.S.o -MF newlib/libc.a.p/libc_machine_powerpc_setjmp.S.o.d -o newlib/libc.a.p/libc_machine_powerpc_setjmp.S.o -c ../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/machine/powerpc/setjmp.S
+../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/machine/powerpc/setjmp.S:30:2: error: #error 32-bit
+   30 | #error 32-bit
+
+```
+
+* get rid of forced error in data/newlib/libc/machine/powerpc/setjmp.S
+
+```
+cd pythondata-software-picolibc$
+#  //#error 32-bit
+pip3 install .
+```
+
+```
+a2o_32.py --csr-csv csr.csv
+
+../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/include/machine/endian.h:74:30: error: expected statement before ‘)’ token
+   74 | #define ntohl(_x) __ntohl(_x))
+      |                              ^
+../../../../../../../../../../home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/xdr/xdr_rec.c:827:12: note: in expansion of macro ‘ntohl’
+  827 |   header = ntohl (header);
+      |            ^~~~~
+[438/795] Compiling C object newlib/libc.a.p/libc_time_strftime.c.o
+ninja: build stopped: subcommand failed.
+```
+
+* fix syntax in data/newlib/libc/include/machine/endian.h
+
+```
+cd pythondata-software-picolibc$
+#  #define	htonl(_x)	__htonl(_x)
+#  #define	htons(_x)	__htons(_x)
+#  #define	ntohl(_x)	__ntohl(_x)
+#  #define	ntohs(_x)	__ntohs(_x)
+pip3 install .
+```
+
+* add crt0savres.s for missing 32b functions
+* now compiles and builds
+* seems semi-copacetic so far
+
+```
+powerpc-linux-gnu-objdump -d build/cmod7_kintex/software/bios/bios.elf > bios_32.d
+```
+
+
+
+
 #### Core and wishbone wrapper with extra stuff for Litex integration
 
 * create a2o/core.py and a2o.py (SOC) from a2p

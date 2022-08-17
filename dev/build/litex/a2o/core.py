@@ -18,21 +18,30 @@ CPU_VARIANTS = {
     'standard' : 'a2owb'
 }
 
-# 32 is from a2p plus -ma2; can get rid of some of them
-GCC_FLAGS = {
-   'WB_32BE' : '-ma2 -m32 -mbig-endian fomit-frame-pointer -Wall -fno-builtin -nostdinc -fno-stack-protector -fexceptions -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes',
-   'WB_64LE' : '-ma2 -m64 -mlittle-endian -mabi=elfv2 -fnostack-protector'
+#wtf doesnt do anything, but you can somehow do it by using -Xassembler in gcc flags
+GAS_FLAGS = {
+   'WB_32BE' : '-defsym BIOS_32=1',
+   'WB_64LE' : '-defsym BIOS_LE=1'
 }
+
+GCC_FLAGS = {
+   'WB_32BE' : '-mcpu=a2 -m32 -mbig-endian -fno-stack-protector -Xassembler -defsym -Xassembler BIOS_32=1',
+   'WB_64LE' : '-mcpu=a2 -m64 -mlittle-endian -mabi=elfv2 -fno-stack-protector -Xassembler -defsym -Xassembler BIOS_LE=1'
+}
+
 
 class A2O(CPU, AutoCSR):
    name = 'a2o'
    human_name = 'a2o'
    variants = CPU_VARIANTS
+
+   # default 64LE
    family = 'ppc64'
    data_width = 64
    endianness = 'little'
    gcc_triple = ('powerpc64le-linux', 'powerpc64le-linux-gnu')
    linker_output_format = 'elf64-powerpcle'
+
    nop = 'nop'
    io_regions = {0xF0000000: 0x10000000} # origin, length
 
@@ -58,8 +67,9 @@ class A2O(CPU, AutoCSR):
       if variant == 'standard':
          variant = 'WB_64LE'
 
-      if variant == 'WB_32LE':
-         self.family = 'ppc32'
+      if variant == 'WB_32BE':
+         #self.family = 'ppc'  # kills meson build
+         self.family = 'powerpc'
          self.data_width = 32
          self.endianness = 'big'
          self.gcc_triple = 'powerpc-linux-gnu'

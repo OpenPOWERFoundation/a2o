@@ -1,0 +1,37 @@
+Building variant=WB_64LE.
+Read 3790 bytes for ROM data.
+Wrote mem.init
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libc'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libc'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libcompiler_rt'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libcompiler_rt'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libbase'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libbase'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libfatfs'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libfatfs'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitespi'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitespi'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitedram'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitedram'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libliteeth'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libliteeth'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitesdcard'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitesdcard'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitesata'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitesata'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/bios'
+python3 -m litex.soc.software.memusage bios.elf /data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/bios/../include/generated/regions.ld powerpc64le-linux-gnu
+
+ROM usage: 28.17KiB 	(44.01%)
+RAM usage: 0.00KiB 	(0.00%)
+
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/bios'

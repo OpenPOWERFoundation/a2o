@@ -1,0 +1,1050 @@
+Building variant=WB_32BE.
+Read 3790 bytes for ROM data.
+Wrote mem.init
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libc'
+if [ -d "/data/projects/litex/litex/soc/software/libc/powerpc" ]; then \
+	cp /data/projects/litex/litex/soc/software/libc/powerpc/* /home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/newlib/libc/machine/powerpc/ ;\
+fi
+meson /home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data \
+	-Dmultilib=false \
+	-Dpicocrt=false \
+	-Datomic-ungetc=false \
+	-Dthread-local-storage=false \
+	-Dio-long-long=true \
+	-Dformat-default=integer \
+	-Dincludedir=picolibc/powerpc-linux-gnu/include \
+	-Dlibdir=picolibc/powerpc-linux-gnu/lib \
+	--cross-file cross.txt
+WARNING: Unknown CPU family powerpc, please report this at https://github.com/mesonbuild/meson/issues/new
+The Meson build system
+Version: 0.63.1
+Source dir: /home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data
+Build dir: /data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libc
+Build type: cross build
+Project name: picolibc
+Project version: 1.7.3
+C compiler for the host machine: powerpc-linux-gnu-gcc (gcc 9.4.0 "powerpc-linux-gnu-gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0")
+C linker for the host machine: powerpc-linux-gnu-gcc ld.bfd 2.34
+C compiler for the build machine: ccache cc (gcc 9.4.0 "cc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0")
+C linker for the build machine: cc ld.bfd 2.34
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: powerpc
+Host machine cpu: a2o
+Target machine cpu family: powerpc
+Target machine cpu: a2o
+Checking if "long double check" compiles: YES 
+Checking if "long double same as double" compiles: NO 
+Checking if "long double mantissa is 64 bits" compiles: NO 
+Checking if "long double mantissa is 113 bits" compiles: NO 
+Compiler for C supports arguments -fno-stack-protector: YES 
+Compiler for C supports arguments -fno-common: YES 
+Compiler for C supports arguments -frounding-math: YES 
+Program powerpc-linux-gnu-gcc-nm found: YES
+Program scripts/duplicate-names found: YES (/home/wtf/.local/lib/python3.8/site-packages/pythondata_software_picolibc/data/scripts/duplicate-names)
+Compiler for C supports link arguments -Wl,--defsym=_start=0: YES 
+Compiler for C supports link arguments -Wl,-alias,main,testalias: NO 
+Compiler for C supports function attribute alias: YES 
+Compiler for C supports function attribute format: YES 
+WARNING: You should add the boolean check kwarg to the run_command call.
+         It currently defaults to false,
+         but it will default to true in future releases of meson.
+         See also: https://github.com/mesonbuild/meson/issues/9300
+Configuring picolibc.specs using configuration
+Configuring picolibcpp.specs using configuration
+Configuring test.specs using configuration
+Configuring picolibc.ld using configuration
+Configuring picolibcpp.ld using configuration
+Compiler for C supports arguments -Werror=implicit-function-declaration: YES 
+Compiler for C supports arguments -Werror=vla: YES 
+Compiler for C supports arguments -Warray-bounds: YES 
+Compiler for C supports arguments -Wold-style-definition: YES 
+Compiler for C supports arguments -Wno-missing-braces: YES 
+Compiler for C supports arguments -Wno-implicit-int: YES 
+Compiler for C supports arguments -Wno-return-type: YES 
+Compiler for C supports arguments -Wno-unused-command-line-argument: NO 
+Checking if "packed structs may contain bitfields" compiles: YES 
+Checking if "has __builtin_mul_overflow" : links: YES 
+Checking if "supports _Complex" compiles: YES 
+Checking if "has __builtin_expect" : links: YES 
+Compiler for C supports arguments -Werror: YES 
+Checking if "attribute __alloc_size__" compiles: NO 
+Compiler for C supports arguments -Werror: YES (cached)
+Checking if "attributes constructor/destructor" compiles: YES 
+Checking if "test for __builtin_alloca" : links: YES 
+Checking if "test for __builtin_ffs" : links: YES 
+Checking if "test for __builtin_ffsl" : links: YES 
+Checking if "test for __builtin_ffsll" : links: YES 
+Checking if "test for __builtin_ctz" : links: YES 
+Checking if "test for __builtin_ctzl" : links: YES 
+Checking if "test for __builtin_ctzll" : links: YES 
+Checking if "test for __builtin_copysignl" : links: YES 
+Checking if "test for __builtin_copysign" : links: YES 
+Checking if "test for __builtin_isinfl" : links: YES 
+Checking if "test for __builtin_isinf" : links: YES 
+Checking if "test for __builtin_isnanl" : links: YES 
+Checking if "test for __builtin_isnan" : links: YES 
+Checking if "test for __builtin_finitel" : links: YES 
+Checking if "test for __builtin_isfinite" : links: YES 
+Compiler for C supports arguments -fno-tree-loop-distribute-patterns: YES 
+Compiler for C supports arguments -Werrror=attributes: NO 
+Checking if "no_builtin attribute" compiles: NO 
+Compiler for C supports arguments -fno-builtin: YES 
+Compiler for C supports arguments -ffunction-sections: YES 
+Compiler for C supports arguments -fstack-protector-all: YES 
+Compiler for C supports arguments -fstack-protector-strong: YES 
+Compiler for C supports arguments -fno-builtin-malloc: YES 
+Compiler for C supports arguments -fno-builtin-free: YES 
+Message: libm/fenv/feclearexcept.c: machine overrides generic
+Message: libm/fenv/fedisableexcept.c: machine overrides generic
+Message: libm/fenv/feenableexcept.c: machine overrides generic
+Message: libm/fenv/fegetenv.c: machine overrides generic
+Message: libm/fenv/fegetexcept.c: machine overrides generic
+Message: libm/fenv/fegetexceptflag.c: machine overrides generic
+Message: libm/fenv/fegetround.c: machine overrides generic
+Message: libm/fenv/feholdexcept.c: machine overrides generic
+Message: libm/fenv/feraiseexcept.c: machine overrides generic
+Message: libm/fenv/fesetenv.c: machine overrides generic
+Message: libm/fenv/fesetexceptflag.c: machine overrides generic
+Message: libm/fenv/fesetround.c: machine overrides generic
+Message: libm/fenv/fetestexcept.c: machine overrides generic
+Message: libm/fenv/feupdateenv.c: machine overrides generic
+Configuring picolibc.h using configuration
+Build targets in project: 7
+NOTICE: Future-deprecated features used:
+ * 0.58.0: {'meson.get_cross_property'}
+
+picolibc 1.7.3
+
+  User defined options
+    Cross files         : cross.txt
+    includedir          : picolibc/powerpc-linux-gnu/include
+    libdir              : picolibc/powerpc-linux-gnu/lib
+    atomic-ungetc       : false
+    format-default      : integer
+    io-long-long        : true
+    multilib            : false
+    picocrt             : false
+    thread-local-storage: false
+
+Found ninja-1.10.2.git.kitware.jobserver-1 at /home/wtf/.local/bin/ninja
+meson compile
+[1/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-cfree.c.o
+[2/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-calloc.c.o
+[3/795] Compiling C object newlib/libc.a.p/libc_ctype_towlower.c.o
+[4/795] Compiling C object dummyhost/libdummyhost.a.p/iob.c.o
+[5/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-mallinfo.c.o
+[6/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-mallopt.c.o
+[7/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-malloc_stats.c.o
+[8/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-malloc_usable_size.c.o
+[9/795] Linking static target dummyhost/libdummyhost.a
+[10/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-free.c.o
+[11/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-pvalloc.c.o
+[12/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-memalign.c.o
+[13/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-realloc.c.o
+[14/795] Compiling C object newlib/libc.a.p/libc_argz_argz_add_sep.c.o
+[15/795] Compiling C object newlib/libc/string/libstrcmp.a.p/strcmp.c.o
+[16/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-malloc.c.o
+[17/795] Compiling C object newlib/libc/stdlib/libstdlib_malloc.a.p/nano-malloc-valloc.c.o
+[18/795] Compiling C object newlib/libc.a.p/libc_argz_argz_append.c.o
+[19/795] Compiling C object newlib/libc.a.p/libc_argz_argz_add.c.o
+[20/795] Compiling C object newlib/libc.a.p/libc_machine_powerpc_setjmp.S.o
+[21/795] Linking static target newlib/libc/string/libstrcmp.a
+[22/795] Compiling C object newlib/libc.a.p/libc_argz_argz_delete.c.o
+[23/795] Linking static target newlib/libc/stdlib/libstdlib_malloc.a
+[24/795] Compiling C object newlib/libc.a.p/libc_argz_argz_extract.c.o
+[25/795] Compiling C object newlib/libc.a.p/libc_argz_argz_count.c.o
+[26/795] Compiling C object newlib/libc.a.p/libc_argz_argz_create.c.o
+[27/795] Linking static target newlib/libc/libcpart.a
+[28/795] Compiling C object newlib/libc.a.p/libc_argz_argz_next.c.o
+[29/795] Compiling C object newlib/libc.a.p/libc_argz_argz_create_sep.c.o
+[30/795] Compiling C object newlib/libc.a.p/libc_argz_envz_get.c.o
+[31/795] Compiling C object newlib/libc.a.p/libc_argz_argz_insert.c.o
+[32/795] Compiling C object newlib/libc.a.p/libc_argz_envz_remove.c.o
+[33/795] Compiling C object newlib/libc.a.p/libc_argz_buf_findstr.c.o
+[34/795] Compiling C object newlib/libc.a.p/libc_argz_argz_stringify.c.o
+[35/795] Compiling C object newlib/libc.a.p/libc_argz_envz_strip.c.o
+[36/795] Compiling C object newlib/libc.a.p/libc_argz_envz_add.c.o
+[37/795] Compiling C object newlib/libc.a.p/libc_argz_envz_entry.c.o
+[38/795] Compiling C object newlib/libc.a.p/libc_argz_argz_replace.c.o
+[39/795] Compiling C object newlib/libc.a.p/libc_ctype_ctype_.c.o
+[40/795] Compiling C object newlib/libc.a.p/libc_argz_envz_merge.c.o
+[41/795] Compiling C object newlib/libc.a.p/libc_ctype_isblank.c.o
+[42/795] Compiling C object newlib/libc.a.p/libc_ctype_categories.c.o
+[43/795] Compiling C object newlib/libc.a.p/libc_ctype_isalnum.c.o
+[44/795] Compiling C object newlib/libc.a.p/libc_ctype_isascii.c.o
+[45/795] Compiling C object newlib/libc.a.p/libc_ctype_isalnum_l.c.o
+[46/795] Compiling C object newlib/libc.a.p/libc_ctype_isascii_l.c.o
+[47/795] Compiling C object newlib/libc.a.p/libc_ctype_isalpha_l.c.o
+[48/795] Compiling C object newlib/libc.a.p/libc_ctype_isblank_l.c.o
+[49/795] Compiling C object newlib/libc.a.p/libc_ctype_iscntrl_l.c.o
+[50/795] Compiling C object newlib/libc.a.p/libc_ctype_iscntrl.c.o
+[51/795] Compiling C object newlib/libc.a.p/libc_ctype_islower.c.o
+[52/795] Compiling C object newlib/libc.a.p/libc_ctype_isalpha.c.o
+[53/795] Compiling C object newlib/libc.a.p/libc_ctype_isdigit_l.c.o
+[54/795] Compiling C object newlib/libc.a.p/libc_ctype_isdigit.c.o
+[55/795] Compiling C object newlib/libc.a.p/libc_ctype_islower_l.c.o
+[56/795] Compiling C object newlib/libc.a.p/libc_ctype_isprint.c.o
+[57/795] Compiling C object newlib/libc.a.p/libc_ctype_isspace.c.o
+[58/795] Compiling C object newlib/libc.a.p/libc_ctype_isprint_l.c.o
+[59/795] Compiling C object newlib/libc.a.p/libc_ctype_isupper_l.c.o
+[60/795] Compiling C object newlib/libc.a.p/libc_ctype_ispunct.c.o
+[61/795] Compiling C object newlib/libc.a.p/libc_ctype_ispunct_l.c.o
+[62/795] Compiling C object newlib/libc.a.p/libc_ctype_isupper.c.o
+[63/795] Compiling C object newlib/libc.a.p/libc_ctype_iswalnum.c.o
+[64/795] Compiling C object newlib/libc.a.p/libc_ctype_isspace_l.c.o
+[65/795] Compiling C object newlib/libc.a.p/libc_ctype_iswalnum_l.c.o
+[66/795] Compiling C object newlib/libc.a.p/libc_ctype_iswalpha.c.o
+[67/795] Compiling C object newlib/libc.a.p/libc_ctype_iswblank.c.o
+[68/795] Compiling C object newlib/libc.a.p/libc_ctype_iswalpha_l.c.o
+[69/795] Compiling C object newlib/libc.a.p/libc_ctype_iswcntrl_l.c.o
+[70/795] Compiling C object newlib/libc.a.p/libc_ctype_iswctype.c.o
+[71/795] Compiling C object newlib/libc.a.p/libc_ctype_iswcntrl.c.o
+[72/795] Compiling C object newlib/libc.a.p/libc_ctype_iswdigit.c.o
+[73/795] Compiling C object newlib/libc.a.p/libc_ctype_iswblank_l.c.o
+[74/795] Compiling C object newlib/libc.a.p/libc_ctype_iswgraph.c.o
+[75/795] Compiling C object newlib/libc.a.p/libc_ctype_iswgraph_l.c.o
+[76/795] Compiling C object newlib/libc.a.p/libc_ctype_iswdigit_l.c.o
+[77/795] Compiling C object newlib/libc.a.p/libc_ctype_iswctype_l.c.o
+[78/795] Compiling C object newlib/libc.a.p/libc_ctype_iswlower.c.o
+[79/795] Compiling C object newlib/libc.a.p/libc_ctype_iswprint.c.o
+[80/795] Compiling C object newlib/libc.a.p/libc_ctype_iswspace.c.o
+[81/795] Compiling C object newlib/libc.a.p/libc_ctype_iswpunct.c.o
+[82/795] Compiling C object newlib/libc.a.p/libc_ctype_iswlower_l.c.o
+[83/795] Compiling C object newlib/libc.a.p/libc_ctype_iswprint_l.c.o
+[84/795] Compiling C object newlib/libc.a.p/libc_ctype_iswpunct_l.c.o
+[85/795] Compiling C object newlib/libc.a.p/libc_ctype_iswupper.c.o
+[86/795] Compiling C object newlib/libc.a.p/libc_ctype_iswupper_l.c.o
+[87/795] Compiling C object newlib/libc.a.p/libc_ctype_iswxdigit_l.c.o
+[88/795] Compiling C object newlib/libc.a.p/libc_ctype_isxdigit.c.o
+[89/795] Compiling C object newlib/libc.a.p/libc_ctype_iswspace_l.c.o
+[90/795] Compiling C object newlib/libc.a.p/libc_ctype_iswxdigit.c.o
+[91/795] Compiling C object newlib/libc.a.p/libc_ctype_toascii_l.c.o
+[92/795] Compiling C object newlib/libc.a.p/libc_ctype_toascii.c.o
+[93/795] Compiling C object newlib/libc.a.p/libc_ctype_jp2uc.c.o
+[94/795] Compiling C object newlib/libc.a.p/libc_ctype_isxdigit_l.c.o
+[95/795] Compiling C object newlib/libc.a.p/libc_ctype_toupper.c.o
+[96/795] Compiling C object newlib/libc.a.p/libc_ctype_tolower_l.c.o
+[97/795] Compiling C object newlib/libc.a.p/libc_ctype_tolower.c.o
+[98/795] Compiling C object newlib/libc.a.p/libc_ctype_toupper_l.c.o
+[99/795] Compiling C object newlib/libc.a.p/libc_ctype_towctrans.c.o
+[100/795] Compiling C object newlib/libc.a.p/libc_signal_psignal.c.o
+[101/795] Compiling C object newlib/libc.a.p/libc_ctype_towupper_l.c.o
+[102/795] Compiling C object newlib/libc.a.p/libc_ctype_wctrans_l.c.o
+[103/795] Compiling C object newlib/libc.a.p/libc_ctype_towctrans_l.c.o
+[104/795] Compiling C object newlib/libc.a.p/libc_ctype_towlower_l.c.o
+[105/795] Compiling C object newlib/libc.a.p/libc_ctype_wctrans.c.o
+[106/795] Compiling C object newlib/libc.a.p/libc_ctype_towupper.c.o
+[107/795] Compiling C object newlib/libc.a.p/libc_errno_errno.c.o
+[108/795] Compiling C object newlib/libc.a.p/libc_ctype_wctype_l.c.o
+[109/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_cesbi.c.o
+[110/795] Compiling C object newlib/libc.a.p/libc_ctype_wctype.c.o
+[111/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_table-pcs.c.o
+[112/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_ucs-2-internal.c.o
+[113/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_ucs-4.c.o
+[114/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_ucs-2.c.o
+[115/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_ucs-4-internal.c.o
+[116/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_ccsbi.c.o
+[117/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_us-ascii.c.o
+[118/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_euc.c.o
+[119/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_table.c.o
+[120/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_cp775.c.o
+[121/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_utf-16.c.o
+[122/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_cns11643_plane14.c.o
+[123/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_cp850.c.o
+[124/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_cp852.c.o
+[125/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_cp855.c.o
+[126/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_cns11643_plane2.c.o
+[127/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_13.c.o
+[128/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_11.c.o
+[129/795] Compiling C object newlib/libc.a.p/libc_iconv_ces_utf-8.c.o
+[130/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_10.c.o
+[131/795] Compiling C object newlib/libc.a.p/libc_stdlib_mbsrtowcs.c.o
+[132/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_cns11643_plane1.c.o
+[133/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_cp866.c.o
+[134/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_2.c.o
+[135/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_15.c.o
+[136/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_big5.c.o
+[137/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_4.c.o
+[138/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_14.c.o
+[139/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_3.c.o
+[140/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_1.c.o
+[141/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_5.c.o
+[142/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_6.c.o
+[143/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_8.c.o
+[144/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_9.c.o
+[145/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_ir_111.c.o
+[146/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_jis_x0201_1976.c.o
+[147/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_koi8_uni.c.o
+[148/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1250.c.o
+[149/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_iso_8859_7.c.o
+[150/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_koi8_u.c.o
+[151/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_jis_x0208_1990.c.o
+[152/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_koi8_ru.c.o
+[153/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_koi8_r.c.o
+[154/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1251.c.o
+[155/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1254.c.o
+[156/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1252.c.o
+[157/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_jis_x0212_1990.c.o
+[158/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1253.c.o
+[159/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1256.c.o
+[160/795] Compiling C object newlib/libc.a.p/libc_iconv_lib_aliasesbi.c.o
+[161/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1255.c.o
+[162/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1258.c.o
+[163/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_win_1257.c.o
+[164/795] Compiling C object newlib/libc.a.p/libc_iconv_ccs_ksx1001.c.o
+[165/795] Compiling C object newlib/libc.a.p/libc_iconv_lib_iconvnls.c.o
+[166/795] Compiling C object newlib/libc.a.p/libc_iconv_lib_nullconv.c.o
+[167/795] Compiling C object newlib/libc.a.p/libc_iconv_lib_aliasesi.c.o
+[168/795] Compiling C object newlib/libc.a.p/libc_misc_lock.c.o
+[169/795] Compiling C object newlib/libc.a.p/libc_misc_fini.c.o
+[170/795] Compiling C object newlib/libc.a.p/libc_misc_unctrl.c.o
+[171/795] Compiling C object newlib/libc.a.p/libc_iconv_lib_iconv.c.o
+[172/795] Compiling C object newlib/libc.a.p/libc_misc_ffs.c.o
+[173/795] Compiling C object newlib/libc.a.p/libc_misc_init.c.o
+[174/795] Compiling C object newlib/libc.a.p/libc_posix_dirname.c.o
+[175/795] Compiling C object newlib/libc.a.p/libc_posix_basename.c.o
+[176/795] Compiling C object newlib/libc.a.p/libc_iconv_lib_ucsconv.c.o
+[177/795] Compiling C object newlib/libc.a.p/libc_misc___dprintf.c.o
+[178/795] Compiling C object newlib/libc.a.p/libc_search_bsearch.c.o
+[179/795] Compiling C object newlib/libc.a.p/libc_posix_regfree.c.o
+[180/795] Compiling C object newlib/libc.a.p/libc_posix_regerror.c.o
+[181/795] Compiling C object newlib/libc.a.p/libc_posix_fnmatch.c.o
+[182/795] Compiling C object newlib/libc.a.p/libc_search_hash_log2.c.o
+[183/795] Compiling C object newlib/libc.a.p/libc_search_hash_buf.c.o
+[184/795] Compiling C object newlib/libc.a.p/libc_search_hcreate.c.o
+[185/795] Compiling C object newlib/libc.a.p/libc_search_hash_func.c.o
+[186/795] Compiling C object newlib/libc.a.p/libc_search_hcreate_r.c.o
+[187/795] Compiling C object newlib/libc.a.p/libc_search_bsd_qsort_r.c.o
+[188/795] Compiling C object newlib/libc.a.p/libc_search_tdelete.c.o
+[189/795] Compiling C object newlib/libc.a.p/libc_search_tfind.c.o
+[190/795] Compiling C object newlib/libc.a.p/libc_search_qsort.c.o
+[191/795] Compiling C object newlib/libc.a.p/libc_search_hash.c.o
+[192/795] Compiling C object newlib/libc.a.p/libc_search_tdestroy.c.o
+[193/795] Compiling C object newlib/libc.a.p/libc_search_tsearch.c.o
+[194/795] Compiling C object newlib/libc.a.p/libc_search_twalk.c.o
+[195/795] Compiling C object newlib/libc.a.p/libc_string_wcsncpy.c.o
+[196/795] Compiling C object newlib/libc.a.p/libc_string_wcspbrk.c.o
+[197/795] Compiling C object newlib/libc.a.p/libc_search_hash_bigkey.c.o
+[198/795] Compiling C object newlib/libc.a.p/libc_signal_signal.c.o
+[199/795] Compiling C object newlib/libc.a.p/libc_search_qsort_r.c.o
+[200/795] Compiling C object newlib/libc.a.p/libc_signal_sig2str.c.o
+[201/795] Compiling C object newlib/libc.a.p/libc_string_wcsnlen.c.o
+[202/795] Compiling C object newlib/libc.a.p/libc_ssp_chk_fail.c.o
+[203/795] Compiling C object newlib/libc.a.p/libc_ssp_gets_chk.c.o
+[204/795] Compiling C object newlib/libc.a.p/libc_ssp_memcpy_chk.c.o
+[205/795] Compiling C object newlib/libc.a.p/libc_ssp_memmove_chk.c.o
+[206/795] Compiling C object newlib/libc.a.p/libc_ssp_mempcpy_chk.c.o
+[207/795] Compiling C object newlib/libc.a.p/libc_ssp_memset_chk.c.o
+[208/795] Compiling C object newlib/libc.a.p/libc_ssp_stpcpy_chk.c.o
+[209/795] Compiling C object newlib/libc.a.p/libc_ssp_snprintf_chk.c.o
+[210/795] Compiling C object newlib/libc.a.p/libc_ssp_sprintf_chk.c.o
+[211/795] Compiling C object newlib/libc.a.p/libc_ssp_stack_protector.c.o
+[212/795] Compiling C object newlib/libc.a.p/libc_ssp_strcat_chk.c.o
+[213/795] Compiling C object newlib/libc.a.p/libc_ssp_strncpy_chk.c.o
+[214/795] Compiling C object newlib/libc.a.p/libc_search_hash_page.c.o
+[215/795] Compiling C object newlib/libc.a.p/libc_ssp_strcpy_chk.c.o
+[216/795] Compiling C object newlib/libc.a.p/libc_ssp_strncat_chk.c.o
+[217/795] Compiling C object newlib/libc.a.p/libc_ssp_vsnprintf_chk.c.o
+[218/795] Compiling C object newlib/libc.a.p/libc_stdlib_a64l.c.o
+[219/795] Compiling C object newlib/libc.a.p/libc_ssp_stpncpy_chk.c.o
+[220/795] Compiling C object newlib/libc.a.p/libc_stdlib_abort.c.o
+[221/795] Compiling C object newlib/libc.a.p/libc_stdlib_aligned_alloc.c.o
+[222/795] Compiling C object newlib/libc.a.p/libc_stdlib_abs.c.o
+[223/795] Compiling C object newlib/libc.a.p/libc_stdlib_atof.c.o
+[224/795] Compiling C object newlib/libc.a.p/libc_stdlib_arc4random_uniform.c.o
+[225/795] Compiling C object newlib/libc.a.p/libc_ssp_vsprintf_chk.c.o
+[226/795] Compiling C object newlib/libc.a.p/libc_stdlib_atol.c.o
+[227/795] Compiling C object newlib/libc.a.p/libc_stdlib_atoff.c.o
+[228/795] Compiling C object newlib/libc.a.p/libc_stdlib_atoi.c.o
+[229/795] Compiling C object newlib/libc.a.p/libc_stdlib_atoll.c.o
+[230/795] Compiling C object newlib/libc.a.p/libc_stdlib_assert.c.o
+[231/795] Compiling C object newlib/libc.a.p/libc_stdlib_drand48.c.o
+[232/795] Compiling C object newlib/libc.a.p/libc_stdlib_erand48.c.o
+[233/795] Compiling C object newlib/libc.a.p/libc_stdlib_div.c.o
+[234/795] Compiling C object newlib/libc.a.p/libc_stdlib_btowc.c.o
+[235/795] Compiling C object newlib/libc.a.p/libc_stdlib_environ.c.o
+[236/795] Compiling C object newlib/libc.a.p/libc_stdlib_eprintf.c.o
+[237/795] Compiling C object newlib/libc.a.p/libc_stdlib__Exit.c.o
+[238/795] Compiling C object newlib/libc.a.p/libc_stdlib_getenv.c.o
+[239/795] Compiling C object newlib/libc.a.p/libc_stdlib_getenv_r.c.o
+[240/795] Compiling C object newlib/libc.a.p/libc_stdlib_itoa.c.o
+[241/795] Compiling C object newlib/libc.a.p/libc_stdlib_arc4random.c.o
+[242/795] Compiling C object newlib/libc.a.p/libc_stdlib_jrand48.c.o
+[243/795] Compiling C object newlib/libc.a.p/libc_stdlib_imaxabs.c.o
+[244/795] Compiling C object newlib/libc.a.p/libc_stdlib_getsubopt.c.o
+[245/795] Compiling C object newlib/libc.a.p/libc_stdlib_imaxdiv.c.o
+[246/795] Compiling C object newlib/libc.a.p/libc_stdlib_l64a.c.o
+[247/795] Compiling C object newlib/libc.a.p/libc_stdlib_llabs.c.o
+[248/795] Compiling C object newlib/libc.a.p/libc_stdlib_labs.c.o
+[249/795] Compiling C object newlib/libc.a.p/libc_stdlib_ldiv.c.o
+[250/795] Compiling C object newlib/libc.a.p/libc_stdlib_lcong48.c.o
+[251/795] Compiling C object newlib/libc.a.p/libc_stdlib_lldiv.c.o
+[252/795] Compiling C object newlib/libc.a.p/libc_stdlib_lrand48.c.o
+[253/795] Compiling C object newlib/libc.a.p/libc_stdlib_mblen.c.o
+[254/795] Compiling C object newlib/libc.a.p/libc_stdlib_mbrtowc.c.o
+[255/795] Compiling C object newlib/libc.a.p/libc_stdlib_getopt.c.o
+[256/795] Compiling C object newlib/libc.a.p/libc_stdlib_mbsinit.c.o
+[257/795] Compiling C object newlib/libc.a.p/libc_stdlib_mbsnrtowcs.c.o
+[258/795] Compiling C object newlib/libc.a.p/libc_stdlib_mbrlen.c.o
+[259/795] Compiling C object newlib/libc.a.p/libc_stdlib_mbstowcs.c.o
+[260/795] Compiling C object newlib/libc.a.p/libc_stdlib_mstats.c.o
+[261/795] Compiling C object newlib/libc.a.p/libc_posix_regexec.c.o
+[262/795] Compiling C object newlib/libc.a.p/libc_stdlib_mbtowc_r.c.o
+[263/795] Compiling C object newlib/libc.a.p/libc_posix_regcomp.c.o
+[264/795] Compiling C object newlib/libc.a.p/libc_stdlib_mrand48.c.o
+[265/795] Compiling C object newlib/libc.a.p/libc_stdlib_nrand48.c.o
+[266/795] Compiling C object newlib/libc.a.p/libc_stdlib_rand.c.o
+[267/795] Compiling C object newlib/libc.a.p/libc_stdlib_putenv.c.o
+[268/795] Compiling C object newlib/libc.a.p/libc_stdlib_mbtowc.c.o
+[269/795] Compiling C object newlib/libc.a.p/libc_stdlib_rand48.c.o
+[270/795] Compiling C object newlib/libc.a.p/libc_stdlib_rand_r.c.o
+[271/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ftoa_ryu.c.o
+[272/795] Compiling C object newlib/libc.a.p/libc_stdlib_random.c.o
+[273/795] Compiling C object newlib/libc.a.p/libc_stdlib_sb_charsets.c.o
+[274/795] Compiling C object newlib/libc.a.p/libc_stdlib_reallocarray.c.o
+[275/795] Compiling C object newlib/libc.a.p/libc_stdlib_rpmatch.c.o
+[276/795] Compiling C object newlib/libc.a.p/libc_stdlib_seed48.c.o
+[277/795] Compiling C object newlib/libc.a.p/libc_tinystdio_dtoa_ryu.c.o
+[278/795] Compiling C object newlib/libc.a.p/libc_stdlib_reallocf.c.o
+[279/795] Compiling C object newlib/libc.a.p/libc_stdlib_srand.c.o
+[280/795] Compiling C object newlib/libc.a.p/libc_stdlib_srand48.c.o
+[281/795] Compiling C object newlib/libc.a.p/libc_stdlib_setenv.c.o
+[282/795] Compiling C object newlib/libc.a.p/libc_stdlib_srandom.c.o
+[283/795] Compiling C object newlib/libc.a.p/libc_stdlib_strtoul.c.o
+[284/795] Compiling C object newlib/libc.a.p/libc_stdlib_strtoull.c.o
+[285/795] Compiling C object newlib/libc.a.p/libc_stdlib_strtoumax.c.o
+[286/795] Compiling C object newlib/libc.a.p/libc_stdlib_system.c.o
+[287/795] Compiling C object newlib/libc.a.p/libc_stdlib_utoa.c.o
+[288/795] Compiling C object newlib/libc.a.p/libc_stdlib_strtoll.c.o
+[289/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcrtomb.c.o
+[290/795] Compiling C object newlib/libc.a.p/libc_stdlib_strtol.c.o
+[291/795] Compiling C object newlib/libc.a.p/libc_stdlib_strtoimax.c.o
+[292/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcsnrtombs.c.o
+[293/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcstombs.c.o
+[294/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcsrtombs.c.o
+[295/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcstoimax.c.o
+[296/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcstod.c.o
+[297/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcstoul.c.o
+[298/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcstol.c.o
+[299/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcstoll.c.o
+[300/795] Compiling C object newlib/libc.a.p/libc_stdlib_wctob.c.o
+[301/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcstoull.c.o
+[302/795] Compiling C object newlib/libc.a.p/libc_stdlib_wcstoumax.c.o
+[303/795] Compiling C object newlib/libc.a.p/libc_stdlib_wctomb_r.c.o
+[304/795] Compiling C object newlib/libc.a.p/libc_stdlib_pico-atexit.c.o
+[305/795] Compiling C object newlib/libc.a.p/libc_stdlib_wctomb.c.o
+[306/795] Compiling C object newlib/libc.a.p/libc_string_bzero.c.o
+[307/795] Compiling C object newlib/libc.a.p/libc_stdlib_pico-exit.c.o
+[308/795] Compiling C object newlib/libc.a.p/libc_stdlib_pico-cxa-atexit.c.o
+[309/795] Compiling C object newlib/libc.a.p/libc_stdlib_pico-onexit.c.o
+[310/795] Compiling C object newlib/libc.a.p/libc_string_bcopy.c.o
+[311/795] Compiling C object newlib/libc.a.p/libc_string_bcmp.c.o
+[312/795] Compiling C object newlib/libc.a.p/libc_string_ffsl.c.o
+[313/795] Compiling C object newlib/libc.a.p/libc_string_explicit_bzero.c.o
+[314/795] Compiling C object newlib/libc.a.p/libc_string_flsl.c.o
+[315/795] Compiling C object newlib/libc.a.p/libc_string_ffsll.c.o
+[316/795] Compiling C object newlib/libc.a.p/libc_string_gnu_basename.c.o
+[317/795] Compiling C object newlib/libc.a.p/libc_string_flsll.c.o
+[318/795] Compiling C object newlib/libc.a.p/libc_string_memchr.c.o
+[319/795] Compiling C object newlib/libc.a.p/libc_string_fls.c.o
+[320/795] Compiling C object newlib/libc.a.p/libc_string_index.c.o
+[321/795] Compiling C object newlib/libc.a.p/libc_string_memcmp.c.o
+[322/795] Compiling C object newlib/libc.a.p/libc_string_memccpy.c.o
+[323/795] Compiling C object newlib/libc.a.p/libc_string_mempcpy.c.o
+[324/795] Compiling C object newlib/libc.a.p/libc_string_memmove.c.o
+[325/795] Compiling C object newlib/libc.a.p/libc_string_memrchr.c.o
+[326/795] Compiling C object newlib/libc.a.p/libc_string_memcpy.c.o
+[327/795] Compiling C object newlib/libc.a.p/libc_string_memmem.c.o
+[328/795] Compiling C object newlib/libc.a.p/libc_string_rawmemchr.c.o
+[329/795] Compiling C object newlib/libc.a.p/libc_string_memset.c.o
+[330/795] Compiling C object newlib/libc.a.p/libc_string_rindex.c.o
+[331/795] Compiling C object newlib/libc.a.p/libc_string_strcat.c.o
+[332/795] Compiling C object newlib/libc.a.p/libc_string_strcasecmp.c.o
+[333/795] Compiling C object newlib/libc.a.p/libc_string_stpncpy.c.o
+[334/795] Compiling C object newlib/libc.a.p/libc_string_stpcpy.c.o
+[335/795] Compiling C object newlib/libc.a.p/libc_string_strchr.c.o
+[336/795] Compiling C object newlib/libc.a.p/libc_string_strcoll.c.o
+[337/795] Compiling C object newlib/libc.a.p/libc_string_strcasecmp_l.c.o
+[338/795] Compiling C object newlib/libc.a.p/libc_string_strcasestr.c.o
+[339/795] Compiling C object newlib/libc.a.p/libc_string_strcoll_l.c.o
+[340/795] Compiling C object newlib/libc.a.p/libc_string_strchrnul.c.o
+[341/795] Compiling C object newlib/libc.a.p/libc_string_strdup.c.o
+[342/795] Compiling C object newlib/libc.a.p/libc_string_strcspn.c.o
+[343/795] Compiling C object newlib/libc.a.p/libc_string_strlen.c.o
+[344/795] Compiling C object newlib/libc.a.p/libc_string_strcpy.c.o
+[345/795] Compiling C object newlib/libc.a.p/libc_string_strerror_r.c.o
+[346/795] Compiling C object newlib/libc.a.p/libc_string_strlcat.c.o
+[347/795] Compiling C object newlib/libc.a.p/libc_string_strerror.c.o
+[348/795] Compiling C object newlib/libc.a.p/libc_string_strlcpy.c.o
+[349/795] Compiling C object newlib/libc.a.p/libc_string_strlwr.c.o
+[350/795] Compiling C object newlib/libc.a.p/libc_string_strncasecmp_l.c.o
+[351/795] Compiling C object newlib/libc.a.p/libc_string_strncasecmp.c.o
+[352/795] Compiling C object newlib/libc.a.p/libc_string_strncat.c.o
+[353/795] Compiling C object newlib/libc.a.p/libc_string_strncmp.c.o
+[354/795] Compiling C object newlib/libc.a.p/libc_string_strndup.c.o
+[355/795] Compiling C object newlib/libc.a.p/libc_string_strsep.c.o
+[356/795] Compiling C object newlib/libc.a.p/libc_string_strnlen.c.o
+[357/795] Compiling C object newlib/libc.a.p/libc_string_strpbrk.c.o
+[358/795] Compiling C object newlib/libc.a.p/libc_string_strncpy.c.o
+[359/795] Compiling C object newlib/libc.a.p/libc_string_strnstr.c.o
+[360/795] Compiling C object newlib/libc.a.p/libc_string_strrchr.c.o
+[361/795] Compiling C object newlib/libc.a.p/libc_string_strsignal.c.o
+[362/795] Compiling C object newlib/libc.a.p/libc_string_strstr.c.o
+[363/795] Compiling C object newlib/libc.a.p/libc_string_strspn.c.o
+[364/795] Compiling C object newlib/libc.a.p/libc_string_strtok.c.o
+[365/795] Compiling C object newlib/libc.a.p/libc_string_strtok_r.c.o
+[366/795] Compiling C object newlib/libc.a.p/libc_string_strxfrm.c.o
+[367/795] Compiling C object newlib/libc.a.p/libc_string_strverscmp.c.o
+[368/795] Compiling C object newlib/libc.a.p/libc_string_strupr.c.o
+[369/795] Compiling C object newlib/libc.a.p/libc_string_swab.c.o
+[370/795] Compiling C object newlib/libc.a.p/libc_string_u_strerr.c.o
+[371/795] Compiling C object newlib/libc.a.p/libc_string_strxfrm_l.c.o
+[372/795] Compiling C object newlib/libc.a.p/libc_string_timingsafe_bcmp.c.o
+[373/795] Compiling C object newlib/libc.a.p/libc_string_timingsafe_memcmp.c.o
+[374/795] Compiling C object newlib/libc.a.p/libc_string_wcpcpy.c.o
+[375/795] Compiling C object newlib/libc.a.p/libc_string_wcpncpy.c.o
+[376/795] Compiling C object newlib/libc.a.p/libc_string_wcscasecmp.c.o
+[377/795] Compiling C object newlib/libc.a.p/libc_string_wcscat.c.o
+[378/795] Compiling C object newlib/libc.a.p/libc_string_wcscasecmp_l.c.o
+[379/795] Compiling C object newlib/libc.a.p/libc_string_wcscmp.c.o
+[380/795] Compiling C object newlib/libc.a.p/libc_string_wcschr.c.o
+[381/795] Compiling C object newlib/libc.a.p/libc_string_wcscoll.c.o
+[382/795] Compiling C object newlib/libc.a.p/libc_string_wcscpy.c.o
+[383/795] Compiling C object newlib/libc.a.p/libc_string_wcscspn.c.o
+[384/795] Compiling C object newlib/libc.a.p/libc_string_wcslcpy.c.o
+[385/795] Compiling C object newlib/libc.a.p/libc_string_wcsdup.c.o
+[386/795] Compiling C object newlib/libc.a.p/libc_string_wcscoll_l.c.o
+[387/795] Compiling C object newlib/libc.a.p/libc_string_wcslcat.c.o
+[388/795] Compiling C object newlib/libc.a.p/libc_string_wcslen.c.o
+[389/795] Compiling C object newlib/libc.a.p/libc_string_wcsncasecmp.c.o
+[390/795] Compiling C object newlib/libc.a.p/libc_string_wcsncat.c.o
+[391/795] Compiling C object newlib/libc.a.p/libm_complex_cacoshf.c.o
+[392/795] Compiling C object newlib/libc.a.p/libc_string_wcsncasecmp_l.c.o
+[393/795] Compiling C object newlib/libc.a.p/libc_string_wcsncmp.c.o
+[394/795] Compiling C object newlib/libc.a.p/libc_string_wcsrchr.c.o
+[395/795] Compiling C object newlib/libc.a.p/libc_string_wcsspn.c.o
+[396/795] Compiling C object newlib/libc.a.p/libm_complex_cephes_subrf.c.o
+[397/795] Compiling C object newlib/libc.a.p/libm_complex_catanf.c.o
+[398/795] Compiling C object newlib/libc.a.p/libc_string_wcstok.c.o
+[399/795] Compiling C object newlib/libc.a.p/libm_complex_conjf.c.o
+[400/795] Compiling C object newlib/libc.a.p/libc_string_wcsxfrm.c.o
+[401/795] Compiling C object newlib/libc.a.p/libc_string_wcsxfrm_l.c.o
+[402/795] Compiling C object newlib/libc.a.p/libc_string_wcsstr.c.o
+[403/795] Compiling C object newlib/libc.a.p/libc_string_wcswidth.c.o
+[404/795] Compiling C object newlib/libc.a.p/libc_string_wmemchr.c.o
+[405/795] Compiling C object newlib/libc.a.p/libc_string_wcwidth.c.o
+[406/795] Compiling C object newlib/libc.a.p/libc_string_wmemcpy.c.o
+[407/795] Compiling C object newlib/libc.a.p/libc_string_wmemmove.c.o
+[408/795] Compiling C object newlib/libc.a.p/libc_string_wmempcpy.c.o
+[409/795] Compiling C object newlib/libc.a.p/libc_string_xpg_strerror_r.c.o
+[410/795] Compiling C object newlib/libc.a.p/libc_string_wmemcmp.c.o
+[411/795] Compiling C object newlib/libc.a.p/libc_string_wmemset.c.o
+[412/795] Compiling C object newlib/libc.a.p/libc_time_clock.c.o
+[413/795] Compiling C object newlib/libc.a.p/libc_time_ctime_r.c.o
+[414/795] Compiling C object newlib/libc.a.p/libc_time_asctime.c.o
+[415/795] Compiling C object newlib/libc.a.p/libc_time_asctime_r.c.o
+[416/795] Compiling C object newlib/libc.a.p/libc_time_difftime.c.o
+[417/795] Compiling C object newlib/libc.a.p/libc_time_ctime.c.o
+[418/795] Compiling C object newlib/libc.a.p/libc_time_gettzinfo.c.o
+[419/795] Compiling C object newlib/libc.a.p/libc_time_gmtime.c.o
+[420/795] Compiling C object newlib/libc.a.p/libc_time_gmtime_r.c.o
+[421/795] Compiling C object newlib/libc.a.p/libc_time_lcltime_buf.c.o
+[422/795] Compiling C object newlib/libc.a.p/libc_time_month_lengths.c.o
+[423/795] Compiling C object newlib/libc.a.p/libc_time_lcltime.c.o
+[424/795] Compiling C object newlib/libc.a.p/libc_time_lcltime_r.c.o
+[425/795] Compiling C object newlib/libc.a.p/libc_time_time.c.o
+[426/795] Compiling C object newlib/libc.a.p/libc_time_tzvars.c.o
+[427/795] Compiling C object newlib/libc.a.p/libc_time_tzcalc_limits.c.o
+[428/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr_array.c.o
+[429/795] Compiling C object newlib/libc.a.p/libc_time_mktime.c.o
+[430/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr_private.c.o
+[431/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr_float.c.o
+[432/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr_mem.c.o
+[433/795] Compiling C object newlib/libc.a.p/libc_time_tzset.c.o
+[434/795] Compiling C object newlib/libc.a.p/libc_time_strptime.c.o
+[435/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr_reference.c.o
+[436/795] Compiling C object newlib/libc.a.p/libc_locale_lnumeric.c.o
+[437/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr_sizeof.c.o
+[438/795] Compiling C object newlib/libc.a.p/libc_locale_localeconv.c.o
+[439/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr_stdio.c.o
+[440/795] Compiling C object newlib/libc.a.p/libc_locale_locale.c.o
+[441/795] Compiling C object newlib/libc.a.p/libc_locale_timelocal.c.o
+[442/795] Compiling C object newlib/libc.a.p/libc_picolib_picosbrk.c.o
+[443/795] Compiling C object newlib/libc.a.p/libc_picolib_dso_handle.c.o
+[444/795] Compiling C object newlib/libc.a.p/libc_picolib_getauxval.c.o
+[445/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr.c.o
+[446/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ecvtf_data.c.o
+[447/795] Compiling C object newlib/libc.a.p/libc_tinystdio_clearerr.c.o
+[448/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ecvt_data.c.o
+[449/795] Compiling C object newlib/libc.a.p/libc_time_strftime.c.o
+[450/795] Compiling C object newlib/libc.a.p/libc_tinystdio_asprintf.c.o
+[451/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ecvt.c.o
+[452/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fcvt.c.o
+[453/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ecvtfbuf.c.o
+[454/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ecvtbuf.c.o
+[455/795] Compiling C object newlib/libc.a.p/libc_xdr_xdr_rec.c.o
+[456/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fcvtfbuf.c.o
+[457/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ecvtf.c.o
+[458/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fcvtbuf.c.o
+[459/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fcvtf.c.o
+[460/795] Compiling C object newlib/libc.a.p/libc_tinystdio_gcvtbuf.c.o
+[461/795] Compiling C object newlib/libc.a.p/libc_tinystdio_gcvtf.c.o
+[462/795] Compiling C object newlib/libc.a.p/libc_tinystdio_gcvt.c.o
+[463/795] Compiling C object newlib/libc.a.p/libc_tinystdio_gcvtfbuf.c.o
+[464/795] Compiling C object newlib/libc.a.p/libc_tinystdio_feof.c.o
+[465/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fflush.c.o
+[466/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fdevopen.c.o
+[467/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fclose.c.o
+[468/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ferror.c.o
+[469/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fileno.c.o
+[470/795] Compiling C object newlib/libc.a.p/libc_tinystdio_filestrput.c.o
+[471/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fgets.c.o
+[472/795] Compiling C object newlib/libc.a.p/libc_tinystdio_filestrget.c.o
+[473/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fgetc.c.o
+[474/795] Compiling C object newlib/libc.a.p/libc_tinystdio_filestrputalloc.c.o
+[475/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fprintf.c.o
+[476/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fputc.c.o
+[477/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fread.c.o
+[478/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fscanf.c.o
+[479/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fseek.c.o
+[480/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fputs.c.o
+[481/795] Compiling C object newlib/libc.a.p/libc_tinystdio_getchar.c.o
+[482/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ftell.c.o
+[483/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fwrite.c.o
+[484/795] Compiling C object newlib/libc.a.p/libc_tinystdio_gets.c.o
+[485/795] Compiling C object newlib/libc.a.p/libc_tinystdio_perror.c.o
+[486/795] Compiling C object newlib/libc.a.p/libc_tinystdio_printf.c.o
+[487/795] Compiling C object newlib/libc.a.p/libc_tinystdio_putchar.c.o
+[488/795] Compiling C object newlib/libc.a.p/libc_tinystdio_scanf.c.o
+[489/795] Compiling C object newlib/libc.a.p/libc_tinystdio_matchcaseprefix.c.o
+[490/795] Compiling C object newlib/libc.a.p/libc_tinystdio_rewind.c.o
+[491/795] Compiling C object newlib/libc.a.p/libc_tinystdio_setbuf.c.o
+[492/795] Compiling C object newlib/libc.a.p/libc_tinystdio_setvbuf.c.o
+[493/795] Compiling C object newlib/libc.a.p/libc_tinystdio_puts.c.o
+[494/795] Compiling C object newlib/libc.a.p/libc_tinystdio_snprintf.c.o
+[495/795] Compiling C object newlib/libc.a.p/libc_tinystdio_sprintff.c.o
+[496/795] Compiling C object newlib/libc.a.p/libc_tinystdio_snprintff.c.o
+[497/795] Compiling C object newlib/libc.a.p/libc_tinystdio_sprintf.c.o
+[498/795] Compiling C object newlib/libc.a.p/libc_tinystdio_strfromf.c.o
+[499/795] Compiling C object newlib/libc.a.p/libc_tinystdio_snprintfd.c.o
+[500/795] Compiling C object newlib/libc.a.p/libc_tinystdio_sscanf.c.o
+[501/795] Compiling C object newlib/libc.a.p/libc_tinystdio_sprintfd.c.o
+[502/795] Compiling C object newlib/libc.a.p/libc_tinystdio_strtod_l.c.o
+[503/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ungetc.c.o
+[504/795] Compiling C object newlib/libc.a.p/libc_tinystdio_strfromd.c.o
+[505/795] Compiling C object newlib/libc.a.p/libc_tinystdio_strtof.c.o
+[506/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vprintf.c.o
+[507/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vasprintf.c.o
+[508/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vscanf.c.o
+[509/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vsscanf.c.o
+[510/795] Compiling C object newlib/libc.a.p/libc_tinystdio_strtod.c.o
+[511/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vsnprintf.c.o
+[512/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vfiscanf.c.o
+[513/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vsprintf.c.o
+[514/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ryu_log2pow5.c.o
+[515/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ryu_log10.c.o
+[516/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vfiprintf.c.o
+[517/795] Compiling C object newlib/libc.a.p/libc_tinystdio_atod_ryu.c.o
+[518/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ryu_table.c.o
+[519/795] Compiling C object newlib/libc.a.p/libc_tinystdio_atof_ryu.c.o
+[520/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ryu_pow5bits.c.o
+[521/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ryu_umul128.c.o
+[522/795] Compiling C object newlib/libc.a.p/libc_tinystdio_strtold_l.c.o
+[523/795] Compiling C object newlib/libc.a.p/libc_tinystdio_ryu_divpow2.c.o
+[524/795] Compiling C object newlib/libc.a.p/libc_tinystdio_atold_engine.c.o
+[525/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vfscanff.c.o
+[526/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fopen.c.o
+[527/795] Compiling C object newlib/libc.a.p/libc_tinystdio_strtold.c.o
+[528/795] Compiling C object newlib/libc.a.p/libc_tinystdio_posixio.c.o
+[529/795] Compiling C object newlib/libc.a.p/libc_tinystdio_sflags.c.o
+[530/795] Compiling C object newlib/libc.a.p/libc_tinystdio_fdopen.c.o
+[531/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vfprintff.c.o
+[532/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vfprintf.c.o
+[533/795] Compiling C object newlib/libc.a.p/libc_tinystdio_vfscanf.c.o
+[534/795] Compiling C object newlib/libc.a.p/libm_math_k_cos.c.o
+[535/795] Compiling C object newlib/libc.a.p/libm_machine_powerpc_fenv.c.o
+[536/795] Compiling C object newlib/libc.a.p/libm_math_kf_cos.c.o
+[537/795] Compiling C object newlib/libc.a.p/libm_math_k_sin.c.o
+[538/795] Compiling C object newlib/libc.a.p/libm_math_k_tan.c.o
+[539/795] Compiling C object newlib/libc.a.p/libm_math_kf_tan.c.o
+[540/795] Compiling C object newlib/libc.a.p/libm_math_s_acosh.c.o
+[541/795] Compiling C object newlib/libc.a.p/libm_math_s_asin.c.o
+[542/795] Compiling C object newlib/libc.a.p/libm_math_kf_sin.c.o
+[543/795] Compiling C object newlib/libc.a.p/libm_math_s_acos.c.o
+[544/795] Compiling C object newlib/libc.a.p/libm_math_s_asinh.c.o
+[545/795] Compiling C object newlib/libc.a.p/libm_math_s_atan.c.o
+[546/795] Compiling C object newlib/libc.a.p/libm_math_s_atan2.c.o
+[547/795] Compiling C object newlib/libc.a.p/libm_math_s_cosh.c.o
+[548/795] Compiling C object newlib/libc.a.p/libm_math_s_atanh.c.o
+[549/795] Compiling C object newlib/libc.a.p/libm_math_k_rem_pio2.c.o
+[550/795] Compiling C object newlib/libc.a.p/libm_math_s_cos.c.o
+[551/795] Compiling C object newlib/libc.a.p/libm_math_s_drem.c.o
+[552/795] Compiling C object newlib/libc.a.p/libm_math_kf_rem_pio2.c.o
+[553/795] Compiling C object newlib/libc.a.p/libm_math_s_exp2.c.o
+[554/795] Compiling C object newlib/libc.a.p/libm_math_s_exp.c.o
+[555/795] Compiling C object newlib/libc.a.p/libm_math_s_ceil.c.o
+[556/795] Compiling C object newlib/libc.a.p/libm_math_s_fabs.c.o
+[557/795] Compiling C object newlib/libc.a.p/libm_math_s_gamma.c.o
+[558/795] Compiling C object newlib/libc.a.p/libm_math_s_frexp.c.o
+[559/795] Compiling C object newlib/libc.a.p/libm_math_s_floor.c.o
+[560/795] Compiling C object newlib/libc.a.p/libm_math_s_hypot.c.o
+[561/795] Compiling C object newlib/libc.a.p/libm_math_s_log.c.o
+[562/795] Compiling C object newlib/libc.a.p/libm_math_s_lgamma.c.o
+[563/795] Compiling C object newlib/libc.a.p/libm_math_s_erf.c.o
+[564/795] Compiling C object newlib/libc.a.p/libm_math_s_fmod.c.o
+[565/795] Compiling C object newlib/libc.a.p/libm_math_s_j1.c.o
+[566/795] Compiling C object newlib/libc.a.p/libm_math_s_log10.c.o
+[567/795] Compiling C object newlib/libc.a.p/libm_math_s_pow.c.o
+[568/795] Compiling C object newlib/libc.a.p/libm_math_s_jn.c.o
+[569/795] Compiling C object newlib/libc.a.p/libm_math_s_j0.c.o
+[570/795] Compiling C object newlib/libc.a.p/libm_math_s_scalb.c.o
+[571/795] Compiling C object newlib/libc.a.p/libm_math_s_remainder.c.o
+[572/795] Compiling C object newlib/libc.a.p/libm_math_s_sin.c.o
+[573/795] Compiling C object newlib/libc.a.p/libm_math_s_signif.c.o
+[574/795] Compiling C object newlib/libc.a.p/libm_math_s_sinh.c.o
+[575/795] Compiling C object newlib/libc.a.p/libm_math_s_sincos.c.o
+[576/795] Compiling C object newlib/libc.a.p/libm_math_s_rem_pio2.c.o
+[577/795] Compiling C object newlib/libc.a.p/libm_math_s_tan.c.o
+[578/795] Compiling C object newlib/libc.a.p/libm_math_s_tanh.c.o
+[579/795] Compiling C object newlib/libc.a.p/libm_math_s_tgamma.c.o
+[580/795] Compiling C object newlib/libc.a.p/libm_math_sf_asinh.c.o
+[581/795] Compiling C object newlib/libc.a.p/libm_math_sf_acosh.c.o
+[582/795] Compiling C object newlib/libc.a.p/libm_math_sf_acos.c.o
+[583/795] Compiling C object newlib/libc.a.p/libm_math_s_sqrt.c.o
+[584/795] Compiling C object newlib/libc.a.p/libm_math_sf_atan2.c.o
+[585/795] Compiling C object newlib/libc.a.p/libm_math_sf_atanh.c.o
+[586/795] Compiling C object newlib/libc.a.p/libm_math_sf_asin.c.o
+[587/795] Compiling C object newlib/libc.a.p/libm_math_sf_atan.c.o
+[588/795] Compiling C object newlib/libc.a.p/libm_math_sf_cos.c.o
+[589/795] Compiling C object newlib/libc.a.p/libm_math_sf_drem.c.o
+[590/795] Compiling C object newlib/libc.a.p/libm_math_sf_cosh.c.o
+[591/795] Compiling C object newlib/libc.a.p/libm_math_sf_ceil.c.o
+[592/795] Compiling C object newlib/libc.a.p/libm_math_sf_fabs.c.o
+[593/795] Compiling C object newlib/libc.a.p/libm_math_sf_floor.c.o
+[594/795] Compiling C object newlib/libc.a.p/libm_math_sf_exp2.c.o
+[595/795] Compiling C object newlib/libc.a.p/libm_math_sf_exp.c.o
+[596/795] Compiling C object newlib/libc.a.p/libm_math_sf_fmod.c.o
+[597/795] Compiling C object newlib/libc.a.p/libm_math_sf_gamma.c.o
+[598/795] Compiling C object newlib/libc.a.p/libm_math_sf_frexp.c.o
+[599/795] Compiling C object newlib/libc.a.p/libm_math_sf_hypot.c.o
+[600/795] Compiling C object newlib/libc.a.p/libm_math_sf_lgamma.c.o
+[601/795] Compiling C object newlib/libc.a.p/libm_math_sf_log10.c.o
+[602/795] Compiling C object newlib/libc.a.p/libm_math_sf_erf.c.o
+[603/795] Compiling C object newlib/libc.a.p/libm_math_sf_j0.c.o
+[604/795] Compiling C object newlib/libc.a.p/libm_math_sf_log2.c.o
+[605/795] Compiling C object newlib/libc.a.p/libm_math_sf_j1.c.o
+[606/795] Compiling C object newlib/libc.a.p/libm_math_sf_jn.c.o
+[607/795] Compiling C object newlib/libc.a.p/libm_math_sf_log.c.o
+[608/795] Compiling C object newlib/libc.a.p/libm_math_sf_remainder.c.o
+[609/795] Compiling C object newlib/libc.a.p/libm_math_sf_rem_pio2.c.o
+[610/795] Compiling C object newlib/libc.a.p/libm_math_sf_scalb.c.o
+[611/795] Compiling C object newlib/libc.a.p/libm_math_sf_signif.c.o
+[612/795] Compiling C object newlib/libc.a.p/libm_math_sf_sin.c.o
+[613/795] Compiling C object newlib/libc.a.p/libm_math_sf_sincos.c.o
+[614/795] Compiling C object newlib/libc.a.p/libm_math_sf_tan.c.o
+[615/795] Compiling C object newlib/libc.a.p/libm_math_sf_sqrt.c.o
+[616/795] Compiling C object newlib/libc.a.p/libm_math_sf_sinh.c.o
+[617/795] Compiling C object newlib/libc.a.p/libm_math_sf_tanh.c.o
+[618/795] Compiling C object newlib/libc.a.p/libm_math_sf_pow.c.o
+[619/795] Compiling C object newlib/libc.a.p/libm_math_sf_tgamma.c.o
+[620/795] Compiling C object newlib/libc.a.p/libm_math_sl_hypot.c.o
+[621/795] Compiling C object newlib/libc.a.p/libm_common_signgam.c.o
+[622/795] Compiling C object newlib/libc.a.p/libm_common_s_finite.c.o
+[623/795] Compiling C object newlib/libc.a.p/libm_common_s_copysign.c.o
+[624/795] Compiling C object newlib/libc.a.p/libm_common_s_modf.c.o
+[625/795] Compiling C object newlib/libc.a.p/libm_common_s_infinity.c.o
+[626/795] Compiling C object newlib/libc.a.p/libm_common_s_exp10.c.o
+[627/795] Compiling C object newlib/libc.a.p/libm_common_s_scalbn.c.o
+[628/795] Compiling C object newlib/libc.a.p/libm_math_srf_lgamma.c.o
+[629/795] Compiling C object newlib/libc.a.p/libm_common_s_cbrt.c.o
+[630/795] Compiling C object newlib/libc.a.p/libm_common_s_ilogb.c.o
+[631/795] Compiling C object newlib/libc.a.p/libm_common_s_expm1.c.o
+[632/795] Compiling C object newlib/libc.a.p/libm_common_s_isnan.c.o
+[633/795] Compiling C object newlib/libc.a.p/libm_math_sr_lgamma.c.o
+[634/795] Compiling C object newlib/libc.a.p/libm_common_s_isinfd.c.o
+[635/795] Compiling C object newlib/libc.a.p/libm_common_s_isinf.c.o
+[636/795] Compiling C object newlib/libc.a.p/libm_common_s_issignaling.c.o
+[637/795] Compiling C object newlib/libc.a.p/libm_common_s_isnand.c.o
+[638/795] Compiling C object newlib/libc.a.p/libm_common_s_log2.c.o
+[639/795] Compiling C object newlib/libc.a.p/libm_common_s_pow10.c.o
+[640/795] Compiling C object newlib/libc.a.p/libm_common_s_nan.c.o
+[641/795] Compiling C object newlib/libc.a.p/libm_common_s_log1p.c.o
+[642/795] Compiling C object newlib/libc.a.p/libm_common_s_nextafter.c.o
+[643/795] Compiling C object newlib/libc.a.p/libm_common_s_logb.c.o
+[644/795] Compiling C object newlib/libc.a.p/libm_common_s_fdim.c.o
+[645/795] Compiling C object newlib/libc.a.p/libm_common_s_rint.c.o
+[646/795] Compiling C object newlib/libc.a.p/libm_common_s_fmin.c.o
+[647/795] Compiling C object newlib/libc.a.p/libm_common_s_fmax.c.o
+[648/795] Compiling C object newlib/libc.a.p/libm_common_s_fma.c.o
+[649/795] Compiling C object newlib/libc.a.p/libm_common_s_fpclassify.c.o
+[650/795] Compiling C object newlib/libc.a.p/libm_common_s_nearbyint.c.o
+[651/795] Compiling C object newlib/libc.a.p/libm_common_s_lrint.c.o
+[652/795] Compiling C object newlib/libc.a.p/libm_common_s_llrint.c.o
+[653/795] Compiling C object newlib/libc.a.p/libm_common_s_lround.c.o
+[654/795] Compiling C object newlib/libc.a.p/libm_common_s_llround.c.o
+[655/795] Compiling C object newlib/libc.a.p/libm_common_s_scalbln.c.o
+[656/795] Compiling C object newlib/libc.a.p/libm_common_s_signbit.c.o
+[657/795] Compiling C object newlib/libc.a.p/libm_common_math_err_xflow.c.o
+[658/795] Compiling C object newlib/libc.a.p/libm_common_s_round.c.o
+[659/795] Compiling C object newlib/libc.a.p/libm_common_exp_data.c.o
+[660/795] Compiling C object newlib/libc.a.p/libm_common_s_trunc.c.o
+[661/795] Compiling C object newlib/libc.a.p/libm_common_math_err_with_errno.c.o
+[662/795] Compiling C object newlib/libc.a.p/libm_common_math_err_uflow.c.o
+[663/795] Compiling C object newlib/libc.a.p/libm_common_exp.c.o
+[664/795] Compiling C object newlib/libc.a.p/libm_common_exp2.c.o
+[665/795] Compiling C object newlib/libc.a.p/libm_common_math_err_oflow.c.o
+[666/795] Compiling C object newlib/libc.a.p/libm_common_math_err_invalid.c.o
+[667/795] Compiling C object newlib/libc.a.p/libm_common_s_remquo.c.o
+[668/795] Compiling C object newlib/libc.a.p/libm_common_math_err_may_uflow.c.o
+[669/795] Compiling C object newlib/libc.a.p/libm_common_math_err_divzero.c.o
+[670/795] Compiling C object newlib/libc.a.p/libm_common_math_err_check_uflow.c.o
+[671/795] Compiling C object newlib/libc.a.p/libm_common_math_err_check_oflow.c.o
+[672/795] Compiling C object newlib/libc.a.p/libm_common_log_data.c.o
+[673/795] Compiling C object newlib/libc.a.p/libm_common_log2_data.c.o
+[674/795] Compiling C object newlib/libc.a.p/libm_common_log2.c.o
+[675/795] Compiling C object newlib/libc.a.p/libm_common_pow_log_data.c.o
+[676/795] Compiling C object newlib/libc.a.p/libm_common_log.c.o
+[677/795] Compiling C object newlib/libc.a.p/libm_common_sf_modf.c.o
+[678/795] Compiling C object newlib/libc.a.p/libm_common_sf_exp10.c.o
+[679/795] Compiling C object newlib/libc.a.p/libm_common_sf_finite.c.o
+[680/795] Compiling C object newlib/libc.a.p/libm_common_sf_cbrt.c.o
+[681/795] Compiling C object newlib/libc.a.p/libm_common_sf_scalbn.c.o
+[682/795] Compiling C object newlib/libc.a.p/libm_common_sf_copysign.c.o
+[683/795] Compiling C object newlib/libc.a.p/libm_common_sf_ilogb.c.o
+[684/795] Compiling C object newlib/libc.a.p/libm_common_sf_infinity.c.o
+[685/795] Compiling C object newlib/libc.a.p/libm_common_sf_isinff.c.o
+[686/795] Compiling C object newlib/libc.a.p/libm_common_sf_isnan.c.o
+[687/795] Compiling C object newlib/libc.a.p/libm_common_sf_isinf.c.o
+[688/795] Compiling C object newlib/libc.a.p/libm_common_sf_expm1.c.o
+[689/795] Compiling C object newlib/libc.a.p/libm_common_sf_issignaling.c.o
+[690/795] Compiling C object newlib/libc.a.p/libm_common_sf_isnanf.c.o
+[691/795] Compiling C object newlib/libc.a.p/libm_common_pow.c.o
+[692/795] Compiling C object newlib/libc.a.p/libm_common_sf_nan.c.o
+[693/795] Compiling C object newlib/libc.a.p/libm_common_sf_pow10.c.o
+[694/795] Compiling C object newlib/libc.a.p/libm_common_sf_nextafter.c.o
+[695/795] Compiling C object newlib/libc.a.p/libm_common_sf_logb.c.o
+[696/795] Compiling C object newlib/libc.a.p/libm_common_sf_fma.c.o
+[697/795] Compiling C object newlib/libc.a.p/libm_common_sf_log1p.c.o
+[698/795] Compiling C object newlib/libc.a.p/libm_common_sf_fdim.c.o
+[699/795] Compiling C object newlib/libc.a.p/libm_common_sf_rint.c.o
+[700/795] Compiling C object newlib/libc.a.p/libm_common_sf_fpclassify.c.o
+[701/795] Compiling C object newlib/libc.a.p/libm_common_sf_lround.c.o
+[702/795] Compiling C object newlib/libc.a.p/libm_common_sf_fmax.c.o
+[703/795] Compiling C object newlib/libc.a.p/libm_common_sf_lrint.c.o
+[704/795] Compiling C object newlib/libc.a.p/libm_common_sf_nearbyint.c.o
+[705/795] Compiling C object newlib/libc.a.p/libm_common_sf_fmin.c.o
+[706/795] Compiling C object newlib/libc.a.p/libm_common_sf_llrint.c.o
+[707/795] Compiling C object newlib/libc.a.p/libm_common_sf_llround.c.o
+[708/795] Compiling C object newlib/libc.a.p/libm_common_sf_round.c.o
+[709/795] Compiling C object newlib/libc.a.p/libm_common_sf_scalbln.c.o
+[710/795] Compiling C object newlib/libc.a.p/libm_common_sf_trunc.c.o
+[711/795] Compiling C object newlib/libc.a.p/libm_common_sf_exp.c.o
+[712/795] Compiling C object newlib/libc.a.p/libm_common_sf_exp2.c.o
+[713/795] Compiling C object newlib/libc.a.p/libm_common_sf_exp2_data.c.o
+[714/795] Compiling C object newlib/libc.a.p/libm_common_sf_remquo.c.o
+[715/795] Compiling C object newlib/libc.a.p/libm_common_sf_log_data.c.o
+[716/795] Compiling C object newlib/libc.a.p/libm_common_sf_log.c.o
+[717/795] Compiling C object newlib/libc.a.p/libm_common_sf_log2.c.o
+[718/795] Compiling C object newlib/libc.a.p/libm_common_sf_log2_data.c.o
+[719/795] Compiling C object newlib/libc.a.p/libm_common_sf_pow_log2_data.c.o
+[720/795] Compiling C object newlib/libc.a.p/libm_common_sf_pow.c.o
+[721/795] Compiling C object newlib/libc.a.p/libm_common_cosf.c.o
+[722/795] Compiling C object newlib/libc.a.p/libm_common_sinf.c.o
+[723/795] Compiling C object newlib/libc.a.p/libm_common_sincosf.c.o
+[724/795] Compiling C object newlib/libc.a.p/libm_common_math_errf_xflowf.c.o
+[725/795] Compiling C object newlib/libc.a.p/libm_common_math_errf_uflowf.c.o
+[726/795] Compiling C object newlib/libc.a.p/libm_common_sincosf_data.c.o
+[727/795] Compiling C object newlib/libc.a.p/libm_common_math_errf_with_errnof.c.o
+[728/795] Compiling C object newlib/libc.a.p/libm_common_math_errf_may_uflowf.c.o
+[729/795] Compiling C object newlib/libc.a.p/libm_common_math_errf_oflowf.c.o
+[730/795] Compiling C object newlib/libc.a.p/libm_common_math_errf_divzerof.c.o
+[731/795] Compiling C object newlib/libc.a.p/libm_common_math_errf_invalidf.c.o
+[732/795] Compiling C object newlib/libc.a.p/libm_common_copysignl.c.o
+[733/795] Compiling C object newlib/libc.a.p/libm_common_math_errf_check_oflowf.c.o
+[734/795] Compiling C object newlib/libc.a.p/libm_common_isnanl.c.o
+[735/795] Compiling C object newlib/libc.a.p/libm_common_isinfl.c.o
+[736/795] Compiling C object newlib/libc.a.p/libm_common_nanl.c.o
+[737/795] Compiling C object newlib/libc.a.p/libm_fenv_fe_dfl_env.c.o
+[738/795] Compiling C object newlib/libc.a.p/libm_fenv_fenv_stub.c.o
+[739/795] Compiling C object newlib/libc.a.p/libm_common_sl_issignaling.c.o
+[740/795] Compiling C object newlib/libc.a.p/libm_common_sl_finite.c.o
+[741/795] Compiling C object newlib/libc.a.p/libm_complex_cacosh.c.o
+[742/795] Compiling C object newlib/libc.a.p/libm_complex_catanh.c.o
+[743/795] Compiling C object newlib/libc.a.p/libm_complex_casinh.c.o
+[744/795] Compiling C object newlib/libc.a.p/libm_complex_cabs.c.o
+[745/795] Compiling C object newlib/libc.a.p/libm_complex_carg.c.o
+[746/795] Compiling C object newlib/libc.a.p/libm_complex_casin.c.o
+[747/795] Compiling C object newlib/libc.a.p/libm_complex_catan.c.o
+[748/795] Compiling C object newlib/libc.a.p/libm_common_sqrtl.c.o
+[749/795] Compiling C object newlib/libc.a.p/libm_complex_ccos.c.o
+[750/795] Compiling C object newlib/libc.a.p/libm_complex_cacos.c.o
+[751/795] Compiling C object newlib/libc.a.p/libm_complex_ccosh.c.o
+[752/795] Compiling C object newlib/libc.a.p/libm_complex_clog.c.o
+[753/795] Compiling C object newlib/libc.a.p/libm_complex_cephes_subr.c.o
+[754/795] Compiling C object newlib/libc.a.p/libm_complex_clog10.c.o
+[755/795] Compiling C object newlib/libc.a.p/libm_complex_cexp.c.o
+[756/795] Compiling C object newlib/libc.a.p/libm_complex_conj.c.o
+[757/795] Compiling C object newlib/libc.a.p/libm_complex_cimag.c.o
+[758/795] Compiling C object newlib/libc.a.p/libm_complex_cproj.c.o
+[759/795] Compiling C object newlib/libc.a.p/libm_complex_creal.c.o
+[760/795] Compiling C object newlib/libc.a.p/libm_complex_cpow.c.o
+[761/795] Compiling C object newlib/libc.a.p/libm_complex_csin.c.o
+[762/795] Compiling C object newlib/libc.a.p/libm_complex_csinh.c.o
+[763/795] Compiling C object newlib/libc.a.p/libm_complex_ctan.c.o
+[764/795] Compiling C object newlib/libc.a.p/libm_complex_cabsf.c.o
+[765/795] Compiling C object newlib/libc.a.p/libm_complex_ccosf.c.o
+[766/795] Compiling C object newlib/libc.a.p/libm_complex_cimagf.c.o
+[767/795] Compiling C object newlib/libc.a.p/libm_complex_casinf.c.o
+[768/795] Compiling C object newlib/libc.a.p/libm_complex_ctanh.c.o
+[769/795] Compiling C object newlib/libc.a.p/libm_complex_casinhf.c.o
+[770/795] Compiling C object newlib/libc.a.p/libm_complex_cprojf.c.o
+[771/795] Compiling C object newlib/libc.a.p/libm_complex_cacosf.c.o
+[772/795] Compiling C object newlib/libc.a.p/libm_complex_csqrt.c.o
+[773/795] Compiling C object newlib/libc.a.p/libm_complex_csqrtf.c.o
+[774/795] Compiling C object newlib/libc.a.p/libm_complex_ccoshf.c.o
+[775/795] Compiling C object newlib/libc.a.p/libm_complex_clog10f.c.o
+[776/795] Compiling C object newlib/libc.a.p/libm_complex_clogf.c.o
+[777/795] Compiling C object newlib/libc.a.p/libm_complex_catanhf.c.o
+[778/795] Compiling C object newlib/libc.a.p/libm_complex_crealf.c.o
+[779/795] Compiling C object newlib/libc.a.p/libm_complex_csinf.c.o
+[780/795] Compiling C object newlib/libc.a.p/libm_complex_ctanf.c.o
+[781/795] Compiling C object newlib/libc.a.p/libm_complex_ctanhf.c.o
+[782/795] Compiling C object newlib/libc.a.p/libm_complex_csinhf.c.o
+[783/795] Compiling C object newlib/libc.a.p/libm_complex_cargf.c.o
+[784/795] Compiling C object newlib/libc.a.p/libm_complex_cpowf.c.o
+[785/795] Compiling C object newlib/libc.a.p/libm_complex_cexpf.c.o
+[786/795] Compiling C object newlib/libm.a.p/empty.c.o
+[787/795] Compiling C object newlib/libc.a.p/libm_complex_creall.c.o
+[788/795] Compiling C object newlib/libc.a.p/libm_complex_cabsl.c.o
+[789/795] Linking static target newlib/libm.a
+[790/795] Compiling C object newlib/libc.a.p/libm_complex_cimagl.c.o
+[791/795] Compiling C object newlib/libc.a.p/libm_complex_cprojl.c.o
+[792/795] Compiling C object newlib/libc.a.p/libm_complex_conjl.c.o
+[793/795] Compiling C object newlib/libc.a.p/libm_complex_csqrtl.c.o
+[794/795] Linking static target newlib/libc.a
+[795/795] Generating newlib/libc_duplicates with a custom command
+cp newlib/libc.a __libc.a
+ CC       _libc.a
+ AR       _libc.a
+cp __libc.a _libc.a
+ CC       libc.a
+ AR       libc.a
+cp _libc.a libc.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libc'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libcompiler_rt'
+ CC       umodsi3.o
+ CC       udivsi3.o
+ CC       divsi3.o
+ CC       modsi3.o
+ CC       comparesf2.o
+ CC       comparedf2.o
+ CC       negsf2.o
+ CC       negdf2.o
+ CC       addsf3.o
+ CC       subsf3.o
+ CC       mulsf3.o
+ CC       divsf3.o
+ CC       lshrdi3.o
+ CC       muldi3.o
+ CC       divdi3.o
+ CC       ashldi3.o
+ CC       ashrdi3.o
+ CC       udivmoddi4.o
+ CC       floatsisf.o
+ CC       floatunsisf.o
+ CC       fixsfsi.o
+ CC       fixdfdi.o
+ CC       fixunssfsi.o
+ CC       fixunsdfdi.o
+ CC       adddf3.o
+ CC       subdf3.o
+ CC       muldf3.o
+ CC       divdf3.o
+ CC       floatsidf.o
+ CC       floatunsidf.o
+ CC       floatdidf.o
+ CC       fixdfsi.o
+ CC       fixunsdfsi.o
+ CC       clzsi2.o
+ CC       ctzsi2.o
+ CC       udivdi3.o
+ CC       umoddi3.o
+ CC       moddi3.o
+ CC       ucmpdi2.o
+ CC       mulsi3.o
+ AR       libcompiler_rt.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libcompiler_rt'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libbase'
+ CC       crc16.o
+ CC       crc32.o
+ CC       console.o
+ CC       system.o
+ CC       progress.o
+ CC       memtest.o
+ CC       uart.o
+ CC       spiflash.o
+ CC       i2c.o
+ CC       isr.o
+ AR       libbase.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libbase'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libfatfs'
+ CC       ffunicode.o
+ CC       ff.o
+ AR       libfatfs.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libfatfs'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitespi'
+ CC       spiflash.o
+ AR       liblitespi.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitespi'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitedram'
+ CC       sdram.o
+ CC       bist.o
+ CC       sdram_dbg.o
+ AR       liblitedram.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitedram'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libliteeth'
+ CC       udp.o
+ CC       tftp.o
+ CC       mdio.o
+ AR       libliteeth.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/libliteeth'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitesdcard'
+ CC       sdcard.o
+ CC       spisdcard.o
+ AR       liblitesdcard.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitesdcard'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitesata'
+ CC       sata.o
+ AR       liblitesata.a
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/liblitesata'
+make: Entering directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/bios'
+ CC       boot-helper.o
+ CC       boot.o
+ CC       helpers.o
+ CC       cmd_bios.o
+ CC       cmd_mem.o
+ CC       cmd_boot.o
+ CC       cmd_i2c.o
+ CC       cmd_spiflash.o
+ CC       cmd_litedram.o
+ CC       cmd_liteeth.o
+ CC       cmd_litesdcard.o
+ CC       cmd_litesata.o
+ CC       sim_debug.o
+ CC       main.o
+ CC       complete.o
+ CC       readline.o
+ CC       crt0.o
+ CC       bios.elf
+chmod -x bios.elf
+ OBJCOPY  bios.bin
+chmod -x bios.bin
+python3 -m litex.soc.software.crcfbigen bios.bin
+python3 -m litex.soc.software.memusage bios.elf /data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/bios/../include/generated/regions.ld powerpc-linux-gnu
+
+ROM usage: 25.59KiB 	(39.99%)
+RAM usage: 1.34KiB 	(2.10%)
+
+rm crt0.o
+make: Leaving directory '/data/projects/a2o/dev/build/litex/build/cmod7_kintex/software/bios'

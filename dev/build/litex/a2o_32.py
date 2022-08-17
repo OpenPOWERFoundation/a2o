@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# A2O Test (64LE)
-# a2o.py --csr-csv csr.csv --no-compile-software
-# a2o.py --csr-csv csr.csv --no-compile-software --build  [--sys-clk-freq 50e6]
+# A2O Test (32BE)
+# a2o_32.py --csr-csv csr.csv --no-compile-software
+# a2o_32.py --csr-csv csr.csv --no-compile-software --build  [--sys-clk-freq 50e6]
 #
 
 import os
@@ -95,7 +95,7 @@ class BaseSoC(SoCCore):
             #with_uart=coreUART, integrated_rom_size=romSize, integrated_sram_size=ramSize, don't set rom/ram if doing it below!!!!!
             with_uart=coreUART, integrated_rom_size=0, integrated_sram_size=0,
             ident='A2O', ident_version=True, uart_baudrate=uart_baudrate,
-            cpu_type='a2o')
+            cpu_type='a2o', cpu_variant='WB_32BE')
 
         print(f'Building variant={self.cpu.variant}.')
 
