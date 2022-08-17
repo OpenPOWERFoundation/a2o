@@ -88,10 +88,56 @@ pip3 install .
 powerpc-linux-gnu-objdump -d build/cmod7_kintex/software/bios/bios.elf > bios_32.d
 ```
 
+### Try Litex compile with Verilator
+
+```
+a2o_32.py --csr-csv csr.csv
+powerpc-linux-gnu-objdump -d build/cmod7_kintex/software/bios/bios.elf > bios_32.d
+../../src/bin/bin2init build/cmod7_kintex/software/bios/bios.bin
+cp build/cmod7_kintex/software/bios/bios.bin.hex ../../sim/verilator/cmod7_kintex_rom.init
+```
+* run
+
+```
+00000918 C0: CP 0:000520 1:000524 0000000000000520
+00000919 C0: CP 0:000528 0000000000000528                               branch to bios!
+00001000 ...tick...
+00001033 C0: CP 0:001F38 1:001F3C 0000000000001F38                      <main>
+00001081 C0: CP 0:001F40 1:207280 0000000000001F40                      1F40 is stmw r28 - whoa, are the 2xxxxx microcode????  seems so and completes...
+00001086 C0: CP 0:207288 1:20728C 0000000000001F40
+00001089 C0: CP 0:22F688 1:22F68C 0000000000001F40
+00001090 C0: CP 0:21FA88 1:21FA8C 0000000000001F40
+00001091 C0: CP 0:207E90 0000000000001F40
+00001256 C0: CP 0:0001C0 00000000000001C0                               1F44 is stw (lr) at orig stack + 4 - did it cross 64k? yeah 1F44/20004
+00001262 C0: CP 0:0001C0 00000000000001C0
+00001267 C0: CP 0:0001C0 00000000000001C0
+00001272 C0: CP 0:0001C0 00000000000001C0
+00001277 C0: CP 0:0001C0 00000000000001C0
+00001280 C0: CP 0:0001C0 00000000000001C0
+00001294 C0: CP 0:0001C0 00000000000001C0
+00001308 C0: CP 0:0001C0 00000000000001C0
+00001322 C0: CP 0:0001C0 00000000000001C0
+00001336 C0: CP 0:0001C0 00000000000001C0
+00001350 C0: CP 0:0001C0 00000000000001C0
+*** Loop detected for 10 iterations ***
+Quiescing...
+00001366 C0: CP 0:0001C0 00000000000001C0
+00001369 C0: CP 0:0001C0 00000000000001C0
+
+
+tb_litex_soc
+
+Cycles run=1376
+
+You are worthless and weak.
+```
+
+* set top o stack to _fstack-8; now makes it through 4DF8 (in uart_init)...doh, need to add the derat entry for csr (memory_region,csr,0xfff00000,65536,io)
 
 
 
-#### Core and wishbone wrapper with extra stuff for Litex integration
+
+### Core and wishbone wrapper with extra stuff for Litex integration
 
 * create a2o/core.py and a2o.py (SOC) from a2p
 * makes it through vivado compile

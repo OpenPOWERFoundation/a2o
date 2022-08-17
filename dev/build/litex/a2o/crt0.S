@@ -23,9 +23,11 @@
 # 32/64
 #.set BIOS_32,1
 
-.set BIOS_START,0
-.set BIOS_STACK_0,_fstack
-.set BIOS_STACK_1,_fstack
+# this is for xlate setup of 2nd entry; it should be related to _fdata i think
+.set BIOS_START,0x10000
+# not needed for litex
+.set BIOS_STACK_0,_fstack-8
+.set BIOS_STACK_1,_fstack-8
 
 .macro load32  rx,v
       li       \rx,0
