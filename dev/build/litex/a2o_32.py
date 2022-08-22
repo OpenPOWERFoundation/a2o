@@ -101,6 +101,10 @@ class BaseSoC(SoCCore):
 
         # no irq yet, but should be able to connect; need irq handler in crt0.s
         self.add_constant('UART_POLLING')
+        # skip bios crc for sim
+        #self.add_constant('CONFIG_BIOS_NO_CRC') # doesnt work?
+        #self.add_config("BIOS_NO_CRC") # doesnt work?
+        #had to  -DCONFIG_BIOS_NO_CRC=1 in GCC_FLAGS
 
         # this appears to be how to set up fixed csr order but not sure it works this way.  https://github.com/litex-hub/linux-on-litex-vexriscv/blob/master/soc_linux.py
         #SoCCore.csr_map

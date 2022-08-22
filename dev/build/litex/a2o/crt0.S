@@ -10,7 +10,7 @@
 # litex boot kernel (original ppc-embedded architecture)
 #  resets to 32BE
 #  set up translations for starting bios (inc. BE/LE)
-#  copy modifiable rom data to ram - or do in bios?
+#  copy modifiable rom data to ram
 #  set up msr for running bios (inc. 32/64)
 #  jump to bios
 
@@ -23,8 +23,15 @@
 # 32/64
 #.set BIOS_32,1
 
-# this is for xlate setup of 2nd entry; it should be related to _fdata i think
+# this is for i/d xlate setup of 2nd entry; it should be related to _fdata i think
 .set BIOS_START,0x10000
+# this is for d xlate setup of 3rd entry; it needs to be defined by memory map; it could be done by bios code,
+#  but has to be done before uart_init is called
+.set CSR_START,0xFFF00000
+
+# needed for litex
+.set ROM_INIT,1
+
 # not needed for litex
 .set BIOS_STACK_0,_fstack-8
 .set BIOS_STACK_1,_fstack-8
@@ -80,6 +87,9 @@
 _start:
 int_000:
       b         boot_start
+
+# ints need to handle save/restore and call to isr (like uart_isr())
+# enable in a2node when it's safe (stack set up, etc.)
 
 # critical input
 .org 0x020
@@ -233,9 +243,6 @@ int_340:
 
 # ------------------------------------------------------------------------------------------------------------------------------
 # initial translation
-# both erats:
-# 00000000 64K: (rom, BE)
-# 00010000 64K: (ram, BE or LE)
 #
 .org 0x400
 boot_start:
@@ -264,6 +271,18 @@ boot_start:
       li        r0,0x001E        # entry #30
       load32    r4,BIOS_START    # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
       load32    r8,BIOS_START
+      ori       r8,r8,0x023F     # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   size: 0001=4K 0011=64K 0101=1M 0111=16M 1010=1G
+
+      eratwe    r10,r0,2
+      eratwe    r4,r0,1
+      eratwe    r8,r0,0
+      isync
+
+# derat 29  @<CSR_START>  I=1!!!
+      li        r0,0x001D        # entry #29
+      ori       r10,r10,0x0F00   # word 2 with WIMG=F
+      load32    r4,CSR_START     # word 1 rpn(32:51)=32:51 rpn(22:31)=54:63
+      load32    r8,CSR_START
       ori       r8,r8,0x023F     # word 0 epn=32:51 class=52:53 v=54 x=55 size=56:59 thrd=60:63   size: 0001=4K 0011=64K 0101=1M 0111=16M 1010=1G
 
       eratwe    r10,r0,2
@@ -306,6 +325,49 @@ boot_start:
 # T0
 
 init_t0:
+
+.ifdef ROM_INIT
+########################################################################################################################################
+# VMA/LMA: copy .data, clear .bss
+rominit:
+      lis        r1,_fdata_rom@h
+      ori        r1,r1,_fdata_rom@l
+      lis        r2,_fdata@h
+      ori        r2,r2,_fdata@l
+      lis        r3,_edata_rom@h
+      ori        r3,r3,_edata_rom@l
+      lis        r4,_fbss@h
+      ori        r4,r4,_fbss@l
+      lis        r5,_ebss@h
+      ori        r5,r5,_ebss@l
+
+      subf       r9,r1,r3
+      srwi.      r9,r9,2
+      beq        romcopy_done
+      mtctr      r9
+      addi       r1,r1,-4
+      addi       r2,r2,-4
+
+romcopy:
+      lwzu       r9,4(r1)
+      stwu       r9,4(r2)
+      bdnz       romcopy
+
+romcopy_done:
+      subf       r9,r4,r5
+      srwi.      r9,r9,2
+      beq        romclear_done
+
+      mtctr      r9
+      addi       r4,r4,-4
+      li         r9,0
+
+romclear:
+      stwu       r9,4(r4)
+      bdnz       romclear
+
+romclear_done:
+.endif
 
 # set up threads
 # set thread configuration

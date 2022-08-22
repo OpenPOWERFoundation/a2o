@@ -72,7 +72,7 @@ def _to_signal(obj):
 
 class BaseSoC(SoCCore):
 
-    def __init__(self, sys_clk_freq=int(50e6),
+    def __init__(self, sys_clk_freq=int(100e6),
                        with_analyzer=False,
                        uart_baudrate=115200,
                        **kwargs):

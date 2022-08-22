@@ -24,11 +24,11 @@ GAS_FLAGS = {
    'WB_64LE' : '-defsym BIOS_LE=1'
 }
 
+#wtf skip crc and ram memtest for now!
 GCC_FLAGS = {
-   'WB_32BE' : '-mcpu=a2 -m32 -mbig-endian -fno-stack-protector -Xassembler -defsym -Xassembler BIOS_32=1',
+   'WB_32BE' : '-mcpu=a2 -m32 -mbig-endian -fno-stack-protector -Xassembler -defsym -Xassembler BIOS_32=1 -DCONFIG_BIOS_NO_BOOT=1 -DCONFIG_BIOS_NO_CRC=1 -DCONFIG_MAIN_RAM_INIT=1',
    'WB_64LE' : '-mcpu=a2 -m64 -mlittle-endian -mabi=elfv2 -fno-stack-protector -Xassembler -defsym -Xassembler BIOS_LE=1'
 }
-
 
 class A2O(CPU, AutoCSR):
    name = 'a2o'
@@ -68,16 +68,17 @@ class A2O(CPU, AutoCSR):
          variant = 'WB_64LE'
 
       if variant == 'WB_32BE':
-         #self.family = 'ppc'  # kills meson build
-         self.family = 'powerpc'
+         self.family = 'ppc'  # kills meson build unless update meson.build file
+         #self.family = 'powerpc'
          self.data_width = 32
          self.endianness = 'big'
          self.gcc_triple = 'powerpc-linux-gnu'
          self.linker_output_format = 'elf32-powerpc'
 
+
       self.platform         = platform
       self.variant          = variant
-      self.human_name       = CPU_VARIANTS.get(variant, 'a2o')
+      self.human_name       = 'a2o_' + variant # CPU_VARIANTS.get(variant, 'a2o')
       self.external_variant = None
       self.reset            = Signal()
       self.interrupt        = Signal(3)

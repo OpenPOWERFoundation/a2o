@@ -8,6 +8,40 @@
    * runs simple version of kernel/bios/random test with cocotb (A2L2 interface partially implemented in Python) and Verilog core wrappers (A2L2<->mem/wb interfaces)
    * wrapper converts A2L2 interface to mem and Wishbone interfaces
    * verilator now runs with a2o_litex and litex SOC
+   * verilator & litex software build working for 32BE but looks like problem with printf %d
+
+```
+litex_term socket://localhost:2592
+
+        __   _ __      _  __
+       / /  (_) /____ | |/_/
+      / /__/ / __/ -_)>  <
+     /____/_/\__/\__/_/|_|
+   Build your hardware, easily!
+
+ (c) Copyright 2012-2022 Enjoy-Digital
+ (c) Copyright 2007-2015 M-Labs
+
+ BIOS built on Aug 21 2022 18:36:00
+
+ LiteX git sha1: 33ae301d
+
+--=============== SoC ==================--
+CPU:		a2owb @ 10�MHz
+BUS:		WISHBONE 39-bit @ 4GiB
+CSR:		39-bit data
+ROM:		6�KiB
+SRAM:		6�KiB
+MAIN-RAM:	16��{KiB
+
+--========== Initialization ============--
+
+--============= Console ================--
+
+litex> wtf
+Command not found
+litex>
+```
 
 ## To Do
 
