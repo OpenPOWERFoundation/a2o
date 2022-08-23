@@ -90,7 +90,7 @@ module tri_144x78_2r4w (
    wire unused;
 
    // sim array
-   reg   [64-`GPR_WIDTH:77]   mem[0:143];
+   reg   [64-`GPR_WIDTH:77]   mem[0:143] /*verilator public*/;
 
    reg   [0:`GPR_POOL_ENC+`THREADS_POOL_ENC-1]  r1a_q;
    wire  [0:`GPR_POOL_ENC+`THREADS_POOL_ENC-1]  r1a_d;
@@ -112,9 +112,10 @@ module tri_144x78_2r4w (
    generate
        genvar j;
        for (j = 0; j < 144; j=j+1) begin: loc
+   //assign w0d_int[64 - `GPR_WIDTH:65 + `GPR_WIDTH/8] = w0d;  there are 2 extra bits of 0 on end
+   //assign w0d_int[66 + `GPR_WIDTH/8:77] = {4{1'b0}};
           wire [64-`GPR_WIDTH:63] dat;
           wire [0:7] par;
-          // 4b0
           assign dat = mem[j][64-`GPR_WIDTH:63];
           assign par = mem[j][64:63 + `GPR_WIDTH/8];
        end

@@ -137,7 +137,7 @@ module iuq_rn_map #(
 
    wire                                                        comp_map_act;
    reg [0:STORAGE_WIDTH-1]                                     comp_map_d[0:ARCHITECTED_REGISTER_DEPTH-1];
-   wire [0:STORAGE_WIDTH-1]                                    comp_map_l2[0:ARCHITECTED_REGISTER_DEPTH-1];
+   wire [0:STORAGE_WIDTH-1]                                    comp_map_l2[0:ARCHITECTED_REGISTER_DEPTH-1] /*verilator public*/;
    wire                                                        spec_map_arc_act;
    reg [0:STORAGE_WIDTH-1]                                     spec_map_arc_d[0:ARCHITECTED_REGISTER_DEPTH-1];
    wire [0:STORAGE_WIDTH-1]                                    spec_map_arc_l2[0:ARCHITECTED_REGISTER_DEPTH-1];
