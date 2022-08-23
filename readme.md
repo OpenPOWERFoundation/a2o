@@ -9,6 +9,7 @@
    * wrapper converts A2L2 interface to mem and Wishbone interfaces
    * verilator now runs with a2o_litex and litex SOC
    * verilator & litex software build working for 32BE but looks like problem with printf %d
+   * verilator & litex software build working for 64LE with same printf errors
 
 ```
 litex_term socket://localhost:2592
@@ -42,9 +43,6 @@ litex> wtf
 Command not found
 litex>
 ```
-
-    * verilator & litex software build also working for 64LE but same printf output
-
 
 ## To Do
 
