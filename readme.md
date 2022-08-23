@@ -42,8 +42,8 @@ litex> wtf
 Command not found
 litex>
 ```
-  * verilator & litex software build also working for 64LE but same printf output
 
+    * verilator & litex software build also working for 64LE but same printf output
 
 
 ## To Do
