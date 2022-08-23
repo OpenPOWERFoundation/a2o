@@ -20,13 +20,17 @@ CPU_VARIANTS = {
 
 #wtf doesnt do anything, but you can somehow do it by using -Xassembler in gcc flags
 GAS_FLAGS = {
+
    'WB_32BE' : '-defsym BIOS_32=1',
    'WB_64LE' : '-defsym BIOS_LE=1'
 }
 
-#wtf skip crc and ram memtest for now!
+# i hacked /data/projects/pythondata-software-picolibc/pythondata_software_picolibc/data/meson.build to force io_long_long=false for ppc32!!!
+# and to add 'ppc' family.  need to use original for 64b!!!!!!!!!!!!!!!!!!
+# edit then pip3 install .
+
 GCC_FLAGS = {
-   'WB_32BE' : '-mcpu=a2 -m32 -mbig-endian -fno-stack-protector -Xassembler -defsym -Xassembler BIOS_32=1 -DCONFIG_BIOS_NO_BOOT=1 -DCONFIG_BIOS_NO_CRC=1 -DCONFIG_MAIN_RAM_INIT=1',
+   'WB_32BE' : '-mcpu=a2 -m32 -mbig-endian -fno-stack-protector -Xassembler -defsym -Xassembler BIOS_32=1',
    'WB_64LE' : '-mcpu=a2 -m64 -mlittle-endian -mabi=elfv2 -fno-stack-protector -Xassembler -defsym -Xassembler BIOS_LE=1'
 }
 
@@ -43,7 +47,7 @@ class A2O(CPU, AutoCSR):
    linker_output_format = 'elf64-powerpcle'
 
    nop = 'nop'
-   io_regions = {0xF0000000: 0x10000000} # origin, length
+   io_regions = {0xFFF00000: 0x100000} # origin, length
 
    @property
    def mem_map(self):
@@ -60,6 +64,7 @@ class A2O(CPU, AutoCSR):
    def gcc_flags(self):
       flags = GCC_FLAGS[self.variant]
       flags += ' -D__a2o__'
+      flags += ' -DCONFIG_BIOS_NO_BOOT=1 -DCONFIG_BIOS_NO_CRC=1 -DCONFIG_MAIN_RAM_INIT=1' #wtf skip crc and ram memtest for now!
       return flags
 
    def __init__(self, platform, variant='WB'):
