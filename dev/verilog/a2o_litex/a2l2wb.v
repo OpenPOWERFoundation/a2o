@@ -31,7 +31,8 @@
 //  interface to wb32
 //
 // could pass core reset through here to allow this to be configured first
-// could add config space
+// could add config space, or just use csr interface
+//
 
 `include "tri_a2o.vh"
 `ifndef A2NODE_CFG
@@ -60,6 +61,7 @@ module a2l2wb #(
 //  110 write mask rst
 //  111 write mask xor
 // also, should it be edge-triggered (single pulse from nop->cmd)?
+// should cfg_q just be implemented in the csr itself??
 
    input                            cfg_wr,
    output [0:31]                    status,
@@ -234,8 +236,13 @@ module a2l2wb #(
    wire   [0:4]                  req_tag;
    wire   [0:2]                  req_len;
    wire   [0:255]                req_st_dat;
+   wire   [0:255]                st_dat_swizzle;
    wire   [0:31]                 req_st_be;
    wire   [0:7]                  req_st_we;
+   wire                          req_endian;
+   wire                          req_st_4;
+   wire                          req_st_8;
+   wire                          req_st_16;
 
    wire                          rld_coming;
    wire                          rld_valid;
@@ -254,6 +261,7 @@ module a2l2wb #(
    wire                          qw_sel_3;
    wire   [0:7]                  tb_pulse_val;
    wire                          tb_pulse_toggle;
+   wire   [0:3]                  intr_enable;
 
    // FF
    always @(posedge clk) begin
@@ -390,6 +398,7 @@ endgenerate
    assign req_tag = req_q[10:14];
    assign req_adr = req_q[15:15+`REAL_IFAR_WIDTH-1];
    assign req_len = req_q[57:59];
+   assign req_endian = req_q[64];
 
    assign req_st_be = std_q[0:31];
    assign req_st_we[0] = |std_q[0:3];
@@ -558,10 +567,35 @@ generate if (MEM_MODE == 2) begin
                    dat_sel == 2'b10 ? req_st_be[8:11] :
                                       req_st_be[12:15];
 
-   assign wb_datw = dat_sel == 2'b00 ? req_st_dat[0:31]  :
-                    dat_sel == 2'b01 ? req_st_dat[32:63] :
-                    dat_sel == 2'b10 ? req_st_dat[64:95] :
-                                       req_st_dat[96:127];
+   /*
+   assign req_st_4 = req_st_we == 4'b1000;
+   assign req_st_8 = req_st_we == 4'b1100;
+   assign req_st_16 = req_st_we == 4'b1111;
+
+   assign st_dat_swizzle[0:31]   = ~req_endian ? req_st_dat[0:31] :
+                                   req_st_4    ? {req_st_dat[24:31], req_st_dat[16:23], req_st_dat[8:15], req_st_dat[0:7]} :
+                                   req_st_8    ? {req_st_dat[56:63], req_st_dat[48:55], req_st_dat[40:47], req_st_dat[32:39]} :
+                                                 {req_st_dat[120:127], req_st_dat[112:119], req_st_dat[104:111], req_st_dat[96:103]};
+
+
+   assign st_dat_swizzle[32:63]  = ~req_endian ? req_st_dat[32:63] :
+                                   req_st_8    ? {req_st_dat[24:31], req_st_dat[16:23], req_st_dat[8:15], req_st_dat[0:7]} :
+                                                 {req_st_dat[88:95], req_st_dat[80:87], req_st_dat[72:79], req_st_dat[64:71]};
+
+   assign st_dat_swizzle[64:95]  = ~req_endian ? req_st_dat[64:95] :
+                                                {req_st_dat[56:63], req_st_dat[48:55], req_st_dat[40:47], req_st_dat[32:39]};
+
+   assign st_dat_swizzle[96:127] = ~req_endian ? req_st_dat[96:127] :
+                                                {req_st_dat[24:31], req_st_dat[16:23], req_st_dat[8:15], req_st_dat[0:7]};
+   */
+   assign st_dat_swizzle = req_st_dat;
+
+   assign wb_datw = dat_sel == 2'b00 ? st_dat_swizzle[0:31]  :
+                    dat_sel == 2'b01 ? st_dat_swizzle[32:63] :
+                    dat_sel == 2'b10 ? st_dat_swizzle[64:95] :
+                                       st_dat_swizzle[96:127];
+
+
 end
 endgenerate
 
@@ -609,9 +643,9 @@ endgenerate
    // these have to be examined/cleared at the source
    assign intr_d = {4'b0, softwareInterrupt, timerInterrupt, externalInterruptS, externalInterrupt};
    // map for now
-   assign an_ac_crit_interrupt[0] = intr_q[4];
-   assign an_ac_perf_interrupt[0] = intr_q[5];
-   assign an_ac_ext_interrupt[0] = intr_q[6] | intr_q[7];
+   assign an_ac_crit_interrupt[0] = intr_q[4] & intr_enable[0];
+   assign an_ac_perf_interrupt[0] = intr_q[5] & intr_enable[1];
+   assign an_ac_ext_interrupt[0] = (intr_q[6] & intr_enable[2]) | (intr_q[7] & intr_enable[3]);
 
    assign err_d = {(new_req & ~cmdseq_idle), 7'b0};
    assign an_ac_checkstop = err_q != 0;
@@ -636,15 +670,16 @@ endgenerate
    assign an_ac_sleep_en = cfg_q[26];
    assign an_ac_hang_pulse = cfg_q[25];
 
-
    // threaded
+   // TO
    assign an_ac_pm_thread_stop[0] = cfg_q[0];
    assign an_ac_pm_fetch_halt[0] = cfg_q[1];
+   assign intr_enable = cfg_q[4:7];    // crit,perf,ext,extS
 
    assign status = {ac_an_pm_thread_running[0], ac_an_special_attn[0], ac_an_machine_check[0],
                     ac_an_debug_trigger[0], ac_an_power_managed, ac_an_rvwinkle_mode, 2'b0,
                     8'b0, 8'b0,
-                    4'b0, ac_an_checkstop[0:2], err_q
+                    intr_q, ac_an_checkstop[0:2], err_q
                    };
 
 
