@@ -81,5 +81,5 @@ module tri_lcbcntl_mac (
    assign mpw2_dc_b = 1'b1;
    assign scan_out = 1'b0;
 
-   assign unused = vdd | gnd | sg | scan_in | scan_diag_dc | thold;
+   assign unused = sg | scan_in | scan_diag_dc | thold;
 endmodule

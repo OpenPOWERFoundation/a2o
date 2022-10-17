@@ -71,7 +71,7 @@ module tri_slat_scan(
    (* analysis_not_referenced="true" *)
    wire                           unused;
 
-   assign unused = | {vd, gd, dclk, lclk, scan_in};
+   assign unused = | {dclk, lclk, scan_in};
 
    assign scan_out = ZEROS;
    assign q = initv;

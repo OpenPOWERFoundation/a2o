@@ -86,7 +86,7 @@ module tri_regs (
 
       assign scout = {WIDTH{1'b0}};
 
-      assign unused = |{vd, gd, delay_lclkr, scin};
+      assign unused = | {delay_lclkr, scin};
 
    endgenerate
 

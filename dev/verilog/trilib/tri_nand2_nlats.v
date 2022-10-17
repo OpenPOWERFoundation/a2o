@@ -116,6 +116,6 @@ module tri_nand2_nlats(
       assign qb = (~int_dout);
       assign scanout = ZEROS;
 
-      assign unused = | {vd, gd, scanin};
+      assign unused = | {scanin};
    endgenerate
 endmodule

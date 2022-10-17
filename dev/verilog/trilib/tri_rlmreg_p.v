@@ -92,7 +92,7 @@ module tri_rlmreg_p (vd, gd, clk, rst, act, force_t, thold_b, d_mode, sg, delay_
 
      assign scout = {WIDTH{1'b0}};
 
-     assign unused[0] = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | vd | gd;
+     assign unused[0] = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b;
      assign unused[1:WIDTH] = scin;
 
    endgenerate

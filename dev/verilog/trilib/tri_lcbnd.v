@@ -73,7 +73,7 @@ module tri_lcbnd (
     (* analysis_not_referenced="true" *)
    wire       unused;
 
-   assign unused = vd | gd | delay_lclkr | mpw1_b | mpw2_b | sg;
+   assign unused = delay_lclkr | mpw1_b | mpw2_b | sg;
 
    assign gate_b = force_t | act;
 

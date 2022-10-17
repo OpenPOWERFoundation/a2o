@@ -100,7 +100,7 @@ module tri_regk (
 
      assign scout = {WIDTH{1'b0}};
 
-     assign unused = | {vd, gd, d_mode, sg, delay_lclkr, mpw1_b, mpw2_b, scin};
+     assign unused = | {d_mode, sg, delay_lclkr, mpw1_b, mpw2_b, scin};
 
    endgenerate
 

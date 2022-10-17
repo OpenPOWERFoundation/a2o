@@ -666,8 +666,8 @@ module xu(
    // Power signals
    wire 			   vdd;
    wire 			   gnd;
-   assign vdd = 1'b1;
-   assign gnd = 1'b0;
+   //assign vdd = 1'b1;
+   //assign gnd = 1'b0;
 
    localparam                                              AXU_TARGET_ENC = `AXU_SPARE_ENC + `GPR_POOL_ENC + `THREADS_POOL_ENC;
 

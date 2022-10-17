@@ -81,13 +81,6 @@ module tri_scom_addr_decode(
 //=====================================================================
    wire   [0:ADDR_SIZE-1]       	address;
 
-
-// Don't reference unused inputs:
-(* analysis_not_referenced="true" *)
-   wire                   		unused;
-   assign unused = vd | gd;
-
-
 //=====================================================================
    generate
      begin : decode_it

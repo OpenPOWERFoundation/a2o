@@ -117,7 +117,7 @@ module tri_nlat_scan(
       assign q_b = (~int_dout);
       assign scan_out = ZEROS;
 
-      assign unused = | {vd, gd, scan_in};
+      assign unused = | {scan_in};
    end
    endgenerate
 endmodule

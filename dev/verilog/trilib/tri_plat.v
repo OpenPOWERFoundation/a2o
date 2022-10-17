@@ -52,11 +52,6 @@ module tri_plat (vd, gd, clk, rst, flush, din, q);
    // tri_plat
    reg  [OFFSET:OFFSET+WIDTH-1]  int_dout;
 
-   (* analysis_not_referenced="true" *)
-   wire                          unused;
-   assign unused = | {vd, gd};
-
-
    always @ (posedge clk)
      begin
  	int_dout <= din;

@@ -139,6 +139,6 @@ module tri_aoi22_nlats_wlcb (
 
       assign scout = ZEROS;
 
-      assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | vd | gd | (|scin);
+      assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b (|scin);
    endgenerate
 endmodule

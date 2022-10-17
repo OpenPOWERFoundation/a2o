@@ -85,7 +85,7 @@ module tri_rlmlatch_p (vd, gd, clk, rst, act, force_t, thold_b, d_mode, sg, dela
 
      assign scout = 0;
 
-     assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | scin | vd | gd;
+     assign unused = d_mode | sg | delay_lclkr | mpw1_b | mpw2_b | scin;
 
    endgenerate
 endmodule
