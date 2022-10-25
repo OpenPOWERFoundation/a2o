@@ -115,7 +115,7 @@ verilog/work/lq_pfetch.v:    tri_32x70_2w_1r1w  rpt(
 * tri_256x144_8w_1r1w
 verilog/work/lq_data.v:   tri_256x144_8w_1r1w #(.addressable_ports(256), .addressbus_width(8), .port_bitwidth(144), .bit_write_type(9), .ways(8)) tridcarr(
 
-* tri_128x34_4w_1r1w  idir(
+* tri_128x34_4w_1r1w  
 verilog/work/iuq_ic_dir.v:   tri_128x34_4w_1r1w  idir(
 
 * tri_64x34_8w_1r1w
