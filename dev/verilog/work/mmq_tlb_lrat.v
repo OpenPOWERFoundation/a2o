@@ -1856,8 +1856,7 @@ module mmq_tlb_lrat(
 `endif
       assign unused_dc[13] = ex6_illeg_instr[0];
 
-      generate
-         begin : xhdl0
+      generate if(1) begin : xhdl0
             genvar   tid;
             for (tid = 0; tid <= `THDID_WIDTH - 1; tid = tid + 1)
             begin : lratunused

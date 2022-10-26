@@ -64,7 +64,7 @@ module RAMB16_S36_S36 (DOA, DOB, DOPA, DOPB, ADDRA, ADDRB, CLKA, CLKB, DIA, DIB,
    assign bAddrA = ADDRA[(bramAddrWidth)-1:0];
    assign bAddrB = ADDRB[(bramAddrWidth)-1:0];
 
-   generate begin
+   generate if(1) begin
      genvar i;
      for (i = 3; i >= 0; i = i - 1) begin: ra
             bram_model #(.data_w(9), .addr_w(bramAddrWidth)) bram_model(

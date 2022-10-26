@@ -218,8 +218,7 @@ module tri_512x162_4w_0 (
    wire [3:0]                                     dopb;
    wire [0:port_bitwidth*ways-1]                  unused_scout;
 
-   generate
-   begin
+   generate if(1) begin
      assign tidn = 1'b0;
 
      if (addressbus_width < ramb_base_addr)

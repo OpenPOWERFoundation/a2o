@@ -798,8 +798,7 @@ module mmq_dbg(
       assign dbg_group4[58] = xu_mm_lmq_stq_empty;
       assign dbg_group4[59] = iu_mm_lmq_empty;
 
-      generate
-         begin : xhdl0
+      generate if(1) begin : xhdl0
             genvar                     tid;
             for (tid = 0; tid <= 3; tid = tid + 1)
             begin : Grp4Threads

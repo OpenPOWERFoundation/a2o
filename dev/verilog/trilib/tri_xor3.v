@@ -50,8 +50,7 @@ module tri_xor3(
    input [0:WIDTH-1]   c;
    genvar 	       i;
 
-   generate
-      begin : t
+   generate if(1) begin : t
 	 for (i = 0; i < WIDTH; i = i + 1)
 	   begin : w
 

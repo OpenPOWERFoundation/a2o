@@ -526,7 +526,7 @@ module xu1_byp(
    //------------------------------------------------------------------------------------------
    // Parity Gen
    //------------------------------------------------------------------------------------------
-   generate begin : ex3ParGen
+   generate if(1) begin : ex3ParGen
       genvar i;
          for (i=8-`GPR_WIDTH/8;i<=7;i=i+1) begin : ex3ParGen
             assign ex3_parity[i] = ^(alu_byp_ex3_rt[8*i:8*i+7]);
@@ -539,7 +539,7 @@ module xu1_byp(
    //------------------------------------------------------------------------------------------
 `ifdef THREADS1
 
-   generate begin : dvc_1t
+   generate if(1) begin : dvc_1t
          genvar b;
          for (b=(64-`GPR_WIDTH)/8;b<=7;b=b+1) begin : dvc_byte
             assign ex2_stq_dvc1_t0_cmpr[b]    = (spr_dvc1_t0[8*b:8*b+7] == ex2_rs1_q[8*b:8*b+7]);
@@ -554,7 +554,7 @@ module xu1_byp(
 
 
 `ifndef THREADS1
-generate begin : dvc_2t
+generate if(1) begin : dvc_2t
 
          genvar                                  b;
          for (b=(64-`GPR_WIDTH)/8;b<=7;b=b+1) begin : dvc_byte
@@ -746,7 +746,7 @@ generate begin : dvc_2t
       .din(ex0_s3_v_q),
       .dout(ex1_s3_v_q)
    );
-generate begin : ex1_gpr_s1_xu0_sel_gen
+generate if(1) begin : ex1_gpr_s1_xu0_sel_gen
    genvar i;
    for (i=2;i<=8;i=i+1) begin : ex1_gpr_s1_xu0_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_xu0_sel_latch(
@@ -766,7 +766,7 @@ generate begin : ex1_gpr_s1_xu0_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_gpr_s2_xu0_sel_gen
+generate if(1) begin : ex1_gpr_s2_xu0_sel_gen
    genvar i;
    for (i=2;i<=8;i=i+1) begin : ex1_gpr_s2_xu0_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_xu0_sel_latch(
@@ -786,7 +786,7 @@ generate begin : ex1_gpr_s2_xu0_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_gpr_s1_xu1_sel_gen
+generate if(1) begin : ex1_gpr_s1_xu1_sel_gen
    genvar i;
    for (i=2;i<=5;i=i+1) begin : ex1_gpr_s1_xu1_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_xu1_sel_latch(
@@ -806,7 +806,7 @@ generate begin : ex1_gpr_s1_xu1_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_gpr_s2_xu1_sel_gen
+generate if(1) begin : ex1_gpr_s2_xu1_sel_gen
    genvar i;
    for (i=2;i<=5;i=i+1) begin : ex1_gpr_s2_xu1_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_xu1_sel_latch(
@@ -826,7 +826,7 @@ generate begin : ex1_gpr_s2_xu1_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_gpr_s1_lq_sel_gen
+generate if(1) begin : ex1_gpr_s1_lq_sel_gen
    genvar i;
    for (i=5;i<=8;i=i+1) begin : ex1_gpr_s1_lq_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_lq_sel_latch(
@@ -846,7 +846,7 @@ generate begin : ex1_gpr_s1_lq_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_gpr_s2_lq_sel_gen
+generate if(1) begin : ex1_gpr_s2_lq_sel_gen
    genvar i;
    for (i=5;i<=8;i=i+1) begin : ex1_gpr_s2_lq_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_lq_sel_latch(
@@ -880,7 +880,7 @@ endgenerate
       .din({8{dec_byp_ex0_rs2_sel_imm}}),
       .dout(ex1_gpr_s2_imm_sel_q)
    );
-generate begin : ex1_spr_s3_xu0_sel_gen
+generate if(1) begin : ex1_spr_s3_xu0_sel_gen
    genvar i;
    for (i=3;i<=8;i=i+1) begin : ex1_spr_s3_xu0_sel_entry
 	   tri_rlmreg_p #(.WIDTH(1), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s3_xu0_sel_latch(
@@ -900,7 +900,7 @@ generate begin : ex1_spr_s3_xu0_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_spr_s3_xu1_sel_gen
+generate if(1) begin : ex1_spr_s3_xu1_sel_gen
    genvar i;
    for (i=3;i<=5;i=i+1) begin : ex1_spr_s3_xu1_sel_entry
 	   tri_rlmreg_p #(.WIDTH(1), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s3_xu1_sel_latch(
@@ -920,7 +920,7 @@ generate begin : ex1_spr_s3_xu1_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_spr_s3_lq_sel_gen
+generate if(1) begin : ex1_spr_s3_lq_sel_gen
    genvar i;
    for (i=5;i<=6;i=i+1) begin : ex1_spr_s3_lq_sel_entry
 	   tri_rlmreg_p #(.WIDTH(1), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_spr_s3_lq_sel_latch(
@@ -940,7 +940,7 @@ generate begin : ex1_spr_s3_lq_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_gpr_s1_rel_sel_gen
+generate if(1) begin : ex1_gpr_s1_rel_sel_gen
    genvar i;
    for (i=3;i<=4;i=i+1) begin : ex1_gpr_s1_rel_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s1_rel_sel_latch(
@@ -960,7 +960,7 @@ generate begin : ex1_gpr_s1_rel_sel_gen
    end
 end
 endgenerate
-generate begin : ex1_gpr_s2_rel_sel_gen
+generate if(1) begin : ex1_gpr_s2_rel_sel_gen
    genvar i;
    for (i=3;i<=4;i=i+1) begin : ex1_gpr_s2_rel_sel_entry
 	   tri_rlmreg_p #(.WIDTH(8), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) ex1_gpr_s2_rel_sel_latch(

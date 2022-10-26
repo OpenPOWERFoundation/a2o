@@ -1060,8 +1060,7 @@ assign power_savings_en    = ^spr_ccr0_pme &       // Power Management Enabled
 
 // WAIT[WC](0) = Resume on Imp. Specific
 // WAIT[WC](1) = Resume on no reservation
-generate
-   begin : pm_wake_up_gen
+generate if(1) begin : pm_wake_up_gen
       genvar                                t;
       for (t=0;t<=`THREADS-1;t=t+1)
       begin : thread
@@ -1181,8 +1180,7 @@ assign perf_event_en_d  = ( tspr_msr_pr &                {`THREADS{pc_xu_event_c
 
 wire [0:16*`THREADS-1] perf_events;
 wire [0:0] core_event;
-   generate
-   begin : perf_count
+   generate if(1) begin : perf_count
       genvar                                t;
       for (t = 0; t <= `THREADS - 1; t = t + 1)
       begin : thread
@@ -1381,8 +1379,7 @@ wire [0:0] core_event;
 
    assign cspr_tspr_dbell_pirtag = lq_xu_dbell_pirtag_q;
 
-   generate
-      begin : dbell
+   generate if(1) begin : dbell
          genvar                                t;
          for (t=0;t<=`THREADS-1;t=t+1)
          begin : thread

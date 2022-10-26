@@ -237,7 +237,7 @@ assign wr_data = wdata;
 // Array Parity Generation
 // ####################################################
 
-generate begin : extra_byte
+generate if(1) begin : extra_byte
       genvar                                                       t;
       for (t = 0; t <= 7; t = t + 1) begin : extra_byte
          if (t < (tagSize % 8)) begin : R0
@@ -250,7 +250,7 @@ generate begin : extra_byte
    end
 endgenerate
 
-generate begin : par_gen
+generate if(1) begin : par_gen
       genvar                                                       i;
       for (i = 0; i <= (tagSize/8) - 1; i = i + 1) begin : par_gen
          assign arr_parity[i] = ^(wr_data[8*i+uprTagBit:8*i+uprTagBit+7]);
@@ -270,7 +270,7 @@ assign arr_wr_data = {wr_data, arr_parity};
 // Tag Array Read
 // ####################################################
 
-generate begin : tagRead
+generate if(1) begin : tagRead
      genvar                                                       way;
      for (way=0; way<numWays; way=way+1) begin : tagRead
         assign p0_rd_way[way] = arr_rd_data0[(way*WAYDATASIZE):(way*WAYDATASIZE) + tagSize - 1];
@@ -293,7 +293,7 @@ endgenerate
 // Tag Parity Generation
 // ####################################################
 
-generate begin : rdExtraByte
+generate if(1) begin : rdExtraByte
       genvar way;
       for (way=0; way<numWays; way=way+1) begin : rdExtraByte
          genvar                                                       t;
@@ -311,7 +311,7 @@ generate begin : rdExtraByte
    end
 endgenerate
 
-generate begin : rdParGen
+generate if(1) begin : rdParGen
       genvar way;
       for (way=0; way<numWays; way=way+1) begin : rdParGen
          genvar                                                       i;
@@ -386,7 +386,7 @@ endgenerate
 // Parity Error Detect
 // ####################################################
 
-generate begin : parDet
+generate if(1) begin : parDet
      genvar                                                       way;
      for (way=0; way<numWays; way=way+1) begin : parDet
         assign p0_par_err_det[way] = p0_parity_gen_1b[way] ^ p0_parity_gen_2b[way] ^ p0_rd_par[way];

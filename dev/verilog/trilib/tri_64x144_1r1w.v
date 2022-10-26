@@ -227,7 +227,7 @@ wire [0:scan_right]                            sov;
 (* analysis_not_referenced="true" *)
 wire						 unused;
 
-generate begin
+generate if(1) begin
   assign tiup = 1'b1;
   assign tidn = 1'b0;
   assign wrt_en = {(((((port_bitwidth-1)/36)+1)*36)/9){write_enable}};

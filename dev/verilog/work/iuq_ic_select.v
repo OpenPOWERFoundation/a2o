@@ -482,8 +482,7 @@ module iuq_ic_select(
      assign oldest_prefetch_v[`THREADS - 1] = oldest_prefetch_l2;
   `endif
 
-   generate
-   begin : xhdl1
+   generate if(1) begin : xhdl1
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : gen_prefetch
@@ -520,8 +519,7 @@ module iuq_ic_select(
    assign an_ac_back_inv_addr_d = an_ac_back_inv_addr;
    assign back_inv_addr_act = an_ac_back_inv_l2 & an_ac_back_inv_target_l2;
 
-   generate
-   begin
+   generate if(1) begin
      if (`THREADS == 1)
      begin : gen_icbi_val_t1
        assign lq_iu_icbi_val_d[0] = lq_iu_icbi_val[0] | (lq_iu_icbi_val_l2[0] & an_ac_back_inv_l2 & an_ac_back_inv_target_l2);
@@ -788,8 +786,7 @@ module iuq_ic_select(
       end
    end   // iu0_ifar_proc
 
-   generate
-   begin : xhdl4
+   generate if(1) begin : xhdl4
      genvar  t;
      for (t = 0; t < `THREADS; t = t + 1)
      begin : thread_iu0_ifar_mask
@@ -818,8 +815,7 @@ module iuq_ic_select(
    //---------------------------------------------------------------------
    // Keep 42:51 to compare, and flush if cp or br flush
 
-   generate
-   begin : xhdl5
+   generate if(1) begin : xhdl5
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : stored_erat_gen
@@ -857,8 +853,7 @@ module iuq_ic_select(
    // Outputs
    //---------------------------------------------------------------------
    // ???? Do I want to split up threaded/non-threaded signals?
-   generate
-   begin : xhdl6
+   generate if(1) begin : xhdl6
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : hold_t
@@ -887,8 +882,7 @@ module iuq_ic_select(
    assign iu_ierat_iu0_thdid = iu0_erat_tid;
    assign iu_ierat_iu0_prefetch = |(prefetch_ready) & (~(|(need_fetch_reduce & (~hold_thread))));
 
-   generate
-   begin : xhdl8
+   generate if(1) begin : xhdl8
      genvar  i;
      for (i = 0; i < 52; i = i + 1)
      begin : ierat_ifar
@@ -948,8 +942,7 @@ module iuq_ic_select(
    assign ics_icd_iu0_valid = iu0_valid;
    assign ics_icd_iu0_tid = iu0_tid | next_prefetch;
 
-   generate
-   begin
+   generate if(1) begin
      if (`THREADS == 1)
      begin : gen_bp_iu0_val_t0
        assign ic_bp_iu0_val[0] = iu0_tid[0] | icm_ics_iu0_preload_val[0];
@@ -967,8 +960,7 @@ module iuq_ic_select(
                            (iu0_tid[0] == 1'b1)                 ? iu0_ifar_l2[0][50:59] :
                                                                   iu0_ifar_l2[`THREADS - 1][50:59];
 
-   generate
-   begin
+   generate if(1) begin
      if (`EFF_IFAR_ARCH > (`REAL_IFAR_WIDTH-2))
      begin : iu0_ifar_gen0
 
@@ -1023,8 +1015,7 @@ module iuq_ic_select(
    // Performance Events
    //---------------------------------------------------------------------
 
-   generate
-   begin : xhdl9
+   generate if(1) begin : xhdl9
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : perf
@@ -1147,8 +1138,7 @@ module iuq_ic_select(
       .dout(spr_idir_row_l2)
    );
 
-   generate
-   begin
+   generate if(1) begin
      if (`THREADS == 1)
      begin : gen_oldest_t1
         assign oldest_prefetch_l2 = oldest_prefetch_d & 1'b0;
@@ -1197,8 +1187,7 @@ module iuq_ic_select(
       .dout(iu0_need_prefetch_l2)
    );
 
-   generate
-   begin : xhdl10
+   generate if(1) begin : xhdl10
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : t
@@ -1243,8 +1232,7 @@ module iuq_ic_select(
       .dout(lq_iu_icbi_val_l2)
    );
 
-   generate
-   begin : xhdl11
+   generate if(1) begin : xhdl11
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : t
@@ -1498,8 +1486,7 @@ module iuq_ic_select(
       .dout(iu0_flip_index51_l2)
    );
 
-   generate
-   begin
+   generate if(1) begin
      if (`THREADS == 1)
      begin : gen_last_tid_t1
         assign iu0_last_tid_sent_l2 = 1'b0 & iu0_last_tid_sent_d;
@@ -1529,8 +1516,7 @@ module iuq_ic_select(
    end
    endgenerate
 
-   generate
-   begin : xhdl13
+   generate if(1) begin : xhdl13
      genvar  t;
      for (t = 0; t < `THREADS; t = t + 1)
      begin : th
@@ -1561,8 +1547,7 @@ module iuq_ic_select(
    endgenerate
 
    // IU0
-   generate
-   begin : xhdl14
+   generate if(1) begin : xhdl14
      genvar  t;
      for (t = 0; t < `THREADS; t = t + 1)
      begin : th
@@ -1612,8 +1597,7 @@ module iuq_ic_select(
    end
    endgenerate
 
-   generate
-   begin : xhdl15
+   generate if(1) begin : xhdl15
      if (`INCLUDE_IERAT_BYPASS == 0)
      begin : gen0
        genvar  i;
@@ -1749,8 +1733,7 @@ module iuq_ic_select(
       .dout(cp_flush_into_uc_l2)
     );
 
-   generate
-   begin : xhdl17
+   generate if(1) begin : xhdl17
       genvar  i;
       for (i = 0; i < `THREADS; i = i + 1)
       begin : t
@@ -1928,8 +1911,7 @@ module iuq_ic_select(
       .dout(iu2_nonspec_l2)
    );
 
-   generate
-   begin : xhdl18
+   generate if(1) begin : xhdl18
       genvar  i;
       for (i = 0; i < `THREADS; i = i + 1)
       begin : t

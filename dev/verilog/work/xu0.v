@@ -572,7 +572,7 @@ module xu0
       .y(cnt_byp_ex2_rt)
    );
 
-   generate begin : bperm
+   generate if(1) begin : bperm
       genvar i;
       for (i=0;i<=7;i=i+1) begin : bprm_bit
          xu0_bprm bperm_bit(

@@ -205,8 +205,7 @@ module tri_128x34_4w_1r1w (
    wire [3:0]                                   dopb;
    wire [0:scan_right]                          func_sov;
 
-   generate
-   begin
+   generate if(1) begin
      assign tidn = 1'b0;
 
      if (addressbus_width < ramb_base_addr)

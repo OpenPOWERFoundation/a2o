@@ -237,7 +237,7 @@ wire [0:35]                         tidn;
 wire [0:scan_right]                 siv;
 wire [0:scan_right]                 sov;
 
-generate begin
+generate if(1) begin
 
   assign tiup = 1'b1;
   assign tidn = 36'b0;

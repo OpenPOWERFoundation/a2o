@@ -116,7 +116,7 @@ module iuq_uc_rom_even(
    wire [0:scan_right]      sov;
 
 //64-bit core
-//c64: if (regmode = 6) generate begin
+//c64: if (regmode = 6) generate if(1) begin
 
 /*
 //table_start
@@ -2188,7 +2188,7 @@ assign ep =
    //| 1111110110    | 1110110000000001-----00001111100 0 - 0 - ---  1 1 0 1  0 00 00 01 00 0 0  0 0 - 0 ---------- --- -    | # fnmsubs  s0,s1,s1,FB
    //| 1111111000    | 1110110000000001-----00011111100 0 - 0 - ---  1 1 0 1  0 00 00 01 00 0 0  0 0 - 0 ---------- --- -    | # fnmsubs  s0,s1,s3,FB
    //32-bit core
-   //c32: if (regmode = 5) generate begin
+   //c32: if (regmode = 5) generate if(1) begin
    //end generate;
 
 

@@ -1639,8 +1639,7 @@ module iuq_dispatch(
    assign mm_iu_bus_snoop_hold_req_d = mm_iu_bus_snoop_hold_req | (mm_iu_bus_snoop_hold_req_l2 & (in_ucode_l2 | in_fusion_l2));
 
    // Added logic for Erat invalidates to stop dispatch
-   generate
-   	begin : xhdl1
+   generate	if(1) begin : xhdl1
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : send_cnt
@@ -1707,8 +1706,7 @@ module iuq_dispatch(
       end
    endgenerate
 
-   generate
-      begin : primux
+   generate if(1) begin : primux
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : credit_mux
@@ -1776,8 +1774,7 @@ tri_nor2 sq_cmdq_send_cnt_t1_zero(sq_cmdq_send_cnt_zero[1], sq_cmdq_send_cnt[1][
 tri_xor2 sq_cmdq_send_cnt_t1_one (sq_cmdq_send_cnt_one[1],  sq_cmdq_send_cnt[1][0], sq_cmdq_send_cnt[1][1]);
 `endif
 
-   generate
-      begin : xhdl2
+   generate if(1) begin : xhdl2
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : credit_ok
@@ -1880,8 +1877,7 @@ tri_xor2 sq_cmdq_send_cnt_t1_one (sq_cmdq_send_cnt_one[1],  sq_cmdq_send_cnt[1][
       end
    endgenerate
 
-   generate
-      begin : xhdl3
+   generate if(1) begin : xhdl3
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : send_ok
@@ -1928,8 +1924,7 @@ tri_xor2 sq_cmdq_send_cnt_t1_one (sq_cmdq_send_cnt_one[1],  sq_cmdq_send_cnt[1][
  `endif
 
 
-   generate
-      begin : local_credit_calc
+   generate if(1) begin : local_credit_calc
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : local_credit_calc_thread
@@ -2123,8 +2118,7 @@ tri_xor2 sq_cmdq_send_cnt_t1_one (sq_cmdq_send_cnt_one[1],  sq_cmdq_send_cnt[1][
    endgenerate
 
 
-   generate
-      begin : xhdl4
+   generate if(1) begin : xhdl4
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : credit_proc
@@ -2533,8 +2527,7 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    assign low_pri_mask_d[1] = spr_high_pri_mask[1] | spr_med_pri_mask[1] | (~spr_high_pri_mask[1] & ~spr_med_pri_mask[1] & low_pri_en[1]);
 `endif
 
-   generate
-      begin : pri_mask
+   generate if(1) begin : pri_mask
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : pri_mask_set
@@ -2857,8 +2850,7 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
 
 
    // Perf counters
-   generate
-      begin : perf_set
+   generate if(1) begin : perf_set
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : perf_mask_set
@@ -2958,8 +2950,7 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
    assign iu_pc_sq_credit_ok	= iu_pc_sq_credit_ok_l2;
 
 
-   generate
-      begin : xhdl7
+   generate if(1) begin : xhdl7
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : thread_latches
@@ -3746,8 +3737,7 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
       .dout(low_pri_mask_l2)
    );
 
-   generate
-      begin : low_pri_counts
+   generate if(1) begin : low_pri_counts
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : thread_latches
@@ -3811,8 +3801,7 @@ assign iu_xu_credits_returned = iu_xu_credits_returned_l2;
       .dout(perf_iu6_stall_l2)
    );
 
-   generate
-      begin : perf_counts
+   generate if(1) begin : perf_counts
          genvar i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : thread_latches

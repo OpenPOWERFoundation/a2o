@@ -1054,8 +1054,7 @@ module iuq_ifetch(
    );
 
 
-   generate
-   begin : xhdl0
+   generate if(1) begin : xhdl0
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : bp_gen
@@ -1358,8 +1357,7 @@ module iuq_ifetch(
       .scan_out(ram_scan_out)
    );
 
-   generate
-   begin : xhdl1
+   generate if(1) begin : xhdl1
       genvar  i;
       for (i = 0; i < `THREADS; i = i + 1)
       begin : uc_gen

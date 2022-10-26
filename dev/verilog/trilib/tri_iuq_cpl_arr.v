@@ -156,7 +156,7 @@ module tri_iuq_cpl_arr (gnd, vdd, clk, rst, delay_lclkr_dc, mpw1_dc_b, mpw2_dc_b
 
       assign perr = 1'b0;
 
-      begin : xhdl0
+      if(1) begin : xhdl0
          genvar i;
          for (i = 0; i <= PORT_BITWIDTH - 1; i = i + 1)
          begin : array_gen0

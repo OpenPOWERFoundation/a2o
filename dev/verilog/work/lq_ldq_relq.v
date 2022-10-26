@@ -366,14 +366,14 @@ assign ldq_rel0_arb_val_d = |(ldqe_relBeats_val & ~ldqe_rel_eccdet);
 assign ldq_rel1_rdat_sel_d = ldq_rel0_rdat_sel;
 assign ldq_rel2_rdat_sel_d = ldq_rel1_rdat_sel_q;
 
-generate begin : relQ
+generate if(1) begin : relQ
    genvar                                                  ldq;
    for (ldq=0; ldq<`LMQ_ENTRIES; ldq=ldq+1) begin : relQ
 
       // Reload Data Beat Home
       assign ldqe_rel_datSet[ldq] = ldq_rel1_beat_upd_q & {8{ldq_rel1_dbeat_val[ldq]}};
 
-      begin : relDatRetQ
+      if(1) begin : relDatRetQ
          genvar                                                  beat;
          for (beat=0; beat<8; beat=beat+1) begin : relDatRetQ
             assign ldqe_rel_datClr[ldq][beat]   = (ldq_rel2_beat_upd_q[beat] & ldq_rel2_entrySent[ldq] & ~ldq_rel2_blk_req) | ldqe_rel_eccdet[ldq];
@@ -407,7 +407,7 @@ generate begin : relQ
       // Select Beat from Available beats in Reload Arbiters
       assign ldqe_relBeats_nxt[ldq][0] = ldqe_relBeats_avail[ldq][0];
 
-      begin : relSel genvar                                                  beat;
+      if(1) begin : relSel genvar                                                  beat;
          for (beat=1; beat<8; beat=beat+1) begin : relSel
             assign ldqe_relBeats_nxt[ldq][beat] = &(~ldqe_relBeats_avail[ldq][0:beat-1]) & ldqe_relBeats_avail[ldq][beat];
          end
@@ -444,7 +444,7 @@ endgenerate
 // followed by a Round Robin Scheme within each Group
 
 // Expand LDQ to max supported
-generate begin : relExp
+generate if(1) begin : relExp
    genvar                                                grp;
    genvar                                                b;
    for (grp=0; grp<=(`LMQ_ENTRIES-1)/4; grp=grp+1) begin : relExp
@@ -462,7 +462,7 @@ endgenerate
 
 // Entry Select within Group
 // Round Robin Scheme within each 4 entries in a Group
-generate begin : relGrpEntry
+generate if(1) begin : relGrpEntry
    genvar                                                  grp;
    for (grp=0; grp<=(`LMQ_ENTRIES-1)/4; grp=grp+1) begin : relGrpEntry
       assign rel_grpEntry_val[grp]    = {ldq_rel_arb_entry[4*grp+0], ldq_rel_arb_entry[4*grp+1], ldq_rel_arb_entry[4*grp+2], ldq_rel_arb_entry[4*grp+3]};
@@ -514,7 +514,7 @@ endgenerate
 
 // Group Select Between all Groups
 // Round Robin Scheme within Groups
-generate begin : relGrp
+generate if(1) begin : relGrp
    genvar                                                  grp;
    for (grp=0; grp<=3; grp=grp+1) begin : relGrp
       if (grp <= (`LMQ_ENTRIES - 1)/4) begin : grpExst
@@ -548,7 +548,7 @@ assign rel_group_sel[3] = (rel_group_last_sel_q[0] & ~(|rel_group_val[1:2]) & re
                           (rel_group_last_sel_q[3] & ~(|rel_group_val[0:2]) & rel_group_val[3]);
 
 // Reload Queue Entry Sent
-generate begin : relSent
+generate if(1) begin : relSent
    genvar                                                  grp;
    for (grp=0; grp<=(`LMQ_ENTRIES-1)/4; grp=grp+1) begin : relSent
       genvar                                            ldq;
@@ -598,7 +598,7 @@ end
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Reload Data Array
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-generate begin : relq
+generate if(1) begin : relq
    genvar bb;
    if (`RELQ_INCLUDE == 1) begin
       tri_64x144_1r1w  rdat(
@@ -775,7 +775,7 @@ assign ldq_arb_rel2_rd_data  = rel2_rd_data;
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // REGISTERS
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-generate begin : ldqe_rel_datRet
+generate if(1) begin : ldqe_rel_datRet
    genvar                                                  ldq;
    for (ldq=0; ldq<`LMQ_ENTRIES; ldq=ldq+1) begin : ldqe_rel_datRet
       tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ldqe_rel_datRet_reg(
@@ -838,7 +838,7 @@ tri_rlmreg_p #(.WIDTH(8), .INIT(0), .NEEDS_SRESET(1)) ldq_rel2_beat_upd_reg(
    .dout(ldq_rel2_beat_upd_q)
 );
 
-generate begin : ldqe_relAttempts
+generate if(1) begin : ldqe_relAttempts
    genvar                                                  ldq;
    for (ldq=0; ldq<`LMQ_ENTRIES; ldq=ldq+1) begin : ldqe_relAttempts
       tri_rlmreg_p #(.WIDTH(3), .INIT(7), .NEEDS_SRESET(1)) ldqe_relAttempts_reg(
@@ -958,7 +958,7 @@ tri_rlmreg_p #(.WIDTH(4), .INIT(0), .NEEDS_SRESET(1)) ldq_rel0_arb_cTag_reg(
    .dout(ldq_rel0_arb_cTag_q)
 );
 
-generate begin : rel_grpEntry_last_sel
+generate if(1) begin : rel_grpEntry_last_sel
    genvar                                                  grp;
    for (grp=0; grp<=(`LMQ_ENTRIES-1)/4; grp=grp+1) begin : rel_grpEntry_last_sel
       tri_rlmreg_p #(.WIDTH(4), .INIT(8), .NEEDS_SRESET(1)) rel_grpEntry_last_sel_reg(

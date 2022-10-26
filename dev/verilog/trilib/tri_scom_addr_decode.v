@@ -89,8 +89,7 @@ module tri_scom_addr_decode(
 
 
 //=====================================================================
-   generate
-     begin : decode_it
+   generate if(1) begin : decode_it
 	 genvar    i;
 	 for (i=0; i<ADDR_SIZE; i=i+1)
 	 begin : decode_it

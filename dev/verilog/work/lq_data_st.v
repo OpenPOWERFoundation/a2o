@@ -440,7 +440,7 @@ assign stq3_rot_sel3_d = {rotate_sel3, rotate_sel3};
 assign stq3_store_rel_par_d = lsq_dat_stq2_store_data[128:143];
 
 // Swizzle Rotate Data
-generate begin : swzlSTData
+generate if(1) begin : swzlSTData
   genvar                           t;
   for (t = 0; t <= 7; t = t + 1) begin : swzlSTData
      assign stq3_store_rel_data_d[t * 16:(t * 16) + 15] = {lsq_dat_stq2_store_data[t + 0],
@@ -468,7 +468,7 @@ endgenerate
 // #############################################################################################
 
 // Store Data Rotate
-generate begin : l1dcrotl
+generate if(1) begin : l1dcrotl
    genvar b;
    for (b = 0; b <= 7; b = b + 1) begin : l1dcrotl
       tri_rot16_lu drotl(
@@ -574,7 +574,7 @@ assign bittype_mask = (16'h0001 & {16{stq3_opsize_q[4]}}) | (16'h0003 & {16{stq3
                       (16'h000F & {16{stq3_opsize_q[2]}}) | (16'h00FF & {16{stq3_opsize_q[1]}}) |
                       (16'hFFFF & {16{stq3_opsize_q[0]}});
 
-generate begin : maskGen
+generate if(1) begin : maskGen
    genvar b;
    for (b = 0; b <= 7; b = b + 1)
    begin : maskGen
@@ -586,7 +586,7 @@ endgenerate
 assign stq3_msk_data = stq3_rot_data & stq3_optype_mask;
 
 // Swizzle Data to a proper format
-generate begin : swzlData
+generate if(1) begin : swzlData
   genvar t;
   for (t = 0; t <= 15; t = t + 1)
   begin : swzlData

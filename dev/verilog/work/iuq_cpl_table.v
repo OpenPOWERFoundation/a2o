@@ -362,7 +362,7 @@ module iuq_cpl_table(
 
 //table_start
 //
-//?generate begin a(0 to 1);
+//?generate if(1) begin a(0 to 1);
 //?TABLE NIA<a> LISTING(final) OPTIMIZE PARMS(ON-SET,DC-SET);
 //*INPUTS*============================*OUTPUTS*=======================*
 //|                                   |                               |
@@ -2318,8 +2318,7 @@ assign irpt_taken_async =
                     ({19{cp3_xu_excvec_val}} & xu_db_mask) |
                     ({19{cp3_axu_excvec_val}} & axu_db_mask);
 
-   generate
-     begin : xhdl0
+   generate if(1) begin : xhdl0
        genvar i;
        for (i = 0; i <= (19 - 1); i = i + 1)
        begin : cp3_db_mask

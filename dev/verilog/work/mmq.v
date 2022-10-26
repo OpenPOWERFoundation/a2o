@@ -1267,8 +1267,7 @@ module mmq(
 
 
       // input port  threadwise widening  `THREADS(n) -> `MM_THREADS(m)
-      generate
-         begin : xhdl0
+      generate if(1) begin : xhdl0
 //            genvar                                tid;
             for (tid = 0; tid <= `MM_THREADS-1; tid = tid + 1)
             begin : mmThreads
@@ -1320,8 +1319,7 @@ module mmq(
    end
    endgenerate
 
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
 //         genvar                                tid;
          for (tid = 0; tid <= `THDID_WIDTH - 1; tid = tid + 1)
          begin : mmDbgThreads
@@ -1339,8 +1337,7 @@ module mmq(
 end
 endgenerate
 
-generate
-   begin : xhdl2
+generate if(1) begin : xhdl2
 //      genvar                                tid;
       for (tid = 0; tid <= `THDID_WIDTH - 1; tid = tid + 1)
       begin : mmperfThreads

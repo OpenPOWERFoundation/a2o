@@ -1689,7 +1689,7 @@ module xu0_dec(
 
    assign ex3_tid          = (ex3_val_q | (ex2_ord_tid_q & {`THREADS{ex3_ord_complete_q}}));
 
-   generate begin : perf_event
+   generate if(1) begin : perf_event
       genvar  t,e;
       for (e=0;e<=3;e=e+1) begin : thread
          for (t=0;t<=`THREADS-1;t=t+1) begin : thread
@@ -4487,7 +4487,7 @@ module xu0_dec(
       .din(ord_flush_1_q),
       .dout(ord_flush_2_q)
    );
-generate begin : spr_mmucr0_tlbsel_gen
+generate if(1) begin : spr_mmucr0_tlbsel_gen
    genvar i;
    for (i=0;i<`THREADS;i=i+1) begin : spr_mmucr0_tlbsel_entry
 	   tri_rlmreg_p #(.WIDTH(2), .OFFSET(0),.INIT(0), .NEEDS_SRESET(1)) spr_mmucr0_tlbsel_latch(

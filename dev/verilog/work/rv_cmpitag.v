@@ -92,8 +92,7 @@ module rv_cmpitag(
    // Total Logic: XOR + 6 levels
    //-------------------------------------------------------------------------------------------------------
 
-   generate
-      begin : xhdl0
+   generate if(1) begin : xhdl0
          genvar                        n;
          for (n = 0; n <= 5; n = n + 1)
            begin : q_valid_gen

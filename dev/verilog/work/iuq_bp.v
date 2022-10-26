@@ -1354,8 +1354,7 @@ wire [0:7] bcache_shift;
       assign iu3_b_d = iu2_instr_pri[33];
       assign iu3_tar_d[6:29] = iu2_instr_pri[6:29];
 
-      generate
-         begin : xhdl1
+      generate if(1) begin : xhdl1
             genvar                        i;
             for (i = 62 - `EFF_IFAR_WIDTH; i <= 61; i = i + 1)
             begin : sign_extend
@@ -1674,7 +1673,7 @@ assign ex5_btb_repl_new[0:1] = ((ex5_btb_entry_q == 1'b0 & ex5_br_taken_q == 1'b
                                ex5_btb_repl_cnt[0:1];
 
 generate
-begin : xhdl2
+if(1) begin : xhdl2
    genvar                        i;
    for (i = 0; i <= 63; i = i + 1)
    begin : repl_cnt
@@ -1699,8 +1698,7 @@ assign iu0_btb_hist_new[0:1] = (ex5_val_q == 1'b0 & ex5_btb_entry_q == 1'b1 & ex
                                (ex5_br_taken_q == 1'b0 & ex5_btb_hist[0:1] != 2'b00) ? ex5_btb_hist[0:1] - 2'b01 :
                                ex5_btb_hist[0:1];
 
-generate
-   begin : xhdl3
+generate if(1) begin : xhdl3
       genvar                        i;
       for (i = 0; i <= 63; i = i + 1)
       begin : btb_hist

@@ -47,8 +47,7 @@ module tri_inv(
    // tri_nand2
    genvar 	       i;
 
-   generate
-      begin : t
+   generate if(1) begin : t
 	 for (i = 0; i < WIDTH; i = i + 1)
 	   begin : w
 

@@ -719,8 +719,7 @@ module rv_station(
    assign w_act = (rv0_w0_addr | rv0_w1_addr) & {q_num_entries_g+1{(rv0_instr_i0_rte | rv0_instr_i1_rte)}};
 
 
-   generate
-      begin : xhdlbbar
+   generate if(1) begin : xhdlbbar
          for (n = 0; n <= (q_num_entries_g ); n = n + 1)
            begin : genaddr
 	      wire [0:q_barf_enc_g-1] id=n;
@@ -782,8 +781,7 @@ module rv_station(
    endgenerate
    assign rv0_w0_addr[0] = barf_w0_or_tree[0] & ~barf_w0_or_tree[1];
    assign rv0_w1_addr[0] = barf_w1_or_tree[0];
-   generate
-      begin : xhdlbbar2
+   generate if(1) begin : xhdlbbar2
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : genaddr2
 
@@ -816,8 +814,7 @@ module rv_station(
    //-------------------------------------------------------------------------------------------------------
    assign q_ev_d[0] = (q_entry_load_i1[0]) | (q_entry_load_i0[0]) | (1'b0 & q_entry_shift[0]) | (q_ev_nxt[0] & q_entry_hold[0]);
 
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_ev_gen
               assign q_ev_d[n] = (q_entry_load_i1[n]) | (q_entry_load_i0[n]) | (q_ev_nxt[n - 1] & q_entry_shift[n]) | (q_ev_nxt[n] & q_entry_hold[n]);
@@ -825,8 +822,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl2
+   generate if(1) begin : xhdl2
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_ev_nxt_gen
               assign q_ev_clr[n] =  q_credit_take[n] | &(flush);
@@ -844,8 +840,7 @@ module rv_station(
 			(rv0_instr_i0_itag & {`ITAG_SIZE_ENC{q_entry_load_i0[0]}}) |
 			(q_itag_q[0] & {`ITAG_SIZE_ENC{q_entry_hold[0]}});
 
-   generate
-      begin : xhdl7
+   generate if(1) begin : xhdl7
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_itag_gen
               assign q_itag_d[n] = (rv0_instr_i1_itag & {`ITAG_SIZE_ENC{q_entry_load_i1[n]}}) |
@@ -864,8 +859,7 @@ module rv_station(
    assign q_tid_d[0] = ({`THREADS{q_entry_load_i1[0]}} & rv0_instr_i1_tid ) |
                        ({`THREADS{q_entry_load_i0[0]}} & rv0_instr_i0_tid ) |
                        ({`THREADS{q_entry_hold[0]}} & q_tid_q[0]);
-   generate
-      begin : xhdl10
+   generate if(1) begin : xhdl10
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_tid_gen
               assign q_tid_d[n] = ({`THREADS{q_entry_load_i1[n]}} & rv0_instr_i1_tid ) |
@@ -881,8 +875,7 @@ module rv_station(
    //-------------------------------------------------------------------------------------------------------
    assign q_flushed_d[0] = (rv0_instr_i1_flushed & q_entry_load_i1[0]) | (rv0_instr_i0_flushed & q_entry_load_i0[0]) | (q_flushed_nxt[0] & q_entry_hold[0]);
 
-   generate
-      begin : xhdl11
+   generate if(1) begin : xhdl11
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_flushed_gen
               assign q_flushed_d[n] = (rv0_instr_i1_flushed & q_entry_load_i1[n]) |
@@ -893,8 +886,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl12
+   generate if(1) begin : xhdl12
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_flushed_nxt_gen
               assign q_flushed_nxt[n] = q_ev_q[n] & |(q_tid_q[n] & ({`THREADS{q_flushed_q[n]}} | flush));
@@ -910,8 +902,7 @@ module rv_station(
 			     (rv0_w1_addr_enc & {q_barf_enc_g{q_entry_load_i1[0]}}) |
 			     (q_barf_addr_q[0] & {q_barf_enc_g{q_entry_hold[0]}});
 
-   generate
-      begin : xhdl11b
+   generate if(1) begin : xhdl11b
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_barf_addr_gen
               assign q_barf_addr_d[n] = (rv0_w0_addr_enc & {q_barf_enc_g{q_entry_load_i0[n]}}) |
@@ -929,8 +920,7 @@ module rv_station(
    assign q_ilat_d[0] = ({q_ilat_width_g{q_entry_load_i1[0]}} & rv0_instr_i1_ilat ) |
                         ({q_ilat_width_g{q_entry_load_i0[0]}} & rv0_instr_i0_ilat ) |
                         ({q_ilat_width_g{q_entry_hold[0]}} & q_ilat_q[0]);
-   generate
-      begin : xhdl13
+   generate if(1) begin : xhdl13
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_ilat_gen
               assign q_ilat_d[n] = ({q_ilat_width_g{q_entry_load_i1[n]}} & rv0_instr_i1_ilat ) |
@@ -957,8 +947,7 @@ module rv_station(
 			(rv0_instr_i0_s3_v & q_entry_load_i0[0]) |
 			(q_s3_v_q[0] & q_entry_hold[0]);
 
-   generate
-      begin : xhdl16
+   generate if(1) begin : xhdl16
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_sv_gen
               assign q_s1_v_d[n] = (rv0_instr_i1_s1_v & q_entry_load_i1[n]) |
@@ -995,8 +984,7 @@ module rv_station(
                            (rv0_instr_i0_s3_itag & {`ITAG_SIZE_ENC{q_entry_load_i0[0]}}) |
                            (q_s3_itag_q[0] & {`ITAG_SIZE_ENC{q_entry_hold[0]}});
 
-   generate
-      begin : xhdl17
+   generate if(1) begin : xhdl17
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_sitag_gen
 
@@ -1034,8 +1022,7 @@ module rv_station(
 			  (q_s3_rdy_nxt[0]     & q_entry_hold[0] );
 
 
-   generate
-      begin : xhdl20
+   generate if(1) begin : xhdl20
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_srdy_gen
               assign q_s1_rdy_d[n] = (rv0_instr_i1_s1_rdy & q_entry_load_i1[n]) |
@@ -1054,8 +1041,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl21
+   generate if(1) begin : xhdl21
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_srdy_nxt_gen
               assign q_s1_rdy_setf[n] = (q_other_ilat0_match_s1[n] | q_ilat0_match_s1[n]);
@@ -1090,8 +1076,7 @@ module rv_station(
 		       (q_i0_s_rdy & q_entry_load_i0[0]) |
 		       (q_entry_hold[0] & q_rdy_nxt[0]);
 
-   generate
-      begin : xhdl22
+   generate if(1) begin : xhdl22
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_rdy_gen
               assign q_rdy_d[n] = (q_i1_s_rdy & q_entry_load_i1[n]) |
@@ -1102,8 +1087,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl23
+   generate if(1) begin : xhdl23
          for (n = 0; n <= (q_num_entries_g - 2); n = n + 1)
            begin : q_rdy_nxt_gen
               assign q_rdy_set[n] = ( (~q_e_miss_nxt[n])) &
@@ -1134,8 +1118,7 @@ module rv_station(
 
    assign q_issued_d[4] =   q_issued_nxt[4] & q_entry_hold[4];
 
-   generate
-      begin : xhdl24
+   generate if(1) begin : xhdl24
          for (n = 5; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_issued_gen
 
@@ -1146,8 +1129,7 @@ module rv_station(
    endgenerate
 
    // If its not ready, its not issued nxt
-   generate
-      begin : xhdl25
+   generate if(1) begin : xhdl25
          for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_issued_nxt_gen
               assign q_issued_set[n] = q_entry_select[n];
@@ -1170,8 +1152,7 @@ module rv_station(
 		       ({q_dat_width_g{1'b0}} & {q_dat_width_g{q_entry_shift[0]}}) |
                        (q_dat_q[0] & {q_dat_width_g{q_entry_hold[0]}});		//feedback
 
-   generate
-      begin : xhdl28
+   generate if(1) begin : xhdl28
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_dat_gen
               assign q_dat_d[n] = (rv0_instr_i1_dat & {q_dat_width_g{q_entry_load_i1[n]}}) |
@@ -1185,8 +1166,7 @@ module rv_station(
    //-------------------------------------------------------------------------------------------------------
    // generation of q_entry_rdy logic.  These are used after prioritization as mux selects to remove entries
    //-------------------------------------------------------------------------------------------------------
-   generate
-      begin : xhdl29
+   generate if(1) begin : xhdl29
          for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_entry_rdy_gen
               assign q_entry_rdy[n] =   q_rdy_q[n] ;
@@ -1204,8 +1184,7 @@ module rv_station(
    //-------------------------------------------------------------------------------------------------------
    // generation of ilat0 compare for zero bypass cases.  Do it early for timing
    //-------------------------------------------------------------------------------------------------------
-   generate
-      begin : xhdl30
+   generate if(1) begin : xhdl30
          for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_entry_ilat0_gen
               assign q_entry_ilat0[n] = q_tid_q[n] & {`THREADS{(q_ilat_q[n] == 4'b0000) }};
@@ -1213,8 +1192,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl31
+   generate if(1) begin : xhdl31
          for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_entry_ilat1_gen
               assign q_entry_ilat1[n] = q_tid_q[n] & {`THREADS{(q_ilat_q[n] == 4'b0001) }};
@@ -1236,8 +1214,7 @@ module rv_station(
 
    assign q_entry_select = ~(q_hold_all_q | q_hold_brick) ? q_entry_rdy_pri : {q_num_entries_g-4{1'b0}};
 
-   generate
-        begin : dat_extnd
+   generate if(1) begin : dat_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : dat_extnda
 		assign q_dat_ary[n*q_dat_width_g:(n+1)*q_dat_width_g-1] = q_dat_q[n];
@@ -1255,8 +1232,7 @@ module rv_station(
    assign rv1_instr_dat = q_instr_dat;
 
 
-   generate
-        begin : tid_extnd
+   generate if(1) begin : tid_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : tid_extnda
 		assign q_tid_ary[n*`THREADS:(n+1)*`THREADS-1] = q_tid_q[n];
@@ -1276,8 +1252,7 @@ module rv_station(
    assign q_instr_is_brick = |(q_entry_select & q_is_brick_q[4:q_num_entries_g-1]);
    assign rv1_instr_is_brick = |(q_entry_rdy_pri & q_is_brick_q[4:q_num_entries_g-1]);
 
-   generate
-        begin : brick_extnd
+   generate if(1) begin : brick_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : brick_extnda
 		assign q_brick_ary[n*3:(n+1)*3-1] = q_brick_q[n];
@@ -1298,8 +1273,7 @@ module rv_station(
    assign rv1_other_ilat0_itag_out = ~q_instr_itag_l1a_b;
 
    //-------------------------------------------------------------------------------------------------------
-   generate
-        begin : ilat0_extnd
+   generate if(1) begin : ilat0_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : ilat0_extnda
 		assign q_ilat0_ary[n*`THREADS:(n+1)*`THREADS-1] = q_entry_ilat0[n];
@@ -1323,8 +1297,7 @@ module rv_station(
    assign rv1_instr_ilat0_vld = q_instr_ilat0_vld;
 
    //-------------------------------------------------------------------------------------------------------
-   generate
-        begin : ilat1_extnd
+   generate if(1) begin : ilat1_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : ilat1_extnda
 		assign q_ilat1_ary[n*`THREADS:(n+1)*`THREADS-1] = q_entry_ilat1[n];
@@ -1343,8 +1316,7 @@ module rv_station(
    assign rv1_instr_ilat1_vld = q_instr_ilat1_vld;
 
    //-------------------------------------------------------------------------------------------------------
-   generate
-        begin : itag_extnd
+   generate if(1) begin : itag_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : itag_extnda
 		assign q_itag_ary[n*`ITAG_SIZE_ENC:(n+1)*`ITAG_SIZE_ENC-1] = q_itag_q[n];
@@ -1368,8 +1340,7 @@ module rv_station(
 
 
    //-------------------------------------------------------------------------------------------------------
-   generate
-        begin : s1_itag_extnd
+   generate if(1) begin : s1_itag_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : s1_itag_extnda
 		assign q_s1_itag_ary[n*`ITAG_SIZE_ENC:(n+1)*`ITAG_SIZE_ENC-1] = q_s1_itag_q[n];
@@ -1386,8 +1357,7 @@ module rv_station(
    assign rv1_instr_s1_itag = q_instr_s1_itag;
 
    //-------------------------------------------------------------------------------------------------------
-   generate
-        begin : s2_itag_extnd
+   generate if(1) begin : s2_itag_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : s2_itag_extnda
 		assign q_s2_itag_ary[n*`ITAG_SIZE_ENC:(n+1)*`ITAG_SIZE_ENC-1] = q_s2_itag_q[n];
@@ -1405,8 +1375,7 @@ module rv_station(
    assign rv1_instr_s2_itag = q_instr_s2_itag;
 
    //-------------------------------------------------------------------------------------------------------
-   generate
-        begin : s3_itag_extnd
+   generate if(1) begin : s3_itag_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : s3_itag_extnda
 		assign q_s3_itag_ary[n*`ITAG_SIZE_ENC:(n+1)*`ITAG_SIZE_ENC-1] = q_s3_itag_q[n];
@@ -1424,8 +1393,7 @@ module rv_station(
    assign rv1_instr_s3_itag = q_instr_s3_itag;
 
    //-------------------------------------------------------------------------------------------------------
-   generate
-        begin : ilat_extnd
+   generate if(1) begin : ilat_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : ilat_extnda
 		assign q_ilat_ary[n*q_ilat_width_g:(n+1)*q_ilat_width_g-1] = q_ilat_q[n];
@@ -1442,8 +1410,7 @@ module rv_station(
              );
 
    //-------------------------------------------------------------------------------------------------------
-   generate
-        begin : ba_extnd
+   generate if(1) begin : ba_extnd
 	   for (n = 4; n <= (q_num_entries_g - 1); n = n + 1)
              begin : ba_extnda
 		assign q_barf_addr_ary[n*q_barf_enc_g:(n+1)*q_barf_enc_g-1] = q_barf_addr_q[n];
@@ -1451,8 +1418,7 @@ module rv_station(
              end
 	end
    endgenerate
-   generate
-        begin : ba_extndc
+   generate if(1) begin : ba_extndc
 	   for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
              begin : ba_extndac
 		assign q_barf_clr_addr_ary[n*q_barf_enc_g:(n+1)*q_barf_enc_g-1] = q_barf_addr_q[n];
@@ -1513,7 +1479,7 @@ module rv_station(
 	   assign q_cord_d[0] = (q_entry_load_i1[0] & rv0_instr_i1_cord ) |
 				(q_entry_load_i0[0] & rv0_instr_i0_cord ) |
 				(q_entry_hold[0] & q_cord_nxt[0]);
-	   begin : xhdl5
+	   if(1) begin : xhdl5
               for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_cord_gen
 		   assign q_cord_d[n] = (q_entry_load_i1[n] & rv0_instr_i1_cord ) |
@@ -1523,7 +1489,7 @@ module rv_station(
 
 		end
 	   end
-	   begin : xhdl6
+	   if(1) begin : xhdl6
               for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_cord_nxt_gen
 		   assign q_cord_set[n] = q_lq_itag_match[n] & lq_rv_itag1_cord_q;
@@ -1558,7 +1524,7 @@ module rv_station(
       if (q_cord_g == 0)
         begin : q_cord0_g_gen
            assign q_cord_match = 1'b0;
-	   begin : xhdl6b
+	   if(1) begin : xhdl6b
               for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_cord0_nxt_gen
 		   assign q_cord_d[n]=1'b0;
@@ -1581,7 +1547,7 @@ module rv_station(
 	   assign q_ord_d[0] = (q_entry_load_i1[0] & rv0_instr_i1_ord ) |
             		       (q_entry_load_i0[0] & rv0_instr_i0_ord ) |
               		       (q_entry_hold[0] & q_ord_nxt[0]);
-      	   begin : xhdl3
+      	   if(1) begin : xhdl3
               for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
               	begin : q_ord_gen
               	   assign q_ord_d[n] = (q_entry_load_i1[n] & rv0_instr_i1_ord ) |
@@ -1592,7 +1558,7 @@ module rv_station(
               	end
            end
 
-           begin : xhdl4
+           if(1) begin : xhdl4
               for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_ord_nxt_gen
 		   assign q_ord_nxt[n] = q_ord_q[n];
@@ -1625,7 +1591,7 @@ module rv_station(
       if (q_ord_g == 0)
         begin : q_ord0_g_gen
 	   //generate
-	   begin : xhdl3b
+         if(1) begin : xhdl3b
 	      for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_ord0_gen
 
@@ -1658,7 +1624,7 @@ module rv_station(
 	   assign q_spec_d[0] = (q_entry_load_i1[0] & rv0_instr_i1_spec ) |
 				(q_entry_load_i0[0] & rv0_instr_i0_spec ) |
 				(q_entry_hold[0] & q_spec_nxt[0]);
-	   begin : xhdl14
+	   if(1) begin : xhdl14
               for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_spec_gen
 		   assign q_spec_d[n] = (q_entry_load_i1[n] & rv0_instr_i1_spec ) |
@@ -1667,7 +1633,7 @@ module rv_station(
 					(q_entry_hold[n] & q_spec_nxt[n] );
 		end
 	   end
-	   begin : xhdl15
+	   if(1) begin : xhdl15
               for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_spec_nxt_gen
 		   assign q_spec_clr[n] = q_lq_itag_match[n] & (~q_e_miss_nxt[n]) & (~lq_rv_itag1_restart_q);
@@ -1702,7 +1668,7 @@ module rv_station(
 	   //-------------------------------------------------------------------------------------------------------
 
 	   assign q_e_miss_d[0] =   q_e_miss_nxt[0] & q_entry_hold[0];
-	   begin : xhdl26
+	   if(1) begin : xhdl26
               for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_e_miss_gen
 
@@ -1710,7 +1676,7 @@ module rv_station(
 					  (q_e_miss_nxt[n]     & q_entry_hold[n]);
 		end
 	   end
-	   begin : xhdl27
+	   if(1) begin : xhdl27
               for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_e_miss_nxt_gen
 		   assign q_e_miss_set[n] = q_lq_itag_match[n] & lq_rv_itag1_hold_q;
@@ -1890,7 +1856,7 @@ module rv_station(
 	   assign q_is_brick_d[0] = (q_entry_load_i1[0] & rv0_instr_i1_is_brick ) |
 				    (q_entry_load_i0[0] & rv0_instr_i0_is_brick ) |
 				    (q_entry_hold[0] & q_is_brick_q[0]);
-	   begin : xhdl8
+	   if(1) begin : xhdl8
               for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_is_brick_gen
 		   assign q_is_brick_d[n] = (q_entry_load_i1[n] & rv0_instr_i1_is_brick ) |
@@ -1903,7 +1869,7 @@ module rv_station(
 	   assign q_brick_d[0] = ({3{q_entry_load_i1[0]}} & rv0_instr_i1_brick ) |
 				 ({3{q_entry_load_i0[0]}} & rv0_instr_i0_brick ) |
 				 ({3{q_entry_hold[0]}} & q_brick_q[0]);
-	   begin : xhdl9
+	   if(1) begin : xhdl9
               for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_brick_gen
 		   assign q_brick_d[n] = ({3{q_entry_load_i1[n]}} & rv0_instr_i1_brick ) |
@@ -1954,7 +1920,7 @@ module rv_station(
                           .dout(q_hold_brick_cnt_q)
                           );
 
-	   begin : xhdl9b
+	   if(1) begin : xhdl9b
               for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_bricklat_gen
               		   tri_rlmlatch_p #(.INIT(0))
@@ -2016,7 +1982,7 @@ module rv_station(
 	   assign brick_unused = q_hold_brick | |q_hold_brick_cnt_d | |q_hold_brick_cnt_q | q_hold_brick_d | q_hold_brick_q | q_instr_is_brick |
 				 rv0_instr_i0_is_brick | |rv0_instr_i0_brick | rv0_instr_i1_is_brick | |rv0_instr_i1_brick | |q_instr_brick;
 
-	   begin : xhdl9b
+	   if(1) begin : xhdl9b
               for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
 		begin : q_brick_gen0
 
@@ -2043,8 +2009,7 @@ module rv_station(
    //-------------------------------------------------------------------------------------------------------
    assign q_ev_b = (~q_ev_q);
 
-   generate
-      begin : xhdl32
+   generate if(1) begin : xhdl32
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_or_gen
               assign q_entry_or_tree[n] = |(q_ev_b[n:q_num_entries_g - 1]);
@@ -2052,8 +2017,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl33
+   generate if(1) begin : xhdl33
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_and_gen
               assign q_entry_and_tree[n] = &(q_ev_b[0:n]);
@@ -2061,8 +2025,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl34
+   generate if(1) begin : xhdl34
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_entry_shift_gen
               assign q_entry_shift[n] = q_entry_or_tree[n] & (~(q_entry_load[n] | q_entry_load2[n]));
@@ -2075,8 +2038,7 @@ module rv_station(
 			    (rv0_load1 & q_entry_or_tree[0] & q_entry_and_tree[0] & (~q_entry_or_tree[1]));
 
 
-   generate
-      begin : xhdl35
+   generate if(1) begin : xhdl35
          for (n = 1; n <= (q_num_entries_g - 2); n = n + 1)
            begin : q_load_gen
               //  special case
@@ -2091,8 +2053,7 @@ module rv_station(
    assign q_entry_load[q_num_entries_g - 1] = (rv0_load1 & (~q_entry_or_tree[q_num_entries_g - 1]) & q_entry_and_tree[q_num_entries_g - 1] & (~1'b0)) |
 					      (rv0_load1 & q_entry_or_tree[q_num_entries_g - 1] & (~1'b0) & q_entry_and_tree[q_num_entries_g - 2]);
 
-   generate
-      begin : xhdl36
+   generate if(1) begin : xhdl36
          for (n = 0; n <= (q_num_entries_g - 2); n = n + 1)
            begin : q_entry_load2_gen
               assign q_entry_load2[n] = rv0_load2 & q_entry_load[n + 1];
@@ -2101,8 +2062,7 @@ module rv_station(
    endgenerate
    assign q_entry_load2[q_num_entries_g - 1] = 1'b0;
 
-   generate
-      begin : xhdl37
+   generate if(1) begin : xhdl37
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_hold_gen
               assign q_entry_hold[n] = (~(q_entry_load[n] | q_entry_load2[n] | q_entry_shift[n]));
@@ -2123,8 +2083,7 @@ module rv_station(
 			    |(lq_rv_itag1_rst_vld_q | lq_rv_clr_hold_q);		//itag1 clrhold
    assign q_cord_act[0] = (rv0_instr_i0_rte | rv0_instr_i1_rte) | |(lq_rv_itag1_rst_vld_q);
 
-   generate
-      begin : xhdl38
+   generate if(1) begin : xhdl38
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_act_gen
               assign q_dat_act[n] = ((rv0_instr_i0_rte | rv0_instr_i1_rte) | q_ev_q[n - 1]);
@@ -2143,8 +2102,7 @@ module rv_station(
 
    assign q_credit_d[0] = (q_credit_nxt[0] & q_entry_hold[0]) & ~(&(flush));
 
-   generate
-      begin : xhdl39
+   generate if(1) begin : xhdl39
          for (n = 1; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_credit_gen
               assign q_credit_d[n] =
@@ -2154,8 +2112,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl40
+   generate if(1) begin : xhdl40
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_credit_nxt_gen
 
@@ -2184,8 +2141,7 @@ module rv_station(
                 .pri(q_credit_take)
                 );
 
-   generate
-        begin : tid_extndf
+   generate if(1) begin : tid_extndf
 	   for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
              begin : tid_extndaf
 		assign q_tid_full_ary[n*`THREADS:(n+1)*`THREADS-1] = q_tid_q[n];
@@ -2201,8 +2157,7 @@ module rv_station(
                 .dout(ex1_credit_free_d)
                 );
 
-   generate
-      begin : xhdl41
+   generate if(1) begin : xhdl41
          for (t = 0; t <= (`THREADS - 1); t = t + 1)
            begin : ex1_credit_gen
               assign ex1_credit_free[t] = ex1_credit_free_q[t] & ~(&(flush2));
@@ -2214,13 +2169,12 @@ module rv_station(
    // RVS Empty
    //-------------------------------------------------------------------------------------------------------
 
-   generate
-      begin : xhdl43
+   generate if(1) begin : xhdl43
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_entry_tvld_gen
               assign q_entry_tvld[n] = {`THREADS{q_ev_q[n]}} & q_tid_q[n];
 
-              begin : xhdl42
+              if(1) begin : xhdl42
                  for (t = 0; t <= (`THREADS - 1); t = t + 1)
                    begin : q_tvld_rev_gen
                       assign q_entry_tvld_rev[t][n] = q_entry_tvld[n][t];
@@ -2230,8 +2184,7 @@ module rv_station(
       end
    endgenerate
 
-   generate
-      begin : xhdl44
+   generate if(1) begin : xhdl44
          for (t = 0; t <= (`THREADS - 1); t = t + 1)
            begin : rvs_empty_gen
               assign rvs_empty_d[t] = (~(|(q_entry_tvld_rev[t]) |
@@ -2256,8 +2209,7 @@ module rv_station(
 
    // Is the entry being shifted?  We only shift down, ignore last shift
 
-   generate
-      begin : xiaenc
+   generate if(1) begin : xiaenc
 	 // Encode the issued entry address to save latches
    	 if(q_num_entries_g==12)
 	   begin : ia12
@@ -2368,8 +2320,7 @@ module rv_station(
    assign xx_rv_itag_ary[5*(`ITAG_SIZE_ENC):5*(`ITAG_SIZE_ENC)+(`ITAG_SIZE_ENC)-1] = xx_rv_rel_itag_q[5] ;
    assign xx_rv_itag_ary[6*(`ITAG_SIZE_ENC):6*(`ITAG_SIZE_ENC)+(`ITAG_SIZE_ENC)-1] = xx_rv_rel_itag_q[6] ;
 
-   generate
-      begin : xhdl45
+   generate if(1) begin : xhdl45
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_itag_match_gen
               // Zero Bubble from my FX release
@@ -2565,8 +2516,7 @@ module rv_station(
               .dout(ex0_barf_addr_q)
               );
 
-   generate
-      begin : x5ia4
+   generate if(1) begin : x5ia4
          for (n = 0; n <= 4 ; n = n + 1)
            begin : isa_gen
 
@@ -2694,8 +2644,7 @@ module rv_station(
 
 
 
-   generate
-      begin : xhdl555
+   generate if(1) begin : xhdl555
          for (n = 0; n <= q_num_entries_g ; n = n + 1)
            begin : q_bev_gen
 
@@ -2722,8 +2671,7 @@ module rv_station(
       end // block: xhdl555
    endgenerate
 
-   generate
-      begin : xhdl5xx
+   generate if(1) begin : xhdl5xx
          for (n = 0; n < q_itag_busses_g ; n = n + 1)
            begin : xx_gen
 
@@ -2789,8 +2737,7 @@ module rv_station(
 			  .dout(xx_rv_abort_q)
               );
 
-   generate
-      begin : xhdl999
+   generate if(1) begin : xhdl999
          for (n = 0; n <= q_num_entries_g - 1; n = n + 1)
            begin : q_x_q_gen
 
@@ -3113,8 +3060,7 @@ module rv_station(
 
 
    // Issueable
-   generate
-      begin : xhdl999i
+   generate if(1) begin : xhdl999i
          for (n = 0; n <= q_num_entries_g - 1; n = n + 1)
            begin : q_x_q_gen
 

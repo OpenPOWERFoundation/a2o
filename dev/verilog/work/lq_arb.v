@@ -565,7 +565,7 @@ module lq_arb(
       end
    endgenerate
 
-   generate begin : parGen
+   generate if(1) begin : parGen
          genvar t;
          for (t = 0; t <= 15; t = t + 1) begin : parGen
             assign stq2_store_parity[t] = ^(stq2_store_data_q[t * 8:(t * 8) + 7]);

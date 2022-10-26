@@ -75,7 +75,7 @@ wire [0:`THREADS-1]   dac_st_en;
 wire [0:`THREADS-1]   dac_us_en;
 wire [0:`THREADS-1]   dac_er_en;
 
-generate begin : sprTid
+generate if(1) begin : sprTid
    genvar tid;
    for (tid=0; tid<`THREADS; tid=tid+1) begin : sprTid
       assign spr_dbcr0_dac_tid[tid]   = spr_dbcr0_dac[tid*2:tid*2+1];
@@ -85,7 +85,7 @@ generate begin : sprTid
 end
 endgenerate
 
-generate begin : dacen_gen
+generate if(1) begin : dacen_gen
       genvar               t;
       for (t = 0; t <= `THREADS - 1; t = t + 1) begin : dacen_gen
          assign dac_ld_en[t] = spr_dbcr0_dac_tid[t][0] & load;

@@ -608,8 +608,7 @@ module iuq_ic_dir(
    assign stored_erat_act = {`THREADS{iu2_valid_erat_read & (~spr_ic_ierat_byp_dis)}} & iu2_tid_l2;
    assign iu1_stored_erat_updating = |(stored_erat_act & iu1_tid_l2);  //'1' if stored erat is updating in IU2 for same thread that is in IU1
 
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
       genvar  i;
       for (i = 0; i < `THREADS; i = i + 1)
       begin : erat_val_gen
@@ -683,8 +682,7 @@ module iuq_ic_dir(
    assign dir_wr_addr = {icm_icd_dir_write_addr[51:56], (icm_icd_dir_write_addr[57] & (~spr_ic_cls_l2))};		// Use even row for 128B mode
    assign dir_rd_addr = {ics_icd_iu0_index51, ics_icd_iu0_ifar[52:56], (ics_icd_iu0_ifar[57] & (~(spr_ic_cls_l2 & (~ics_icd_iu0_spr_idir_read))))};
 
-   generate
-   begin : xhdl2
+   generate if(1) begin : xhdl2
      genvar  i;
      for (i = 0; i < dir_parity_width*8; i = i + 1)
      begin : calc_ext_dir_data
@@ -850,8 +848,7 @@ module iuq_ic_dir(
    assign data_write_act[2] = (data_way[0] | data_way[1]) &   icm_icd_reload_addr[51];
    assign data_write_act[3] = (data_way[2] | data_way[3]) &   icm_icd_reload_addr[51];
 
-   generate
-   begin : xhdl4
+   generate if(1) begin : xhdl4
      genvar  i;
      for (i = 0; i < 18; i = i + 1)
      begin : gen_data_parity
@@ -942,8 +939,7 @@ module iuq_ic_dir(
    //---------------------------------------------------------------------
    // Compare Tag
    //---------------------------------------------------------------------
-   generate
-   begin : xhdl5
+   generate if(1) begin : xhdl5
      genvar  i;
      for (i = 0; i < 4; i = i + 1)
      begin : rd_tag_hit0
@@ -1021,8 +1017,7 @@ module iuq_ic_dir(
    // Check Parity
    //---------------------------------------------------------------------
    // Dir
-   generate
-   begin : xhdl9
+   generate if(1) begin : xhdl9
      genvar  w;
      for (w = 0; w < 4; w = w + 1)
      begin : calc_ext_dir_0
@@ -1065,8 +1060,7 @@ module iuq_ic_dir(
    );
 
    //Data
-   generate
-   begin : xhdl11
+   generate if(1) begin : xhdl11
      genvar  w;
      for (w = 0; w < 4; w = w + 1)
      begin : data_parity_out_gen
@@ -1115,8 +1109,7 @@ module iuq_ic_dir(
    assign ici_val_d = lq_iu_ici_val;
 
    // update LRU in IU2 on read hit or dir_write
-   generate
-   begin : xhdl12
+   generate if(1) begin : xhdl12
      genvar  a;
      for (a = 0; a < 128; a = a + 1)
      begin : dir_lru_gen
@@ -1157,8 +1150,7 @@ module iuq_ic_dir(
    end
    endgenerate
 
-   generate
-   begin : xhdl13
+   generate if(1) begin : xhdl13
      genvar  a;
      for (a = 0; a < 16; a = a + 1)
      begin : dir_lru_act_gen
@@ -1210,8 +1202,7 @@ module iuq_ic_dir(
    // IU2
    //---------------------------------------------------------------------
    // IU2 Output
-   generate
-   begin : xhdl14
+   generate if(1) begin : xhdl14
      genvar  i;
      for (i = 0; i < 52; i = i + 1)
      begin : mm_epn
@@ -1272,8 +1263,7 @@ module iuq_ic_dir(
    assign iu3_erat_err_d = iu2_ierat_error[0:2] & {3{iu2_valid_l2}};
 
    // Rotate instructions
-   generate
-   begin : xhdl15
+   generate if(1) begin : xhdl15
      genvar  w;
      for (w = 0; w < 4; w = w + 1)
      begin : iu2_instr_rot0
@@ -1346,8 +1336,7 @@ module iuq_ic_dir(
    // Using xori 0,0,0 (xnop) when erat error
    //xnop <= "011010" & ZEROS(6 to 35);
 
-   generate
-   begin : xhdl16
+   generate if(1) begin : xhdl16
      genvar  i;
      for (i = 0; i < 4; i = i + 1)
      begin : gen_instr
@@ -1389,8 +1378,7 @@ module iuq_ic_dir(
    //---------------------------------------------------------------------
    // Performance Events
    //---------------------------------------------------------------------
-   generate
-   begin : xhdl10
+   generate if(1) begin : xhdl10
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : gen_perf
@@ -1931,8 +1919,7 @@ module iuq_ic_dir(
    );
 
    // Dir
-   generate
-   begin : xhdl17
+   generate if(1) begin : xhdl17
      genvar  a;
      for (a = 0; a < 128; a = a + 1)
      begin : dir_val_latch_gen
@@ -2315,8 +2302,7 @@ module iuq_ic_dir(
       .dout(iu2_spr_idir_lru_l2)
    );
 
-   generate
-   begin : xhdl19
+   generate if(1) begin : xhdl19
      if (`INCLUDE_IERAT_BYPASS == 0)
      begin : gen0
        genvar  i;
@@ -2396,8 +2382,7 @@ module iuq_ic_dir(
    end
    endgenerate
 
-   generate
-   begin : xhdl18
+   generate if(1) begin : xhdl18
      genvar  i;
      for (i = 0; i < `THREADS; i = i + 1)
      begin : gen_perf_reg

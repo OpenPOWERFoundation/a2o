@@ -587,8 +587,7 @@ module lq_pfetch(
    // SPR for prefetch depth
    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-   generate
-      begin : xhdl0
+   generate if(1) begin : xhdl0
          genvar                                    tid;
          for (tid = 0; tid <= `THREADS - 1; tid = tid + 1)
            begin : sprThrd
@@ -938,8 +937,7 @@ module lq_pfetch(
    assign pf_iar_i0_wen[0] = new_itag_i0_val & (pf_iar_tbl_val_q[0] == 1'b0);
    assign pf_iar_i0_wen[1] = new_itag_i0_val & (pf_iar_tbl_val_q[0:1] == 2'b10);
 
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
          genvar                                    i;
          for (i = 2; i <= `LDSTQ_ENTRIES - 1; i = i + 1)
            begin : pf_iar_i0_wen_gen
@@ -953,8 +951,7 @@ module lq_pfetch(
    assign pf_iar_i1_wen[0] = new_itag_i1_val & (pf_iar_val_for_i1[0] == 1'b0);
    assign pf_iar_i1_wen[1] = new_itag_i1_val & (pf_iar_val_for_i1[0:1] == 2'b10);
 
-   generate
-      begin : xhdl2
+   generate if(1) begin : xhdl2
          genvar                                    i;
          for (i = 2; i <= `LDSTQ_ENTRIES - 1; i = i + 1)
            begin : pf_iar_i1_wen_gen
@@ -1025,8 +1022,7 @@ module lq_pfetch(
       .dout(odq_report_tid_q)
    );
 
-   generate
-      begin : xhdl3
+   generate if(1) begin : xhdl3
          genvar                                    i;
          for (i = 0; i <= `LDSTQ_ENTRIES - 1; i = i + 1)
            begin : done_itag_match_gen
@@ -1037,8 +1033,7 @@ module lq_pfetch(
       end
    endgenerate
 
-   generate
-      begin : xhdl4
+   generate if(1) begin : xhdl4
          genvar                                    i;
          for (i = 0; i <= `LDSTQ_ENTRIES - 1; i = i + 1)
            begin : pf_iar_table
@@ -1145,8 +1140,7 @@ module lq_pfetch(
    // lookup iar from itag-iar table
    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-   generate
-      begin : xhdl5
+   generate if(1) begin : xhdl5
          genvar                                    i;
          for (i = 0; i <= `LDSTQ_ENTRIES - 1; i = i + 1)
            begin : new_itag_match_gen
@@ -2446,8 +2440,7 @@ module lq_pfetch(
                         (pf2_hits_q[0:1] == 2'b10) ? 1'b1 :
                                                      (~old_rpt_lru);
 
-   generate
-      begin : xhdl6
+   generate if(1) begin : xhdl6
          genvar                                    i;
          for (i = 0; i <= 31; i = i + 1)
            begin : rpt_lru_gen
@@ -2502,8 +2495,7 @@ module lq_pfetch(
 
    assign pf1_new_data_ea = pf1_data_ea_q + ({ {59-21-1-(64-(2**`GPR_WIDTH_ENC))+1{pf1_rpt_stride_q[0]}}, pf1_rpt_stride_q });
 
-   generate
-      begin : xhdl7
+   generate if(1) begin : xhdl7
          genvar                                    i;
          for (i = 0; i <= `PFETCH_Q_SIZE - 1; i = i + 1)
            begin : pfq_gen

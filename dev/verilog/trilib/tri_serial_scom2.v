@@ -630,8 +630,7 @@ module tri_serial_scom2 (
    end
    endgenerate
 
-   generate
-   begin : xhdl0
+   generate if(1) begin : xhdl0
      genvar    i;
      for (i=0; i<=PAR_NOBITS-1; i=i+1)
      begin : wdata_par_check
@@ -670,8 +669,7 @@ module tri_serial_scom2 (
    assign wpar_err = (^{par_data_lt, datapar_shifter_lt});
 
    //-----------------------------------------------------------------------------
-   generate
-   begin : xhdl1
+   generate if(1) begin : xhdl1
       genvar    i;
       for (i=0; i<=PAR_NOBITS-1; i=i+1)
       begin : rdata_parity_gen
@@ -768,8 +766,7 @@ module tri_serial_scom2 (
    // This was for unused addresses if USE_ADDR was smaller than the 64 bit width.
    // From VHDL: short_unused_addr_range: for i in use_addr'high+1 to 63 generate
    // Shouldn't be needed for A2, since we always define 64 SCOM addresses.
-   generate
-   begin : xhdl4
+   generate if(1) begin : xhdl4
     genvar  i;
      for (i=WIDTH; i<64; i=i+1)
      begin : short_unused_addr_range

@@ -1583,7 +1583,7 @@ module fu_oscr(
 
 
 
-         begin : xhdl1
+         if(1) begin : xhdl1
            // genvar              i;
             for (i = 0; i <= 31; i = i + 1)
             begin : writeport_hfpscr_thr0
@@ -1835,7 +1835,7 @@ module fu_oscr(
 
 
 
-         begin : xhdl2
+         if(1) begin : xhdl2
           //  genvar              i;
             for (i = 0; i <= 23; i = i + 1)
             begin : writeport_hfpscr_thr0
@@ -2012,7 +2012,7 @@ module fu_oscr(
          assign  fread1_thr1[23] = (ra1_thr1[1:5] == 5'b10111) & re1_thr1;
 
 
-         begin : xhdl3
+         if(1) begin : xhdl3
           //  genvar              i;
             for (i = 0; i <= 23; i = i + 1)
             begin : writeport_hfpscr_thr1

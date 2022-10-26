@@ -78,7 +78,7 @@ module RAMB36(CASCADEOUTLATA, CASCADEOUTLATB, CASCADEOUTREGA, CASCADEOUTREGB, DO
    assign bAddrA = ADDRA[(bramAddrWidth+5)-1:5];
    assign bAddrB = ADDRB[(bramAddrWidth+5)-1:5];
 
-   generate begin
+   generate if(1) begin
      genvar  i;
      for (i = 3; i >= 0; i = i - 1) begin: ra
             bram_model #(.data_w(9), .addr_w(bramAddrWidth)) bram_model(

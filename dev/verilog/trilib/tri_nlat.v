@@ -76,8 +76,7 @@ module tri_nlat(
 
    parameter [0:WIDTH-1]          init_v = INIT;
 
-   generate
-   begin
+   generate if(1) begin
       wire                          sreset;
       wire [0:WIDTH-1]              int_din;
       reg [0:WIDTH-1]               int_dout;

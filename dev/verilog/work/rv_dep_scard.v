@@ -201,8 +201,7 @@ module rv_dep_scard(
    // Set the target if t_v is valid and clear the valid if any of the target busses match
    //------------------------------------------------------------------------------------------------------------
 
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
          genvar                        i;
          for (i = 0; i <= num_entries_g - 1; i = i + 1)
            begin : g0
@@ -242,8 +241,7 @@ module rv_dep_scard(
    //------------------------------------------------------------------------------------------------------------
    // Mux out the itag
    //------------------------------------------------------------------------------------------------------------
-   generate
-      begin : xhdl2
+   generate if(1) begin : xhdl2
          genvar                        i;
          for (i = 0; i <= num_entries_g - 1; i = i + 1)
            begin : g1

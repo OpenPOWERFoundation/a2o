@@ -1125,8 +1125,7 @@ module mmq_spr(
       assign spr_etid_int_onehot[2] = (spr_etid_int_q == 2'b10);
       assign spr_etid_int_onehot[3] = (spr_etid_int_q == 2'b11);
 
-      generate
-         begin : etid_generate
+      generate if(1) begin : etid_generate
             genvar                               tid;
             for (tid = 0; tid <= 3; tid = tid + 1)
              begin : mmqsprflush
@@ -1148,8 +1147,7 @@ module mmq_spr(
       endgenerate
 
 `ifdef WAIT_UPDATES
-      generate
-         begin : mmq_spr_tid_generate
+      generate if(1) begin : mmq_spr_tid_generate
             genvar                                tid;
             for (tid = 0; tid <= `MM_THREADS-1; tid = tid + 1)
             begin : mmThreads
@@ -1173,8 +1171,8 @@ assign xu_mm_derat_mmucr1_we_d = xu_mm_derat_mmucr1_we;
       assign cp_flush_p1_d = cp_flush_q;
       assign cp_flush_p1 = cp_flush_p1_q;
 
-   //masthdNExist : if `THDID_WIDTH >  (`MM_THREADS) generate begin
-   //  masthdunused : for tid in  (`MM_THREADS) to (`THDID_WIDTH-1) generate begin
+   //masthdNExist : if `THDID_WIDTH >  (`MM_THREADS) generate if(1) begin
+   //  masthdunused : for tid in  (`MM_THREADS) to (`THDID_WIDTH-1) generate if(1) begin
    //        unused_dc_thdid(tid)     <= lrat_mas_thdid(tid) or tlb_lper_we_upd(tid) or tlb_delayed_act(tid+29);
    //  end generate masthdunused;
    //end generate masthdNExist;

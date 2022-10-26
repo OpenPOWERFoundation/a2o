@@ -169,8 +169,7 @@ module iuq_uc_cplbuffer(
                         (new_command_l2 == 1'b0 & ((flush_current & valid_l2) == 1'b1)) ? write_ptr_l2 - value_1[32-buffer_depth_log:31] :
                         write_ptr_l2;
 
-   generate
-   begin : gen_buff
+   generate if(1) begin : gen_buff
      genvar  i;
      for (i = 0; i < buffer_depth; i = i + 1)
      begin : buff_loop
@@ -238,8 +237,7 @@ module iuq_uc_cplbuffer(
       .dout(buffer_count_l2)
    );
 
-   generate
-   begin
+   generate if(1) begin
      genvar  i;
      for (i = 0; i < buffer_depth; i = i + 1)
      begin : gen_b

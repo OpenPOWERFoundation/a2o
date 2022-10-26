@@ -771,8 +771,7 @@ assign ex1_vld_d = (rv_br_ex0_fusion | |(ex1_vld_q) ? ex0_vld & (~iu_br_flush_q)
       assign ex2_abs = (ex3_is_b_d == 1'b1) ? ex2_li :
                        ex2_bd;
 
-      generate
-         begin : xhdl1
+      generate if(1) begin : xhdl1
             genvar                        i;
             for (i = 0; i <= `THREADS - 1; i = i + 1)
             begin : thread_ifar
@@ -798,8 +797,7 @@ assign ex1_vld_d = (rv_br_ex0_fusion | |(ex1_vld_q) ? ex0_vld & (~iu_br_flush_q)
 
    assign ex2_nia_pre = ex2_ifar + 1;
 
-   generate
-      begin : xhdl2
+   generate if(1) begin : xhdl2
          genvar                        i;
          for (i = (62 - `EFF_IFAR_ARCH); i <= 61; i = i + 1)
          begin : ex3NIAMask
@@ -820,8 +818,7 @@ assign ex3_nia_d = ex2_nia;
 
 assign ex3_bta_pre = (ex3_is_bclr_q == 1'b1 ? ex3_lr[62 - `EFF_IFAR_ARCH:61] : 0 ) | (ex3_is_bcctr_q == 1'b1 ? ex3_ctr[62 - `EFF_IFAR_ARCH:61] : 0 ) | (ex3_is_bctar_q == 1'b1 ? ex3_lr[62 - `EFF_IFAR_ARCH:61] : 0 ) | (ex3_is_b_q == 1'b1 | ex3_is_bc_q == 1'b1 ? ex3_bta_q[62 - `EFF_IFAR_ARCH:61] : 0 );
 
-generate
-   begin : xhdl3
+generate if(1) begin : xhdl3
       genvar                        i;
       for (i = (62 - `EFF_IFAR_ARCH); i <= 61; i = i + 1)
       begin : ex3BTAMask
@@ -846,7 +843,7 @@ assign ex3_nia = ex3_nia_q;
 //-----------------------------------------------
 
 generate
-begin : xhdl4
+if(1) begin : xhdl4
    genvar                        i;
    for (i = 0; i <= (`THREADS - 1); i = i + 1)
    begin : br_thread
@@ -987,7 +984,7 @@ assign br_iu_perf_events = ex4_perf_event_q;
 //5: mispredicted branch target (within current address range)
 //6: mispredicted branch target (outside current address range)
 
-generate begin : perf_event
+generate if(1) begin : perf_event
    genvar  t,e;
    for (e=0;e<=3;e=e+1) begin : thread
       for (t=0;t<=`THREADS-1;t=t+1) begin : thread
@@ -1047,8 +1044,7 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) iu_br_flush_latch(
    .dout(iu_br_flush_q)
 );
 
-generate
-   begin : xhdl5
+generate if(1) begin : xhdl5
       genvar                        i;
       for (i = 0; i <= `THREADS - 1; i = i + 1)
       begin : thread_regs

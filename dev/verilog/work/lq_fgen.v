@@ -712,7 +712,7 @@ generate
       end
 endgenerate
 
-generate begin : memAttrQ
+generate if(1) begin : memAttrQ
       genvar			ucodeEntry;
       for (ucodeEntry=0; ucodeEntry<UCODEDEPTH; ucodeEntry=ucodeEntry+1) begin : memAttrQ
          wire [0:`UCODE_ENTRIES_ENC+`THREADS_POOL_ENC-1]     ucodeEntryDummy = ucodeEntry;
@@ -2065,7 +2065,7 @@ tri_rlmreg_p #(.WIDTH(UCODEDEPTH), .INIT(0), .NEEDS_SRESET(1)) ucode_cnt_2ucode_
    .dout(ucode_cnt_2ucode_q)
 );
 
-generate begin : ucode_cnt_memAttr
+generate if(1) begin : ucode_cnt_memAttr
   genvar ucodeEntry;
   for (ucodeEntry=0; ucodeEntry<UCODEDEPTH; ucodeEntry=ucodeEntry+1) begin : ucode_cnt_memAttr
     tri_rlmreg_p #(.WIDTH(9), .INIT(1), .NEEDS_SRESET(1)) ucode_cnt_memAttr_reg(

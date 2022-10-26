@@ -1324,7 +1324,7 @@ assign ex5_way_hit_d = ex4_way_hit;
 // Execution Pipe Directory Read
 // ####################################################
 // 1-hot Congruence Class Select
-generate begin : ldpCClass
+generate if(1) begin : ldpCClass
       genvar                            cclass;
       for (cclass=0; cclass<numCClass; cclass=cclass+1) begin : ldpCClass
          wire [uprCClassBit:lwrCClassBit]       cclassDummy = cclass;
@@ -1404,7 +1404,7 @@ assign congr_cl_ex3_ex6_m  = congr_cl_ex3_ex6_cmp_q  & p0_wren_cpy_q;
 assign congr_cl_ex3_stq4_m = congr_cl_ex3_stq4_cmp_q & rel4_clr_stg_val_q;
 assign congr_cl_ex3_stq5_m = congr_cl_ex3_stq5_cmp_q & rel5_clr_stg_val_q;
 
-generate begin : ldpByp
+generate if(1) begin : ldpByp
       genvar                            ways;
       for (ways=0; ways<numWays; ways=ways+1) begin : ldpByp
          // Way Bypass Calculation                                                               Should have the following priority
@@ -1437,7 +1437,7 @@ endgenerate
 // ####################################################
 // Execution Pipe Update Directory Logic
 // ####################################################
-generate begin : ldpCtrl
+generate if(1) begin : ldpCtrl
       genvar                            ways;
       for (ways=0; ways<numWays; ways=ways+1) begin : ldpCtrl
          // Hit Detect
@@ -1459,7 +1459,7 @@ generate begin : ldpCtrl
 
          // Set/Clr Watch Bit for Thread on Port0
          // Cacheline Watch Bits
-         begin : P0Watch
+         if(1) begin : P0Watch
             genvar                            tid;
             for (tid=0; tid<`THREADS; tid=tid+1) begin : P0Watch
                assign ex4_dir_way[ways][2 + tid] = (ex4_way_val_q[ways][2 + tid] & ~ex4_clr_watch) | (ex4_way_val_q[ways][0] & ex4_set_watch[tid]);
@@ -1687,7 +1687,7 @@ assign ex5_multihit_watch_lost = ex5_cClass_thrd_watch_q & {`THREADS{(ex5_dir_mu
 
 // Parity Error Detect
 // ####################################################
-generate begin : ldpErrGen
+generate if(1) begin : ldpErrGen
       genvar                            ways;
       for (ways=0; ways<numWays; ways=ways+1) begin : ldpErrGen
          assign ex4_dir_perr_det[ways]      = ex4_way_val_q[ways][0] & ex4_tag_perr_way[ways];
@@ -1833,7 +1833,7 @@ assign stq4_way_hit_d       = stq3_way_hit;
 // Reload Pipe Directory Read
 // ####################################################
 // 1-hot Congruence Class Select
-generate begin : stpCClass
+generate if(1) begin : stpCClass
       genvar                            cclass;
       for (cclass=0; cclass<numCClass; cclass=cclass+1) begin : stpCClass
          wire [uprCClassBit:lwrCClassBit]       cclassDummy = cclass;
@@ -1911,7 +1911,7 @@ assign congr_cl_stq2_stq5_m = congr_cl_stq2_stq5_cmp_q & p1_wren_cpy_q;     // D
 assign congr_cl_stq2_ex5_m  = congr_cl_stq2_ex5_cmp_q & (ex5_binv_val_q | (ex5_lock_set_q & rel2_clr_stg_val_q));
 assign congr_cl_stq2_ex6_m  = congr_cl_stq2_ex6_cmp_q & p0_wren_q;
 
-generate begin : stpByp
+generate if(1) begin : stpByp
       genvar                            ways;
       for (ways=0; ways<numWays; ways=ways+1) begin : stpByp
 
@@ -1945,7 +1945,7 @@ endgenerate
 // ####################################################
 // Reload/Commit Directory Update
 // ####################################################
-generate begin : stpCtrl
+generate if(1) begin : stpCtrl
       genvar                            ways;
       for (ways=0; ways<numWays; ways=ways+1) begin : stpCtrl
          // Hit Detect
@@ -1967,7 +1967,7 @@ generate begin : stpCtrl
 
          // Set/Clr Watch Bit for Thread on Port1
          // Cacheline Watch Bits
-         begin : P1Watch
+         if(1) begin : P1Watch
             genvar                            tid;
             for (tid=0; tid<`THREADS; tid=tid+1) begin : P1Watch
                assign stq3_dir_way[ways][2 + tid] = (stq3_way_val_q[ways][2 + tid] & (~(stq3_clr_watch[tid] | rel_way_clr[ways]))) | (rel3_set_watch[tid] & rel_way_set[ways]);
@@ -2095,7 +2095,7 @@ always @(*) begin: stpThrdWatch
 end
 
 // Want to still update the STM_WATCHLOST indicator if the DCDIS=1
-generate begin : wLVal
+generate if(1) begin : wLVal
       genvar                            tid;
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : wLVal
          assign stq4_watchlost_value[tid] = ~stq4_watch_clr_all[tid] ? stq4_lost_watch[tid] : stq4_l_fld_b1_q;
@@ -2158,7 +2158,7 @@ assign stq4_multihit_watch_lost = stq4_cClass_thrd_watch_q & {`THREADS{stq4_dir_
 
 // Parity Error Detect
 // ####################################################
-generate begin : stpErrGen
+generate if(1) begin : stpErrGen
       genvar                            ways;
       for (ways=0; ways<numWays; ways=ways+1) begin : stpErrGen
          assign stq3_err_det_way[ways]       = stq3_way_val_q[ways][0] & stq3_tag_way_perr[ways];
@@ -2187,7 +2187,7 @@ assign stq5_dir_err_val_d = stq4_dir_err_val;
 // Update Watch Lost State Bits per thread
 // ####################################################
 
-generate begin : wLost
+generate if(1) begin : wLost
       genvar                            tid;
       for (tid=0; tid<`THREADS; tid=tid+1) begin : wLost
          assign stm_upd_watchlost_tid[tid] = {stq4_watchlost_upd[tid], ex5_watchlost_upd[tid]};
@@ -2291,7 +2291,7 @@ assign stq7_wren_d   = stq6_wren_q;
 // Act Pin to all Directory Latches
 assign congr_cl_all_act_d = (stq4_watch_clr_all_q & stq4_val_q) | stq4_dci_val_q | spr_xucr0_clfc_q;
 
-generate begin : dirUpdCtrl
+generate if(1) begin : dirUpdCtrl
       genvar                            cclass;
       for (cclass=0; cclass<numCClass; cclass=cclass+1) begin : dirUpdCtrl
          wire [uprCClassBit:lwrCClassBit]       cclassDummy = cclass;
@@ -2305,7 +2305,7 @@ generate begin : dirUpdCtrl
          assign p1_congr_cl_act_d[cclass] = p1_congr_cl_m[cclass] & (stq4_rel4_val_q | rel4_set_dir_val_q | stq4_dir_err_val);
          assign congr_cl_act[cclass]      = p0_congr_cl_act_q[cclass] | p1_congr_cl_act_q[cclass] | congr_cl_all_act_q;
 
-         begin : wayCtrl
+         if(1) begin : wayCtrl
             genvar                            ways;
             for (ways=0; ways<numWays; ways=ways+1) begin : wayCtrl
                assign p0_way_data_upd_way[cclass][ways] = p0_congr_cl_act_q[cclass] & ex6_way_upd_q[ways]  & p0_wren_q;
@@ -2563,7 +2563,7 @@ assign lq_xu_spr_xucr0_cslc_binv = xucr0_cslc_binv_q;
 // ####################################################
 
 // Directory State for Way A
-generate begin : congr_cl_wA
+generate if(1) begin : congr_cl_wA
       genvar                            cclassA;
       for (cclassA=0; cclassA<numCClass; cclassA=cclassA+1) begin : congr_cl_wA
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wA_reg(
@@ -2589,7 +2589,7 @@ generate begin : congr_cl_wA
 endgenerate
 
 // Directory State for Way B
-generate begin : congr_cl_wB
+generate if(1) begin : congr_cl_wB
       genvar                            cclassB;
       for (cclassB=0; cclassB<numCClass; cclassB=cclassB+1) begin : congr_cl_wB
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wB_reg(
@@ -2615,7 +2615,7 @@ generate begin : congr_cl_wB
 endgenerate
 
 // Directory State for Way C
-generate begin : congr_cl_wC
+generate if(1) begin : congr_cl_wC
       genvar                            cclassC;
       for (cclassC=0; cclassC<numCClass; cclassC=cclassC+1) begin : congr_cl_wC
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wC_reg(
@@ -2641,7 +2641,7 @@ generate begin : congr_cl_wC
 endgenerate
 
 // Directory State for Way D
-generate begin : congr_cl_wD
+generate if(1) begin : congr_cl_wD
       genvar                            cclassD;
       for (cclassD=0; cclassD<numCClass; cclassD=cclassD+1) begin : congr_cl_wD
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wD_reg(
@@ -2667,7 +2667,7 @@ generate begin : congr_cl_wD
 endgenerate
 
 // Directory State for Way E
-generate begin : congr_cl_wE
+generate if(1) begin : congr_cl_wE
       genvar                            cclassE;
       for (cclassE=0; cclassE<numCClass; cclassE=cclassE+1) begin : congr_cl_wE
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wE_reg(
@@ -2693,7 +2693,7 @@ generate begin : congr_cl_wE
 endgenerate
 
 // Directory State for Way F
-generate begin : congr_cl_wF
+generate if(1) begin : congr_cl_wF
       genvar                            cclassF;
       for (cclassF=0; cclassF<numCClass; cclassF=cclassF+1) begin : congr_cl_wF
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wF_reg(
@@ -2719,7 +2719,7 @@ generate begin : congr_cl_wF
 endgenerate
 
 // Directory State for Way G
-generate begin : congr_cl_wG
+generate if(1) begin : congr_cl_wG
       genvar                            cclassG;
       for (cclassG=0; cclassG<numCClass; cclassG=cclassG+1) begin : congr_cl_wG
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wG_reg(
@@ -2745,7 +2745,7 @@ generate begin : congr_cl_wG
 endgenerate
 
 // Directory State for Way H
-generate begin : congr_cl_wH
+generate if(1) begin : congr_cl_wH
       genvar                            cclassH;
       for (cclassH=0; cclassH<numCClass; cclassH=cclassH+1) begin : congr_cl_wH
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_wH_reg(
@@ -2808,7 +2808,7 @@ tri_rlmreg_p #(.WIDTH(numCClass), .INIT(0), .NEEDS_SRESET(1)) p1_congr_cl_act_re
    .dout(p1_congr_cl_act_q)
 );
 
-generate begin : ex4_way_val
+generate if(1) begin : ex4_way_val
       genvar                            ways0;
       for (ways0=0; ways0<numWays; ways0=ways0+1) begin : ex4_way_val
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) ex4_way_val_reg(
@@ -2833,7 +2833,7 @@ generate begin : ex4_way_val
    end
 endgenerate
 
-generate begin : ex5_way_val
+generate if(1) begin : ex5_way_val
       genvar                            ways1;
       for (ways1=0; ways1<numWays; ways1=ways1+1) begin : ex5_way_val
          tri_regk #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) ex5_way_val_reg(
@@ -2934,7 +2934,7 @@ tri_regk #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) ex7_way_upd_reg(
    .dout(ex7_way_upd_q)
 );
 
-generate begin : ex5_dir_way
+generate if(1) begin : ex5_dir_way
       genvar                            ways2;
       for (ways2=0; ways2<numWays; ways2=ways2+1) begin : ex5_dir_way
          tri_regk #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) ex5_dir_way_reg(
@@ -2959,7 +2959,7 @@ generate begin : ex5_dir_way
    end
 endgenerate
 
-generate begin : ex6_dir_way
+generate if(1) begin : ex6_dir_way
       genvar                            ways3;
       for (ways3=0; ways3<numWays; ways3=ways3+1) begin : ex6_dir_way
          tri_rlmreg_p #(.WIDTH(2 + `THREADS), .INIT(0), .NEEDS_SRESET(1)) ex6_dir_way_reg(
@@ -2984,7 +2984,7 @@ generate begin : ex6_dir_way
    end
 endgenerate
 
-generate begin : ex7_dir_way
+generate if(1) begin : ex7_dir_way
       genvar                            ways4;
       for (ways4=0; ways4<numWays; ways4=ways4+1) begin : ex7_dir_way
          tri_regk #(.WIDTH(dirState-2), .INIT(0), .NEEDS_SRESET(1)) ex7_dir_way_reg(
@@ -3009,7 +3009,7 @@ generate begin : ex7_dir_way
    end
 endgenerate
 
-generate begin : stq3_way_val
+generate if(1) begin : stq3_way_val
       genvar                            ways5;
       for (ways5=0; ways5<numWays; ways5=ways5+1) begin : stq3_way_val
          tri_regk #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) stq3_way_val_reg(
@@ -3034,7 +3034,7 @@ generate begin : stq3_way_val
    end
 endgenerate
 
-generate begin : stq4_way_val
+generate if(1) begin : stq4_way_val
       genvar                            ways6;
       for (ways6=0; ways6<numWays; ways6=ways6+1) begin : stq4_way_val
          tri_rlmreg_p #(.WIDTH(dirState-2), .INIT(0), .NEEDS_SRESET(1)) stq4_way_val_reg(
@@ -3059,7 +3059,7 @@ generate begin : stq4_way_val
    end
 endgenerate
 
-generate begin : stq4_dir_way
+generate if(1) begin : stq4_dir_way
       genvar                            ways7;
       for (ways7=0; ways7<numWays; ways7=ways7+1) begin : stq4_dir_way
          tri_rlmreg_p #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) stq4_dir_way_reg(
@@ -3084,7 +3084,7 @@ generate begin : stq4_dir_way
    end
 endgenerate
 
-generate begin : stq5_dir_way
+generate if(1) begin : stq5_dir_way
       genvar                            ways8;
       for (ways8=0; ways8<numWays; ways8=ways8+1) begin : stq5_dir_way
          tri_regk #(.WIDTH(dirState), .INIT(0), .NEEDS_SRESET(1)) stq5_dir_way_reg(

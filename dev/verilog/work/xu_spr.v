@@ -904,8 +904,7 @@ module xu_spr
       .gnd(gnd)
    );
 
-   generate
-      begin : threads
+   generate if(1) begin : threads
          genvar                              t;
          for (t = 0; t <= `THREADS - 1; t = t + 1)
          begin : thread
@@ -1265,8 +1264,7 @@ module xu_spr
       .din(reset_wd_request_d),
       .dout(reset_wd_request_q)
    );
-   generate
-      begin : int_rest_ifar_latch_gen
+   generate if(1) begin : int_rest_ifar_latch_gen
          genvar                              r;
          for (r = 0; r <= `THREADS-1; r = r + 1)
          begin : thread
@@ -1753,8 +1751,7 @@ module xu_spr
       tri_plat  #(.WIDTH(1)) perv_2to1_reg_13 (.din(fce_2                 ),.q(fce_1                 ),.vd(vdd),.gd(gnd),.clk(clk),
 	.rst(rst),.flush(pc_xu_ccflush_dc));
 
-      generate
-         begin : perv_1to0_reg_gen
+      generate if(1) begin : perv_1to0_reg_gen
             genvar                              t;
             for (t = 0; t <= `THREADS; t = t + 1)
             begin : thread

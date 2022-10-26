@@ -426,8 +426,7 @@ module iuq_ibuf(
                                                     buffer_tail_q[0:`IBUFF_DEPTH - 1];
 
       //configurable depth buffer
-      generate
-         begin : xhdl1
+      generate if(1) begin : xhdl1
             genvar                             i;
             for (i = 0; i <= `IBUFF_DEPTH - 1; i = i + 1)
             begin : buffer_gen
@@ -522,7 +521,7 @@ endgenerate
 
 // reconstruct buffer data
 generate
-begin : xhdl2
+if(1) begin : xhdl2
 genvar                             i;
 for (i = 0; i <= `IBUFF_DEPTH - 1; i = i + 1)
 begin : buff0_mux
@@ -543,7 +542,7 @@ endgenerate
 assign buffer0_ibuff_data = buffer0_data_muxed[`IBUFF_DEPTH - 1];
 
 generate
-begin : xhdl3
+if(1) begin : xhdl3
 genvar                             i;
 for (i = 0; i <= `IBUFF_DEPTH - 1; i = i + 1)
 begin : buff1_mux
@@ -571,7 +570,7 @@ assign buffer1_data = buffer1_ibuff_data[0:IBUFF_WIDTH - 1];
 //--------------------------------------
 
 generate
-begin : xhdl4
+if(1) begin : xhdl4
    genvar                             i;
    for (i = 0; i <= ((`IBUFF_DEPTH/4) - 1); i = i + 1)
    begin : fetch_gen

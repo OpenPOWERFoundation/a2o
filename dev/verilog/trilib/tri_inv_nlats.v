@@ -73,8 +73,7 @@ module tri_inv_nlats(
    parameter [0:WIDTH-1]          init_v = INIT;
    parameter [0:WIDTH-1]          ZEROS = {WIDTH{1'b0}};
 
-   generate
-   begin
+   generate if(1) begin
       wire                          sreset;
       wire [0:WIDTH-1]              int_din;
       reg [0:WIDTH-1]               int_dout;

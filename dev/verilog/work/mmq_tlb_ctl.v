@@ -3408,7 +3408,7 @@ module mmq_tlb_ctl(
       generate
          if (`THDID_WIDTH > `MM_THREADS)
          begin : tlbctlthdNExist
-            begin : xhdl0
+            if(1) begin : xhdl0
                genvar                         tid;
                for (tid = `MM_THREADS; tid <= (`THDID_WIDTH - 1); tid = tid + 1)
                begin : tlbctlthdunused

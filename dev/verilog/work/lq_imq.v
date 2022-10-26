@@ -380,7 +380,7 @@ module lq_imq(
 
    // Update Logic
    assign iuq_entry_wrt_ptr[0] = (~iuq_entry_val_q[0]);
-   generate begin : IuPriWrt
+   generate if(1) begin : IuPriWrt
      genvar iuq;
      for (iuq = 1; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : IuPriWrt
         assign iuq_entry_wrt_ptr[iuq] = &(iuq_entry_val_q[0:iuq - 1]) & (~iuq_entry_val_q[iuq]);
@@ -388,7 +388,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : InstrQ
+   generate if(1) begin : InstrQ
      genvar iuq;
      for (iuq = 0; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : InstrQ
         assign entry_iuq_set_val[iuq] = iu_req_val & iuq_entry_wrt_ptr[iuq];
@@ -427,7 +427,7 @@ module lq_imq(
    // Instruction Fetches contain a sequence number that indicates an order
    // They are sent to the L2 in the order recieved
 
-   generate begin : IQSel
+   generate if(1) begin : IQSel
      genvar iuq;
      for (iuq = 0; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : IQSel
         assign iuq_entry_sel[iuq] = (iuq_seq_rd_q == iuq_entry_seq_q[iuq]) & iuq_entry_val_q[iuq];
@@ -493,7 +493,7 @@ module lq_imq(
    // Update Logic
    assign mmq_entry_wrt_ptr[0] = (~mmq_entry_val_q[0]);
 
-   generate begin : MmuPriWrt
+   generate if(1) begin : MmuPriWrt
      genvar mmq;
      for (mmq = 1; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : MmuPriWrt
         assign mmq_entry_wrt_ptr[mmq] = &(mmq_entry_val_q[0:mmq - 1]) & (~mmq_entry_val_q[mmq]);
@@ -501,7 +501,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : mmuQ
+   generate if(1) begin : mmuQ
      genvar mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : mmuQ
         assign entry_mmq_set_val[mmq] = mm_req_val & mmq_entry_wrt_ptr[mmq];
@@ -549,7 +549,7 @@ module lq_imq(
    // MMU Requests contain a sequence number that indicates an order
    // They are sent to the L2 in the order recieved
 
-   generate begin : MQSel
+   generate if(1) begin : MQSel
      genvar mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : MQSel
         assign mmq_entry_sel[mmq] = (mmq_seq_rd_q == mmq_entry_seq_q[mmq]) & mmq_entry_val_q[mmq];
@@ -919,7 +919,7 @@ module lq_imq(
       .dout(iuq_entry_val_q)
    );
 
-   generate begin : iuq_entry_p_addr
+   generate if(1) begin : iuq_entry_p_addr
      genvar                             iuq;
      for (iuq = 0; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : iuq_entry_p_addr
 
@@ -945,7 +945,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : iuq_entry_cTag
+   generate if(1) begin : iuq_entry_cTag
      genvar                             iuq;
      for (iuq = 0; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : iuq_entry_cTag
 
@@ -971,7 +971,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : iuq_entry_wimge
+   generate if(1) begin : iuq_entry_wimge
      genvar                             iuq;
      for (iuq = 0; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : iuq_entry_wimge
 
@@ -997,7 +997,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : iuq_entry_usr_def
+   generate if(1) begin : iuq_entry_usr_def
      genvar                             iuq;
      for (iuq = 0; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : iuq_entry_usr_def
 
@@ -1023,7 +1023,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : iuq_entry_tid
+   generate if(1) begin : iuq_entry_tid
      genvar                             iuq;
      for (iuq = 0; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : iuq_entry_tid
 
@@ -1049,7 +1049,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : iuq_entry_seq
+   generate if(1) begin : iuq_entry_seq
      genvar                             iuq;
      for (iuq = 0; iuq <= `IUQ_ENTRIES - 1; iuq = iuq + 1) begin : iuq_entry_seq
 
@@ -1135,7 +1135,7 @@ module lq_imq(
       .dout(mmq_entry_val_q)
    );
 
-   generate begin : mmq_entry_p_addr
+   generate if(1) begin : mmq_entry_p_addr
      genvar                             mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : mmq_entry_p_addr
 
@@ -1161,7 +1161,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : mmq_entry_ttype
+   generate if(1) begin : mmq_entry_ttype
      genvar                             mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : mmq_entry_ttype
 
@@ -1187,7 +1187,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : mmq_entry_wimge
+   generate if(1) begin : mmq_entry_wimge
      genvar                             mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : mmq_entry_wimge
 
@@ -1213,7 +1213,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : mmq_entry_usr_def
+   generate if(1) begin : mmq_entry_usr_def
      genvar                             mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : mmq_entry_usr_def
 
@@ -1239,7 +1239,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : mmq_entry_tid
+   generate if(1) begin : mmq_entry_tid
      genvar                             mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : mmq_entry_tid
 
@@ -1265,7 +1265,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : mmq_entry_seq
+   generate if(1) begin : mmq_entry_seq
      genvar                             mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : mmq_entry_seq
 
@@ -1291,7 +1291,7 @@ module lq_imq(
    end
    endgenerate
 
-   generate begin : mmq_entry_lpid
+   generate if(1) begin : mmq_entry_lpid
      genvar                             mmq;
      for (mmq = 0; mmq <= `MMQ_ENTRIES - 1; mmq = mmq + 1) begin : mmq_entry_lpid
 

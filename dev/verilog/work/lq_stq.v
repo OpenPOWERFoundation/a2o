@@ -1486,8 +1486,7 @@ module lq_stq(
    //!! Bugspray Include: lq_stq
 
    // This is used to convert the wide vector port inputs into an internal 2 dimesional array format
-   generate
-      begin : ports
+   generate if(1) begin : ports
          genvar tid;
          for (tid = 0; tid <= `THREADS - 1; tid = tid + 1)
            begin : convert
@@ -1569,8 +1568,7 @@ module lq_stq(
 
    // I0 starts at the beginning of the TAG queue and works its way to the end, it looks for the first available
    assign stq_wrt_i0_ptr[0] = stq_tag_available[0];
-   generate
-      begin : xhdl0
+   generate if(1) begin : xhdl0
          genvar                                                      stq;
          for (stq = 1; stq <= `STQ_ENTRIES - 1; stq = stq + 1)
            begin : stqI0Wrt
@@ -1581,8 +1579,7 @@ module lq_stq(
 
    // I1 starts at the end of the TAG queue and works its way to the beginning, it looks for the first available entry
    assign stq_wrt_i1_ptr[`STQ_ENTRIES - 1] = stq_tag_available[`STQ_ENTRIES - 1];
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
          genvar                                                      stq;
          for (stq = 0; stq <= `STQ_ENTRIES - 2; stq = stq + 1)
            begin : stqI1Wrt
@@ -1612,8 +1609,7 @@ module lq_stq(
        stq3_cmmt_tag = cmmtTag;
     end
 
-    generate
-       begin : xhdl2
+    generate if(1) begin : xhdl2
           genvar                                                      stq;
           for (stq = 0; stq <= `STQ_ENTRIES - 1; stq = stq + 1)
           begin : stqTagAlloc
@@ -1757,8 +1753,7 @@ module lq_stq(
 
    assign cpl_ready = (~(|(cp_flush_q & cpl_ready_tid_final))) & (~(|(any_ack_val))) & |(stqe_need_ready & stqe_need_ready_ptr_q[0:`STQ_ENTRIES - 1] & (stqe_dreq_val_q[0:`STQ_ENTRIES - 1] | stqe_dvc_int_det | ((~stqe_need_ext_ack_q[0:`STQ_ENTRIES - 1]))));
 
-   generate
-      begin : xhdl3
+   generate if(1) begin : xhdl3
          genvar                                                      i;
          for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
          begin : skip_ready_gen
@@ -1802,8 +1797,7 @@ module lq_stq(
    // (probably overkill on the latches here, but I'll leave it)
    assign hwsync_ack = an_ac_sync_ack;		//  and or_reduce(stqe_is_sync_q(0 to `STQ_ENTRIES-1) and     stqe_l_zero and                     stqe_need_ready_ptr_q(0 to `STQ_ENTRIES-1));
 
-   generate
-      begin : xhdl4
+   generate if(1) begin : xhdl4
          genvar                                                      t;
          for (t = 0; t <= `THREADS - 1; t = t + 1)
            begin : sync_thrd_gen
@@ -1841,7 +1835,7 @@ module lq_stq(
 
    assign sync_ack[0] = sync_ack_all[0];
    generate		// this logic only works for 1 or 2 `THREADS
-      begin : xhdl5
+      if(1) begin : xhdl5
          genvar                                                      t;
          for (t = 1; t <= `THREADS - 1; t = t + 1)
            begin : sync_ack_thrd_gen
@@ -1860,7 +1854,7 @@ module lq_stq(
 
    assign cr_ack[0] = cr_ack_q[0] & (~cr_block[0]) & (~(|(sync_ack_all)));
    generate		// this logic only works for 1 or 2 `THREADS
-      begin : xhdl6
+      if(1) begin : xhdl6
          genvar                                                      t;
          for (t = 1; t <= `THREADS - 1; t = t + 1)
          begin : cr_ack_thrd_gen
@@ -1889,7 +1883,7 @@ module lq_stq(
    assign any_ack_val[0] = any_ack_hold_q[0] & (~ctl_lsq_stq_cpl_blk);
 
    generate		// this logic only works for 1 or 2 `THREADS
-      begin : xhdl7
+      if(1) begin : xhdl7
          genvar                                                      t;
          for (t = 1; t <= `THREADS - 1; t = t + 1)
          begin : any_ack_val_thrd_gen
@@ -2017,8 +2011,7 @@ module lq_stq(
 
    assign stqe0_icswxdot_val = stqe_is_icswxr_q[0] & (stqe_ttype_q[0] == 6'b100111);
 
-   generate
-      begin : xhdl8
+   generate if(1) begin : xhdl8
          genvar                                                      t;
          for (t = 0; t <= `THREADS - 1; t = t + 1)
          begin : ext_ack_queue_gen
@@ -2367,8 +2360,7 @@ module lq_stq(
         set_stqe_odq_resolved[0:`STQ_ENTRIES - 1] = odq_resolved_ptr & {`STQ_ENTRIES{odq_stq_resolved}};
      end
 
-   generate
-      begin : xhdl9
+   generate if(1) begin : xhdl9
          genvar                                                      i;
          for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
            begin : stq_addr_entry_gen
@@ -2644,8 +2636,7 @@ module lq_stq(
    //  1       0        Stores are older from Oldest_Itag as upper bound, including Oldest_Itag
    //  1       1        Stores are older from Oldest_Itag as upper bound, including Oldest_Itag
    // Need to validate the oldest entries
-   generate
-      begin : xhdl10
+   generate if(1) begin : xhdl10
          genvar                                                      stq;
          for (stq = 0; stq <= `STQ_ENTRIES - 1; stq = stq + 1)
            begin : ageExpand
@@ -2701,7 +2692,7 @@ module lq_stq(
    assign ex4_req_opsize_1hot[4] = ex4_req_opsize_q == 3'b001;		// 1B
    assign ex4_req_opsize1        = ~ex4_req_opsize_q[0] & ex4_req_opsize_q[2];
 
-   generate begin : xhdl12
+   generate if(1) begin : xhdl12
      genvar                                                      i;
      genvar                                                      b;
 
@@ -2898,7 +2889,7 @@ module lq_stq(
    assign ex3_ex4_byte_en_hit = |(ctl_lsq_ex3_byte_en & ex4_req_byte_en_q);
 
    // compare the forwardable entries to each other to determine the forwarding priority mask
-   generate begin : fwd_pri_gen_l1
+   generate if(1) begin : fwd_pri_gen_l1
      genvar                                                      i;
      for (i = 0; i <= `STQ_FWD_ENTRIES - 1; i = i + 1) begin : fwd_pri_gen_l1
        always @(*) begin: fwd_pri_gen_l2
@@ -3135,8 +3126,7 @@ module lq_stq(
      assign ex3_axu_val = |(ex3_axu_val_q);
      assign ex4_axu_val_d = ex3_axu_val_q & (~cp_flush_q);
 
-   generate
-      begin : xhdl14
+   generate if(1) begin : xhdl14
          genvar                                                      i;
          for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
            begin : stq_data_entry_gen
@@ -4114,8 +4104,7 @@ tri_rlmreg_p #(.WIDTH(`STQ_ENTRIES), .INIT(0), .NEEDS_SRESET(1)) stqe_ack_rcvd_l
    .din(stqe_ack_rcvd_d),
    .dout(stqe_ack_rcvd_q[0:`STQ_ENTRIES - 1])
 );
-generate
-   begin : xhdl15
+generate if(1) begin : xhdl15
       genvar                                                      i;
       for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
       begin : stqe_lmqhit_latch_gen
@@ -4141,8 +4130,7 @@ generate
       end
    end
 endgenerate
-generate
-   begin : xhdl16
+generate if(1) begin : xhdl16
       genvar                                                      i;
       for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
       begin : stqe_need_ext_ack_latch_gen
@@ -4169,8 +4157,7 @@ generate
    end
    endgenerate
 
-generate
-   begin : stqe_blk_loads_latch_gen
+generate if(1) begin : stqe_blk_loads_latch_gen
       genvar                                                      i;
       for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1) begin : stqe_blk_loads_latch_gen
 
@@ -4196,8 +4183,7 @@ generate
    end
    endgenerate
 
-generate
-   begin : xhdl57
+generate if(1) begin : xhdl57
       genvar                                                      i;
       for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
       begin : stqe_all_thrd_chk_latch_gen
@@ -4224,8 +4210,7 @@ generate
    end
    endgenerate
 
-   generate
-   begin : xhdl17
+   generate if(1) begin : xhdl17
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_itag_latch_gen
@@ -4252,8 +4237,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl18
+   generate if(1) begin : xhdl18
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_addr_latch_gen
@@ -4279,8 +4263,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl19
+   generate if(1) begin : xhdl19
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_rotcmp_latch_gen
@@ -4306,8 +4289,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl20
+   generate if(1) begin : xhdl20
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_cline_chk_latch_gen
@@ -4333,8 +4315,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl21
+   generate if(1) begin : xhdl21
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_ttype_latch_gen
@@ -4360,8 +4341,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl22
+   generate if(1) begin : xhdl22
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_byte_en_latch_gen
@@ -4387,8 +4367,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl23
+   generate if(1) begin : xhdl23
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_wimge_latch_gen
@@ -4414,8 +4393,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl24
+   generate if(1) begin : xhdl24
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_byte_swap_latch_gen
@@ -4441,8 +4419,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl25
+   generate if(1) begin : xhdl25
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_opsize_latch_gen
@@ -4468,8 +4445,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl26
+   generate if(1) begin : xhdl26
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_axu_val_latch_gen
@@ -4495,8 +4471,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl27
+   generate if(1) begin : xhdl27
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_epid_val_latch_gen
@@ -4522,8 +4497,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl28
+   generate if(1) begin : xhdl28
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_usr_def_latch_gen
@@ -4549,8 +4523,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl29
+   generate if(1) begin : xhdl29
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_is_store_latch_gen
@@ -4576,8 +4549,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl30
+   generate if(1) begin : xhdl30
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_is_sync_latch_gen
@@ -4603,8 +4575,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl31
+   generate if(1) begin : xhdl31
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_is_resv_latch_gen
@@ -4630,8 +4601,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl32
+   generate if(1) begin : xhdl32
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_is_icswxr_latch_gen
@@ -4657,8 +4627,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl33
+   generate if(1) begin : xhdl33
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_is_icbi_latch_gen
@@ -4684,8 +4653,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl34
+   generate if(1) begin : xhdl34
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_is_inval_op_latch_gen
@@ -4711,8 +4679,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl35
+   generate if(1) begin : xhdl35
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_dreq_val_latch_gen
@@ -4738,8 +4705,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl36
+   generate if(1) begin : xhdl36
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_has_data_latch_gen
@@ -4765,8 +4731,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl37
+   generate if(1) begin : xhdl37
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_send_l2_latch_gen
@@ -4792,8 +4757,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl38
+   generate if(1) begin : xhdl38
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_lock_clr_latch_gen
@@ -4819,8 +4783,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl39
+   generate if(1) begin : xhdl39
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_watch_clr_latch_gen
@@ -4846,8 +4809,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl40
+   generate if(1) begin : xhdl40
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_l_fld_latch_gen
@@ -4873,8 +4835,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl41
+   generate if(1) begin : xhdl41
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_thrd_id_latch_gen
@@ -4900,8 +4861,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl42
+   generate if(1) begin : xhdl42
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_tgpr_latch_gen
@@ -4927,8 +4887,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl43
+   generate if(1) begin : xhdl43
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_dvc_en_latch_gen
@@ -4954,8 +4913,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl44
+   generate if(1) begin : xhdl44
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_dacrw_latch_gen
@@ -4981,8 +4939,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl45
+   generate if(1) begin : xhdl45
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES - 1; i = i + 1)
      begin : stqe_dvcr_cmpr_latch_gen
@@ -5008,8 +4965,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl47
+   generate if(1) begin : xhdl47
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_qHit_held_latch_gen
@@ -5035,8 +4991,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl48
+   generate if(1) begin : xhdl48
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_held_early_clr_latch_gen
@@ -5062,8 +5017,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl49
+   generate if(1) begin : xhdl49
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stqe_data1_latch_gen
@@ -5185,8 +5139,7 @@ generate
                            .dout(cp_next_val_q)
                            );
 
-   generate
-   begin : xhdl50
+   generate if(1) begin : xhdl50
      genvar                                                      i;
      for (i = 0; i <= `THREADS-1; i = i + 1)
      begin : cp_next_itag_latch_gen
@@ -5230,8 +5183,7 @@ generate
                            .din(iu_lq_i0_completed),
                            .dout(cp_i0_completed_q)
                            );
-   generate
-   begin : xhdl51
+   generate if(1) begin : xhdl51
      genvar                                                      i;
      for (i = 0; i <= `THREADS-1; i = i + 1)
      begin : cp_i0_completed_itag_latch_gen
@@ -5275,8 +5227,7 @@ generate
                            .din(iu_lq_i1_completed),
                            .dout(cp_i1_completed_q)
                            );
-   generate
-   begin : xhdl52
+   generate if(1) begin : xhdl52
      genvar                                                      i;
      for (i = 0; i <= `THREADS-1; i = i + 1)
      begin : cp_i1_completed_itag_latch_gen
@@ -6176,8 +6127,7 @@ generate
                                );
 
 
-   generate
-   begin : xhdl53
+   generate if(1) begin : xhdl53
      genvar                                                      i;
      for (i = 0; i <= `THREADS-1; i = i + 1)
      begin : ext_ack_queue_itag_latch_gen
@@ -6203,8 +6153,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl54
+   generate if(1) begin : xhdl54
      genvar                                                      i;
      for (i = 0; i <= `THREADS-1; i = i + 1)
      begin : ext_ack_queue_cr_wa_latch_gen
@@ -6230,8 +6179,7 @@ generate
      end
    end
    endgenerate
-   generate
-   begin : xhdl55
+   generate if(1) begin : xhdl55
      genvar                                                      i;
      for (i = 0; i <= `THREADS-1; i = i + 1)
      begin : ext_ack_queue_dacrw_det_latch_gen
@@ -7700,8 +7648,7 @@ generate
                            .din(stq_tag_val_d),
                            .dout(stq_tag_val_q)
                            );
-   generate
-   begin : xhdl56
+   generate if(1) begin : xhdl56
      genvar                                                      i;
      for (i = 0; i <= `STQ_ENTRIES-1; i = i + 1)
      begin : stq_tag_ptr_latch_gen

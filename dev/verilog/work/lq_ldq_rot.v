@@ -199,7 +199,7 @@ assign tiup = 1'b1;
 // #############################################################################################
 
 // Thread Unpack
-generate begin : sprTid
+generate if(1) begin : sprTid
       genvar   tid;
       for (tid=0; tid<`THREADS; tid=tid+1) begin : sprTid
          assign ctl_lsq_spr_dbcr2_dvc1be_int[tid] = ctl_lsq_spr_dbcr2_dvc1be[8*tid:8*(tid+1)-1];
@@ -211,7 +211,7 @@ generate begin : sprTid
 endgenerate
 
 // Swizzle Rotate Data
-generate begin : swzlRelData
+generate if(1) begin : swzlRelData
       genvar                            t;
       for (t=0; t<8; t=t+1) begin : swzlRelData
          assign rel1_data_swzl[t*16:(t*16)+15] = {ldq_rel1_data[t+0],  ldq_rel1_data[t+8],   ldq_rel1_data[t+16],  ldq_rel1_data[t+24],
@@ -223,7 +223,7 @@ generate begin : swzlRelData
 endgenerate
 
 // Reload Data Rotate
-generate begin : rrotl
+generate if(1) begin : rrotl
       genvar   b;
       for (b=0; b<8; b=b+1) begin : rrotl
          tri_rot16_lu drotl(
@@ -302,7 +302,7 @@ assign rel1_bittype_mask = (16'h0001 & {16{rel1_1hot_opsize[4]}}) | (16'h0003 & 
                            (16'h000F & {16{rel1_1hot_opsize[2]}}) | (16'h00FF & {16{rel1_1hot_opsize[1]}}) |
                            (16'hFFFF & {16{rel1_1hot_opsize[0]}});
 
-generate begin : maskGen
+generate if(1) begin : maskGen
       genvar   b;
       for (b=0; b <8; b=b+1) begin : maskGen
          assign rel1_optype_mask[b*16:(b*16)+15] = rel1_bittype_mask;
@@ -321,7 +321,7 @@ assign lw_algebraic_msk = {{32{rel1_alg_bit}}, 16'h0000};
 assign rel1_algebraic_msk = (lh_algebraic_msk & {48{lh_algebraic}}) | (lw_algebraic_msk & {48{lw_algebraic}});
 
 // Swizzle Data to a proper format
-generate begin : swzlData
+generate if(1) begin : swzlData
       genvar                            t;
       for (t=0; t<16; t=t+1) begin : swzlData
          assign rel1_swzl_data[t*8:(t*8)+7] = {rel1_msk_data[t],    rel1_msk_data[t+16], rel1_msk_data[t+32], rel1_msk_data[t+48],
@@ -341,7 +341,7 @@ assign rel2_dvc1_val_d = ldq_rel1_gpr_val & ldq_rel1_dvc1_en;
 assign rel2_dvc2_val_d = ldq_rel1_gpr_val & ldq_rel1_dvc2_en;
 
 // Reload Data Compare
-generate begin : dvcCmpRl
+generate if(1) begin : dvcCmpRl
       genvar                            t;
       for (t = 0; t <= ((2 ** `GPR_WIDTH_ENC)/8) - 1; t = t + 1) begin : dvcCmpRl
          assign rel2_dvc1_cmp[t] =    (rel2_rot_data_q[(128 - (2 ** `GPR_WIDTH_ENC)) + t * 8:(128 - (2 ** `GPR_WIDTH_ENC)) + ((t * 8) + 7)] ==

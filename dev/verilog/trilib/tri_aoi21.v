@@ -53,8 +53,7 @@ module tri_aoi21(
    genvar 	       i;
    wire [0:WIDTH-1]    outA;
 
-   generate
-      begin : t
+   generate if(1) begin : t
 	 for (i = 0; i < WIDTH; i = i + 1)
 	   begin : w
 

@@ -54,8 +54,7 @@ module tri_pri(
    wire [0:s]                 or_l4;
    wire [0:s]                 or_l5;
 
-   generate
-   begin
+   generate if(1) begin
      if (REV == 0)
      begin
        assign l0[0:s] = cond[0:s];

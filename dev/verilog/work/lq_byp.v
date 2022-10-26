@@ -623,7 +623,7 @@ assign ex3_req_aborted_d  = ex2_req_aborted;
 assign ex4_req_aborted_d  = ex3_req_aborted_q;
 assign ex5_req_aborted_d  = ex4_req_aborted_q;
 
-generate begin : ex5ParGen
+generate if(1) begin : ex5ParGen
     genvar b;
     for (b=0; b<=((2**`GPR_WIDTH_ENC)-1)/8; b=b+1) begin : ex5ParGen
         assign ex5_fx_ld_data_par[b] = ^(ex5_fx_ld_data[(64-(2**`GPR_WIDTH_ENC))+(b*8):(64-(2**`GPR_WIDTH_ENC))+(b*8)+7]);
@@ -829,7 +829,7 @@ assign ex2_s2_abort_d = ex1_s2_abort;
 //----------------------------------------------------------------------------------------------------------------------------------------
 
 // Load Hit Data Compare
-generate begin : dvcCmpLH
+generate if(1) begin : dvcCmpLH
   genvar t;
   for (t = 0; t <= ((2 ** `GPR_WIDTH_ENC)/8) - 1; t = t + 1) begin : dvcCmpLH
     assign ex6_dvc1_cmp_d[t] = (      ex5_fx_ld_data[(64-(2**`GPR_WIDTH_ENC))+t*8:(64-(2**`GPR_WIDTH_ENC))+((t*8)+7)] ==
@@ -841,7 +841,7 @@ end
 endgenerate
 
 // Thread Select
-generate begin : sprTid
+generate if(1) begin : sprTid
   genvar tid;
   for (tid=0; tid<`THREADS; tid=tid+1) begin : sprTid
     assign spr_dbcr2_dvc1m_tid[tid]  = spr_byp_spr_dbcr2_dvc1m[(tid*2):((tid*2)+1)];
@@ -906,7 +906,7 @@ assign lq_pc_ram_data = lq_pc_ram_data_q;
 //----------------------------------------------------------------------------------------------------------------------------------------
 // Reload Data Parity Generation
 //----------------------------------------------------------------------------------------------------------------------------------------
-generate begin : relParGen
+generate if(1) begin : relParGen
   genvar b;
   for (b = 0; b <= (`STQ_DATA_SIZE- 1)/8; b=b+1) begin : relParGen
     assign rel2_data_par[b] = ^(lsq_ctl_rel2_data[(128-`STQ_DATA_SIZE) + b*8:((128-`STQ_DATA_SIZE))+(b*8)+7]);

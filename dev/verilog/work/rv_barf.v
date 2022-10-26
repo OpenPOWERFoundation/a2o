@@ -150,8 +150,7 @@ module rv_barf(
    // Write aoi
    //-------------------------------------------------------------------------------------------------------
 
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
          genvar                      n;
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : q_dat_gen
@@ -173,8 +172,7 @@ module rv_barf(
    // Read Mux
    //-------------------------------------------------------------------------------------------------------
 
-   generate
-      begin : xhdl1r
+   generate if(1) begin : xhdl1r
          genvar                      n, b;
          for (n = 0; n <= (q_num_entries_g - 1); n = n + 1)
            begin : rgene
@@ -192,8 +190,7 @@ module rv_barf(
       end
    endgenerate
 
-   generate
-      begin : xhdl1o
+   generate if(1) begin : xhdl1o
          genvar                      b;
          for (b = 0; b <= (q_dat_width_g - 1); b = b + 1)
            begin : rgeneo
@@ -208,8 +205,7 @@ module rv_barf(
    //-------------------------------------------------------------------------------------------------------
    // storage elements
    //-------------------------------------------------------------------------------------------------------
-   generate
-      begin : xhdl2
+   generate if(1) begin : xhdl2
          genvar                      n;
          for (n = 0; n <= q_num_entries_g - 1; n = n + 1)
            begin : q_x_q_gen

@@ -115,7 +115,7 @@ module iuq_uc_rom_odd(
    wire [0:scan_right]      sov;
 
 //64-bit core
-//c64: if (regmode = 6) generate begin
+//c64: if (regmode = 6) generate if(1) begin
 
 /*
 //table_start
@@ -1995,7 +1995,7 @@ assign ep =
    //| 1111110111    | 1110110001000011-----00011111100 0 - 0 - ---  1 1 0 1  0 00 00 01 00 0 0  0 0 - 0 ---------- --- -    | # fnmsubs  s2,s3,s3,FB
    //| 1111111001    | 111011-----00001000000000010001- 1 - 0 - ---  0 1 1 1  0 01 00 00 00 0 1  0 0 - 0 ---------- --- -    | # fmuls_uc FT,s1,s0,s0  include s0 in 16-20
    //32-bit core
-   //c32: if (regmode = 5) generate begin
+   //c32: if (regmode = 5) generate if(1) begin
    //end generate;
 
 

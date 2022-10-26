@@ -148,8 +148,7 @@ module iuq_ram(
       assign cp_flush_d = cp_flush;
       assign ram_done_d = iu_pc_ram_done;
 
-      generate
-         begin : xhdl1
+      generate if(1) begin : xhdl1
             genvar               i;
             for (i = 0; i <= `THREADS - 1; i = i + 1)
             begin : issue_gating

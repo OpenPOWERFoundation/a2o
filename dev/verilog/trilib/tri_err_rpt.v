@@ -111,8 +111,7 @@ module tri_err_rpt(
             .q_b(unused_q_b)
             );
 
-   generate
-   begin
+   generate if(1) begin
       // mask
      if (SHARE_MASK == 1'b0) begin
        assign mask_lt = mask_initv;

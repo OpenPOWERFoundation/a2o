@@ -675,7 +675,7 @@ assign stq4_congr_cl_d = stq3_congr_cl_q;
 // Reload Pipe Directory Read
 // ####################################################
 // 1-hot Congruence Class Select
-generate begin : stpCClass
+generate if(1) begin : stpCClass
       genvar                            cclass;
       for (cclass=0; cclass<numCClass; cclass=cclass+1) begin : stpCClass
          wire [uprCClassBit:lwrCClassBit]       cclassDummy=cclass;
@@ -716,7 +716,7 @@ assign rel_m_q_upd_way      = rel_clr_vec & {numWays{rel_m_q_upd}};
 assign rel_m_q_upd_lock_way = rel_clr_vec & {numWays{(rel_m_q_upd & rel3_lock_en_q)}};
 
 // Reload Matching Reload Queue Entry
-generate begin : relqByp
+generate if(1) begin : relqByp
       genvar                            lmq;
       for (lmq=0; lmq<`LMQ_ENTRIES; lmq=lmq+1) begin : relqByp
          assign rel_m_q[lmq]         = (stq2_congr_cl_q == reld_q_congr_cl_q[lmq]) & reld_q_val_q[lmq];
@@ -939,7 +939,7 @@ assign stq4_lru_upd_d   = stq3_lru_upd;
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Small Reload Way Enable Queue to Handle Beats with Gaps
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-generate begin : reldQ
+generate if(1) begin : reldQ
       genvar                            lmq;
       for (lmq=0; lmq<`LMQ_ENTRIES; lmq=lmq+1) begin : reldQ
          wire [0:3]           lmqDummy = lmq;
@@ -1051,7 +1051,7 @@ assign ex4_lru_upd_d  = dcc_dir_ex3_lru_upd;
 // Execution Pipe Directory Read
 // ####################################################
 // 1-hot Congruence Class Select
-generate begin : ldpCClass
+generate if(1) begin : ldpCClass
       genvar                            cclass;
       for (cclass=0; cclass<numCClass; cclass=cclass+1) begin : ldpCClass
          wire [uprCClassBit:lwrCClassBit]       cclassDummy=cclass;
@@ -1158,7 +1158,7 @@ assign stq4_dcarr_way_en_d    = rel_way_dwen;
 assign congr_cl_act_d = ex5_c_acc_q | stq3_val_wen;
 
 // Update LRU due to a Reload or an EX6 Execution operation
-generate begin : lruUpd
+generate if(1) begin : lruUpd
       genvar                            cclass;
       for (cclass=0; cclass<numCClass; cclass=cclass+1) begin : lruUpd
          wire [uprCClassBit:lwrCClassBit]       cclassDummy=cclass;
@@ -1219,7 +1219,7 @@ assign rel3_dir_wr_addr = stq3_congr_cl_q;
 // ####################################################
 
 // Congruence Class LRU
-generate begin : congr_cl_lru
+generate if(1) begin : congr_cl_lru
       genvar                            cclass;
       for (cclass=0; cclass<numCClass; cclass=cclass+1) begin : congr_cl_lru
          tri_rlmreg_p #(.WIDTH(lruState), .INIT(0), .NEEDS_SRESET(1)) congr_cl_lru_reg(
@@ -2024,7 +2024,7 @@ tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) rel4_dir_way_upd_reg
    .dout(rel4_dir_way_upd_q)
 );
 
-generate begin : reld_q_congr_cl
+generate if(1) begin : reld_q_congr_cl
       genvar                            lmq0;
       for (lmq0=0; lmq0<`LMQ_ENTRIES; lmq0=lmq0+1) begin : reld_q_congr_cl
          tri_rlmreg_p #(.WIDTH(numCClassWidth), .INIT(0), .NEEDS_SRESET(1)) reld_q_congr_cl_reg(
@@ -2049,7 +2049,7 @@ generate begin : reld_q_congr_cl
    end
 endgenerate
 
-generate begin : reld_q_way
+generate if(1) begin : reld_q_way
       genvar                            lmq1;
       for (lmq1=0; lmq1<`LMQ_ENTRIES; lmq1=lmq1+1) begin : reld_q_way
          tri_rlmreg_p #(.WIDTH(numWays), .INIT(0), .NEEDS_SRESET(1)) reld_q_way_reg(

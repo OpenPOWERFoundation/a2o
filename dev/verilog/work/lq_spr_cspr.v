@@ -446,7 +446,7 @@ assign ex3_dac4_cmpr_sel = (ex3_dac34m_q[0] == 1'b0) ? ex3_dac4_cmpr :
                            ex3_dac3_cmpr;
 
 // Determine if DAC is enabled for this thread
-generate begin : sprTidOut
+generate if(1) begin : sprTidOut
   genvar tid;
   for (tid=0; tid<`THREADS; tid=tid+1) begin : sprTidOut
  	assign dbcr0_dac1_int[tid*2:(tid*2)+1] = dbcr0_dac1_q[tid];
@@ -516,7 +516,7 @@ lq_spr_dacen  lq_spr_dac4en(
    .dacw_en(ex3_dac4w_en)
 );
 
-generate begin : lq_spr_dvc_cmp
+generate if(1) begin : lq_spr_dvc_cmp
       genvar                     t;
       for (t = 0; t <= `THREADS - 1; t = t + 1) begin : lq_spr_dvc_cmp
          assign dbcr2_dvc1m_on_d[t] = |(tspr_cspr_dbcr2_dvc1m_int[t]) & |(tspr_cspr_dbcr2_dvc1be_int[t][8 - `GPR_WIDTH/8:7]);
@@ -1252,7 +1252,7 @@ tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0), .NEEDS_SRESET(1)) ex4_val_latch(
    .din(ex3_val),
    .dout(ex4_val_q)
 );
-generate begin : dbcr0_dac1
+generate if(1) begin : dbcr0_dac1
       genvar                     tid;
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : dbcr0_dac1
 
@@ -1277,7 +1277,7 @@ generate begin : dbcr0_dac1
       end
    end
 endgenerate
-generate begin : dbcr0_dac2
+generate if(1) begin : dbcr0_dac2
       genvar                     tid;
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : dbcr0_dac2
 
@@ -1302,7 +1302,7 @@ generate begin : dbcr0_dac2
       end
 end
 endgenerate
-generate begin : dbcr0_dac3
+generate if(1) begin : dbcr0_dac3
       genvar                     tid;
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : dbcr0_dac3
 
@@ -1327,7 +1327,7 @@ generate begin : dbcr0_dac3
       end
 end
 endgenerate
-generate begin : dbcr0_dac4
+generate if(1) begin : dbcr0_dac4
       genvar                     tid;
       for (tid = 0; tid <= `THREADS - 1; tid = tid + 1) begin : dbcr0_dac4
 

@@ -294,8 +294,7 @@ module iuq_rn_map #(
    assign spec_map_arc_act = flush_map | spec_0_wr_val_fast | spec_1_wr_val_fast;
    assign spec_map_itag_act = 1'b1;
 
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
          genvar i;
          for (i = 0; i <= ARCHITECTED_REGISTER_DEPTH - 1; i = i + 1)
          begin : map_set0
@@ -332,8 +331,7 @@ module iuq_rn_map #(
       end
    endgenerate
 
-   generate
-   begin : write_ptr_calc
+   generate if(1) begin : write_ptr_calc
    	genvar i;
    	for(i = 0; i <= (REGISTER_RENAME_DEPTH - ARCHITECTED_REGISTER_DEPTH - 1); i = i + 1)
    	begin : write_ptr_set
@@ -350,8 +348,7 @@ module iuq_rn_map #(
 
    assign write_ptr_value = ({pool_free_0_v_l2, pool_free_1_v_l2} == 2'b01) ? pool_free_1_l2 :
                              pool_free_0_l2;
-   generate
-   	begin : xhdl2
+   generate	if(1) begin : xhdl2
    		genvar i;
          for (i = 0; i <= REGISTER_RENAME_DEPTH - ARCHITECTED_REGISTER_DEPTH - 1; i = i + 1)
          begin : buffer_pool_gen
@@ -408,8 +405,7 @@ module iuq_rn_map #(
    end
 
    // Creating 1 hot muxing from pointers
-   generate
-   begin : read_ptr_calc
+   generate if(1) begin : read_ptr_calc
    	genvar i;
    	for(i = 0; i <= (REGISTER_RENAME_DEPTH - ARCHITECTED_REGISTER_DEPTH - 1); i = i + 1)
    	begin : read_ptr_set
@@ -443,8 +439,7 @@ module iuq_rn_map #(
       end
    end
 
-   generate
-	   begin : xhdl3
+   generate if(1) begin : xhdl3
 	   	genvar i;
 	   	for (i = 0; i <= ARCHITECTED_REGISTER_DEPTH - 1; i = i + 1)
 	   	begin : comp_map0
@@ -471,8 +466,7 @@ module iuq_rn_map #(
       end
    endgenerate
 
-   generate
-      begin : xhdl4
+   generate if(1) begin : xhdl4
          genvar                                                      i;
          for (i = 0; i <= ARCHITECTED_REGISTER_DEPTH - 1; i = i + 1)
          begin : spec_map0
@@ -519,8 +513,7 @@ module iuq_rn_map #(
       end
    endgenerate
 
-   generate
-      begin : xhdl5
+   generate if(1) begin : xhdl5
          genvar                                                      i;
          for (i = 0; i <= REGISTER_RENAME_DEPTH - ARCHITECTED_REGISTER_DEPTH - 1; i = i + 1)
          begin : buffer_pool_lat

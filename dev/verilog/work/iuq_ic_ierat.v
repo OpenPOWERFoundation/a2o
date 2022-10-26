@@ -1513,8 +1513,7 @@ module iuq_ic_ierat(
    //   3) tlb-reload hit/miss,
    //   4) hold is cleared, tlb-miss sets tlb_miss_q=1, tlb-hit writes erat
    //   5) replay of op clears tlb_miss_q if set, erat miss sets hold again but no flush this time
-   generate
-   begin : xhdl1
+   generate if(1) begin : xhdl1
      genvar  tid;
      for (tid = 0; tid <= `THREADS - 1; tid = tid + 1)
      begin : holdTid
@@ -1565,8 +1564,7 @@ module iuq_ic_ierat(
    assign iu_mm_ierat_snoop_ack = snoop_val_q[2];
 
 
-   generate
-   begin : xhdl2
+   generate if(1) begin : xhdl2
      genvar  tid;
      for (tid = 0; tid <= `THREADS - 1; tid = tid + 1)
      begin : rpnTid
@@ -4095,8 +4093,7 @@ assign ex6_data_maskpar =
    assign ex4_rd_data_calc_par[66] = ^(ex4_rd_array_data_q[38:44]);
    assign ex4_rd_data_calc_par[67] = ^(ex4_rd_array_data_q[45:50]);
 
-   generate
-   begin
+   generate if(1) begin
       if (check_parity == 0)
       begin
          assign iu2_cmp_data_parerr_epn = 1'b0;
@@ -4235,8 +4232,7 @@ assign ex6_data_maskpar =
          ( (|(ex1_valid_q[0:`THREADS-1])) & ex1_ttype_q[2] & ex1_tlbsel_q[0] & (~ex1_tlbsel_q[1]) & (~(snoop_val_q[0] & snoop_val_q[1])) ) |   // eratsx, tlbsel=2
          ( iu_ierat_iu0_val & (~(snoop_val_q[0] & snoop_val_q[1])) ) );   // fetch
 
-   generate
-   begin : xhdl3
+   generate if(1) begin : xhdl3
      genvar  tid;
      for (tid = 0; tid <= 3; tid = tid + 1)
      begin : compTids
@@ -6378,8 +6374,7 @@ assign ex6_data_maskpar =
       .dout(mmucr1_q)
    );
 
-   generate
-   begin : xhdl4
+   generate if(1) begin : xhdl4
      genvar  tid;
      for (tid = 0; tid <= `THREADS - 1; tid = tid + 1)
      begin : rpn_holdreg

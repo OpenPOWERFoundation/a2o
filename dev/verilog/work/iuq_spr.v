@@ -716,7 +716,7 @@ module iuq_spr(
    );
 
    generate
-      begin : xhdl1
+
          genvar                       i;
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : thread_regs
@@ -882,8 +882,8 @@ module iuq_spr(
                .dout(cpcr5_l2[i])
             );
          end
-      end
-   endgenerate
+      
+endgenerate
 
    tri_rlmreg_p #(.WIDTH(`THREADS), .INIT(0)) cpcr_we_reg(
       .vd(vdd),
@@ -1485,9 +1485,7 @@ module iuq_spr(
    assign priv_mode = (~spr_msr_pr_l2);
    assign hypv_mode = (~spr_msr_pr_l2) & (~spr_msr_gs_l2);
 
-   generate
-      begin : priset
-         genvar i;
+   generate if(1) begin
          for (i = 0; i <= `THREADS - 1; i = i + 1)
          begin : pricalc
             assign lo_pri[i] = ~xu_iu_raise_iss_pri_l2[i] &
@@ -1503,8 +1501,8 @@ module iuq_spr(
             assign spr_high_pri_mask[i] = hi_pri[i];
             assign spr_med_pri_mask[i] = ~hi_pri[i] & ~lo_pri[i];
          end
-      end
-   endgenerate
+   end
+endgenerate
 
 
    //-----------------------------------------------
@@ -1724,7 +1722,7 @@ module iuq_spr(
 `endif
 
    generate
-   	begin : xhdl7
+   	if(1) begin : xhdl7
    		genvar                       i;
    		for (i = 0; i <= 61; i = i + 1)
    		begin : iac_width
@@ -1743,8 +1741,8 @@ module iuq_spr(
    				assign iac4[61 - i] = 1'b0;
    			end
    		end
-   	end
-   endgenerate
+      end
+endgenerate
    assign iac1[62:63] = 2'b00;
    assign iac2[62:63] = 2'b00;
    assign iac3[62:63] = 2'b00;

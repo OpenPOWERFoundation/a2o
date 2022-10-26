@@ -2200,8 +2200,7 @@ module iuq_cpl_ctrl(
    //-----------------------------------------------------------------------------
    // Update Fields on Dispatch
    //-----------------------------------------------------------------------------
-   generate
-  	   begin : xhdl0
+   generate if(1) begin : xhdl0
   	      genvar e;
          for (e = 0; e < `CPL_Q_DEPTH ; e = e + 1)
          begin : dispatch_update_gen
@@ -2248,8 +2247,7 @@ module iuq_cpl_ctrl(
    assign iu6_i0_db_IAC_IVC_event = iac1_dbg_event[0] | iac2_dbg_event[0] | iac3_dbg_event[0] | iac4_dbg_event[0] | ivc_dbg_event[0];
    assign iu6_i1_db_IAC_IVC_event = iac1_dbg_event[1] | iac2_dbg_event[1] | iac3_dbg_event[1] | iac4_dbg_event[1] | ivc_dbg_event[1];
 
-   generate
-      begin : xhdl1
+   generate if(1) begin : xhdl1
          genvar e;
          for (e = 0; e < `CPL_Q_DEPTH; e = e + 1)
          begin : db_event_cp_gen
@@ -2370,8 +2368,7 @@ module iuq_cpl_ctrl(
    //-----------------------------------------------------------------------------
    // Update Fields on Execution
    //-----------------------------------------------------------------------------
-   generate
-      begin : xhdl2
+   generate if(1) begin : xhdl2
          genvar e;
          for (e = 0; e < `CPL_Q_DEPTH; e = e + 1)
          begin : cp1_executed_update_gen
@@ -2834,8 +2831,7 @@ assign select_lq =
    assign iu6_ifar[0] = {cp3_nia_q[62 - `EFF_IFAR_ARCH:61 - `EFF_IFAR_WIDTH], iu6_i0_ifar_q};
    assign iu6_ifar[1] = {cp3_nia_q[62 - `EFF_IFAR_ARCH:61 - `EFF_IFAR_WIDTH], iu6_i1_ifar_q};
 
-   generate
-      begin : xhdl3
+   generate if(1) begin : xhdl3
          genvar e;
          for (e = 0; e < `EFF_IFAR_ARCH; e = e + 1)
          begin : iac_mask_gen
@@ -2845,8 +2841,7 @@ assign select_lq =
       end
    endgenerate
 
-   generate
-      begin : xhdl4
+   generate if(1) begin : xhdl4
          genvar t;
          for (t = 0; t <= 1; t = t + 1)
          begin : ifar_cmp
@@ -4357,8 +4352,7 @@ assign select_lq =
       .dout(cp1_flush2ucode_type_q)
    );
 
-   generate
-      begin : xhdl5
+   generate if(1) begin : xhdl5
          genvar i;
          for (i = 0; i <= `CPL_Q_DEPTH - 1; i = i + 1)
          begin : q_depth_gen
@@ -7817,8 +7811,7 @@ assign select_lq =
    `define RESET_VECTOR 32'hFFFFFFFC
 `endif
 
-   generate
-      begin : xhdl6
+   generate if(1) begin : xhdl6
          genvar i;
          for (i = 0; i < `EFF_IFAR_ARCH; i = i + 1)
          begin : q_depth_gen
