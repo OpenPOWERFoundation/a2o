@@ -51,6 +51,7 @@ verilog/work/iuq_cpl.v:   tri_iuq_cpl_arr #(.ADDRESSABLE_PORTS(64), .ADDRESSBUS_
 
 ## By Unit
 
+```
 * XU (GPR, SPR)
 verilog/work/xu_gpr.v:   tri_144x78_2r4w gpr0(
 verilog/work/xu_gpr.v:   tri_144x78_2r4w gpr1(
@@ -87,11 +88,13 @@ verilog/work/mmq.v:         tri_128x168_1w_0  tlb_array1(
 verilog/work/mmq.v:         tri_128x168_1w_0  tlb_array2(
 verilog/work/mmq.v:         tri_128x168_1w_0  tlb_array3(
 verilog/work/mmq.v:         tri_128x16_1r1w_1  lru_array0(
+```
 
 ## By Type
 
 ### Normal
 
+```
 * tri_144x78_2r4w
 verilog/work/xu_gpr.v:   tri_144x78_2r4w gpr0(
 verilog/work/xu_gpr.v:   tri_144x78_2r4w gpr1(
@@ -112,6 +115,9 @@ verilog/work/lq_pfetch.v:    tri_32x70_2w_1r1w  rpt(
 * tri_256x144_8w_1r1w
 verilog/work/lq_data.v:   tri_256x144_8w_1r1w #(.addressable_ports(256), .addressbus_width(8), .port_bitwidth(144), .bit_write_type(9), .ways(8)) tridcarr(
 
+* tri_128x34_4w_1r1w  
+verilog/work/iuq_ic_dir.v:   tri_128x34_4w_1r1w  idir(
+
 * tri_64x34_8w_1r1w
 verilog/work/lq_ctl.v:      tri_64x34_8w_1r1w #(.addressable_ports(64), .addressbus_width(6), .port_bitwidth(WAYDATASIZE), .ways(8)) arr(
 verilog/work/lq_lsq.v:         tri_64x34_8w_1r1w #(.addressable_ports(64), .addressbus_width(6), .port_bitwidth(WAYDATASIZE), .ways(8)) arr(
@@ -127,11 +133,13 @@ verilog/work/mmq.v:         tri_128x168_1w_0  tlb_array3(
 
 * tri_128x16_1r1w_1
 verilog/work/mmq.v:         tri_128x16_1r1w_1  lru_array0(
+```
 
 ### Complex
 
 #### Branch History
 
+```
 * tri_bht_1024x8_1r1w
 verilog/work/iuq.v:   tri_bht_1024x8_1r1w bht0(
 verilog/work/iuq.v:   tri_bht_1024x8_1r1w bht1(
@@ -143,25 +151,28 @@ verilog/work/iuq.v:   tri_bht_1024x8_1r1w bht1(
 verilog/work/iuq.v:   tri_bht_512x4_1r1w bht2(
    * inner array:
    tri_512x16_1r1w_1  bht0(
-
+```
 
 #### Completion
 
+```
 * tri_iuq_cpl_arr
 verilog/work/iuq_cpl.v:   tri_iuq_cpl_arr #(.ADDRESSABLE_PORTS(64), .ADDRESSBUS_WIDTH(6), .PORT_BITWIDTH(entry_length), .LATCHED_READ(1'b1),                 .LATCHED_READ_DATA(1'b1), .LATCHED_WRITE(1'b1))
    * inner arrays (143)
    RAM64X1D #(.INIT(64'h0000000000000000)) RAM64X1D0(
    RAM64X1D #(.INIT(64'h0000000000000000)) RAM64X1D1(
    * =2x64x143
+```
 
 #### ERATs (CAM)
 
+```
 * tri_cam_16x143_1r1w1c
 verilog/work/iuq_ic_ierat.v:   tri_cam_16x143_1r1w1c  ierat_cam(
 
 * tri_cam_32x143_1r1w1c
 verilog/work/lq_derat.v:   tri_cam_32x143_1r1w1c derat_cam(
-
+```
 
 ## Summary
 
