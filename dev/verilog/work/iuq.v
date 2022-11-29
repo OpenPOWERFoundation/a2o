@@ -1333,9 +1333,6 @@ module iuq(
    wire                           vdd;
    wire                           gnd;
 
-   assign vdd = 1'b1;
-   assign gnd = 1'b0;
-
    // Temp should be driven by external mode debug compare decodes
    assign mm_iu_reload_hit[0] = mm_iu_ierat_rel_val[0] & mm_iu_ierat_rel_val[4];
 `ifndef THREADS1

@@ -681,9 +681,6 @@ module iuq_ifetch(
    wire                              vdd;
    wire                              gnd;
 
-   assign vdd = 1'b1;
-   assign gnd = 1'b0;
-
    assign iu_lq_spr_iucr0_icbi_ack = spr_ic_icbi_ack_en;
    assign d_mode = 1'b0;
    assign mpw2_b = 1'b1;

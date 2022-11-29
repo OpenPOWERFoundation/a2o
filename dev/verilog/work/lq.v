@@ -1376,10 +1376,6 @@ wire							     gnd;
    assign mm_lq_mmucr0 = {mm_lq_mmucr0_t0, mm_lq_mmucr0_t1};
 `endif
 
-assign vdd = 1'b1;
-//assign vcs = 1'b1;
-assign gnd = 1'b0;
-
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // LQ CONTROL
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

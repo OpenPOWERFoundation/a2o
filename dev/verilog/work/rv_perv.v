@@ -49,7 +49,7 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    input 		 an_ac_scan_diag_dc,
    input 		 an_ac_scan_dis_dc_b,
 
-   input                 d_mode,
+   input        d_mode,
 
    output 		 func_sl_thold_1,
    output 		 fce_1,
@@ -160,7 +160,7 @@ module rv_perv(		// 0 = ibm umbra, 1 = xilinx, 2 = ibm mpg
    (* analysis_not_referenced="TRUE" *)
    wire 		 unused;
 
-   wire func_sl_thold_0_b = 0;  // wtf: dangling test sig
+   wire func_sl_thold_0_b;  // wtf: dangling test sig
 
 
    //------------------------------------------------------------------------------------------------------------

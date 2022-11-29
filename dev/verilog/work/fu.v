@@ -739,11 +739,6 @@ module fu(
    assign tidn = 1'b0;
    assign tiup = 1'b1;
 
-   assign vdd = 1'b1;
-   assign vcs = 1'b1;
-   assign gnd = 1'b0;
-
-
    // TEMP TEMP todo
    assign iu_fu_rf0_instr_match = tidn;
 
