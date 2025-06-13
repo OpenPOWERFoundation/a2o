@@ -1,7 +1,7 @@
 # Synthesis
 
 ```
-yosys -s synth.yo &> yosys.txt
+yosys -s synth.ys &> yosys.txt
 ```
 
 ## Arrays

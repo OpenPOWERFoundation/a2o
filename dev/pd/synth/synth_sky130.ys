@@ -1,0 +1,26 @@
+#read_verilog ../verilog/unisims
+# blockbox versions
+read_verilog ../verilog/unisims_synth
+read_verilog -I../verilog/trilib ../verilog/trilib/*
+read_verilog -I../verilog/trilib ../verilog/work/*
+
+proc          
+opt 
+opt_clean
+opt_expr
+opt_reduce     
+opt_merge
+memory
+memory_libmap  
+techmap 
+clean
+opt_clean    
+setundef -zero 
+opt          
+
+read_liberty -lib sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+
+clean
+opt_clean
+write_verilog -noattr sky130.v
