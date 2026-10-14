@@ -1,5 +1,26 @@
 # test3 - kernel+bios+arci
 
+### CTR branch regression
+
+`ctr32.s` is a standalone big-endian boot image for the existing
+Wishbone Verilator testbench (`dev/sim/verilator/tb_litex.cpp`). It checks
+`bdnz` and `bdz` with a nonzero upper CTR word in 32-bit mode, plus a
+five-iteration `lwz`/`addi` loop. The pass/fail IARs are 0x7F0/0x7F4.
+
+Build from this directory with PowerPC binutils:
+
+```
+powerpc64-linux-gnu-as -a64 -mbig-endian -mregnames -many --defsym CASE=0 --defsym MODE64=0 ctr32.s -o ctr32.o
+powerpc64-linux-gnu-ld -nostdlib -Ttext=0 -e _start ctr32.o -o ctr32.elf
+powerpc64-linux-gnu-objcopy -O binary ctr32.elf ctr32.bin
+od -An -v -tx1 -w4 ctr32.bin | tr -d ' ' > ctr32.init
+```
+
+Run the image as `../mem/test3/rom.init` relative to the simulator's run
+directory, using the build in `dev/sim/verilator/readme.md`. Exit status 0
+and a passing IAR are required. Rebuild and run with CASE=1 for the counted
+loop, CASE=2 for the CTR=1 control, and CASE=0/MODE64=1 for the 64-bit control.
+
 * gen, convert, and link random tst (fx_alucmpbr.tst), and try to run
 
 ```

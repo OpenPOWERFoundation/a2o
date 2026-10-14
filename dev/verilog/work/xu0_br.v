@@ -755,7 +755,9 @@ assign ex1_vld_d = (rv_br_ex0_fusion | |(ex1_vld_q) ? ex0_vld & (~iu_br_flush_q)
       // calculate branch direction
       //-----------------------------------------------
 
-      assign ex3_ctr_one = (~|(ex3_ctr[64 - `GPR_WIDTH:62])) & ex3_ctr[63];
+      // Test CTR[M:63], with M=32 in 32-bit mode.
+      assign ex3_ctr_one = (|(ex3_vld_q & spr_msr_cm_q) ? (~|(ex3_ctr[64 - `GPR_WIDTH:62])) :
+                            (~|(ex3_ctr[32:62]))) & ex3_ctr[63];
       assign ex3_ctr_one_b = (~ex3_ctr_one);
 
       assign ex3_cr_bit = (ex3_cr3_branch[0] & ex3_bi[3:4] == 2'b00) | (ex3_cr3_branch[1] & ex3_bi[3:4] == 2'b01) | (ex3_cr3_branch[2] & ex3_bi[3:4] == 2'b10) | (ex3_cr3_branch[3] & ex3_bi[3:4] == 2'b11);
